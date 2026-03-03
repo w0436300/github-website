@@ -45,6 +45,9 @@ export default function AiTutorPage() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const rafRef = useRef(0);
   const latestYRef = useRef(0);
+  const navInnerRef = useRef(null);
+  const navLinksRef = useRef(null);
+  const [progressBounds, setProgressBounds] = useState({ left: 0, width: 0 });
 
   const sections = useMemo(
     () => [
@@ -82,6 +85,28 @@ export default function AiTutorPage() {
       const scrollHeight = Math.max(doc?.scrollHeight || 0, body?.scrollHeight || 0);
       const max = Math.max(1, scrollHeight - window.innerHeight);
       setScrollProgress(Math.max(0, Math.min(100, (y / max) * 100)));
+
+      // Header progress bar bounds: start at "Overview" (nav links) when visible.
+      const inner = navInnerRef.current;
+      const links = navLinksRef.current;
+      if (inner && links) {
+        const innerRect = inner.getBoundingClientRect();
+        const linksRect = links.getBoundingClientRect();
+        const linksVisible = linksRect.width >= 16 && linksRect.height >= 10;
+        if (linksVisible) {
+          const left = Math.max(0, linksRect.left - innerRect.left);
+          const width = Math.max(0, linksRect.width);
+          setProgressBounds((prev) =>
+            prev.left === left && prev.width === width ? prev : { left, width }
+          );
+        } else {
+          const left = 0;
+          const width = Math.max(0, innerRect.width);
+          setProgressBounds((prev) =>
+            prev.left === left && prev.width === width ? prev : { left, width }
+          );
+        }
+      }
 
       // Active section: last section whose top has crossed a threshold.
       const ids = sections.map((s) => s.id);
@@ -152,18 +177,26 @@ export default function AiTutorPage() {
         style={{ '--accent': accent.primary }}
       >
         <div className="relative">
-          {/* 全局滚动进度条（整体下划线） */}
-          <div className="absolute left-0 right-0 bottom-0 h-[3px] bg-slate-200/60 overflow-hidden">
+          {/* 全局滚动进度条（整体下划线）：从 Overview 开始 */}
+          <div className="absolute left-0 right-0 bottom-0 h-[3px] overflow-hidden pointer-events-none">
             <div
-              className="h-full will-change-[width]"
+              className="absolute bottom-0 h-full bg-slate-200/60"
               style={{
-                width: `${Math.max(2, scrollProgress)}%`,
+                left: `${progressBounds.left}px`,
+                width: `${progressBounds.width}px`,
+              }}
+            />
+            <div
+              className="absolute bottom-0 h-full"
+              style={{
+                left: `${progressBounds.left}px`,
+                width: `${(progressBounds.width * scrollProgress) / 100}px`,
                 backgroundImage: `linear-gradient(90deg, ${accent.primary}, ${accent.secondary})`,
               }}
             />
           </div>
 
-          <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+          <div ref={navInnerRef} className="max-w-7xl mx-auto px-6 flex justify-between items-center">
             <div className="flex items-center gap-4 group">
               <div className="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center transition-transform group-hover:rotate-6">
                 <span className="text-white font-bold text-xl italic">A</span>
@@ -185,7 +218,10 @@ export default function AiTutorPage() {
                 View Demo
               </a>
             </div>
-            <div className="hidden md:flex gap-10 text-[11px] font-black uppercase tracking-[0.2em]">
+            <div
+              ref={navLinksRef}
+              className="hidden md:flex gap-10 text-[11px] font-black uppercase tracking-[0.2em]"
+            >
               {sections.map((s) => (
                 <a
                   key={s.id}
@@ -564,10 +600,13 @@ export default function AiTutorPage() {
         </div>
       </section>
 
-      <footer className="py-32 px-6 text-center relative overflow-hidden" style={{ backgroundColor: '#0B3B4A' }}>
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#C8E6ED]/15 blur-[120px] rounded-full" />
+      <footer
+        className="py-32 px-6 text-center relative overflow-hidden"
+        style={{ backgroundColor: '#C8E6ED' }}
+      >
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-white/40 blur-[120px] rounded-full" />
         <div className="max-w-3xl mx-auto relative z-10">
-          <h2 className="text-5xl font-extrabold mb-10 text-white tracking-tighter leading-tight">
+          <h2 className="text-5xl font-extrabold mb-10 text-slate-900 tracking-tighter leading-tight">
             Bridging Pedagogy <br /> &amp; Engineering.
           </h2>
           <div className="flex flex-col sm:flex-row justify-center gap-6">
