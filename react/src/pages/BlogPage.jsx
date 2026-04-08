@@ -82,7 +82,11 @@ export default function BlogPage() {
             <h1 className="text-7xl md:text-[120px] font-black tracking-tighter leading-[0.8] mb-8">
               Journal<span className="text-blue-600">.</span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-400 font-light max-w-2xl leading-relaxed">
+            <p className="text-xl md:text-2xl text-gray-600 font-light max-w-2xl leading-relaxed mb-6">
+              Transforming complex data into intuitive visual narratives. I blend industry-standard UX
+              methodologies with clean code.
+            </p>
+            <p className="text-lg text-gray-400 font-light max-w-2xl leading-relaxed">
               A space for professional reflections, creative captures, and my continuous journey in
               UX and beyond.
             </p>
@@ -205,11 +209,11 @@ export default function BlogPage() {
                     </>
                   )}
                 </div>
-                <h4 className="font-black text-sm uppercase tracking-wider mb-1">
+                <h4 className="font-certificate font-black text-sm uppercase tracking-wider mb-1">
                   Google UX Professional
                 </h4>
-                <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold">
-                  In progress • Coursera
+                <p className="font-certificate text-[10px] text-gray-400 uppercase tracking-widest font-bold">
+                  Completed • Coursera
                 </p>
               </div>
             </div>
@@ -219,7 +223,7 @@ export default function BlogPage() {
 
       <footer className="px-6 md:px-20 py-20 text-center border-t border-gray-50">
         <p className="text-[10px] font-black uppercase tracking-[0.5em] text-gray-300">
-          Designed by Xinping Wang — 2024
+          Designed by Xinping — 2024
         </p>
       </footer>
     </div>

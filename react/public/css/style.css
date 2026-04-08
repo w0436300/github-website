@@ -1,5 +1,64 @@
+:root {
+  --font-main: "Source Sans 3", "Source Sans Pro", "Open Sans", Arial, sans-serif;
+  --font-reading: "Merriweather", Georgia, "Times New Roman", serif;
+  --font-ui: "Open Sans", "Source Sans 3", Arial, sans-serif;
+  --font-certificate: "Enriqueta", Georgia, "Times New Roman", serif;
+}
+
 * {
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  font-family: var(--font-main);
+}
+
+body {
+  font-family: var(--font-main);
+}
+
+.font-main {
+  font-family: var(--font-main);
+}
+
+h1, h2, h3, h4, h5, h6,
+.font-heading {
+  font-family: var(--font-reading);
+}
+
+article p,
+.font-reading,
+blockquote {
+  font-family: var(--font-reading);
+}
+
+button,
+input,
+select,
+textarea,
+.font-ui {
+  font-family: var(--font-ui);
+}
+
+.font-ui-light {
+  font-family: var(--font-ui);
+  font-weight: 300;
+}
+
+.font-ui-regular {
+  font-family: var(--font-ui);
+  font-weight: 400;
+}
+
+.font-ui-semibold {
+  font-family: var(--font-ui);
+  font-weight: 600;
+}
+
+.font-ui-bold {
+  font-family: var(--font-ui);
+  font-weight: 700;
+}
+
+.font-certificate,
+.certificate-text {
+  font-family: var(--font-certificate);
 }
 
 /* Typed.js typewriter cursor */

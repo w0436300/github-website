@@ -1,331 +1,177 @@
-import { useEffect, useRef, useState } from 'react';
-import Typed from 'typed.js';
-import {
-  Award,
-  Camera,
-  Waves,
-  Palette,
-  Code,
-  BarChart3,
-  ArrowUpRight,
-  Download,
-  Mail,
-  FileText,
-  Github,
-  Linkedin,
-  RefreshCw,
-} from 'lucide-react';
+import { useMemo, useState } from 'react';
+import { Award, ArrowUpRight, Download } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useScrollToHash } from '../hooks/useScrollToHash.js';
-import { projects, CATEGORIES } from '../data/projects.js';
+import { projects } from '../data/projects.js';
 
 const BASE = import.meta.env.BASE_URL || '/';
 
-const Badge = ({ children, className = '' }) => (
-  <span
-    className={`px-2.5 py-1 rounded-md bg-white/60 backdrop-blur-sm text-[9px] font-bold uppercase tracking-wider text-gray-500 border border-gray-100 shadow-sm ${className}`}
-  >
-    {children}
-  </span>
-);
+/** Mockup-aligned featured set */
+const FEATURED_IDS = ['cognitive-adaptive-ai-tutor', 'design-standard-wcag'];
 
-const SectionLabel = ({ number, text, className = '' }) => (
-  <div className={`flex items-center gap-4 mb-10 ${className}`}>
-    <span className="text-[10px] font-mono text-blue-600 font-bold tracking-tighter">
-      [{number}]
-    </span>
-    <div className="h-[1px] w-6 bg-blue-600/30" />
-    <span className="text-[10px] uppercase tracking-[0.4em] font-black text-gray-300">{text}</span>
-  </div>
-);
+const WORK_TABS = [
+  { value: 'Featured', label: 'Featured' },
+  { value: 'design', label: 'UX Design' },
+  { value: 'fullstack', label: 'Full Stack' },
+  { value: 'Data Visualization', label: 'Data' },
+  { value: 'All', label: 'All' },
+];
 
-const COLORS = ['bg-[#EEF2FF]', 'bg-[#F0FDF4]', 'bg-[#FFF7ED]', 'bg-[#F5F3FF]'];
+function projectMatchesTab(p, tab) {
+  if (tab === 'All') return true;
+  if (tab === 'Featured') return FEATURED_IDS.includes(p.id);
+  const cats = Array.isArray(p.categories) ? p.categories : [];
+  const cat = p.category;
+  if (tab === 'design') return cat === 'design' || cats.includes('design');
+  if (tab === 'fullstack') return cat === 'fullstack' || cats.includes('fullstack');
+  if (tab === 'Data Visualization') return cat === 'Data Visualization';
+  return false;
+}
+
+const SKILL_ROWS = [
+  {
+    label: 'UX Design',
+    value: 'User Research | Wireframing | Prototyping',
+  },
+  {
+    label: 'Engineering',
+    value: 'React | JavaScript/TypeScript | HTML/CSS/Tailwind',
+  },
+  {
+    label: 'Data',
+    value: 'Power BI | SQL | Python',
+  },
+];
 
 export function HomePage() {
   useScrollToHash();
-  const typedNameRef = useRef(null);
-  const [activeCategory, setActiveCategory] = useState('All');
+  const [activeCategory, setActiveCategory] = useState('Featured');
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!typedNameRef.current) return;
-    const t = new Typed(typedNameRef.current, {
-      strings: ['UX Designer', 'Frontend Dev', 'Visual Thinker', 'a Developer', 'a Designer'],
-      typeSpeed: 60,
-      backSpeed: 40,
-      loop: true,
-      backDelay: 2000,
-    });
-    return () => t.destroy();
-  }, []);
-
-  const filteredProjects =
-    activeCategory === 'All'
-      ? projects
-      : projects.filter((p) =>
-          Array.isArray(p.categories) ? p.categories.includes(activeCategory) : p.category === activeCategory
-        );
+  const filteredProjects = useMemo(
+    () => projects.filter((p) => projectMatchesTab(p, activeCategory)),
+    [activeCategory]
+  );
 
   return (
-    <>
-      {/* Hero */}
-      <section
-        id="home"
-        className="min-h-[90vh] flex items-center px-6 md:px-12 lg:px-20 py-20 relative overflow-hidden"
-      >
-        <div className="absolute top-1/4 right-0 w-96 h-96 bg-blue-50/50 rounded-full blur-[100px] -z-10" />
-        <div className="max-w-7xl mx-auto w-full">
-          <div className="flex flex-wrap items-center gap-3 mb-10">
-            <Badge className="bg-blue-50 text-blue-600 border-none">Portfolio</Badge>
-            <Badge className="bg-zinc-900 text-white border-none flex items-center gap-2">
-              <Award size={12} className="text-yellow-400" /> Google UX Design Certified
-            </Badge>
-          </div>
-          <h1 className="text-[44px] sm:text-[68px] md:text-[88px] font-black leading-[0.9] tracking-tighter mb-8">
-            Xinping Wang
-            <br />
-            <span className="text-gray-200">Creative </span>
-            <span
-              ref={typedNameRef}
-              className="text-black italic underline decoration-blue-500 underline-offset-8"
-            />
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-500 max-w-3xl leading-relaxed font-light mb-12">
-            Transforming complex data into intuitive visual narratives. I blend industry-standard UX
-            methodologies with clean code.
-          </p>
-          <div className="flex flex-wrap items-center gap-6 text-gray-300">
-            <div className="flex items-center gap-2">
-              <Waves size={18} className="text-blue-600/30" />
-              <span className="text-[10px] font-bold uppercase tracking-widest">Surfer</span>
-            </div>
-            <div className="h-4 w-[1px] bg-gray-100" />
-            <div className="flex items-center gap-2">
-              <Camera size={18} className="text-blue-600/30" />
-              <span className="text-[10px] font-bold uppercase tracking-widest">Photographer</span>
-            </div>
-            <div className="h-4 w-[1px] bg-gray-100" />
-            <div className="flex items-center gap-2">
-              <RefreshCw size={18} className="text-blue-600/30 animate-spin-slow" />
-              <span className="text-[10px] font-bold uppercase tracking-widest">Continuous Learner</span>
-            </div>
-          </div>
+    <section id="home" className="px-6 md:px-12 lg:px-20 pt-4 md:pt-4 pb-24 md:pb-32 bg-white">
+      <div className="max-w-7xl mx-auto w-full">
+      <div className="mb-2">
+          <span className="inline-flex items-center px-4 py-1 text-[10px] font-black uppercase tracking-[0.2em] bg-[#FFCC00] text-black rounded-lg">
+            <Award size={14} className="shrink-0" strokeWidth={2.5} /> 
+            Google UX Design Certified
+          </span>
         </div>
-      </section>
+        <h1
+          className="text-3xl font-slate-700 leading-[1.1] tracking-tighter text-black max-w-4xl mb-2"
+          style={{ fontFamily: '"Source Sans Pro", ui-sans-serif, system-ui, sans-serif' }}
+        >
+          I&apos;m Xinping (Claire), a product designer bridging design and engineering.
+        </h1>
 
-      {/* Skills */}
-      <section
-        id="skills"
-        className="py-32 bg-gray-50/50 px-6 md:px-12 lg:px-20 border-y border-gray-100"
-      >
-        <div className="max-w-7xl mx-auto">
-          <SectionLabel number="01" text="Capabilities" />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="group bg-white p-10 rounded-[2rem] border border-gray-100 hover:border-blue-600 transition-all duration-500 hover:shadow-xl hover:shadow-gray-200/40">
-              <Palette size={24} className="mb-8 text-blue-600" />
-              <h3 className="text-2xl font-black mb-4 tracking-tight">UX Design</h3>
-              <p className="text-gray-500 text-sm leading-relaxed mb-6">
-                Applying Google UX methodologies to create human-centric products.
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {['Figma', 'Adobe XD', 'Miro', 'User Research', 'Wireframing', 'Prototyping'].map((tool) => (
-                  <span key={tool} className="px-2.5 py-1 rounded-lg bg-blue-50 text-blue-700 text-[11px] font-medium">
-                    {tool}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <div className="group bg-white p-10 rounded-[2rem] border border-gray-100 hover:border-blue-600 transition-all duration-500 hover:shadow-xl hover:shadow-gray-200/40">
-              <Code size={24} className="mb-8 text-emerald-600" />
-              <h3 className="text-2xl font-black mb-4 tracking-tight">Engineering</h3>
-              <p className="text-gray-500 text-sm leading-relaxed mb-6">
-                Building robust front-end interfaces with React and modern web tools.
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {['React', 'JavaScript', 'TypeScript', 'HTML/CSS', 'Tailwind', 'Vite', 'Node.js'].map((tool) => (
-                  <span key={tool} className="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 text-[11px] font-medium">
-                    {tool}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <div className="group bg-white p-10 rounded-[2rem] border border-gray-100 hover:border-blue-600 transition-all duration-500 hover:shadow-xl hover:shadow-gray-200/40">
-              <BarChart3 size={24} className="mb-8 text-amber-600" />
-              <h3 className="text-2xl font-black mb-4 tracking-tight">Data</h3>
-              <p className="text-gray-500 text-sm leading-relaxed mb-6">
-                Visualizing behavior and patterns to drive design improvements.
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {['Power BI', 'Tableau', 'D3.js', 'Recharts', 'SQL', 'Python', 'Google Analytics'].map((tool) => (
-                  <span key={tool} className="px-2.5 py-1 rounded-lg bg-amber-50 text-amber-700 text-[11px] font-medium">
-                    {tool}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
+
+        <div className="space-y-0 mb-6 max-w-4xl border-gray-200 pb-6">
+          {SKILL_ROWS.map((row) => (
+            <p key={row.label} className="text-[10px] sm:text-[11px] md:text-xs leading-snug">
+              <span className="text-gray-600 font-medium uppercase tracking-wider">
+                {row.label}
+                <span className="text-gray-300 mx-1.5">—</span>
+              </span>
+              <span className="text-gray-900 font-normal">{row.value}</span>
+            </p>
+          ))}
         </div>
-      </section>
 
-      {/* Projects */}
-      <section id="project" className="py-32 px-6 md:px-12 lg:px-20">
-        <div className="max-w-7xl mx-auto">
-          <SectionLabel number="02" text="Projects" />
-          <div className="flex flex-wrap gap-2 mb-12">
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat.value}
-                type="button"
-                onClick={() => setActiveCategory(cat.value)}
-                className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors ${activeCategory === cat.value ? 'bg-black text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}
-              >
-                {cat.label}
-              </button>
-            ))}
+        <div id="project" className="scroll-mt-8">
+          <div className="flex flex-wrap gap-x-8 gap-y-1 mb-10 md:mb-12 border-b border-gray-200">
+            {WORK_TABS.map((tab) => {
+              const isActive = activeCategory === tab.value;
+              return (
+                <button
+                  key={tab.value}
+                  type="button"
+                  onClick={() => setActiveCategory(tab.value)}
+                  className={`relative pb-3 text-[11px] md:text-xs uppercase tracking-[0.15em] transition-colors ${
+                    isActive ? 'text-black' : 'text-gray-400 hover:text-gray-700'
+                  }`}
+                >
+                  {tab.label}
+                  {isActive && (
+                    <span
+                      className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#FFCC00]"
+                      aria-hidden
+                    />
+                  )}
+                </button>
+              );
+            })}
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProjects.slice(0, 9).map((p, i) => {
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+            {filteredProjects.map((p) => {
+              const imgSrc = p.cover
+                ? `${BASE}${p.cover.startsWith('/') ? p.cover.slice(1) : p.cover}`
+                : null;
               return (
                 <button
                   key={p.id}
                   type="button"
-                  onClick={() => {
-                    navigate(`/project/${p.id}`);
-                  }}
-                  className={`group block w-full text-left p-8 rounded-[2rem] border border-gray-100 hover:border-blue-600 transition-all duration-500 hover:shadow-xl cursor-pointer ${COLORS[i % COLORS.length]}`}
+                  onClick={() => navigate(`/project/${p.id}`)}
+                  className="group text-left bg-white border border-gray-200 border-solid rounded-none shadow-none transition-all hover:shadow-sm hover:bg-gray-50/40 active:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                 >
-                  <div className="flex justify-between items-start mb-4">
-                    <span className="text-[10px] font-mono text-gray-500 uppercase">
-                      {Array.isArray(p.categories) ? p.categories.join(' & ') : p.category}
-                    </span>
-                    <ArrowUpRight size={18} className="text-gray-400 group-hover:text-blue-600 transition-colors" />
+                  <div className="aspect-video bg-gray-100 overflow-hidden border-b border-gray-200">
+                    {imgSrc ? (
+                      <img src={imgSrc} alt="" className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="w-full h-full flex flex-col items-center justify-center gap-1 p-4 text-center">
+                        <span className="text-sm font-bold text-gray-600 line-clamp-2 px-2">{p.title}</span>
+                        {p.placeholderLabel && (
+                          <span className="text-[10px] font-bold text-amber-700 uppercase tracking-wider">
+                            {p.placeholderLabel}
+                          </span>
+                        )}
+                      </div>
+                    )}
                   </div>
-                  <h3 className="text-xl font-black mb-2 tracking-tight">{p.title}</h3>
-                  <p className="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-2">
-                    {p.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {p.tags.slice(0, 3).map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-2 py-0.5 rounded-md bg-white/80 text-[10px] font-medium text-gray-600"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  {p.cover ? (
-                    <div className="mt-6 aspect-video rounded-xl overflow-hidden bg-white/50">
-                      <img
-                        src={`${BASE}${p.cover.startsWith('/') ? p.cover.slice(1) : p.cover}`}
-                        alt=""
-                        className="w-full h-full object-cover"
+                  <div className="p-5 md:p-6">
+                    <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
+                      <div className="flex flex-wrap gap-2">
+                        {p.tags.slice(0, 3).map((tag) => (
+                          <span
+                            key={tag}
+                            className="px-2.5 py-1 text-[10px] font-medium uppercase tracking-wide text-gray-700 border border-gray-300 bg-white"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                      {(p.year || p.location) && (
+                        <div className="flex items-center gap-2 text-[11px] text-gray-500 tabular-nums shrink-0 ml-auto">
+                          {p.year && <span>{p.year}</span>}
+                          {p.year && p.location && <span className="text-gray-300">·</span>}
+                          {p.location && <span>{p.location}</span>}
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex justify-between items-start gap-2">
+                      <h2 className="text-lg md:text-xl font-black tracking-tight text-black group-hover:text-[#1F4D3A] transition-colors pr-2">
+                        {p.title}
+                      </h2>
+                      <ArrowUpRight
+                        size={18}
+                        className="text-gray-300 group-hover:text-[#1F4D3A] transition-colors shrink-0 mt-0.5"
+                        aria-hidden
                       />
                     </div>
-                  ) : p.placeholderLabel ? (
-                    <div className="mt-6 aspect-video rounded-xl bg-gray-100 border border-gray-200 border-dashed flex flex-col items-center justify-center gap-1 p-4 text-center">
-                      <span className="text-sm font-bold text-gray-600 line-clamp-2">{p.title}</span>
-                      <span className="text-xs font-medium text-amber-600 uppercase tracking-wider">
-                        {p.placeholderLabel}
-                      </span>
-                    </div>
-                  ) : null}
+                    <p className="mt-3 text-sm text-gray-600 leading-relaxed line-clamp-3">{p.description}</p>
+                  </div>
                 </button>
               );
             })}
           </div>
         </div>
-      </section>
-
-      {/* Contact - 新布局，控制高度尽量在视口内 */}
-      <section
-        id="contact"
-        className="py-12 md:py-16 text-white px-6 md:px-12 lg:px-20 rounded-tl-[5rem] md:rounded-tl-[8rem] relative overflow-hidden min-h-0"
-        style={{ backgroundColor: '#000' }}
-      >
-        <div className="absolute -right-20 -bottom-20 text-[25rem] font-black text-white/[0.02] select-none pointer-events-none uppercase">
-          XP
-        </div>
-        <div className="max-w-7xl mx-auto relative z-10">
-          <SectionLabel number="03" text="Collaboration" className="text-slate-400" />
-          <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
-            <div>
-              <h2 className="text-[36px] md:text-[64px] font-black tracking-tighter mb-6 leading-[0.95]">
-                Let's build <br />
-                something <br />
-                <span className="text-blue-600 italic">remarkable.</span>
-              </h2>
-              <div className="flex flex-col gap-4">
-                <a
-                  href="mailto:xinpingxh@gmail.com"
-                  className="group flex items-center gap-6 w-fit"
-                >
-                  <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-blue-600 transition-all duration-500 shrink-0">
-                    <Mail size={28} />
-                  </div>
-                  <div className="border-b border-white/10 pb-2">
-                    <p className="text-[10px] uppercase font-bold tracking-[0.3em] text-slate-500 mb-1">
-                      Email Me
-                    </p>
-                    <p className="text-2xl font-light tracking-tight group-hover:text-blue-500 transition-colors">
-                      xinpingxh@gmail.com
-                    </p>
-                  </div>
-                </a>
-                <div className="group flex items-center gap-6 w-fit">
-                  <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-blue-600 transition-all duration-500 shrink-0">
-                    <FileText size={28} />
-                  </div>
-                  <div className="flex flex-col">
-                    <p className="text-[10px] uppercase font-bold tracking-[0.3em] text-slate-500 mb-2">
-                      Curriculum Vitae
-                    </p>
-                    <a
-                      href={`${BASE.endsWith('/') ? BASE.slice(0, -1) : BASE || ''}/resume/resume-new.pdf`}
-                      download="resume-new.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-3 bg-white text-slate-900 px-8 py-4 rounded-2xl font-bold uppercase tracking-widest text-[11px] hover:bg-blue-600 hover:text-white transition-all shadow-xl w-fit"
-                    >
-                      <Download size={18} />
-                      Download CV
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="lg:pl-20 border-l border-white/5">
-              <p className="text-slate-400 text-base font-light leading-relaxed mb-6">
-                Every pixel adjusted and every line of code written is dedicated to creating more
-                meaningful human-computer interactions.
-              </p>
-              <div className="flex gap-6 items-center">
-                <a
-                  href="https://github.com/w0436300"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-slate-900 transition-all text-white"
-                >
-                  <Github size={24} />
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/xinping-w/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-slate-900 transition-all text-white"
-                >
-                  <Linkedin size={24} />
-                </a>
-                <div className="h-px flex-1 bg-white/10 ml-4" />
-              </div>
-            </div>
-          </div>
-          <div className="mt-12 pt-4 border-t border-white/5 text-[10px] font-bold uppercase tracking-[0.4em] text-slate-700">
-            © 2024 Xinping Wang — Based in Canada
-          </div>
-        </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
 

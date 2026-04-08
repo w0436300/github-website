@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import AmiUserFlowDiagram from '../components/AmiUserFlowDiagram.jsx';
 import {
   Target,
-  Users,
   ArrowRight,
   Image as ImageIcon,
   GraduationCap,
@@ -52,6 +52,7 @@ export default function AiTutorPage() {
   const sections = useMemo(
     () => [
       { id: 'Overview', label: 'Overview' },
+      { id: 'Problem', label: 'Problem' },
       { id: 'Research', label: 'Research' },
       { id: 'Strategy', label: 'UX Strategy' },
       { id: 'Engineering', label: 'Engineering' },
@@ -60,6 +61,8 @@ export default function AiTutorPage() {
     ],
     []
   );
+
+  const amiImg = (name) => `${import.meta.env.BASE_URL}img/ami/${name}`;
 
   const accent = useMemo(() => {
     const map = {
@@ -169,7 +172,7 @@ export default function AiTutorPage() {
   }, [sections]);
 
   return (
-    <div className="min-h-screen bg-[#FDFDFD] text-slate-900 font-sans selection:bg-indigo-100 scroll-smooth pb-20">
+    <div className="min-h-screen bg-[#FDFDFD] text-slate-900 font-sans selection:bg-indigo-100 scroll-smooth pb-20 font-sans!important">
       <nav
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
           scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm py-3' : 'bg-transparent py-6'
@@ -182,7 +185,6 @@ export default function AiTutorPage() {
             <div
               className="absolute bottom-0 h-full bg-slate-200/60"
               style={{
-                left: `${progressBounds.left}px`,
                 width: `${progressBounds.width}px`,
               }}
             />
@@ -196,47 +198,29 @@ export default function AiTutorPage() {
             />
           </div>
 
-          <div ref={navInnerRef} className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+          {/* <div ref={navInnerRef} className="mx-auto px-7 flex justify-between items-center">
             <div className="flex items-center gap-4 group">
               <div className="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center transition-transform group-hover:rotate-6">
                 <span className="text-white font-bold text-xl italic">A</span>
               </div>
-              <span className="text-xl font-bold tracking-tight">Ami System</span>
-              <a
-                href="https://w0436300.github.io/Ami-React/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-full text-[11px] font-black uppercase tracking-[0.2em] text-white shadow-sm transition-colors"
-                style={{ backgroundColor: '#166534' }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#15803d';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = '#166534';
-                }}
-              >
-                View Demo
-              </a>
-            </div>
-            <div
-              ref={navLinksRef}
-              className="hidden md:flex gap-10 text-[11px] font-black uppercase tracking-[0.2em]"
-            >
-              {sections.map((s) => (
+              <span className="text-xl font-bold tracking-tight">Ami Cognitive Co-Learning</span>
+              {false && (
                 <a
-                  key={s.id}
-                  href={`#${s.id}`}
-                  className={`transition-colors hover:text-[var(--accent)] ${
-                    activeSection === s.id
-                      ? 'text-[var(--accent)]'
-                      : scrolled
-                        ? 'text-slate-500'
-                        : 'text-slate-400'
-                  }`}
+                  href="https://w0436300.github.io/Ami-React/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-full text-[11px] font-black uppercase tracking-[0.2em] text-white shadow-sm transition-colors"
+                  style={{ backgroundColor: '#166534' }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#15803d';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = '#166534';
+                  }}
                 >
-                  {s.label}
+                  View Demo
                 </a>
-              ))}
+              )}
             </div>
             <a
               href="mailto:xinpingxh@gmail.com"
@@ -244,397 +228,341 @@ export default function AiTutorPage() {
             >
               Contact Me
             </a>
-          </div>
+          </div> */}
         </div>
       </nav>
 
-      <section id="Overview" className="pt-40 pb-32 px-6">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
+      <section id="Introduction" className="pt-2 pb-10 px-6">
+        <div className="max-w-7xl mx-auto">
           <div className="animate-in fade-in slide-in-from-bottom duration-1000">
-            <div className="flex items-center gap-3 mb-6">
-              <span className="px-4 py-1.5 rounded-full bg-indigo-50 text-indigo-700 text-[10px] font-black tracking-[0.2em] uppercase">
+            <div className="flex items-center gap-3 mb-1">
+              <p className="text-[10px] px-1 py-1 text-slate-500 font-black tracking-[0.2em] uppercase">
                 AI-Powered Education • UX Case Study
-              </span>
+              </p>
             </div>
-            <h1 className="text-6xl md:text-[5.5rem] font-extrabold leading-[0.9] mb-8 tracking-tighter">
-              Ami: Human-AI <br />
-              <span className="text-[#5FA9B8]">
-                Cognitive <br />
-                Co-Learning.
-              </span>
+            <h1 className="text-xl md:text-3xl font-extrabold leading-[0.9] mb-2 tracking-tighter">
+              Ami: Human-AI Cognitive Co-Learning. <br />        
             </h1>
-            <p className="text-xl text-slate-500 mb-10 leading-relaxed max-w-lg font-medium">
-              Eliminating &quot;one-size-fits-all&quot; learning through multi-agent AI framework and
-              pedagogically-driven interface adaptation.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-8 border-t border-slate-100">
-              <div className="space-y-2">
-                <span className="text-[10px] text-slate-400 uppercase font-black tracking-widest block">
-                  My Roles
-                </span>
-                <div className="flex flex-wrap gap-2">
-                  {['User Research', 'UX/UI Design', 'Frontend Dev'].map((role) => (
-                    <span
-                      key={role}
-                      className="px-3 py-1 bg-slate-100 rounded-md text-[10px] font-bold text-slate-700"
-                    >
-                      {role}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <span className="text-[10px] text-slate-400 uppercase font-black tracking-widest mb-2 block">
-                  Nature
-                </span>
-                <span className="font-bold text-slate-800 text-sm">Team Collaboration Project</span>
-              </div>
+            <p className="text-md text-slate-500 px-1 py-1 mb-2 leading-relaxed font-medium">
+              We didn't redesign an interface. We redesigned the question: why would a learner trust an AI to assess their skills and design their entire education?
+            </p> 
+            <div className="relative max-w-2xl mb-2">
+              <PortfolioImage
+                src="image_b8fffc.jpg"
+                alt="Ami Hero Preview"
+                className="relative border-[12px] border-white aspect-[4/3]"
+                description="Adaptive Learning Dashboard"
+              />
             </div>
-            <div className="mt-6 grid grid-cols-1 gap-3">
+          
+            <div className="grid grid-cols-1 md:grid-cols-5 lg:grid-cols-5 gap-2 py-2 border-t border-slate-100">
+              <div className="p-4 border-slate-100">
+                <span className="text-sm text-slate-500 uppercase font-black tracking-widest block mb-2">
+                  Role
+                </span>          
+                <p className="text-sm text-slate-700">
+                  UX Researcher
+                  <br />
+                  Product Designer
+                  <br />
+                  Frontend Engineer
+                </p>
+              </div>
+              <div className="p-4 border-slate-100">
+                <span className="text-sm text-slate-500 uppercase font-black tracking-widest block mb-2">
+                  Timeline
+                </span>
+                <p className="text-sm text-slate-700">
+                Jan- April 2026
+                  <br />
+                  Discovery 
+                  <br />
+                  Research 
+                  <br />
+                  Testing 
+                  <br />
+                  Launch 
+                </p>
+                
+              </div>
+              <div className="p-4 border-slate-100">
+                <span className="text-sm text-slate-500 uppercase font-black tracking-widest block mb-2">
+                  Team (6 persons)
+                </span>
+                <p className="text-sm text-slate-700">
+                  1 PM
+                  <br />
+                  2 Backend
+                  <br />
+                  1 Learning Analytics
+                  <br />
+                  1 Frontend (me)
+                  <br />
+                  2 Product Designer (me)
+                  <br />
+                  2 UX Researcher (me)
+                </p>
+              </div>
+              <div className="p-4 rounded-2xl border-slate-100">
+                <span className="text-sm text-slate-500 uppercase font-black tracking-widest block mb-2">
+                  Skills
+                </span>
+                <p className="text-sm text-slate-700">
+                  Product Design
+                  <br />
+                  Frontend Engineering
+                  <br />
+                  User Research
+                </p>
+              </div>
+              <div className="p-4 rounded-2xl border-slate-100">
+                <span className="text-sm text-slate-500 uppercase font-black tracking-widest block mb-2">
+                Tools
+
+                </span>
+                <p className="text-sm text-slate-700">
+                Figma
+                  <br />
+                  React + Streamlit
+                  <br />
+                  OpenAI API
+                  <br />
+                  GitHub
+                </p>
+              </div>
+              
+            </div>
+            <div className="mt-1 grid grid-cols-1 lg:grid-cols-2 gap-4">
               <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100">
-                <span className="text-[10px] text-slate-400 uppercase font-black tracking-widest block mb-1">
+                <span className="text-sm text-slate-500 uppercase font-black tracking-widest block mb-1">
                   Client
                 </span>
-                <p className="text-sm text-slate-700 font-semibold">
+                <p className="text-sm text-slate-700">
                   Dr. Ali Abbas — CEO of Smart Digital Medicine, Adjunct Professor at uOttawa
                 </p>
               </div>
               <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100">
-                <span className="text-[10px] text-slate-400 uppercase font-black tracking-widest block mb-1">
+                <span className="text-sm text-slate-500 uppercase font-black tracking-widest block mb-1">
                   Technical Advisor
                 </span>
-                <p className="text-sm text-slate-700 font-semibold">
+                <p className="text-sm text-slate-700">
                   Prof. Ismaeel Al-Ridhawi — Associate Professor, School of Electrical Engineering and
                   Computer Science, uOttawa
                 </p>
               </div>
             </div>
           </div>
-          <div className="relative animate-in fade-in zoom-in duration-1000 delay-300">
-            <PortfolioImage
-              src="image_b8fffc.jpg"
-              alt="Ami Hero Preview"
-              className="relative rounded-[3rem] shadow-2xl border-[12px] border-white aspect-[4/3]"
-              description="Adaptive Learning Dashboard"
-            />
-          </div>
-        </div>
-        <div className="flex justify-center mt-12 animate-bounce opacity-20">
-          <ArrowDown className="w-6 h-6" />
         </div>
       </section>
 
-      <section id="Research" className="py-32 px-6">
+      <section id="Overview" className="py-1 px-6 pb-12">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-24">
-            <h2 className="text-sm font-black text-indigo-600 uppercase tracking-[0.3em] mb-4">
-              Discovery Phase
+          <div className="text-center mb-4">
+            <h2
+              className="text-sm font-medium text-left uppercase"
+              style={{ color: 'rgba(56, 122, 115, 1)', fontFamily: '"Open Sans"' }}
+            >
+              Overview
             </h2>
-            <h3 className="text-4xl font-extrabold tracking-tight">Decoding the Learning Friction</h3>
-          </div>
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8">
-              <div className="p-8 rounded-[2.5rem] bg-slate-50 border border-slate-100">
-                <h4 className="font-bold text-lg mb-4 flex items-center gap-2">
-                  <Users className="w-5 h-5 text-indigo-500" /> User Research
-                </h4>
-                <p className="text-slate-500 text-sm leading-relaxed">
-                  I conducted qualitative interviews with 15+ lifelong learners. The primary finding
-                  was a &quot;Motivation Gap&quot; caused by irrelevant content delivery and a lack of
-                  clear skill-to-goal mapping.
-                </p>
-              </div>
-              <div className="p-8 rounded-[2.5rem] bg-slate-50 border border-slate-100">
-                <h4 className="font-bold text-lg mb-4 flex items-center gap-2">
-                  <Target className="w-5 h-5 text-indigo-500" /> Defining &quot;The Why&quot;
-                </h4>
-                <p className="text-slate-500 text-sm leading-relaxed text-balance">
-                  Users expressed anxiety when faced with &quot;one-size-fits-all&quot; paths. They
-                  needed a system that &quot;knows them&quot; and adjusts content to their specific
-                  cognitive style.
-                </p>
-              </div>
-            </div>
-            <div className="relative p-1 rounded-[3rem] bg-white shadow-xl overflow-hidden">
-              <PortfolioImage
-                src="image_b8e8e1.jpg"
-                alt="Future Journey Map"
-                className="w-full aspect-[4/3] grayscale-[0.2] hover:grayscale-0 transition-all duration-700"
-                description="Journey Mapping: From Confusion to Empowerment"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="Strategy" className="py-32 bg-slate-50 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-24">
-            <h2 className="text-sm font-black text-indigo-600 uppercase tracking-[0.3em] mb-4">
-              UX Strategy
-            </h2>
-            <h3 className="text-4xl font-extrabold tracking-tight">
-              Turning Pedagogy into Interaction
+            <h3
+              className="text-xl font-medium text-left tracking-tight"
+              style={{ color: 'rgba(56, 122, 115, 0.85)', fontFamily: '"Open Sans"' }}
+            >
+              How should an AI tutor adapt to every learner — without overwhelming them?
             </h3>
-          </div>
-          <div className="grid lg:grid-cols-2 gap-12">
-            <div className="p-12 bg-white rounded-[4rem] shadow-sm border border-slate-100">
-              <Microscope className="w-12 h-12 text-indigo-600 mb-8" />
-              <h4 className="text-2xl font-bold mb-4">Cognitive Style Adaptation</h4>
-              <p className="text-slate-500 leading-relaxed mb-10 text-sm">
-                I utilized the <strong>Felder-Silverman (FSLSM)</strong> model as a framework for{' '}
-                <strong>Adaptive UI</strong>. Instead of static layouts, the interface reconfigures
-                itself to match user cognitive profiles.
-              </p>
-              <div className="space-y-3">
-                <div className="p-5 bg-indigo-50 rounded-3xl border border-indigo-100 flex justify-between items-center">
-                  <span className="text-[10px] font-black uppercase text-indigo-600 tracking-wider">
-                    Visual Persona
-                  </span>
-                  <span className="text-[10px] text-slate-400 font-bold italic">
-                    Hierarchical &amp; Graphic Content
-                  </span>
-                </div>
-                <div className="p-5 bg-slate-50 rounded-3xl border border-slate-200 flex justify-between items-center">
-                  <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider">
-                    Verbal Persona
-                  </span>
-                  <span className="text-[10px] text-slate-400 font-bold italic">
-                    Narrative-Driven Experience
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-12 bg-white rounded-[4rem] shadow-sm border border-slate-100">
-              <GraduationCap className="w-12 h-12 text-violet-600 mb-8" />
-              <h4 className="text-2xl font-bold mb-4">SOLO-based Feedback Loops</h4>
-              <p className="text-slate-500 leading-relaxed mb-10 text-sm">
-                To provide meaningful feedback, I integrated the <strong>SOLO Taxonomy</strong>. This
-                allowed us to design a rubric-based assessment UI that grades cognitive depth beyond
-                simple keyword matching.
-              </p>
-              <div className="grid grid-cols-3 gap-2">
-                {['Uni-structural', 'Relational', 'Abstract'].map((item) => (
-                  <div
-                    key={item}
-                    className="p-4 bg-slate-50 rounded-2xl border border-slate-100 text-center"
-                  >
-                    <span className="text-[10px] font-bold text-slate-500">{item}</span>
-                  </div>
-                ))}
-              </div>
-              <p className="mt-6 text-[10px] text-slate-400 text-center font-bold uppercase tracking-widest italic">
-                Measuring Mastery, Not just Memory.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="Engineering" className="py-32 px-6 text-slate-900 relative" style={{ backgroundColor: '#C8E6ED' }}>
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-24">
-            <h2 className="text-sm font-black text-slate-700 uppercase tracking-[0.3em] mb-4">
-              UX Engineering
-            </h2>
-            <h3 className="text-4xl font-extrabold tracking-tight">Architecting the Frontend</h3>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-20 items-center">
-            <div>
-              <h4 className="text-3xl font-bold mb-8">Building the Bridge</h4>
-              <p className="text-slate-700 mb-10 leading-relaxed">
-                As the <strong>Lead Frontend Engineer</strong>, I didn&apos;t just design the
-                components; I built the React architecture that powers the real-time AI content
-                delivery and multi-agent interaction.
-              </p>
-              <div className="space-y-6">
-                <div className="flex gap-4 p-6 bg-white/50 rounded-3xl border border-white/60 group hover:border-indigo-500/40 transition-colors">
-                  <Terminal className="w-6 h-6 text-slate-800 shrink-0" />
-                  <div>
-                    <span className="font-bold block text-sm">React Component Architecture</span>
-                     <p className="text-xs text-slate-700/80 mt-1">
-                      Modular components that sync seamlessly with LLM streaming APIs.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex gap-4 p-6 bg-white/50 rounded-3xl border border-white/60 group hover:border-indigo-500/40 transition-colors">
-                  <Layers className="w-6 h-6 text-slate-800 shrink-0" />
-                  <div>
-                    <span className="font-bold block text-sm">Passive Data Ingestion</span>
-                     <p className="text-xs text-slate-700/80 mt-1">
-                      Implemented behavioral hooks to gather cognitive signals without user friction.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="relative">
-              <div className="p-10 bg-white/55 rounded-[4rem] border border-white/60 backdrop-blur-md">
-                <div className="flex items-center gap-4 mb-8">
-                  <Code className="w-8 h-8 text-slate-800" />
-                  <span className="text-xs font-black uppercase tracking-widest text-slate-700">
-                    Development Stack
-                  </span>
-                </div>
-                <div className="space-y-4 font-mono text-[10px]">
-                    <div className="p-3 bg-white/60 rounded-xl border border-white/70">
-                    UI Library: React 18 + Tailwind CSS
-                  </div>
-                    <div className="p-3 bg-white/60 rounded-xl border border-white/70">
-                    State: Custom Context Hooks
-                  </div>
-                    <div className="p-3 bg-white/60 rounded-xl border border-white/70">
-                    AI Logic: LangChain Agent Integration
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="Solutions" className="py-32 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-24">
-            <h2 className="text-sm font-black text-indigo-600 uppercase tracking-[0.3em] mb-4">
-              Design Execution
-            </h2>
-            <h3 className="text-4xl font-extrabold tracking-tight">The Resulting Interface</h3>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-32 items-center mb-48">
-            <div className="order-2 lg:order-1">
-              <PortfolioImage
-                src="image_b8ffc4.jpg"
-                alt="Resume-Aware Skill Gap"
-                className="rounded-[4rem] shadow-2xl aspect-[4/3] border border-slate-100"
-                description="Resume-Driven Skill Personalization"
-              />
-            </div>
-            <div className="order-1 lg:order-2">
-              <h4 className="text-3xl font-extrabold mb-6 tracking-tight">
-                Resume-Aware Personalization
-              </h4>
-              <p className="text-slate-600 mb-8 leading-relaxed">
-                I designed the onboarding flow to ingest resumes or LinkedIn profiles. This allows
-                the system to calibrate the <strong>Skill Gap Identifier</strong> instantly, avoiding
-                redundant content for experienced professionals.
-              </p>
-              <div className="flex items-center gap-3 text-[11px] font-black uppercase tracking-widest text-indigo-600 bg-indigo-50 p-5 rounded-3xl border border-indigo-100 shadow-sm shadow-indigo-100/50">
-                <ShieldCheck className="w-5 h-5" />
-                Bias-Auditor Auditor Integrated
-              </div>
-            </div>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-32 items-center">
-            <div>
-              <h4 className="text-3xl font-extrabold mb-6 tracking-tight">
-                Context-Aware Learning Canvas
-              </h4>
-              <p className="text-slate-600 mb-8 leading-relaxed">
-                The learning canvas features a persistent <strong>Mentor AI</strong>. My design
-                ensures that the agent&apos;s feedback is grounded in verified sources, creating a
-                seamless and trustable dialog for the learner.
-              </p>
-              <div className="flex gap-4">
-                <span className="px-5 py-3 bg-slate-900 rounded-full text-[10px] font-black uppercase tracking-widest text-white italic">
-                  Interactive AI Sidebar
-                </span>
-                <span className="px-5 py-3 bg-slate-100 rounded-full text-[10px] font-black uppercase tracking-widest text-slate-500 italic">
-                  RAG Grounded Content
-                </span>
-              </div>
-            </div>
-            <div className="relative">
-              <PortfolioImage
-                src="image_b8ff29.jpg"
-                alt="Content Delivery"
-                className="rounded-[4rem] shadow-2xl aspect-[4/3] border border-slate-100"
-                description="Final Delivery: Adaptive Content Modules"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="Impact" className="py-32 px-6" style={{ backgroundColor: '#C8E6ED' }}>
-        <div className="max-w-7xl mx-auto text-center">
-          <div className="max-w-3xl mx-auto mb-20">
-            <h2 className="text-sm font-black text-indigo-600 uppercase tracking-[0.3em] mb-4">
-              Analytics &amp; Outcomes
-            </h2>
-            <h3 className="text-4xl font-extrabold mb-6 tracking-tight">Data-Driven Achievement</h3>
-            <p className="text-slate-500 leading-relaxed">
-              I implemented a <strong>Bento Grid</strong> dashboard to modularize complex learning
-              analytics. This structure makes progress tangible, resulting in higher user retention
-              and clearer growth awareness.
+            <p className="text-slate-600 text-sm text-left">As part of a 6-person cross-functional team, our goal was to deliver a verified, personalized tutoring platform within two semesters.
             </p>
           </div>
-          <div className="grid lg:grid-cols-2 gap-8 items-center">
-            <div className="space-y-4">
-              <div className="p-10 bg-slate-900 rounded-[3.5rem] text-white text-left">
-                <span className="text-4xl font-black block mb-2 tracking-tighter">2.4x</span>
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500">
-                  Learning Velocity Boost
+          <div className="grid md:grid-cols-3 gap-2 items-top">
+              <div className="p-4 rounded-1 bg-slate-50 border border-slate-100">
+                <h4 className="font-bold text-sm mb-4">UX Strategy</h4>
+                <p className="text-slate-500 text-sm leading-relaxed">
+                Mapping the gap between a research baseline and a real user experience — then closing it.
                 </p>
               </div>
-              <div className="p-10 bg-indigo-600 rounded-[3.5rem] text-white text-left shadow-2xl shadow-indigo-100">
-                <span className="text-4xl font-black block mb-2 tracking-tighter">90%</span>
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-indigo-200">
-                  Retention Improvement
+              <div className="p-4 rounded-1 bg-slate-50 border border-slate-100">
+                <h4 className="font-bold text-sm mb-4">Product Design</h4>
+                <p className="text-slate-500 text-sm leading-relaxed">
+                Designing a 3-step onboarding, adjustable skill gap review, and multimodal session delivery.
+                </p>
+              </div>
+              <div className="p-4 rounded-1 bg-slate-50 border border-slate-100">
+                <h4 className="font-bold text-sm mb-4">Trust & Ethics</h4>
+                <p className="text-slate-500 text-sm leading-relaxed">
+                Making AI reasoning visible, content verifiable, and bias auditable — by design, not as an afterthought.
                 </p>
               </div>
             </div>
-            <div className="relative">
-              <PortfolioImage
-                src="image_b8ff24.jpg"
-                alt="Analytics Dashboard"
-                className="rounded-[4rem] shadow-2xl aspect-[4/3] border border-white"
-                description="Responsive Analytics Overview"
+        </div>
+      </section>
+
+      <section id="Problem" className="py-1 px-6 pb-12">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-8">
+            <h2
+              className="text-sm font-medium text-left uppercase"
+              style={{ color: 'rgba(56, 122, 115, 1)', fontFamily: '"Open Sans"' }}
+            >
+              Problem & Research 
+            </h2>
+            <h3
+              className="text-xl font-medium text-left tracking-tight"
+              style={{ color: 'rgba(56, 122, 115, 0.85)', fontFamily: '"Open Sans"' }}
+            >
+              How we understood the problem before designing anything
+            </h3>
+            <p className="text-slate-600 text-sm text-left mt-2">
+              Current AI tutoring tools provide a one-size-fits-all approach — reactive, generic content
+              that ignores cognitive style or prior knowledge. Worse, they hallucinate with no content
+              verification or ethical oversight.
+            </p>
+          </div>
+
+          {/* a · Competitive positioning matrix */}
+          <div className="mb-16">
+            <h4
+              className="text-sm font-semibold text-slate-900 mb-3"
+              style={{ fontFamily: '"Open Sans"' }}
+            >
+              a · Competitive positioning matrix
+            </h4>
+            <div className="rounded-2xl border border-slate-200 bg-white p-4 md:p-6 overflow-hidden">
+              <img
+                src={amiImg('Competitive-positioning-matrix.png')}
+                alt="Competitive positioning matrix comparing Ami to other AI tutoring approaches"
+                className="w-full h-auto object-contain"
               />
             </div>
+          </div>
+
+          {/* b · Journey maps — side by side */}
+          <div>
+            <h4
+              className="text-sm font-semibold text-slate-900 mb-6"
+              style={{ fontFamily: '"Open Sans"' }}
+            >
+              b · Current journey map — without Ami and Future journey map — with Ami
+            </h4>
+            <div className="grid md:grid-cols-2 gap-10 lg:gap-14">
+              {/* Current — without Ami */}
+              <div className="space-y-4">
+                <h5 className="font-bold text-slate-900 text-base">Current journey map — without Ami</h5>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  <span className="font-semibold text-slate-700">Emotional arc: </span>
+                  Overwhelmed → Hopeful → Confused → Frustrated → Short relief → Discouraged
+                </p>
+                <div className="rounded-2xl border border-slate-200 bg-slate-50/80 overflow-hidden">
+                  <img
+                    src={amiImg('current-journey-map.png')}
+                    alt="Current learner journey map without Ami"
+                    className="w-full h-auto object-contain"
+                  />
+                </div>
+              </div>
+
+              {/* Future — with Ami */}
+              <div className="space-y-4">
+                <h5 className="font-bold text-slate-900 text-base">Future journey map — with Ami</h5>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  <span className="font-semibold text-slate-700">Emotional arc: </span>
+                  Clear direction → Confident start → Supported → In control → Motivated → Trust building
+                </p>
+                <div className="rounded-2xl border border-slate-200 bg-slate-50/80 overflow-hidden">
+                  <img
+                    src={amiImg('future-journey-map.png')}
+                    alt="Future learner journey map with Ami"
+                    className="w-full h-auto object-contain"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-4 gap-2 items-top mt-4">
+              <div className="p-4 rounded-1 bg-slate-10 border border-slate-100">
+                <h4 className="font-bold text-sm mb-4">No personalization</h4>
+                <p className="text-slate-500 text-sm leading-relaxed">
+                Same content for everyone. <br /></p>
+                <p className="text-slate-500 text-sm font-bold leading-relaxed">
+                → </p>
+                <p className="text-slate-500 text-sm font-bold leading-relaxed">
+                Ami uses FSLSM + SOLO to personalize every session.</p>
+              </div>
+              <div className="p-4 rounded-1 bg-slate-10 border border-slate-100">
+                <h4 className="font-bold text-sm mb-4">High cognitive load</h4>
+                <p className="text-slate-500 text-sm leading-relaxed">
+                Too many decisions upfront — where to learn, what to trust. <br /></p>
+                <p className="text-slate-500 text-sm font-bold leading-relaxed">
+                → </p>
+                <p className="text-slate-500 text-sm font-bold leading-relaxed">
+                Ami's 3-step onboarding uses progressive disclosure.</p>
+              </div>
+              <div className="p-4 rounded-1 bg-slate-10 border border-slate-100">
+                <h4 className="font-bold text-sm mb-4">Inconsistent quality</h4>
+                <p className="text-slate-500 text-sm leading-relaxed">
+                AI help lacks pedagogical structure. <br /></p>
+                <p className="text-slate-500 text-sm font-bold leading-relaxed">
+                → </p>
+                <p className="text-slate-500 text-sm font-bold leading-relaxed">
+                Ami grounds all content in verified course PDFs via RAG.</p>
+              </div>
+              <div className="p-4 rounded-1 bg-slate-10 border border-slate-100">
+                <h4 className="font-bold text-sm mb-4"> Unclear progress</h4>
+                <p className="text-slate-500 text-sm leading-relaxed">
+               No reliable dashboard.<br /></p>
+                <p className="text-slate-500 text-sm font-bold leading-relaxed">
+                → </p>
+                <p className="text-slate-500 text-sm font-bold leading-relaxed">
+                Analytics page tracks skill mastery and goal progress in real time.</p>
+              </div>
+             
+            </div>
+
+            {/* c · User flow — complete learner journey */}
+            <div className="mt-16 md:mt-20">
+              <h4
+                className="text-sm font-semibold text-slate-900 mb-2"
+                style={{ fontFamily: '"Open Sans"' }}
+              >
+                c · User flow — the complete learner journey
+              </h4>
+              <p className="text-slate-600 text-sm leading-relaxed mb-6 max-w-3xl">
+                From first goal input to continuous adaptation — every step designed to minimize
+                friction while maximizing personalization depth.
+              </p>
+              <AmiUserFlowDiagram />
+            </div>
+
           </div>
         </div>
       </section>
 
-      <footer
-        className="py-32 px-6 text-center relative overflow-hidden"
-        style={{ backgroundColor: '#C8E6ED' }}
-      >
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-white/40 blur-[120px] rounded-full" />
-        <div className="max-w-3xl mx-auto relative z-10">
-          <h2 className="text-5xl font-extrabold mb-10 text-slate-900 tracking-tighter leading-tight">
-            Bridging Pedagogy <br /> &amp; Engineering.
-          </h2>
-          <div className="flex flex-col sm:flex-row justify-center gap-6">
-            <a
-              href="mailto:xinpingxh@gmail.com"
-              className="bg-white text-slate-900 px-12 py-5 rounded-full font-black text-xs uppercase tracking-widest hover:bg-indigo-50 transition-all flex items-center justify-center gap-3 group shadow-xl shadow-white/5"
+      <section id="Baseline" className="py-1 px-6 pb-12">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-4">
+            <h2
+              className="text-sm font-medium text-left uppercase"
+              style={{ color: 'rgba(56, 122, 115, 1)', fontFamily: '"Open Sans"' }}
             >
-              Let&apos;s Chat{' '}
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
-            </a>
-            <a
-              href="/resume"
-              className="bg-white/5 border border-white/10 text-white px-12 py-5 rounded-full font-black text-xs uppercase tracking-widest hover:bg-white/10 transition-all"
+              Baseline
+            </h2>
+            <h3
+              className="text-xl font-medium text-left tracking-tight"
+              style={{ color: 'rgba(56, 122, 115, 0.85)', fontFamily: '"Open Sans"' }}
             >
-              Download Resume
-            </a>
+We didn’t build from scratch. We found what was missing.
+</h3>
+            <p className="text-slate-600 text-sm text-left">
+            Ami is built on GenMentor (WWW 2025), an open-source research baseline. GenMentor proved multi-agent tutoring was technically feasible. Our job was to build the UX and pedagogical layer on top.
+
+</p>
           </div>
-          <div className="mt-32 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8 text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">
-            <div className="flex items-center gap-3">
-              <div className="w-6 h-6 bg-white/10 rounded-md flex items-center justify-center">
-                <span className="text-white text-[10px] italic">A</span>
-              </div>
-              <span>Ami Case Study • Team Collaboration Project</span>
-            </div>
-            <p>© 2025 · Designed &amp; Engineered with Care</p>
-          </div>
+       
         </div>
-      </footer>
+      </section>
+
+     
+
+     
     </div>
   );
 }

@@ -6,7 +6,18 @@
   */
 /*=============== BASE ===============*/
 * {
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: "Source Sans 3", "Source Sans Pro", "Open Sans", Arial, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Merriweather", Georgia, "Times New Roman", serif;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font-family: "Open Sans", "Source Sans 3", Arial, sans-serif;
   }
    
   iframe {

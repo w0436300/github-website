@@ -48,24 +48,9 @@ export default function ProjectDetailPage() {
   return (
     <div className="px-6 md:px-12 lg:px-20 py-16">
       <div className="max-w-5xl mx-auto">
-        <div className="flex items-center justify-between gap-4">
-          <button
-            type="button"
-            onClick={() => navigate(-1)}
-            className="inline-flex items-center gap-2 text-sm font-bold text-gray-600 hover:text-black"
-          >
-            <ArrowLeft size={16} />
-            Back
-          </button>
-          {project.placeholderLabel ? (
-            <span className="px-3 py-1 rounded-full bg-gray-100 text-gray-600 text-[10px] font-black uppercase tracking-widest">
-              {project.placeholderLabel}
-            </span>
-          ) : null}
-        </div>
-
-        <div className="mt-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-          <div className="lg:col-span-7">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          <div className="lg:col-span-7 space-y-10">
+            <section id="overview" className="scroll-mt-24">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="text-[11px] font-mono uppercase tracking-wider text-gray-400">
@@ -92,10 +77,18 @@ export default function ProjectDetailPage() {
                 </p>
               </div>
             )}
+            </section>
+
+            <section id="research" className="scroll-mt-24 rounded-[2rem] border border-gray-100 bg-white p-8 shadow-sm">
+              <h2 className="text-sm font-black uppercase tracking-widest text-gray-400">Research</h2>
+              <p className="mt-4 text-gray-600 leading-relaxed">
+                {project.description}
+              </p>
+            </section>
           </div>
 
           <aside className="lg:col-span-5">
-            <div className="rounded-[2rem] border border-gray-100 bg-white p-8 shadow-sm">
+            <div id="technologies" className="scroll-mt-24 rounded-[2rem] border border-gray-100 bg-white p-8 shadow-sm">
               <h2 className="text-sm font-black uppercase tracking-widest text-gray-400">About</h2>
               <p className="mt-4 text-gray-600 leading-relaxed">{project.description}</p>
 
@@ -126,7 +119,7 @@ export default function ProjectDetailPage() {
                 </>
               ) : null}
 
-              <div className="mt-10 flex flex-wrap gap-3">
+              <div id="links" className="scroll-mt-24 mt-10 flex flex-wrap gap-3">
                 {demoHref && (
                   <a
                     href={demoHref}
@@ -134,27 +127,7 @@ export default function ProjectDetailPage() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-black text-white text-xs font-black uppercase tracking-wider hover:bg-blue-600 transition-colors"
                   >
-                    Demo <ArrowUpRight size={16} />
-                  </a>
-                )}
-                {project.repoUrl && (
-                  <a
-                    href={project.repoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-gray-200 text-gray-700 text-xs font-black uppercase tracking-wider hover:border-blue-600 hover:text-blue-600 transition-colors"
-                  >
-                    Repo <ArrowUpRight size={16} />
-                  </a>
-                )}
-                {project.externalUrl && (
-                  <a
-                    href={project.externalUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-gray-200 text-gray-700 text-xs font-black uppercase tracking-wider hover:border-blue-600 hover:text-blue-600 transition-colors"
-                  >
-                    Link <ArrowUpRight size={16} />
+                    View Demo <ArrowUpRight size={16} />
                   </a>
                 )}
               </div>
