@@ -7,7 +7,7 @@ import { projects } from '../data/projects.js';
 const BASE = import.meta.env.BASE_URL || '/';
 
 /** Mockup-aligned featured set */
-const FEATURED_IDS = ['cognitive-adaptive-ai-tutor', 'design-standard-wcag'];
+const FEATURED_IDS = ['cognitive-adaptive-ai-tutor', 'design-standard-wcag', 'medisupply-hub-ui'];
 
 const WORK_TABS = [
   { value: 'Featured', label: 'Featured' },

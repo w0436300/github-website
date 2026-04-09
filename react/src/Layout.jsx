@@ -44,10 +44,13 @@ const AI_TUTOR_NAV_LINKS = [
 /** Must match section `id`s on DesignStandardPage (design-standard-wcag). */
 const DESIGN_STANDARD_NAV_LINKS = [
   { name: 'Overview', href: '#Overview' },
-  { name: 'Process', href: '#Process' },
-  { name: 'Findings', href: '#Findings' },
+  { name: 'Challenge', href: '#Challenge' },
+  { name: 'Approach', href: '#Approach' },
+  { name: 'Documentation', href: '#Documentation' },
+  { name: 'Structure', href: '#Structure' },
+  { name: 'Library', href: '#LibraryExamples' },
+  { name: 'Examples', href: '#Examples' },
   { name: 'Collaboration', href: '#Collaboration' },
-  { name: 'Insight', href: '#Insight' },
   { name: 'Outcome', href: '#Outcome' },
   { name: 'Reflection', href: '#Reflection' },
 ];
@@ -64,6 +67,7 @@ export default function Layout() {
   const isAiTutorPage = location.pathname === '/project/cognitive-adaptive-ai-tutor';
   const isDesignStandardPage = location.pathname === '/project/design-standard-wcag';
   const isCaseStudyPage = isAiTutorPage || isDesignStandardPage;
+  const sidebarCollapsed = isProjectPage ? false : isSidebarCollapsed;
   const caseStudyNavLinks = isAiTutorPage
     ? AI_TUTOR_NAV_LINKS
     : isDesignStandardPage
@@ -142,7 +146,7 @@ export default function Layout() {
             : isAiTutorPage
               ? 'bg-cyan-50/50 border-cyan-100'
               : 'bg-white border-gray-100'
-        } ${isSidebarCollapsed ? 'w-24 p-6' : 'w-56 p-8'}`}
+        } ${sidebarCollapsed ? 'w-24 p-6' : 'w-56 p-8'}`}
         style={{ display: 'flex' }}
       >
         <div className="flex flex-col h-full justify-between overflow-hidden min-h-0">
@@ -158,19 +162,19 @@ export default function Layout() {
             {!isProjectPage && (
               <button
                 onClick={goHome}
-                className={`cursor-pointer text-2xl font-black tracking-tighter mb-10 block group whitespace-nowrap transition-opacity duration-300 shrink-0 ${isSidebarCollapsed ? 'opacity-0 h-0 pointer-events-none overflow-hidden' : 'opacity-100'}`}
+                className={`cursor-pointer text-2xl font-black tracking-tighter mb-10 block group whitespace-nowrap transition-opacity duration-300 shrink-0 ${sidebarCollapsed ? 'opacity-0 h-0 pointer-events-none overflow-hidden' : 'opacity-100'}`}
               >
                 XP<span className="text-blue-600 group-hover:ml-1 transition-all">.</span>
               </button>
             )}
 
             {isProjectPage ? (
-              <nav className="flex flex-col gap-6">
+              <nav className="flex flex-col gap-0">
                 <button
                   type="button"
                   onClick={goHomeProjectSection}
                   className={`group flex items-center gap-2 transition-all w-full text-left ${
-                    isSidebarCollapsed ? 'justify-center' : ''
+                    sidebarCollapsed ? 'justify-center' : ''
                   } ${
                     isDesignStandardPage
                       ? 'text-slate-700 hover:text-sky-900'
@@ -190,11 +194,11 @@ export default function Layout() {
                     }`}
                     aria-hidden
                   />
-                  {!isSidebarCollapsed && (
+                  {!sidebarCollapsed && (
                     <span className="text-[11px] uppercase tracking-[0.2em] font-bold">Back</span>
                   )}
                 </button>
-                {!isSidebarCollapsed && (
+                {!sidebarCollapsed && (
                   <div
                     className={`h-px w-full my-1 ${
                       isDesignStandardPage ? 'bg-sky-200' : isAiTutorPage ? 'bg-cyan-200/70' : 'bg-gray-100'
@@ -217,7 +221,7 @@ export default function Layout() {
                       }
                     }}
                     className={`group flex items-center gap-4 transition-all w-full text-left rounded-md ${
-                      isSidebarCollapsed ? 'justify-center px-0' : 'px-2 py-2 -mx-2'
+                      sidebarCollapsed ? 'justify-center px-0' : 'px-2 py-2 -mx-2'
                     } ${
                       navActive
                         ? isDesignStandardPage
@@ -234,7 +238,7 @@ export default function Layout() {
                           : 'text-gray-600 hover:text-black'
                     }`}
                   >
-                    {!isSidebarCollapsed && (
+                    {!sidebarCollapsed && (
                       <span className="text-[11px] uppercase tracking-[0.2em] font-bold">{link.name}</span>
                     )}
                   </button>
@@ -254,7 +258,7 @@ export default function Layout() {
                       type="button"
                       onClick={link.kind === 'work' ? handleWorkNav : handleAboutNav}
                       className={`group flex items-center gap-4 transition-all w-full text-left rounded-md px-2 py-2.5 -mx-2 ${
-                        isSidebarCollapsed ? 'justify-center px-0' : ''
+                        sidebarCollapsed ? 'justify-center px-0' : ''
                       } ${isActive ? 'bg-[#FFCC00] text-black' : 'text-gray-400 hover:text-black'}`}
                     >
                       <span
@@ -264,7 +268,7 @@ export default function Layout() {
                       >
                         <Icon size={18} />
                       </span>
-                      {!isSidebarCollapsed && (
+                      {!sidebarCollapsed && (
                         <span className="text-[11px] uppercase tracking-[0.2em] font-bold">{link.name}</span>
                       )}
                     </button>
@@ -279,7 +283,7 @@ export default function Layout() {
               isDesignStandardPage ? 'border-sky-200' : isAiTutorPage ? 'border-cyan-200' : 'border-gray-100'
             }`}
           >
-            {!isSidebarCollapsed ? (
+            {!sidebarCollapsed ? (
               <>
                 <div className="flex flex-col gap-2.5 text-[11px]">
                   {FOOTER_SOCIAL.map(({ label, href, Icon }) => (
@@ -369,7 +373,7 @@ export default function Layout() {
           className="fixed inset-0 z-40 bg-white/95 backdrop-blur-xl pt-20 px-6 sidebar-mobile-overlay"
           aria-hidden
         >
-          <nav className="flex flex-col gap-6">
+          <nav className="flex flex-col gap-3">
             {HOME_NAV.map((link) => {
               const Icon = link.icon;
               const workActive = isHome && !isAboutPage;
@@ -419,7 +423,7 @@ export default function Layout() {
 
       {/* Main content */}
       <main
-        className={`transition-all duration-500 ease-in-out min-h-screen sidebar-main ${isSidebarCollapsed ? 'pl-24' : 'pl-56'} pt-4`}
+        className={`transition-all duration-500 ease-in-out min-h-screen sidebar-main ${sidebarCollapsed ? 'pl-24' : 'pl-56'} pt-4`}
       >
         <Outlet />
       </main>
