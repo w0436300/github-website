@@ -108,6 +108,7 @@ export default function AiTutorPage() {
     'ami-chatbot.png',
     'ami-quiz.png',
     'ami-session-audio.png',
+    'overview.gif'
   ];
   const designFlowSteps = [
     { n: '1', t: 'Onboarding', d: '3-step guided', hi: false },
@@ -185,12 +186,12 @@ export default function AiTutorPage() {
               an AI to assess their skills and design their entire education?
             </p>
 
-            <div className={`flex flex-col gap-8 border-t ${amiBorder} pt-8`}>
-              <div className="w-full">
+            <div className="flex flex-col gap-8 pt-8">
+              <div className="w-full overflow-hidden">
                 <img
-                  src={amiImg('overview1.png')}
+                  src={amiImg('overview.gif')}
                   alt="Ami product overview"
-                  className="h-auto w-2/3 -mx-4 object-contain"
+                  className="h-auto border border-gray-300 border-2 w-2/3 max-w-4xl object-cover object-[40%_50%]"
                 />
               </div>
 

@@ -75,6 +75,13 @@ export default function Layout() {
       : null;
   const projectNavLinks = isCaseStudyPage ? caseStudyNavLinks : PROJECT_NAV_LINKS;
 
+  // Ensure project pages always start from the top when navigated to
+  useEffect(() => {
+    if (isProjectPage && typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    }
+  }, [isProjectPage, location.pathname]);
+
   useEffect(() => {
     if (!isCaseStudyPage) return;
     setActiveCaseStudySection('Overview');
@@ -129,11 +136,11 @@ export default function Layout() {
   const goHomeProjectSection = () => {
     navigate('/');
     setIsMobileMenuOpen(false);
+    // When leaving a project page, always return to the top of Home.
     setTimeout(() => {
-      const el = document.getElementById('project');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-      if (window.history.replaceState) window.history.replaceState(null, '', '/#project');
-    }, 180);
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      if (window.history.replaceState) window.history.replaceState(null, '', '/');
+    }, 0);
   };
 
   return (

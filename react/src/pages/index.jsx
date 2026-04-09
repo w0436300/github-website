@@ -46,6 +46,7 @@ const SKILL_ROWS = [
 export function HomePage() {
   useScrollToHash();
   const [activeCategory, setActiveCategory] = useState('Featured');
+  const [hoverTip, setHoverTip] = useState({ show: false, x: 0, y: 0 });
   const navigate = useNavigate();
 
   const filteredProjects = useMemo(
@@ -56,6 +57,26 @@ export function HomePage() {
   return (
     <section id="home" className="px-6 md:px-12 lg:px-20 pt-4 md:pt-4 pb-24 md:pb-32 bg-white">
       <div className="max-w-7xl mx-auto w-full">
+        {hoverTip.show && (
+          <div
+            className="fixed z-[60] pointer-events-none"
+            style={{ left: hoverTip.x + 14, top: hoverTip.y + 14 }}
+            aria-hidden
+          >
+            <span className="inline-flex items-center px-2 py-1 text-[10px] font-bold uppercase tracking-wider border border-gray-200 bg-white text-gray-700 shadow-sm">
+              View details
+            </span>
+          </div>
+        )}
+        {hoverTip.show && (
+          <div
+            className="fixed z-[60] pointer-events-none"
+            style={{ left: hoverTip.x - 7, top: hoverTip.y - 7 }}
+            aria-hidden
+          >
+            <span className="block w-[14px] h-[14px] rounded-full bg-[#FFCC00] shadow-[0_0_0_3px_rgba(255,204,0,0.25)]" />
+          </div>
+        )}
       <div className="mb-2">
           <span className="inline-flex items-center px-4 py-1 text-[10px] font-black uppercase tracking-[0.2em] bg-[#FFCC00] text-black rounded-lg">
             <Award size={14} className="shrink-0" strokeWidth={2.5} /> 
@@ -117,7 +138,14 @@ export function HomePage() {
                   key={p.id}
                   type="button"
                   onClick={() => navigate(`/project/${p.id}`)}
-                  className="group text-left bg-white border border-gray-200 border-solid rounded-none shadow-none transition-all hover:shadow-sm hover:bg-gray-50/40 active:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                  onMouseEnter={(e) =>
+                    setHoverTip({ show: true, x: e.clientX, y: e.clientY })
+                  }
+                  onMouseMove={(e) =>
+                    setHoverTip((prev) => (prev.show ? { ...prev, x: e.clientX, y: e.clientY } : prev))
+                  }
+                  onMouseLeave={() => setHoverTip((prev) => ({ ...prev, show: false }))}
+                  className="group cursor-none text-left bg-white border border-gray-200 border-solid rounded-none shadow-none transition-all hover:shadow-sm hover:bg-gray-50/40 active:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                 >
                   <div className="aspect-video bg-white overflow-hidden border-b border-gray-200 relative">
                     {imgSrc ? (
