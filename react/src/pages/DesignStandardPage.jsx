@@ -245,13 +245,14 @@ export default function DesignStandardPage() {
         <div className="max-w-7xl mx-auto">
           <div className="mb-6 border-t border-sky-200 pt-4">
             <h2 className={SECTION_HEAD.h2} style={SECTION_HEAD.h2Style}>Challenge</h2>
-            <h3 className={SECTION_HEAD.h3} style={SECTION_HEAD.h3Style}>Years of drift, no shared reference</h3>
+            <h3 className={SECTION_HEAD.h3} style={SECTION_HEAD.h3Style}>Outdated guidance, uneven detail
+            </h3>
           </div>
 
           <div className="grid md:grid-cols-3 gap-4">
             {[
               ['Legacy variation', 'Three platforms had accumulated different UI habits over time.'],
-              ['No single source of truth', 'Rules existed in files and memory, not in one shared reference.'],
+              ['Outdated standards', 'Some standards already existed, but they were outdated and not detailed enough to guide current components, patterns, spacing, and states.'],
               ['Hard to reuse consistently', 'Teams could not quickly check how components, patterns, or spacing should behave.'],
             ].map(([title, body]) => (
               <div key={title} className="border border-sky-200 bg-white p-5">

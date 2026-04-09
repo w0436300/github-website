@@ -423,7 +423,7 @@ export default function Layout() {
 
       {/* Main content */}
       <main
-        className={`transition-all duration-500 ease-in-out min-h-screen sidebar-main ${sidebarCollapsed ? 'pl-24' : 'pl-56'} pt-4`}
+        className={`transition-all duration-500 ease-in-out min-h-screen sidebar-main ${sidebarCollapsed ? 'pl-24' : 'pl-56'} pt-20 md:pt-4`}
       >
         <Outlet />
       </main>
