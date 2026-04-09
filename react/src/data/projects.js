@@ -39,8 +39,8 @@ export const projects = [
     tags: ['WCAG', 'Accessibility', 'Design Systems'],
     year: '2025',
     location: 'BMO',
-    cover: null,
-    placeholderLabel: 'Completed',
+    cover: '/img/design-standard-cover.svg',
+    placeholderLabel: null,
     description:
       'A standards-focused system improving accessibility consistency and UI decision-making across products.',
     demoUrl: null,

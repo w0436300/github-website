@@ -97,7 +97,7 @@ export default function AiTutorPage() {
     'genmentor-onboarding.png',
     'genmentor-profile.png',
     'genmentor-skillgap.png',
-    'overview.png',
+    'overview1.png',
     'ami-onboarding.png',
     'ami-skillgap.png',
     'ami-learningpath.png',
@@ -188,7 +188,7 @@ export default function AiTutorPage() {
             <div className={`flex flex-col gap-8 border-t ${amiBorder} pt-8`}>
               <div className="w-full">
                 <img
-                  src={amiImg('overview.png')}
+                  src={amiImg('overview1.png')}
                   alt="Ami product overview"
                   className="h-auto w-2/3 -mx-4 object-contain"
                 />
@@ -618,12 +618,12 @@ Ami is built on GenMentor (WWW 2025), an open-source research baseline. GenMento
         </div>
       </section>
 
-      {/* what i learned */}
-      <section id="Design" className="py-1 px-6 pb-12">
+      {/* what i  */}
+      <section id="Solution" className="py-1 px-6 pb-12">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-4">
             <h2 className={AMI.h2} style={AMI.h2Style}>
-              What I Learned
+              Solution
             </h2>
             <h3 className={AMI.h3} style={AMI.h3Style}>
             How Ami works

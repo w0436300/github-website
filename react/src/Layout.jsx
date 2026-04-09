@@ -36,7 +36,7 @@ const AI_TUTOR_NAV_LINKS = [
   { name: 'Problem', href: '#Problem' },
   { name: 'Research', href: '#Research' },
   { name: 'Baseline', href: '#Baseline' },
-  { name: 'Design', href: '#Design' },
+  { name: 'Solution', href: '#Solution' },
   { name: 'Reflection', href: '#Reflection' },
   { name: 'Video', href: '#Video' },
 ];

@@ -119,9 +119,15 @@ export function HomePage() {
                   onClick={() => navigate(`/project/${p.id}`)}
                   className="group text-left bg-white border border-gray-200 border-solid rounded-none shadow-none transition-all hover:shadow-sm hover:bg-gray-50/40 active:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                 >
-                  <div className="aspect-video bg-gray-100 overflow-hidden border-b border-gray-200">
+                  <div className="aspect-video bg-white overflow-hidden border-b border-gray-200 relative">
                     {imgSrc ? (
-                      <img src={imgSrc} alt="" className="w-full h-full object-cover" />
+                      <img
+                        src={imgSrc}
+                        alt={p.title}
+                        className={`absolute inset-0 h-full w-full object-cover object-center ${
+                          p.cover?.endsWith('.svg') ? '' : 'scale-[1.06]'
+                        }`}
+                      />
                     ) : (
                       <div className="w-full h-full flex flex-col items-center justify-center gap-1 p-4 text-center">
                         <span className="text-sm font-bold text-gray-600 line-clamp-2 px-2">{p.title}</span>
