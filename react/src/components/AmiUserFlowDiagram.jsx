@@ -180,6 +180,12 @@ export default function AmiUserFlowDiagram() {
                 <ActionPill className="min-w-[3.25rem] flex-1">Video</ActionPill>
                 <ActionPill className="min-w-[3.25rem] flex-1">Audio</ActionPill>
               </div>
+              <div className="rounded-lg border-2 border-emerald-500 bg-emerald-50 px-2 py-2 text-center shadow-sm">
+                <div className="text-[9px] font-bold text-emerald-900">Mentor chatbot</div>
+                <p className="mt-0.5 text-[8px] font-medium leading-snug text-emerald-800">
+                  Persistent sidebar — available for entire session
+                </p>
+              </div>
               <MainStep>Quiz</MainStep>
             </div>
           </div>

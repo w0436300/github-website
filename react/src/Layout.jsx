@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
 import {
   ArrowLeft,
@@ -30,26 +30,72 @@ const PROJECT_NAV_LINKS = [
   { name: 'Links', href: '#links' },
 ];
 
+/** Must match section `id`s on AiTutorPage (cognitive-adaptive-ai-tutor). */
 const AI_TUTOR_NAV_LINKS = [
   { name: 'Overview', href: '#Overview' },
   { name: 'Problem', href: '#Problem' },
   { name: 'Research', href: '#Research' },
-  { name: 'UX Strategy', href: '#Strategy' },
-  { name: 'Engineering', href: '#Engineering' },
-  { name: 'Solutions', href: '#Solutions' },
-  { name: 'Impact', href: '#Impact' },
+  { name: 'Baseline', href: '#Baseline' },
+  { name: 'Design', href: '#Design' },
+  { name: 'Reflection', href: '#Reflection' },
+  { name: 'Video', href: '#Video' },
+];
+
+/** Must match section `id`s on DesignStandardPage (design-standard-wcag). */
+const DESIGN_STANDARD_NAV_LINKS = [
+  { name: 'Overview', href: '#Overview' },
+  { name: 'Process', href: '#Process' },
+  { name: 'Findings', href: '#Findings' },
+  { name: 'Collaboration', href: '#Collaboration' },
+  { name: 'Insight', href: '#Insight' },
+  { name: 'Outcome', href: '#Outcome' },
+  { name: 'Reflection', href: '#Reflection' },
 ];
 
 export default function Layout() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeCaseStudySection, setActiveCaseStudySection] = useState('Overview');
   const navigate = useNavigate();
   const location = useLocation();
   const isHome = location.pathname === '/' || location.pathname === '';
   const isAboutPage = location.pathname === '/blog';
   const isProjectPage = location.pathname.startsWith('/project/');
   const isAiTutorPage = location.pathname === '/project/cognitive-adaptive-ai-tutor';
-  const projectNavLinks = isAiTutorPage ? AI_TUTOR_NAV_LINKS : PROJECT_NAV_LINKS;
+  const isDesignStandardPage = location.pathname === '/project/design-standard-wcag';
+  const isCaseStudyPage = isAiTutorPage || isDesignStandardPage;
+  const caseStudyNavLinks = isAiTutorPage
+    ? AI_TUTOR_NAV_LINKS
+    : isDesignStandardPage
+      ? DESIGN_STANDARD_NAV_LINKS
+      : null;
+  const projectNavLinks = isCaseStudyPage ? caseStudyNavLinks : PROJECT_NAV_LINKS;
+
+  useEffect(() => {
+    if (!isCaseStudyPage) return;
+    setActiveCaseStudySection('Overview');
+  }, [location.pathname, isCaseStudyPage]);
+
+  useEffect(() => {
+    if (!isCaseStudyPage || !caseStudyNavLinks?.length) return;
+    const ids = caseStudyNavLinks.map((l) => l.href.slice(1));
+    const compute = () => {
+      const threshold = 120;
+      let active = ids[0];
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= threshold) active = id;
+      }
+      setActiveCaseStudySection((prev) => (prev === active ? prev : active));
+    };
+    compute();
+    window.addEventListener('scroll', compute, { passive: true });
+    window.addEventListener('resize', compute);
+    return () => {
+      window.removeEventListener('scroll', compute);
+      window.removeEventListener('resize', compute);
+    };
+  }, [isCaseStudyPage, caseStudyNavLinks]);
 
   const handleWorkNav = () => {
     if (!isHome) {
@@ -90,7 +136,13 @@ export default function Layout() {
     <div className="bg-white text-black font-sans selection:bg-black selection:text-white overflow-x-hidden">
       {/* Sidebar - 始终显示，用内联样式避免被全局 .hidden 覆盖 */}
       <aside
-        className={`fixed top-0 left-0 h-full bg-white border-r border-gray-100 z-50 flex flex-col transition-all duration-500 ease-in-out ${isSidebarCollapsed ? 'w-24 p-6' : 'w-56 p-8'}`}
+        className={`fixed top-0 left-0 h-full z-50 flex flex-col transition-all duration-500 ease-in-out border-r ${
+          isDesignStandardPage
+            ? 'bg-sky-50 border-sky-200'
+            : isAiTutorPage
+              ? 'bg-cyan-50/50 border-cyan-100'
+              : 'bg-white border-gray-100'
+        } ${isSidebarCollapsed ? 'w-24 p-6' : 'w-56 p-8'}`}
         style={{ display: 'flex' }}
       >
         <div className="flex flex-col h-full justify-between overflow-hidden min-h-0">
@@ -119,38 +171,75 @@ export default function Layout() {
                   onClick={goHomeProjectSection}
                   className={`group flex items-center gap-2 transition-all w-full text-left ${
                     isSidebarCollapsed ? 'justify-center' : ''
-                  } text-gray-700 hover:text-blue-600`}
+                  } ${
+                    isDesignStandardPage
+                      ? 'text-slate-700 hover:text-sky-900'
+                      : isAiTutorPage
+                        ? 'text-slate-700 hover:text-cyan-900'
+                        : 'text-gray-700 hover:text-blue-600'
+                  }`}
                 >
                   <ArrowLeft
                     size={16}
-                    className="shrink-0 text-gray-400 transition-transform group-hover:-translate-x-0.5 group-hover:text-blue-600"
+                    className={`shrink-0 transition-transform group-hover:-translate-x-0.5 ${
+                      isDesignStandardPage
+                        ? 'text-slate-500 group-hover:text-sky-800'
+                        : isAiTutorPage
+                          ? 'text-slate-500 group-hover:text-cyan-800'
+                          : 'text-gray-400 group-hover:text-blue-600'
+                    }`}
                     aria-hidden
                   />
                   {!isSidebarCollapsed && (
                     <span className="text-[11px] uppercase tracking-[0.2em] font-bold">Back</span>
                   )}
                 </button>
-                {!isSidebarCollapsed && <div className="h-px bg-gray-100 w-full my-1" />}
-                {projectNavLinks.map((link) => (
+                {!isSidebarCollapsed && (
+                  <div
+                    className={`h-px w-full my-1 ${
+                      isDesignStandardPage ? 'bg-sky-200' : isAiTutorPage ? 'bg-cyan-200/70' : 'bg-gray-100'
+                    }`}
+                  />
+                )}
+                {projectNavLinks.map((link) => {
+                  const sectionId = link.href.slice(1);
+                  const navActive =
+                    isCaseStudyPage && activeCaseStudySection === sectionId;
+                  return (
                   <button
                     key={link.name}
                     type="button"
                     onClick={() => {
-                      const el = document.getElementById(link.href.slice(1));
+                      const el = document.getElementById(sectionId);
                       if (el) el.scrollIntoView({ behavior: 'smooth' });
                       if (window.history.replaceState) {
                         window.history.replaceState(null, '', `${location.pathname}${link.href}`);
                       }
                     }}
-                    className={`group flex items-center gap-4 transition-all w-full text-left ${
-                      isSidebarCollapsed ? 'justify-center' : ''
-                    } text-gray-600 hover:text-black`}
+                    className={`group flex items-center gap-4 transition-all w-full text-left rounded-md ${
+                      isSidebarCollapsed ? 'justify-center px-0' : 'px-2 py-2 -mx-2'
+                    } ${
+                      navActive
+                        ? isDesignStandardPage
+                          ? 'bg-sky-200/80 text-sky-900'
+                          : isAiTutorPage
+                            ? 'bg-cyan-50/90 text-cyan-950 border border-cyan-200/80'
+                            : 'bg-cyan-50 text-[rgb(52,118,128)]'
+                        : isCaseStudyPage
+                          ? isDesignStandardPage
+                            ? 'text-slate-600 hover:bg-sky-100/90 hover:text-sky-900'
+                            : isAiTutorPage
+                              ? 'border border-transparent text-slate-600 hover:bg-slate-100/90 hover:text-slate-900'
+                              : 'text-gray-600 hover:bg-teal-50/50 hover:text-[rgb(52,118,128)]'
+                          : 'text-gray-600 hover:text-black'
+                    }`}
                   >
                     {!isSidebarCollapsed && (
                       <span className="text-[11px] uppercase tracking-[0.2em] font-bold">{link.name}</span>
                     )}
                   </button>
-                ))}
+                );
+                })}
               </nav>
             ) : (
               <nav className="flex flex-col gap-2 shrink-0">
@@ -185,7 +274,11 @@ export default function Layout() {
             )}
           </div>
 
-          <div className="shrink-0 flex flex-col gap-4 pt-6 border-t border-gray-100">
+          <div
+            className={`shrink-0 flex flex-col gap-4 pt-6 border-t ${
+              isDesignStandardPage ? 'border-sky-200' : isAiTutorPage ? 'border-cyan-200' : 'border-gray-100'
+            }`}
+          >
             {!isSidebarCollapsed ? (
               <>
                 <div className="flex flex-col gap-2.5 text-[11px]">
