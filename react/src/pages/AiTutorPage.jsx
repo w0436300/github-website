@@ -25,7 +25,7 @@ const PortfolioImage = ({ src, alt, className, description }) => {
   const [error, setError] = useState(false);
   return (
     <div
-      className={`relative overflow-hidden bg-slate-100 flex items-center justify-center border border-slate-200 ${className}`}
+      className={`relative overflow-hidden bg-white flex items-center justify-center border border-slate-200 ${className}`}
     >
       {error ? (
         <div className="flex flex-col items-center text-slate-400 p-8 text-center">
@@ -190,7 +190,7 @@ export default function AiTutorPage() {
                 <img
                   src={amiImg('overview.png')}
                   alt="Ami product overview"
-                  className="h-auto w-full max-w-4xl object-contain"
+                  className="h-auto w-2/3 -mx-4 object-contain"
                 />
               </div>
 
@@ -379,7 +379,7 @@ export default function AiTutorPage() {
               </div>
               
             </div>
-            <p className="text-slate-600 text-sm text-left mt-4 pl-2 pr-2 bg-cyan-50/50 border border-cyan-100">
+            <p className="text-slate-600 text-sm text-left mt-4 pl-2 pr-2 bg-white border border-cyan-100">
               <span className="texr-sm text-slate-500">
                 As a UX designer on a 6-person cross-functional team, our goal was to ship a pedagogically rigorous, ethically grounded adaptive AI tutor without sacrificing usability.
               </span>
@@ -437,7 +437,7 @@ export default function AiTutorPage() {
                   <span className="font-semibold text-slate-700">Emotional arc: </span>
                   Overwhelmed → Hopeful → Confused → Frustrated → Short relief → Discouraged
                 </p>
-                <div className="border border-cyan-200 overflow-hidden bg-slate-50/80 overflow-hidden">
+                <div className="border border-cyan-200 overflow-hidden bg-white overflow-hidden">
                   <img
                     src={amiImg('current-journey-map.png')}
                     alt="Current learner journey map without Ami"
@@ -453,7 +453,7 @@ export default function AiTutorPage() {
                   <span className="font-semibold text-slate-700">Emotional arc: </span>
                   Clear direction → Confident start → Supported → In control → Motivated → Trust building
                 </p>
-                <div className="border border-cyan-200 overflow-hidden bg-slate-50/80 overflow-hidden">
+                <div className="border border-cyan-200 overflow-hidden bg-white overflow-hidden">
                   <img
                     src={amiImg('future-journey-map.png')}
                     alt="Future learner journey map with Ami"
@@ -464,7 +464,7 @@ export default function AiTutorPage() {
             </div>
 
             <div className="grid md:grid-cols-4 gap-2 items-top mt-4">
-              <div className="p-4 rounded-1 bg-slate-10 border border-slate-100">
+              <div className="p-4 rounded-1 bg-white border border-slate-100">
                 <h4 className="font-bold text-xs mb-4">No personalization</h4>
                 <p className="text-slate-500 text-xs leading-relaxed">
                 Same content for everyone. <br /></p>
@@ -473,7 +473,7 @@ export default function AiTutorPage() {
                 <p className="text-slate-500 text-xs leading-relaxed">
                 Ami uses FSLSM + SOLO to personalize every session.</p>
               </div>
-              <div className="p-4 rounded-1 bg-slate-10 border border-slate-100">
+              <div className="p-4 rounded-1 bg-white border border-slate-100">
                 <h4 className="font-bold text-xs mb-4">High cognitive load</h4>
                 <p className="text-slate-500 text-xs leading-relaxed">
                 Too many decisions upfront — where to learn, what to trust. <br /></p>
@@ -482,7 +482,7 @@ export default function AiTutorPage() {
                 <p className="text-slate-500 text-xs  leading-relaxed">
                 Ami's 3-step onboarding uses progressive disclosure.</p>
               </div>
-              <div className="p-4 rounded-1 bg-slate-10 border border-slate-100">
+              <div className="p-4 rounded-1 bg-white border border-slate-100">
                 <h4 className="font-bold text-xs mb-4">Inconsistent quality</h4>
                 <p className="text-slate-500 text-xs leading-relaxed">
                 AI help lacks pedagogical structure. <br /></p>
@@ -491,7 +491,7 @@ export default function AiTutorPage() {
                 <p className="text-slate-500 text-xs leading-relaxed">
                 Ami grounds all content in verified course PDFs via RAG.</p>
               </div>
-              <div className="p-4 rounded-1 bg-slate-10 border border-slate-100">
+              <div className="p-4 rounded-1 bg-white border border-slate-100">
                 <h4 className="font-bold text-xs mb-4"> Unclear progress</h4>
                 <p className="text-slate-500 text-xs leading-relaxed">
                No reliable dashboard.<br /></p>
@@ -540,13 +540,13 @@ Ami is built on GenMentor (WWW 2025), an open-source research baseline. GenMento
           <div className="border border-cyan-200 overflow-hidden overflow-hidden">
             {/* Header */}
             <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-cyan-200 border-b border-cyan-200">
-              <div className="bg-slate-100/70 px-5 py-4 flex items-center gap-3">
+              <div className="bg-white px-5 py-4 flex items-center gap-3">
                 <span className="inline-flex rounded-full border border-slate-300 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-700">
                   GenMentor - Baseline
                 </span>
                 <span className="text-sm text-slate-600">The original Streamlit interface</span>
               </div>
-              <div className="bg-cyan-50/70 px-5 py-4 flex items-center gap-3">
+              <div className="bg-white px-5 py-4 flex items-center gap-3">
                 <span className="inline-flex border border-cyan-400 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-700">
                   Ami - Our Design
                 </span>
@@ -556,7 +556,7 @@ Ami is built on GenMentor (WWW 2025), an open-source research baseline. GenMento
 
             {/* Screenshots */}
             <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-cyan-200 border-b border-cyan-200">
-              <div className="bg-slate-50 px-5 py-5">
+              <div className="bg-white px-5 py-5">
                 <div className="flex flex-wrap gap-2 mb-3">
                   {baselineTabs.map((tab, i) => (
                     <button
@@ -585,7 +585,7 @@ Ami is built on GenMentor (WWW 2025), an open-source research baseline. GenMento
                 </p>
               </div>
 
-              <div className="bg-cyan-50/40 px-5 py-5">
+              <div className="bg-white px-5 py-5">
                 <div className="flex flex-wrap gap-2 mb-3">
                   {baselineTabs.map((tab, i) => (
                     <button
@@ -641,7 +641,7 @@ Ami is built on GenMentor (WWW 2025), an open-source research baseline. GenMento
             <div className="space-y-8">
               {designBlocks.map((b, idx) => (
                 <div key={b.title} className="grid lg:grid-cols-2 gap-6 items-start">
-                  <div className="border border-dashed border-cyan-200 bg-cyan-50/50 p-6 min-h-[200px] flex flex-col items-center justify-center text-center">
+                  <div className="border border-dashed border-cyan-200 bg-white p-6 min-h-[200px] flex flex-col items-center justify-center text-center">
                     {b.mediaFile ? (
                       <img
                         src={amiImg(b.mediaFile)}
@@ -687,7 +687,7 @@ Ami is built on GenMentor (WWW 2025), an open-source research baseline. GenMento
                     )}
 
                     {b.decision && (
-                      <div className="border border-cyan-200 bg-cyan-50 px-3 py-3">
+                      <div className="border border-cyan-200 bg-white px-3 py-3">
                         <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-cyan-700 mb-1">
                           Design decision
                         </p>
