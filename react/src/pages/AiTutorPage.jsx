@@ -1,169 +1,86 @@
-import { useState } from 'react';
-import AmiUserFlowDiagram from '../components/AmiUserFlowDiagram.jsx';
-import {
-  amiSectionHead as AMI,
-  amiAccentRgb,
-  openSans,
-  amiBorder,
-  amiBorderSubtle,
-} from '../styles/caseStudyTheme.js';
-import {
-  Target,
-  ArrowRight,
-  Play,
-  Image as ImageIcon,
-  GraduationCap,
-  Microscope,
-  ShieldCheck,
-  ArrowDown,
-  Code,
-  Terminal,
-  Layers,
-} from 'lucide-react';
+import { amiSectionHead as AMI, amiAccentRgb, openSans, amiBorder, amiBorderSubtle } from '../styles/caseStudyTheme.js';
 
-const PortfolioImage = ({ src, alt, className, description }) => {
-  const [error, setError] = useState(false);
-  return (
-    <div
-      className={`relative overflow-hidden bg-white flex items-center justify-center border border-slate-200 ${className}`}
-    >
-      {error ? (
-        <div className="flex flex-col items-center text-slate-400 p-8 text-center">
-          <ImageIcon className="w-12 h-12 mb-3 opacity-20" />
-          <p className="text-sm font-semibold">{alt}</p>
-          <p className="text-[10px] uppercase tracking-wider mt-2 opacity-60">
-            {description || 'System Screenshot'}
-          </p>
-        </div>
-      ) : (
-        <img
-          src={src}
-          alt={alt}
-          className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-          onError={() => setError(true)}
-        />
-      )}
-    </div>
-  );
-};
+const RESEARCH_FINDINGS = [
+  {
+    no: '01',
+    title: 'Drop-off happens at setup',
+    body: "Across tools, the biggest abandonment point wasn't hard content. It was onboarding with too many decisions and too little visible payoff.",
+  },
+  {
+    no: '02',
+    title: 'Users distrust invisible AI',
+    body: "Most products don't explain why they assess a learner's level. Opacity, not capability, was the real trust blocker.",
+  },
+  {
+    no: '03',
+    title: 'Academic terms miss user mental models',
+    body: 'FSLSM is pedagogically valid, but terms like sequential-global are not learner-facing language. The model needed translation, not replacement.',
+  },
+];
+
+const SOLUTION_STEPS = [
+  {
+    badge: 'Step 1',
+    title: 'Onboarding',
+    media: 'ami-onboarding.gif',
+    body: 'Split into 3 steps, one question per screen. Resume upload is optional to reduce startup friction.',
+    chips: ['Enter goal', 'Learning style', 'Resume (optional)'],
+  },
+  {
+    badge: 'Step 2',
+    title: 'Skill Gap Review',
+    media: 'ami-skillgap.png',
+    body: 'AI explains inferred gaps with confidence and rationale. Learners can adjust levels, ignore skills, or proceed.',
+    chips: ['AI suggests + explains', 'Learner adjusts levels', 'Include / Ignore'],
+  },
+  {
+    badge: 'Steps 3 & 4',
+    title: 'Learning Path & Session',
+    media: 'ami-session.gif',
+    body: 'Path structure adapts to learning style. Session delivery adapts format in real time with contextual chatbot support.',
+    chips: ['Text', 'Diagram', 'Video', 'Audio'],
+  },
+  {
+    badge: 'Step 5',
+    title: 'Quiz & Continuous Adaptation',
+    media: 'ami-quiz.gif',
+    body: 'Three triggers keep learner profile data fresh without additional burden.',
+    chips: ['Quiz result', 'Chatbot behavior', 'Manual profile updates'],
+  },
+  {
+    badge: 'Step 6',
+    title: 'Profile, Analytics & AI Transparency',
+    media: 'ami-ai-transparency.gif',
+    body: 'Trust remains visible through profile controls, progress analytics, citation behavior, and transparency commitments.',
+    chips: ['Profile', 'Analytics', 'AI Transparency'],
+  },
+];
+
+const REFLECTIONS = [
+  {
+    no: '01',
+    title: 'Translating a model is a design problem',
+    body: 'FSLSM did not need replacement. It needed a UX translation layer so technical rigor and user clarity could coexist.',
+  },
+  {
+    no: '02',
+    title: 'Adding a step can reduce friction',
+    body: 'Skill gap review added one step but increased confidence and completion. Useful friction can improve outcomes.',
+  },
+  {
+    no: '03',
+    title: 'Scope defines feature meaning',
+    body: 'The chatbot became pedagogically meaningful when constrained to sessions rather than exposed globally.',
+  },
+  {
+    no: '04',
+    title: 'Trust is a system, not a feature',
+    body: 'Explanations, profile transparency, source citations, and bias disclosure work together as a trust architecture.',
+  },
+];
 
 export default function AiTutorPage() {
-  const [activeBaselineTab, setActiveBaselineTab] = useState(0);
-
   const amiImg = (name) => `${import.meta.env.BASE_URL}img/ami/${name}`;
-  const baselineTabs = ['Onboarding', 'Skill Gap', 'Learning Path', 'Session', 'Profile'];
-  const genMentorImages = [
-    'genmentor-onboarding.png',
-    'genmentor-skillgap.png',
-    'genmentor-learningpath.png',
-    'genmentor-learningsession.png',
-    'genmentor-profile.png',
-  ];
-  const genMentorCaptions = [
-    'Long-form onboarding with occupation dropdown, text fields, and mandatory resume upload. High cognitive load before any learning begins.',
-    'Skill-gap review is list-heavy and difficult to scan. Evidence and rationale are not visible enough for confident decisions.',
-    'Learning-path setup is functional but rigid. Limited structure for balancing sequence, learner preference, and confidence.',
-    'Session view is text-forward and fragmented. Weak visual hierarchy makes guidance and next actions harder to follow.',
-    'Profile controls are basic and not tightly connected to real-time adaptation, learning history, or transparent AI behavior.',
-  ];
-  const amiCaptions = [
-    '3-step onboarding. Step 2: choose learning style - sets the FSLSM baseline in one click. One question per step.',
-    'Skill-gap panel explains why each gap matters, with adjustable levels and clear include/ignore controls before plan generation.',
-    'Learning path supports structured sequence while keeping global visibility, so learners understand both immediate and long-term direction.',
-    'Session combines multimodal content with a persistent mentor chatbot, reducing friction while keeping context and support always available.',
-    'Profile and analytics stay accessible for continuous updates, progress review, and transparent AI behavior over time.',
-  ];
-  const amiImages = [
-    'ami-onboarding.png',
-    'ami-skillgap.png',
-    'ami-learningpath.png',
-    'ami-session.png',
-    'ami-profile.png',
-  ];
-  const allAmiMedia = [
-    'ami-ai-transparency.gif',
-    'ami-chatbot.gif',
-    'ami-onboarding.gif',
-    'ami-profile.gif',
-    'ami-quiz.gif',
-    'ami-session-audio.gif',
-    'ami-session-vedio.gif',
-    'ami-verified-content.gif',
-    'Competitive-positioning-matrix.png',
-    'current-journey-map.png',
-    'future-journey-map.png',
-    'genmentor-learningpath.png',
-    'genmentor-learningsession.png',
-    'genmentor-onboarding.png',
-    'genmentor-profile.png',
-    'genmentor-skillgap.png',
-    'overview1.png',
-    'ami-onboarding.png',
-    'ami-skillgap.png',
-    'ami-learningpath.png',
-    'ami-session.png',
-    'ami-session.gif',
-    'ami-profile.png',
-    'ami-ai-transparency.png',
-    'ami-chatbot.png',
-    'ami-quiz.png',
-    'ami-session-audio.png',
-    'overview.gif'
-  ];
-  const designFlowSteps = [
-    { n: '1', t: 'Onboarding', d: '3-step guided', hi: false },
-    { n: '2', t: 'Skill Gap', d: 'AI + human override', hi: true },
-    { n: '3', t: 'Learning Path', d: 'FSLSM-adapted', hi: false },
-    { n: '4', t: 'Session', d: 'Multimodal', hi: true },
-    { n: '5', t: 'Quiz & Adapt', d: 'Continuous', hi: false },
-    { n: '6', t: 'Profile & Analytics', d: 'Trust layer', hi: false },
-  ];
-  const designBlocks = [
-    {
-      badge: 'Step 1',
-      title: 'Onboarding',
-      media: 'Onboarding flow',
-      body: 'Onboarding was split into 3 simple steps to reduce cognitive load and make each decision easier.',
-      mediaFile: 'ami-onboarding.gif',
-      list: [
-        ' Enter goal',
-        ' Learning style',
-        ' Resume (optional)',
-      ],
-    },
-    {
-      badge: 'Step 2',
-      title: 'Skill Gap Review',
-      media: 'Skill gap review',
-      mediaFile: 'ami-skillgap.png',
-      body: 'AI suggests skill gaps with clear reasoning, while learners can edit, remove, or accept each recommendation.',
-      list: ['AI suggests', 'Learners can edit'],
-    },
-    {
-      badge: 'Steps 3 & 4',
-      title: 'Learning Path & Session',
-      media: 'Learning path + session delivery',
-      mediaFile: 'ami-session.gif',
-      body: 'Path structure adapts each learner\'s profile and learning style. Content format adapts to learning style. Session overview top-right, Ami chat bottom-right.',
-      list: ['Text', 'Diagram', 'Video', 'Audio'],
-    },
-    {
-      badge: 'Steps 5',
-      title: 'Quiz & Adaptation',
-      media: 'Quiz & adaptation',
-      mediaFile: 'ami-quiz.gif',
-      body: 'Three triggers keep the profile current without asking the learner to do anything extra.',
-      list: ['Quiz result', 'Chatbot query', 'Manual'],
-    },
-    {
-      badge: 'Step 6',
-      title: 'Profile, Analytics & AI Transparency',
-      media: 'Profile, Analytics & AI Transparency',
-      mediaFile: 'ami-ai-transparency.gif',
-      body: 'Trust was designed as an always-visible layer, supported by profile controls, progress analytics, and AI transparency.',
-    list: ['Profile', 'Analytics', 'AI Transparency'],
-    },
-  ];
 
   return (
     <div
@@ -172,175 +89,44 @@ export default function AiTutorPage() {
     >
       <section id="Overview" className="pt-2 pb-10 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="animate-in fade-in slide-in-from-bottom duration-1000">
-          
-            <div className="flex flex-wrap items-center gap-2 mb-3 text-[10px] uppercase tracking-widest text-slate-600">
-            <span>AI-Powered Education · UX Case Study · 2026</span>
+          <div className="text-[10px] uppercase tracking-[0.18em] text-slate-600 mb-4">
+            AI-Powered Education · UX Case Study · 2026
           </div>
-            
-            <h1 className="text-xl md:text-3xl font-extrabold leading-[0.9] mb-2 tracking-tighter">
-              Ami: Human-AI Cognitive Co-Learning. <br />
-            </h1>
-            <p className="text-md text-slate-500 px-1 py-1 mb-8 leading-relaxed font-medium max-w-4xl">
-              We didn&apos;t redesign an interface. We redesigned the question: why would a learner trust
-              an AI to assess their skills and design their entire education?
-            </p>
+          <h1 className="text-2xl md:text-5xl font-extrabold leading-[1.05] tracking-tight mb-4">
+            Designing trust into an AI tutor,
+            <br />
+            <span style={{ color: `rgb(${amiAccentRgb})` }}>from the ground up.</span>
+          </h1>
+          <p className="text-sm md:text-base text-slate-600 max-w-4xl leading-relaxed mb-8">
+            Ami is an adaptive learning platform built on a research AI baseline. The core challenge was
+            to transform a technically strong system into something learners can understand, trust, and
+            return to.
+          </p>
 
-            <div className="flex flex-col gap-8 pt-8">
-              <div className="w-full overflow-hidden">
-                <img
-                  src={amiImg('overview.gif')}
-                  alt="Ami product overview"
-                  className="h-auto border border-gray-300 border-2 w-2/3 max-w-4xl object-cover object-[40%_50%]"
-                />
-              </div>
+          <div className={`border ${amiBorderSubtle} bg-white p-4 md:p-6 mb-8`}>
+            <img
+              src={amiImg('overview.gif')}
+              alt="Ami product overview"
+              className={`w-full h-auto border ${amiBorderSubtle}`}
+            />
+          </div>
 
-              <div className="space-y-4 w-full">
-                {/* Small screens: role/tools/skills/timeline/team in one row (horizontal scroll) */}
-                <div className="overflow-x-auto md:hidden">
-                  <div className="grid min-w-[920px] grid-cols-5 divide-x divide-cyan-200">
-                    <div className="pr-4">
-                      <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-700">Role</p>
-                      <p className="text-[13px] leading-relaxed text-slate-700">
-                        UX Researcher
-                        <br />
-                        Product Designer
-                        <br />
-                        Frontend Engineer
-                      </p>
-                    </div>
-                    <div className="px-4">
-                      <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-700">Tools</p>
-                      <p className="text-[13px] leading-relaxed text-slate-700">
-                        Figma
-                        <br />
-                        React + Streamlit
-                        <br />
-                        OpenAI API
-                        <br />
-                        GitHub
-                      </p>
-                    </div>
-                    <div className="px-4">
-                      <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-700">Skills</p>
-                      <p className="text-[13px] leading-relaxed text-slate-700">
-                        Product Design
-                        <br />
-                        Frontend Engineering
-                        <br />
-                        User Research
-                      </p>
-                    </div>
-                    <div className="px-4">
-                      <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-700">Timeline</p>
-                      <p className="text-[13px] leading-relaxed text-slate-700">
-                        Jan-April 2026
-                        <br />
-                        Discovery &amp; Research
-                        <br />
-                        Design &amp; Development
-                        <br />
-                        Testing &amp; Deployment
-                        <br />
-                        Launch &amp; Maintenance
-                      </p>
-                    </div>
-                    <div className="pl-4">
-                      <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-700">Team (6)</p>
-                      <p className="text-[13px] leading-relaxed text-slate-700">
-                        1 PM
-                        <br />
-                        2 Backend
-                        <br />
-                        1 Learning Analytics
-                        <br />
-                        1 Frontend (me)
-                        <br />
-                        2 Product Designer (me)
-                        <br />
-                        2 UX Researcher (me)
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* md and above: single row — Role, Tools, Skills, Timeline, Team */}
-                <div className="hidden md:grid md:grid-cols-5 md:divide-x md:divide-cyan-200">
-                  <div className="pr-4 min-w-0">
-                    <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-700">Role</p>
-                    <p className="text-[13px] leading-relaxed text-slate-700">
-                      UX Researcher
-                      <br />
-                      Product Designer
-                      <br />
-                      Frontend Engineer
-                    </p>
-                  </div>
-                  <div className="px-4 min-w-0">
-                    <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-700">Tools</p>
-                    <p className="text-[13px] leading-relaxed text-slate-700">
-                      Figma
-                      <br />
-                      React + Streamlit
-                      <br />
-                      OpenAI API
-                      <br />
-                      GitHub
-                    </p>
-                  </div>
-                  <div className="px-4 min-w-0">
-                    <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-700">Skills</p>
-                    <p className="text-[13px] leading-relaxed text-slate-700">
-                      Product Design
-                      <br />
-                      Frontend Engineering
-                      <br />
-                      User Research
-                    </p>
-                  </div>
-                  <div className="px-4 min-w-0">
-                    <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-700">Timeline</p>
-                    <p className="text-[13px] leading-relaxed text-slate-700">
-                      Jan-April 2026
-                      <br />
-                      Discovery &amp; Research
-                      <br />
-                      Design &amp; Development
-                      <br />
-                      Testing &amp; Deployment
-                      <br />
-                      Launch &amp; Maintenance
-                    </p>
-                  </div>
-                  <div className="pl-4 min-w-0">
-                    <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-700">Team (6)</p>
-                    <p className="text-[13px] leading-relaxed text-slate-700">
-                      1 PM
-                      <br />
-                      2 Backend
-                      <br />
-                      1 Learning Analytics
-                      <br />
-                      1 Frontend (me)
-                      <br />
-                      2 Product Designer (me)
-                      <br />
-                      2 UX Researcher (me)
-                    </p>
-                  </div>
-                </div>
-
-                <div className={`border-t ${amiBorderSubtle} pt-3`}>
-                  <p className="text-[11px] font-medium leading-relaxed text-slate-700">
-                    <span className="font-semibold text-slate-700">Client &amp; Technical advisor</span>
-                    <br />
-                    Dr. Ali Abbas — CEO of Smart Digital Medicine, Adjunct Professor at uOttawa
-                    <br />
-                    Prof. Ismaeel Al-Ridhawi — Associate Professor, School of Electrical Engineering and
-                    Computer Science, uOttawa
-                  </p>
-                </div>
-              </div>
+          <div className={`grid md:grid-cols-4 gap-4 border-t ${amiBorderSubtle} pt-6`}>
+            <div className="md:pr-4 md:border-r md:border-cyan-200">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-1">My Role</p>
+              <p className="text-sm text-slate-700">UX Research<br />Product Design<br />Frontend Engineering</p>
+            </div>
+            <div className="md:px-4 md:border-r md:border-cyan-200">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-1">Team</p>
+              <p className="text-sm text-slate-700">6-person cross-functional<br />1 PM · 2 Backend<br />1 Learning Analytics</p>
+            </div>
+            <div className="md:px-4 md:border-r md:border-cyan-200">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-1">Timeline</p>
+              <p className="text-sm text-slate-700">Jan - April 2026<br />12 weeks end-to-end</p>
+            </div>
+            <div className="md:pl-4">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-1">Built on</p>
+              <p className="text-sm text-slate-700">GenMentor<br />(WWW 2025)</p>
             </div>
           </div>
         </div>
@@ -348,505 +134,349 @@ export default function AiTutorPage() {
 
       <section id="Problem" className="py-1 px-6 pb-12">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-4">
-            <h2 className={AMI.h2} style={AMI.h2Style}>
-              Problem
-            </h2>
-            <h3 className={AMI.h3} style={AMI.h3Style}>
-              How should an AI tutor adapt to every learner — without overwhelming them?
-            </h3>
-            <p className="text-slate-600 text-sm text-left">
-            Current AI tutoring tools provide a one-size-fits-all approach — reactive, generic content that ignores cognitive style or prior knowledge. Worse, they hallucinate with no content verification or ethical oversight.
+          <div className="text-center mb-5">
+            <h2 className={AMI.h2} style={AMI.h2Style}>Problem</h2>
+            <h3 className={AMI.h3} style={AMI.h3Style}>The brief said nothing about users.</h3>
+            <p className="text-slate-600 text-sm text-left mt-3">
+              The original specification described architecture and model behavior, but not user
+              experience or trust mechanisms.
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-2 items-top">
-              <div className="p-4 bg-white border border-cyan-100">
-                <h4 className="font-bold text-sm mb-4">UX Strategy</h4>
-                <p className="text-slate-500 text-sm leading-relaxed">
-                Mapping the gap between a research baseline and a real user experience — then closing it.
-                </p>
-              </div>
-              <div className="p-4 bg-white border border-cyan-100">
-                <h4 className="font-bold text-sm mb-4">Product Design</h4>
-                <p className="text-slate-500 text-sm leading-relaxed">
-                Designing a 3-step onboarding, adjustable skill gap review, and multimodal session delivery.
-                </p>
-              </div>
-              <div className="p-4 bg-white border border-cyan-100">
-                <h4 className="font-bold text-sm mb-4">Trust Design</h4>
-                <p className="text-slate-500 text-sm leading-relaxed">
-                Making AI reasoning visible: skill gap explanations, RAG citations, bias audits, and an AI Transparency page.
-                </p>
-              </div>
-              
-            </div>
-            <p className="text-slate-600 text-sm text-left mt-4 pl-2 pr-2 bg-white border border-cyan-100">
-              <span className="texr-sm text-slate-500">
-                As a UX designer on a 6-person cross-functional team, our goal was to ship a pedagogically rigorous, ethically grounded adaptive AI tutor without sacrificing usability.
-              </span>
-            </p>
 
+          <div className="bg-amber-50 border border-amber-300 p-5 md:p-7">
+            <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-amber-700 mb-3">
+              Original client brief - verbatim
+            </p>
+            <p className="text-xs md:text-sm text-amber-900 leading-relaxed mb-3 font-mono">
+              "This project develops a personalized AI tutoring system that adapts its teaching style to
+              individual learners. Rather than delivering uniform content, the system identifies cognitive
+              preferences and learning gaps through interaction patterns and assessment data."
+            </p>
+            <p className="text-xs md:text-sm text-amber-900 leading-relaxed mb-3 font-mono">
+              "The tutor is powered by LLMs connected to a curriculum knowledge graph, enabling
+              prerequisite-aware lesson sequencing and targeted practice generation."
+            </p>
+            <p className="text-xs text-amber-800 italic border-t border-amber-300 pt-3">
+              Ethical considerations listed: bias, transparency, and the role of AI in pedagogy, with no
+              product-level specification.
+            </p>
+          </div>
+
+          <p className={`mt-4 text-sm text-slate-600 border-l-4 border-cyan-700 pl-4`}>
+            The first design decision was to close the gap between technical capability and learner
+            experience.
+          </p>
         </div>
       </section>
 
       <section id="Research" className="py-1 px-6 pb-12">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-8">
-            <h2 className={AMI.h2} style={AMI.h2Style}>
-               Research 
-            </h2>
-            <h3 className={AMI.h3} style={AMI.h3Style}>
-              How we understood the problem before designing anything
-            </h3>
-            <p className="text-slate-600 text-sm text-left mt-2">
-              Current AI tutoring tools provide a one-size-fits-all approach — reactive, generic content
-              that ignores cognitive style or prior knowledge. Worse, they hallucinate with no content
-              verification or ethical oversight.
+          <div className="text-center mb-6">
+            <h2 className={AMI.h2} style={AMI.h2Style}>Research</h2>
+            <h3 className={AMI.h3} style={AMI.h3Style}>Three findings that drove every decision.</h3>
+            <p className="text-slate-600 text-sm text-left mt-3">
+              We ran competitive analysis, journey mapping, and architecture review of the GenMentor
+              baseline before designing the interaction layer.
             </p>
           </div>
 
-          {/* a · Competitive positioning matrix */}
-          <div className="mb-16">
-            <h4
-              className="text-sm font-semibold text-slate-900 mb-3"
-              style={openSans}
-            >
-              a · Competitive positioning matrix
-            </h4>
-            <div className="border border-cyan-200 overflow-hidden bg-white p-4 md:p-6 overflow-hidden w-3/4">
+          <div className="grid md:grid-cols-3 gap-3 mb-10">
+            {RESEARCH_FINDINGS.map((item) => (
+              <div key={item.no} className={`border ${amiBorderSubtle} bg-white p-4`}>
+                <p className="text-3xl leading-none mb-2" style={{ color: `rgb(${amiAccentRgb} / 0.32)` }}>
+                  {item.no}
+                </p>
+                <h4 className="font-bold text-sm mb-2 text-slate-800">{item.title}</h4>
+                <p className="text-sm text-slate-600 leading-relaxed">{item.body}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mb-10">
+            <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Competitive positioning</p>
+            <h4 className="text-lg font-semibold mb-3">The white space no tool was occupying</h4>
+            <p className="text-sm text-slate-600 mb-4">
+              Existing products often optimize for either pedagogical rigor or usability. Ami targeted the
+              high-rigor, high-usability quadrant.
+            </p>
+            <div className={`border ${amiBorder} bg-white p-4`}>
               <img
                 src={amiImg('Competitive-positioning-matrix.png')}
-                alt="Competitive positioning matrix comparing Ami to other AI tutoring approaches"
+                alt="Competitive positioning matrix"
                 className="w-full h-auto object-contain"
               />
+              <p className="text-xs text-slate-500 italic mt-3">
+                Ami combines FSLSM + SOLO + RAG-grounded content with a UX layer designed for real
+                learners.
+              </p>
             </div>
           </div>
 
-          {/* b · Journey maps — side by side */}
           <div>
-            <h4
-              className="text-sm font-semibold text-slate-900 mb-6"
-              style={openSans}
-            >
-              b · Current journey map — without Ami and Future journey map — with Ami
-            </h4>
-            <div className="grid md:grid-cols-2 gap-10 lg:gap-14">
-              {/* Current — without Ami */}
-              <div className="space-y-4">
-                <h5 className="font-bold text-slate-900 text-base">Current journey map — without Ami</h5>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  <span className="font-semibold text-slate-700">Emotional arc: </span>
-                  Overwhelmed → Hopeful → Confused → Frustrated → Short relief → Discouraged
+            <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Journey mapping</p>
+            <h4 className="text-lg font-semibold mb-3">Mapping emotional cost before and after Ami</h4>
+            <p className="text-sm text-slate-600 mb-4">
+              The steepest drop happened during setup and tool-switching, not during difficult content.
+              This insight directly shaped onboarding and trust-related decisions.
+            </p>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className={`border ${amiBorder} bg-white p-3`}>
+                <img src={amiImg('current-journey-map.png')} alt="Current journey map without Ami" className="w-full h-auto" />
+                <p className="text-xs text-slate-500 italic mt-2">
+                  Without Ami: emotional arc declines from hopeful to discouraged due to high cognitive
+                  load and unclear progress.
                 </p>
-                <div className="border border-cyan-200 overflow-hidden bg-white overflow-hidden">
-                  <img
-                    src={amiImg('current-journey-map.png')}
-                    alt="Current learner journey map without Ami"
-                    className="w-full h-auto object-contain"
-                  />
-                </div>
               </div>
-
-              {/* Future — with Ami */}
-              <div className="space-y-4">
-                <h5 className="font-bold text-slate-900 text-base">Future journey map — with Ami</h5>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  <span className="font-semibold text-slate-700">Emotional arc: </span>
-                  Clear direction → Confident start → Supported → In control → Motivated → Trust building
+              <div className={`border ${amiBorder} bg-white p-3`}>
+                <img src={amiImg('future-journey-map.png')} alt="Future journey map with Ami" className="w-full h-auto" />
+                <p className="text-xs text-slate-500 italic mt-2">
+                  With Ami: arc rises from clear direction to trust building through staged support and
+                  visible reasoning.
                 </p>
-                <div className="border border-cyan-200 overflow-hidden bg-white overflow-hidden">
-                  <img
-                    src={amiImg('future-journey-map.png')}
-                    alt="Future learner journey map with Ami"
-                    className="w-full h-auto object-contain"
-                  />
-                </div>
               </div>
             </div>
-
-            <div className="grid md:grid-cols-4 gap-2 items-top mt-4">
-              <div className="p-4 rounded-1 bg-white border border-slate-100">
-                <h4 className="font-bold text-xs mb-4">No personalization</h4>
-                <p className="text-slate-500 text-xs leading-relaxed">
-                Same content for everyone. <br /></p>
-                <p className="text-slate-500 text-xs leading-relaxed">
-                ------------------------------------</p>
-                <p className="text-slate-500 text-xs leading-relaxed">
-                Ami uses FSLSM + SOLO to personalize every session.</p>
-              </div>
-              <div className="p-4 rounded-1 bg-white border border-slate-100">
-                <h4 className="font-bold text-xs mb-4">High cognitive load</h4>
-                <p className="text-slate-500 text-xs leading-relaxed">
-                Too many decisions upfront — where to learn, what to trust. <br /></p>
-                <p className="text-slate-500 text-xs leading-relaxed">
-                ------------------------------------</p>
-                <p className="text-slate-500 text-xs  leading-relaxed">
-                Ami's 3-step onboarding uses progressive disclosure.</p>
-              </div>
-              <div className="p-4 rounded-1 bg-white border border-slate-100">
-                <h4 className="font-bold text-xs mb-4">Inconsistent quality</h4>
-                <p className="text-slate-500 text-xs leading-relaxed">
-                AI help lacks pedagogical structure. <br /></p>
-                <p className="text-slate-500 text-xs leading-relaxed">
-                ------------------------------------</p>
-                <p className="text-slate-500 text-xs leading-relaxed">
-                Ami grounds all content in verified course PDFs via RAG.</p>
-              </div>
-              <div className="p-4 rounded-1 bg-white border border-slate-100">
-                <h4 className="font-bold text-xs mb-4"> Unclear progress</h4>
-                <p className="text-slate-500 text-xs leading-relaxed">
-               No reliable dashboard.<br /></p>
-                <p className="text-slate-500 text-xs leading-relaxed">
-                ------------------------------------</p>
-                <p className="text-slate-500 text-xs leading-relaxed">
-                Analytics page tracks skill mastery and goal progress in real time.</p>
-              </div>
-             
-            </div>
-
-            {/* c · User flow — complete learner journey */}
-            <div className="mt-16 md:mt-20">
-              <h4
-                className="text-sm font-semibold text-slate-900 mb-2"
-                style={openSans}
-              >
-                c · User flow — the complete learner journey
-              </h4>
-              <p className="text-slate-600 text-sm leading-relaxed mb-6 max-w-3xl">
-                From first goal input to continuous adaptation — every step designed to minimize
-                friction while maximizing personalization depth.
-              </p>
-              <AmiUserFlowDiagram />
-            </div>
-
           </div>
         </div>
       </section>
 
-      <section id="Baseline" className="py-1 px-6 pb-12">
+      <section id="Decisions" className="py-1 px-6 pb-12">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-4">
-            <h2 className={AMI.h2} style={AMI.h2Style}>
-              Baseline
-            </h2>
-            <h3 className={AMI.h3} style={AMI.h3Style}>
-            We didn’t build from scratch. We found what was missing.
-            </h3>
-                        <p className="text-slate-600 text-sm text-left">
-Ami is built on GenMentor (WWW 2025), an open-source research baseline. GenMentor proved multi-agent tutoring was technically feasible. Our job was to build the UX and pedagogical layer on top.
-
+          <div className="text-center mb-6">
+            <h2 className={AMI.h2} style={AMI.h2Style}>Design Decisions</h2>
+            <h3 className={AMI.h3} style={AMI.h3Style}>Four decisions that defined the product.</h3>
+            <p className="text-slate-600 text-sm text-left mt-3">
+              Each decision involved a real trade-off. The goal was not fewer features, but better
+              learning behavior and higher trust.
             </p>
           </div>
 
-          <div className="border border-cyan-200 overflow-hidden overflow-hidden">
-            {/* Header */}
-            <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-cyan-200 border-b border-cyan-200">
-              <div className="bg-white px-5 py-4 flex items-center gap-3">
-                <span className="inline-flex rounded-full border border-slate-300 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-700">
-                  GenMentor - Baseline
-                </span>
-                <span className="text-sm text-slate-600">The original Streamlit interface</span>
+          <div className="space-y-5">
+            <article className={`border ${amiBorderSubtle} bg-white p-5 md:p-6`}>
+              <div className="flex items-start gap-4 mb-4">
+                <span className="w-9 h-9 bg-slate-900 text-white text-xs font-bold flex items-center justify-center">01</span>
+                <div>
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Onboarding</p>
+                  <h4 className="text-lg font-semibold text-slate-900">
+                    When a design principle conflicts with user behavior, interrogate the principle.
+                  </h4>
+                </div>
               </div>
-              <div className="bg-white px-5 py-4 flex items-center gap-3">
-                <span className="inline-flex border border-cyan-400 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-700">
-                  Ami - Our Design
-                </span>
-                <span className="text-sm text-cyan-700/80">The React experience we built</span>
+              <div className="grid lg:grid-cols-2 gap-5">
+                <div>
+                  <div className={`border ${amiBorderSubtle} p-4 mb-3`}>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-2">How onboarding evolved</p>
+                    <ul className="space-y-2 text-sm text-slate-600">
+                      <li>Stage 1: free-text self-description made style inference hard and inconsistent.</li>
+                      <li>Stage 2: questionnaire improved data quality but violated low-friction startup goals.</li>
+                      <li>Stage 3: persona portraits felt indirect and distancing.</li>
+                      <li className="text-slate-800 font-medium">Stage 4 (final): five behavioral labels mapping to FSLSM internally.</li>
+                    </ul>
+                  </div>
+                  <p className="text-sm text-slate-600 bg-emerald-50 border-l-4 border-emerald-300 p-3 mb-3 italic">
+                    "Simple is not fewer steps. Simple is one clear decision at a time."
+                  </p>
+                  <p className="text-sm text-slate-600">
+                    Resume upload stayed optional: better skill-gap quality when provided, but no hard block
+                    when omitted.
+                  </p>
+                </div>
+                <div>
+                  <div className={`border ${amiBorder} bg-white p-3 mb-3`}>
+                    <img src={amiImg('ami-onboarding.png')} alt="Onboarding step 2" className="w-full h-auto" />
+                    <p className="text-xs text-slate-500 italic mt-2">
+                      One question per screen with learner-facing language: Interactive, Textual, Visual,
+                      Concise, Balanced.
+                    </p>
+                  </div>
+                  <div className="bg-slate-50 p-3 text-sm text-slate-600">
+                    Learning style and resume can be changed later in Profile, so AI understanding remains
+                    revisable instead of fixed.
+                  </div>
+                </div>
               </div>
-            </div>
+            </article>
 
-            {/* Screenshots */}
-            <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-cyan-200 border-b border-cyan-200">
-              <div className="bg-white px-5 py-5">
-                <div className="flex flex-wrap gap-2 mb-3">
-                  {baselineTabs.map((tab, i) => (
-                    <button
-                      type="button"
-                      key={tab}
-                      onClick={() => setActiveBaselineTab(i)}
-                      className={`border px-2.5 py-1 text-[10px] font-medium ${
-                        i === activeBaselineTab
-                          ? 'bg-slate-900 text-white border-slate-900'
-                          : 'bg-white text-slate-500 border-cyan-200'
-                      }`}
-                    >
-                      {tab}
-                    </button>
-                  ))}
+            <article className={`border ${amiBorderSubtle} bg-white p-5 md:p-6`}>
+              <div className="flex items-start gap-4 mb-4">
+                <span className="w-9 h-9 bg-slate-900 text-white text-xs font-bold flex items-center justify-center">02</span>
+                <div>
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Skill Gap Review</p>
+                  <h4 className="text-lg font-semibold text-slate-900">
+                    Should we show AI skill-gap analysis and let users adjust it?
+                  </h4>
                 </div>
-                <div className="border border-cyan-200 bg-white p-3">
-                  <img
-                    src={amiImg(genMentorImages[activeBaselineTab])}
-                    alt={`GenMentor ${baselineTabs[activeBaselineTab]} view`}
-                    className="w-full h-auto object-contain"
-                  />
-                </div>
-                <p className="mt-3 text-xs text-slate-500 leading-relaxed">
-                  {genMentorCaptions[activeBaselineTab]}
-                </p>
               </div>
+              <div className="grid lg:grid-cols-2 gap-5">
+                <div>
+                  <div className={`grid md:grid-cols-2 border ${amiBorderSubtle} mb-3`}>
+                    <div className="p-3 border-b md:border-b-0 md:border-r border-cyan-100">
+                      <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-1">Option A</p>
+                      <p className="text-sm text-slate-600">Skip review for fewer steps, but users cannot challenge wrong inferences.</p>
+                    </div>
+                    <div className="p-3 bg-cyan-50">
+                      <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-cyan-800 mb-1">Chosen: Option B</p>
+                      <p className="text-sm text-slate-700">Show reasoning and allow edits before path generation.</p>
+                    </div>
+                  </div>
+                  <p className="text-sm text-slate-600">
+                    Final layout used split panels: left side for scan speed, right side for evidence,
+                    confidence, and granular controls.
+                  </p>
+                </div>
+                <div className={`border ${amiBorder} bg-white p-3`}>
+                  <img src={amiImg('ami-skillgap.png')} alt="Skill gap analysis view" className="w-full h-auto" />
+                  <p className="text-xs text-slate-500 italic mt-2">
+                    Required Level and Current Level are separate sliders, enabling precise learner
+                    correction instead of one blunt override.
+                  </p>
+                </div>
+              </div>
+            </article>
 
-              <div className="bg-white px-5 py-5">
-                <div className="flex flex-wrap gap-2 mb-3">
-                  {baselineTabs.map((tab, i) => (
-                    <button
-                      type="button"
-                      key={tab}
-                      onClick={() => setActiveBaselineTab(i)}
-                      className={`border px-2.5 py-1 text-[10px] font-medium ${
-                        i === activeBaselineTab
-                          ? 'bg-cyan-700 text-white border-cyan-700'
-                          : 'bg-white text-cyan-700 border-cyan-200'
-                      }`}
-                    >
-                      {tab}
-                    </button>
-                  ))}
+            <article className={`border ${amiBorderSubtle} bg-white p-5 md:p-6`}>
+              <div className="flex items-start gap-4 mb-4">
+                <span className="w-9 h-9 bg-slate-900 text-white text-xs font-bold flex items-center justify-center">03</span>
+                <div>
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Chatbot Scope</p>
+                  <h4 className="text-lg font-semibold text-slate-900">
+                    Should the chatbot be global, or only available during sessions?
+                  </h4>
                 </div>
-                <div className="border border-cyan-200 bg-white p-3">
-                  <img
-                    src={amiImg(amiImages[activeBaselineTab])}
-                    alt={`Ami ${baselineTabs[activeBaselineTab]} view`}
-                    className="w-full h-auto object-contain"
-                  />
-                </div>
-                <p className="mt-3 text-xs text-slate-600 leading-relaxed">
-                  {amiCaptions[activeBaselineTab]}
-                </p>
               </div>
-            </div> 
+              <div className="grid lg:grid-cols-2 gap-5">
+                <div>
+                  <p className="text-sm text-slate-600 mb-3">
+                    Global availability increased distraction during onboarding and review. Session-only
+                    placement preserved flow focus and improved context quality for chatbot responses.
+                  </p>
+                  <p className="text-sm text-slate-600 bg-emerald-50 border-l-4 border-emerald-300 p-3 italic">
+                    Same feature, different meaning based on placement. This was an IA decision, not only
+                    a feature decision.
+                  </p>
+                </div>
+                <div className={`border ${amiBorderSubtle} bg-white`}>
+                  <div className="p-3 border-b border-cyan-100">
+                    <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-slate-500 mb-1">Onboarding</p>
+                    <p className="text-sm text-red-600">Not available: keeps attention on setup decisions.</p>
+                  </div>
+                  <div className="p-3 border-b border-cyan-100">
+                    <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-slate-500 mb-1">Skill gap review</p>
+                    <p className="text-sm text-red-600">Not available: prevents escape from review task.</p>
+                  </div>
+                  <div className="p-3 bg-cyan-50">
+                    <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-cyan-800 mb-1">Learning session</p>
+                    <p className="text-sm text-cyan-900">Available: persistent sidebar with full session context.</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article className={`border ${amiBorderSubtle} bg-white p-5 md:p-6`}>
+              <div className="flex items-start gap-4 mb-4">
+                <span className="w-9 h-9 bg-slate-900 text-white text-xs font-bold flex items-center justify-center">04</span>
+                <div>
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Content Citations</p>
+                  <h4 className="text-lg font-semibold text-slate-900">
+                    Ground AI outputs in verifiable sources by design, not as an afterthought.
+                  </h4>
+                </div>
+              </div>
+              <div className="grid lg:grid-cols-2 gap-5">
+                <div>
+                  <p className="text-sm text-slate-600 mb-3">
+                    Sessions are RAG-grounded to instructor-uploaded PDFs. Claims include source and page
+                    numbers so learners can verify evidence.
+                  </p>
+                  <div className={`border ${amiBorderSubtle} p-3`}>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-2">Why this is UX, not only engineering</p>
+                    <p className="text-sm text-slate-600">
+                      Surfacing citations changes the product relationship: from "AI tells me" to "AI shows
+                      me where this came from."
+                    </p>
+                  </div>
+                </div>
+                <div className={`border ${amiBorderSubtle} bg-white`}>
+                  <div className="p-3 border-b border-cyan-100">
+                    <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-slate-500">Skill gap review</p>
+                    <p className="text-sm text-slate-600">Why does AI think I need this skill? Reasoning + confidence shown.</p>
+                  </div>
+                  <div className="p-3 border-b border-cyan-100">
+                    <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-slate-500">Profile page</p>
+                    <p className="text-sm text-slate-600">How is my data used? Behavioral commitments are explicit.</p>
+                  </div>
+                  <div className="p-3 border-b border-cyan-100 bg-cyan-50">
+                    <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-cyan-800">Session citations</p>
+                    <p className="text-sm text-slate-700">Where did this explanation come from? Source + page number.</p>
+                  </div>
+                  <div className="p-3">
+                    <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-slate-500">AI transparency page</p>
+                    <p className="text-sm text-slate-600">Bias audits and safeguards disclosed.</p>
+                  </div>
+                </div>
+              </div>
+            </article>
           </div>
         </div>
       </section>
 
-      {/* what i  */}
       <section id="Solution" className="py-1 px-6 pb-12">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-4">
-            <h2 className={AMI.h2} style={AMI.h2Style}>
-              Solution
-            </h2>
-            <h3 className={AMI.h3} style={AMI.h3Style}>
-            How Ami works
-            </h3>
-                        <p className="text-slate-600 text-sm text-left max-w-3xl">
-            This section is reserved for final reflections and trade-offs after validation rounds.
+          <div className="text-center mb-6">
+            <h2 className={AMI.h2} style={AMI.h2Style}>Solution</h2>
+            <h3 className={AMI.h3} style={AMI.h3Style}>The product those decisions built.</h3>
+            <p className="text-slate-600 text-sm text-left mt-3">
+              Each decision maps directly to the learner experience from onboarding to continuous
+              adaptation.
             </p>
           </div>
 
-          <div className={`border ${amiBorder} overflow-hidden bg-white p-4 md:p-6`}>
-            {/* Step flow */}
-         
-           
-            {/* Detailed design blocks */}
-            <div className="space-y-8">
-              {designBlocks.map((b, idx) => (
-                <div key={b.title} className="grid lg:grid-cols-2 gap-6 items-start">
-                  <div className="border border-dashed border-cyan-200 bg-white p-6 min-h-[200px] flex flex-col items-center justify-center text-center">
-                    {b.mediaFile ? (
-                      <img
-                        src={amiImg(b.mediaFile)}
-                        alt={b.media}
-                        className="w-full h-auto max-h-[280px] object-contain"
-                      />
-                    ) : (
-                      <>
-                        <div className="w-10 h-10 bg-white border border-cyan-200 flex items-center justify-center mb-2">
-                          <Play className="w-4 h-4 text-slate-500" />
-                        </div>
-                        <div className="text-sm font-medium text-slate-700">{b.media}</div>
-                        <div className="mt-2 inline-flex border border-cyan-200 px-3 py-1 text-[11px] text-slate-500">
-                          GIF placeholder
-                        </div>
-                      </>
-                    )}
+          <div className={`border ${amiBorder} bg-white p-4 md:p-6`}>
+            <div className="space-y-7">
+              {SOLUTION_STEPS.map((step) => (
+                <div key={step.title} className={`grid lg:grid-cols-2 gap-5 pb-6 border-b ${amiBorderSubtle} last:border-b-0 last:pb-0`}>
+                  <div className={`border border-dashed ${amiBorderSubtle} bg-white p-3`}>
+                    <img src={amiImg(step.media)} alt={step.title} className="w-full h-auto max-h-[280px] object-contain" />
                   </div>
                   <div>
-                    <div className="flex items-center gap-3 mb-3">
-                      <span className="inline-flex bg-slate-900 text-white px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em]">
-                        {b.badge}
-                      </span>
-                      <h4 className="text-sm text-slate-900">{b.title}</h4>
+                    <span className="inline-flex bg-slate-900 text-white px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] mb-3">
+                      {step.badge}
+                    </span>
+                    <h4 className="text-base font-semibold text-slate-900 mb-2">{step.title}</h4>
+                    <p className="text-sm text-slate-600 leading-relaxed mb-3">{step.body}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {step.chips.map((chip) => (
+                        <span key={chip} className={`inline-flex border ${amiBorderSubtle} bg-white px-3 py-1 text-xs text-slate-600`}>
+                          {chip}
+                        </span>
+                      ))}
                     </div>
-                    <p className="text-sm text-slate-600 leading-relaxed mb-4">{b.body}</p>
-
-                    {b.list && (
-                      <div className="flex flex-wrap gap-2">
-                        {b.list.map((item, i) => (
-                          <div
-                            key={`${item}-${i}`}
-                            className={`inline-flex bg-white px-3 py-2 text-sm text-slate-700 border ${
-                              idx === 1 && i === 0
-                                ? 'border-cyan-500'
-                                : 'border-cyan-200'
-                            }`}
-                          >
-                            {item}
-                          </div>
-                        ))}
-                      </div>
-                    )}
-
-                    {b.decision && (
-                      <div className="border border-cyan-200 bg-white px-3 py-3">
-                        <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-cyan-700 mb-1">
-                          Design decision
-                        </p>
-                        <p className="text-sm text-cyan-900/80 leading-relaxed">{b.decision}</p>
-                      </div>
-                    )}
-
-                    {b.duo && (
-                      <>
-                        <div className="grid sm:grid-cols-2 gap-2 mb-3">
-                          {b.duo.map((item) => (
-                            <div
-                              key={item}
-                              className="border border-cyan-200 bg-white px-3 py-2 text-sm text-slate-700"
-                            >
-                              {item}
-                            </div>
-                          ))}
-                        </div>
-                        <div className="flex flex-wrap gap-2">
-                          {b.chips?.map((chip) => (
-                            <span
-                              key={chip}
-                              className="inline-flex border border-cyan-200 bg-white px-3 py-1 text-xs text-slate-600"
-                            >
-                              {chip}
-                            </span>
-                          ))}
-                        </div>
-                      </>
-                    )}
                   </div>
                 </div>
               ))}
             </div>
-
-           
           </div>
         </div>
       </section>
 
       <section id="Reflection" className="py-1 px-6 pb-12">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-4">
-            <h2 className={AMI.h2} style={AMI.h2Style}>
-              Reflection
-            </h2>
-            <h3 className={AMI.h3} style={AMI.h3Style}>
-              What I Learned
-            </h3>
-            <p className="text-slate-600 text-sm text-left">Three lessons that shaped how I design AI experiences.</p>
-
+          <div className="text-center mb-6">
+            <h2 className={AMI.h2} style={AMI.h2Style}>Reflection</h2>
+            <h3 className={AMI.h3} style={AMI.h3Style}>Four lessons that shaped how I design AI experiences.</h3>
           </div>
-          <div className="grid md:grid-cols-3 gap-2 items-top">
-              <div className="p-4 bg-white border border-cyan-100">
-                <h4 className="font-bold text-sm mb-4">Clarity matters more than fewer steps</h4>
-
-                <p className="text-slate-500 text-sm leading-relaxed">
-                A shorter flow is not always easier. Breaking one complex step into smaller, focused ones reduced cognitive load and made the experience feel smoother. 
+          <div className="grid md:grid-cols-2 gap-3">
+            {REFLECTIONS.map((lesson) => (
+              <div key={lesson.no} className={`p-5 bg-slate-50 border ${amiBorderSubtle}`}>
+                <p className="text-3xl leading-none mb-2" style={{ color: `rgb(${amiAccentRgb} / 0.32)` }}>
+                  {lesson.no}
                 </p>
+                <h4 className="font-bold text-sm mb-2 text-slate-900">{lesson.title}</h4>
+                <p className="text-sm text-slate-600 leading-relaxed">{lesson.body}</p>
               </div>
-              <div className="p-4 bg-white border border-cyan-100">
-                <h4 className="font-bold text-sm mb-4">Trust comes from visibility</h4>
-
-                <p className="text-slate-500 text-sm leading-relaxed">
-                What mattered most was not visual polish, but helping users understand the AI’s reasoning. In AI products, explanation is part of the experience, not an afterthought.
-                </p>
-              </div>
-              <div className="p-4 bg-white border border-cyan-100">
-                <h4 className="font-bold text-sm mb-4">AI products require systems thinking</h4>
-
-                <p className="text-slate-500 text-sm leading-relaxed">
-                The quiz, chatbot, and manual updates only worked when they were designed as one connected system, not separate features.
-                </p>
-              </div>
-              
-            </div> 
+            ))}
+          </div>
         </div>
       </section>
-
-      {/* video  */}
-      <section id="Video" className="py-1 px-6 pb-12">
-  <div className="max-w-7xl mx-auto">
-    <div className="text-center mb-4">
-      <h2 className={AMI.h2} style={AMI.h2Style}>
-        Video
-      </h2>
-      <h3 className={AMI.h3} style={AMI.h3Style}>
-        See It in Action
-      </h3>
-      <p className="text-slate-600 text-sm text-left">
-        Explore the project through a product walkthrough and a full presentation.
-      </p>
-    </div>
-
-    <div className="grid md:grid-cols-2 gap-4 items-start">
-      <div className={`p-4 bg-white border ${amiBorderSubtle}`}>
-        <h4 className="font-bold text-sm mb-3">Demo Video</h4>
-
-        <p className="text-slate-500 text-sm leading-relaxed mb-10">
-          A short end-to-end demo of the core user flow and key interactions.
-          <br />   
-        </p>
-
-        <video
-          controls
-          className={`w-full border ${amiBorder} mb-4`}
-        >
-          <source src={amiImg(encodeURIComponent('Final Demo.mp4'))} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-
-        <a
-          href={amiImg(encodeURIComponent('Final Demo.mp4'))}
-          target="_blank"
-          rel="noreferrer"
-          className="inline-block text-sm font-medium underline underline-offset-4"
-          style={{ ...openSans, color: `rgb(${amiAccentRgb})` }}
-        >
-          Watch MP4 Demo
-        </a>
-      </div>
-
-      <div className={`p-4 bg-white border ${amiBorderSubtle}`}>
-        <h4 className="font-bold text-sm mb-3">Presentation Video</h4>
-
-        <p className="text-slate-500 text-sm leading-relaxed mb-4">
-        A complete presentation covering the project background, process, team collaboration, demo, and final report.
-        </p>
-
-        <div className="aspect-video w-full mb-4">
-          <iframe
-            className={`w-full h-full border ${amiBorder}`}
-            src="https://www.youtube.com/embed/X_UXuYaqbr4"
-            title="YouTube demo"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
-        </div>
-
-        <a
-          href="https://youtu.be/X_UXuYaqbr4"
-          target="_blank"
-          rel="noreferrer"
-          className="inline-block text-sm font-medium underline underline-offset-4"
-          style={{ ...openSans, color: `rgb(${amiAccentRgb})` }}
-        >
-          Watch on YouTube
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-     
-
-     
     </div>
   );
 }
