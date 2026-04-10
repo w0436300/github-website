@@ -265,35 +265,86 @@ export default function AiTutorPage() {
                 </div>
               </div>
               <div className="grid lg:grid-cols-2 gap-5">
-                <div>
-                  <div className={`border ${amiBorderSubtle} p-4 mb-3`}>
-                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-2">How onboarding evolved</p>
-                    <ul className="space-y-2 text-sm text-slate-600">
-                      <li>Stage 1: free-text self-description made style inference hard and inconsistent.</li>
-                      <li>Stage 2: questionnaire improved data quality but violated low-friction startup goals.</li>
-                      <li>Stage 3: persona portraits felt indirect and distancing.</li>
-                      <li className="text-slate-800 font-medium">Stage 4 (final): five behavioral labels mapping to FSLSM internally.</li>
-                    </ul>
+                <div className="space-y-3">
+                  <div className={`border ${amiBorderSubtle} bg-white p-4`}>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-2">Problem · Decision · Outcome</p>
+                    <p className="text-sm text-slate-600"><span className="font-semibold text-slate-800">Problem:</span> Early onboarding asked too much before users trusted the product.</p>
+                    <p className="text-sm text-slate-600"><span className="font-semibold text-slate-800">Decision:</span> Replace abstract inputs with behavioral labels and keep resume optional.</p>
+                    <p className="text-sm text-slate-600"><span className="font-semibold text-slate-800">Outcome:</span> Lower startup friction while preserving FSLSM rigor.</p>
                   </div>
-                  <p className="text-sm bg-white border border-gray-300 p-3 mb-3 italic" style={{ color: 'rgb(52 118 128 / 0.88)' }}>
-                    "Simple is not fewer steps. Simple is one clear decision at a time."
-                  </p>
-                  <p className="text-sm text-slate-600">
-                    Resume upload stayed optional: better skill-gap quality when provided, but no hard block
-                    when omitted.
-                  </p>
-                </div>
-                <div>
-                  <div className={`border ${amiBorder} bg-white p-3 mb-3`}>
-                    <img src={amiImg('ami-onboarding.png')} alt="Onboarding step 2" className="w-full h-auto" />
-                    <p className="text-xs text-slate-500 italic mt-2">
-                      One question per screen with learner-facing language: Interactive, Textual, Visual,
-                      Concise, Balanced.
+                  <div className={`border ${amiBorderSubtle} p-4`}>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-3">How the onboarding evolved</p>
+                    <div className="space-y-3 text-sm text-slate-600">
+                      <div>
+                        <p className="font-semibold text-slate-800 mb-1">✕ Stage 1 — Free-text input, AI identifies FSLSM</p>
+                        <p>
+                          Users struggled to describe learning preferences in a blank field, so AI inference was inconsistent.
+                        </p>
+                      </div>
+                      <div>
+                        <p className="font-semibold text-slate-800 mb-1">✕ Stage 2 — Questionnaire (education, work background...)</p>
+                        <p>
+                          Better data quality, but too much startup friction. It broke the "start learning fast" requirement.
+                        </p>
+                      </div>
+                      <div>
+                        <p className="font-semibold text-slate-800 mb-1">✕ Stage 3 — Illustrated persona portraits</p>
+                        <p>
+                          Persona cards looked polished but felt distant. Users related less to a character than to themselves.
+                        </p>
+                      </div>
+                      <div>
+                        <p className="font-semibold mb-1" style={{ color: 'rgb(52 118 128 / 0.88)' }}>✓ Stage 4 — Behavioral style labels mapping to FSLSM</p>
+                        <p>
+                          Five plain-language options map to FSLSM internally. The model stays; the language becomes human.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={`border ${amiBorderSubtle} bg-white p-4`}>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-2">Resume — quality vs. friction</p>
+                    <p className="text-sm text-slate-600">
+                      Resume improves skill-gap quality, but required upload adds friction. We kept it optional and made the trade-off explicit.
                     </p>
                   </div>
-                  <div className="bg-slate-50 p-3 text-sm text-slate-600">
-                    Learning style and resume can be changed later in Profile, so AI understanding remains
-                    revisable instead of fixed.
+
+                  <div className={`border ${amiBorderSubtle} bg-white p-4`}>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-2">MVP failure — and what it meant</p>
+                    <p className="text-sm text-slate-600 mb-2">
+                      ✕ MVP put goal + style + resume on one screen. Drop-off came from unclear context, not length.
+                    </p>
+                    <p className="text-sm italic" style={{ color: 'rgb(52 118 128 / 0.88)' }}>
+                      "A good design principle should support user behavior. When they conflict, reinterpret the principle."
+                    </p>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <div className={`border ${amiBorder} bg-white p-3`}>
+                    <img src={amiImg('ami-onboarding.png')} alt="Onboarding step 2" className="w-full h-auto" />
+                    <p className="text-xs text-slate-500 italic mt-2">
+                      Final design — Step 2 of 3: one question per screen, with learner-facing language instead of academic labels.
+                    </p>
+                  </div>
+
+                  <div className={`border ${amiBorderSubtle} bg-white p-4`}>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-2">5 options → FSLSM mapping</p>
+                    <div className="flex flex-wrap gap-2 mb-2">
+                      <span className={`inline-flex border ${amiBorderSubtle} px-2 py-1 text-xs text-slate-700`}>Interactive</span>
+                      <span className={`inline-flex border ${amiBorderSubtle} px-2 py-1 text-xs text-slate-700`}>Textual</span>
+                      <span className={`inline-flex border ${amiBorderSubtle} px-2 py-1 text-xs`} style={{ color: 'rgb(52 118 128 / 0.88)' }}>Visual ✓</span>
+                      <span className={`inline-flex border ${amiBorderSubtle} px-2 py-1 text-xs text-slate-700`}>Concise</span>
+                      <span className={`inline-flex border ${amiBorderSubtle} px-2 py-1 text-xs text-slate-700`}>Balanced</span>
+                    </div>
+                    <p className="text-sm text-slate-600">
+                      Users never see FSLSM terms; they feel it through session structure, pacing, and format.
+                    </p>
+                  </div>
+
+                  <div className={`border ${amiBorderSubtle} bg-white p-4 text-sm text-slate-600`}>
+                    <p className="font-semibold text-slate-800 mb-1">Profile — the trust safety net</p>
+                    Learning style and resume stay editable in Profile, so AI understanding is revisable, not fixed.
                   </div>
                 </div>
               </div>
@@ -310,28 +361,58 @@ export default function AiTutorPage() {
                 </div>
               </div>
               <div className="grid lg:grid-cols-2 gap-5">
-                <div>
-                  <div className={`grid md:grid-cols-2 border ${amiBorderSubtle} mb-3`}>
-                    <div className="p-3 border-b md:border-b-0 md:border-r border-gray-300">
-                      <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-1">Option A</p>
-                      <p className="text-sm text-slate-600">Skip review for fewer steps, but users cannot challenge wrong inferences.</p>
-                    </div>
-                    <div className="p-3 bg-white border border-gray-300">
-                      <p className="text-[11px] font-bold uppercase tracking-[0.16em] mb-1" style={{ color: 'rgb(52 118 128 / 0.88)' }}>Chosen: Option B</p>
-                      <p className="text-sm" style={{ color: 'rgb(52 118 128 / 0.88)' }}>Show reasoning and allow edits before path generation.</p>
-                    </div>
+                <div className="space-y-3">
+                  <div className={`border ${amiBorderSubtle} bg-white p-4`}>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-2">Problem · Decision · Outcome</p>
+                    <p className="text-sm text-slate-600"><span className="font-semibold text-slate-800">Problem:</span> Hidden inference makes learning paths feel arbitrary.</p>
+                    <p className="text-sm text-slate-600"><span className="font-semibold text-slate-800">Decision:</span> Add a review step with reasoning and editable levels.</p>
+                    <p className="text-sm text-slate-600"><span className="font-semibold text-slate-800">Outcome:</span> Users can correct AI before committing to a path.</p>
                   </div>
                   <p className="text-sm text-slate-600">
-                    Final layout used split panels: left side for scan speed, right side for evidence,
-                    confidence, and granular controls.
+                      After onboarding, Ami infers skills and levels. Show it, or skip straight to path generation?
                   </p>
+                  <p className="text-sm bg-white border border-gray-300 p-3 italic" style={{ color: 'rgb(52 118 128 / 0.88)' }}>
+                    "If the path feels wrong and users have no recourse, they have no reason to trust it — or return."
+                  </p>
+                  <div className={`grid md:grid-cols-2 border ${amiBorderSubtle}`}>
+                    <div className="p-3 border-b md:border-b-0 md:border-r border-gray-300">
+                      <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-1">✕ Option A — Skip it</p>
+                      <p className="text-sm text-slate-600">Fewer steps, but no visibility and no way to challenge AI assumptions.</p>
+                    </div>
+                    <div className="p-3 bg-white border border-gray-300">
+                      <p className="text-[11px] font-bold uppercase tracking-[0.16em] mb-1" style={{ color: 'rgb(52 118 128 / 0.88)' }}>✓ Option B — Show it, let them adjust</p>
+                      <p className="text-sm" style={{ color: 'rgb(52 118 128 / 0.88)' }}>One extra step: see reasoning, adjust levels, then confirm path.</p>
+                    </div>
+                  </div>
+                  <div className={`border ${amiBorderSubtle} bg-white p-4`}>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-2">Layout iterations</p>
+                    <p className="text-sm text-slate-600 mb-2">
+                      ✕ MVP: one long page of sliders felt like a form and overloaded users.
+                    </p>
+                    <p className="text-sm" style={{ color: 'rgb(52 118 128 / 0.88)' }}>
+                      ✓ Final: split panel. Left = scan list. Right = reasoning, dual sliders, confidence, include/ignore.
+                    </p>
+                  </div>
+                  <div className={`border ${amiBorderSubtle} bg-white p-4`}>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-2">Why two sliders?</p>
+                    <p className="text-sm text-slate-600">
+                      Two sliders separate "what is needed" from "where I am now."
+                    </p>
+                  </div>
                 </div>
-                <div className={`border ${amiBorder} bg-white p-3`}>
-                  <img src={amiImg('ami-skillgap.png')} alt="Skill gap analysis view" className="w-full h-auto" />
-                  <p className="text-xs text-slate-500 italic mt-2">
-                    Required Level and Current Level are separate sliders, enabling precise learner
-                    correction instead of one blunt override.
-                  </p>
+                <div className="space-y-3">
+                  <div className={`border ${amiBorder} bg-white p-3`}>
+                    <img src={amiImg('ami-skillgap.png')} alt="Skill gap analysis view" className="w-full h-auto" />
+                    <p className="text-xs text-slate-500 italic mt-2">
+                      Final design — Skill Gap Analysis: left scannable list, right detail panel with AI reasoning and adjustable controls.
+                    </p>
+                  </div>
+                  <div className={`border ${amiBorderSubtle} bg-white p-4`}>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-2">Required Level vs. Current Level</p>
+                    <p className="text-sm text-slate-600">
+                      This makes review collaborative, not final.
+                    </p>
+                  </div>
                 </div>
               </div>
             </article>
@@ -347,28 +428,57 @@ export default function AiTutorPage() {
                 </div>
               </div>
               <div className="grid lg:grid-cols-2 gap-5">
-                <div>
-                  <p className="text-sm text-slate-600 mb-3">
-                    Global availability increased distraction during onboarding and review. Session-only
-                    placement preserved flow focus and improved context quality for chatbot responses.
+                <div className="space-y-3">
+                  <div className={`border ${amiBorderSubtle} bg-white p-4`}>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-2">Problem · Decision · Outcome</p>
+                    <p className="text-sm text-slate-600"><span className="font-semibold text-slate-800">Problem:</span> Global chatbot access distracted users in setup and review.</p>
+                    <p className="text-sm text-slate-600"><span className="font-semibold text-slate-800">Decision:</span> Restrict chatbot to active learning sessions only.</p>
+                    <p className="text-sm text-slate-600"><span className="font-semibold text-slate-800">Outcome:</span> Better focus early, richer context when chatbot appears.</p>
+                  </div>
+                  <p className="text-sm text-slate-600">
+                    The chatbot could be global, or limited to sessions with learning context.
                   </p>
                   <p className="text-sm bg-white border border-gray-300 p-3 italic" style={{ color: 'rgb(52 118 128 / 0.88)' }}>
-                    Same feature, different meaning based on placement. This was an IA decision, not only
-                    a feature decision.
+                    "This wasn't a feature decision. It was an information architecture decision."
                   </p>
+                  <div className={`grid md:grid-cols-2 border ${amiBorderSubtle}`}>
+                    <div className="p-3 border-b md:border-b-0 md:border-r border-gray-300">
+                      <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-1">✕ Option A — Global chatbot</p>
+                      <p className="text-sm text-slate-600">Always available, but distracts users during setup and review.</p>
+                    </div>
+                    <div className="p-3 bg-white border border-gray-300">
+                      <p className="text-[11px] font-bold uppercase tracking-[0.16em] mb-1" style={{ color: 'rgb(52 118 128 / 0.88)' }}>✓ Option B — Session-only</p>
+                      <p className="text-sm" style={{ color: 'rgb(52 118 128 / 0.88)' }}>Protects focus and keeps chatbot pedagogical, not generic support.</p>
+                    </div>
+                  </div>
+                  <div className={`border ${amiBorderSubtle} bg-white p-4`}>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-2">Scope shaped quality</p>
+                    <p className="text-sm text-slate-600">
+                      Session-only access carries topic, style, and quiz context, so responses are more relevant.
+                    </p>
+                  </div>
+                  <div className={`border ${amiBorderSubtle} bg-white p-4`}>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-2">The broader principle</p>
+                    <p className="text-sm text-slate-600">
+                      Placement changes meaning. IA is part of product behavior.
+                    </p>
+                  </div>
                 </div>
                 <div className={`border ${amiBorderSubtle} bg-white`}>
                   <div className="p-3 border-b border-gray-300">
                     <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-slate-500 mb-1">Onboarding</p>
-                    <p className="text-sm text-red-600">Not available: keeps attention on setup decisions.</p>
+                    <p className="text-sm text-red-600">🚫 Not available — user needs focused attention.</p>
                   </div>
                   <div className="p-3 border-b border-gray-300">
                     <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-slate-500 mb-1">Skill gap review</p>
-                    <p className="text-sm text-red-600">Not available: prevents escape from review task.</p>
+                    <p className="text-sm text-red-600">🚫 Not available — review requires focused decisions.</p>
                   </div>
                   <div className="p-3 bg-white border border-gray-300">
                     <p className="text-[10px] uppercase tracking-[0.16em] font-bold mb-1" style={{ color: 'rgb(52 118 128 / 0.88)' }}>Learning session</p>
-                    <p className="text-sm" style={{ color: 'rgb(52 118 128 / 0.88)' }}>Available: persistent sidebar with full session context.</p>
+                    <p className="text-sm" style={{ color: 'rgb(52 118 128 / 0.88)' }}>✓ Available — persistent sidebar with full session context.</p>
+                  </div>
+                  <div className="p-3 text-sm text-slate-600">
+                    Chatbot appears after learning starts, with full session context.
                   </div>
                 </div>
               </div>
@@ -385,20 +495,48 @@ export default function AiTutorPage() {
                 </div>
               </div>
               <div className="grid lg:grid-cols-2 gap-5">
-                <div>
-                  <p className="text-sm text-slate-600 mb-3">
-                    Sessions are RAG-grounded to instructor-uploaded PDFs. Claims include source and page
-                    numbers so learners can verify evidence.
+                <div className="space-y-3">
+                  <div className={`border ${amiBorderSubtle} bg-white p-4`}>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-2">Problem · Decision · Outcome</p>
+                    <p className="text-sm text-slate-600"><span className="font-semibold text-slate-800">Problem:</span> Learners cannot trust explanations they cannot verify.</p>
+                    <p className="text-sm text-slate-600"><span className="font-semibold text-slate-800">Decision:</span> Surface source citations and page numbers in-session.</p>
+                    <p className="text-sm text-slate-600"><span className="font-semibold text-slate-800">Outcome:</span> Trust becomes checkable behavior, not brand messaging.</p>
+                  </div>
+                  <p className="text-sm text-slate-600">
+                    Hallucination is the main trust risk in AI tutoring, so we designed for verification from day one.
                   </p>
-                  <div className={`border ${amiBorderSubtle} p-3`}>
-                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-2">Why this is UX, not only engineering</p>
+                  <p className="text-sm bg-white border border-gray-300 p-3 italic" style={{ color: 'rgb(52 118 128 / 0.88)' }}>
+                    "If a learner can't verify where the AI's explanation came from, they have no way to calibrate trust."
+                  </p>
+                  <div className={`border ${amiBorderSubtle} bg-white p-4`}>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-2">The approach — RAG with visible attribution</p>
                     <p className="text-sm text-slate-600">
-                      Surfacing citations changes the product relationship: from "AI tells me" to "AI shows
-                      me where this came from."
+                      Sessions use RAG over uploaded course PDFs. Claims include source + page number for direct checks.
+                    </p>
+                  </div>
+                  <div className={`border ${amiBorderSubtle} bg-white p-4`}>
+                    <p className="text-sm font-semibold mb-1" style={{ color: 'rgb(52 118 128 / 0.88)' }}>✓ Verified Course Content</p>
+                    <p className="text-sm text-slate-600">
+                      AI is bounded to instructor materials, reducing off-scope generation.
+                    </p>
+                  </div>
+                  <div className={`border ${amiBorderSubtle} bg-white p-4`}>
+                    <p className="text-sm font-semibold mb-1" style={{ color: 'rgb(52 118 128 / 0.88)' }}>✓ Citations with page numbers — checkable, not decorative</p>
+                    <p className="text-sm text-slate-600">
+                      Citations are meant to be checked, not just displayed.
+                    </p>
+                  </div>
+                  <div className={`border ${amiBorderSubtle} p-3`}>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-2">Why this is a UX decision, not only technical</p>
+                    <p className="text-sm text-slate-600">
+                      RAG alone was not enough. Visible citations changed the experience from "AI tells me" to "AI shows me."
                     </p>
                   </div>
                 </div>
                 <div className={`border ${amiBorderSubtle} bg-white`}>
+                  <div className="p-3 border-b border-gray-300 bg-slate-50">
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-600">The four-layer trust architecture</p>
+                  </div>
                   <div className="p-3 border-b border-gray-300">
                     <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-slate-500">Skill gap review</p>
                     <p className="text-sm text-slate-600">Why does AI think I need this skill? Reasoning + confidence shown.</p>
@@ -414,6 +552,10 @@ export default function AiTutorPage() {
                   <div className="p-3">
                     <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-slate-500">AI transparency page</p>
                     <p className="text-sm text-slate-600">Bias audits and safeguards disclosed.</p>
+                  </div>
+                  <div className="p-3 border-t border-gray-300 text-sm text-slate-600">
+                    No single screen makes AI trustworthy. These four layers work together, each answering a
+                    different learner trust question.
                   </div>
                 </div>
               </div>
