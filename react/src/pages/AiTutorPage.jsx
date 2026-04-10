@@ -84,7 +84,7 @@ export default function AiTutorPage() {
 
   return (
     <div
-      className="min-h-screen bg-white text-slate-900 selection:bg-cyan-100 scroll-smooth pb-20"
+      className="ai-tutor-page min-h-screen bg-white text-slate-900 selection:bg-slate-200 selection:text-slate-900 scroll-smooth pb-20"
       style={openSans}
     >
       <section id="Overview" className="pt-2 pb-10 px-6">
@@ -146,20 +146,20 @@ export default function AiTutorPage() {
             </p>
           </div>
 
-          <div className="bg-amber-50 border border-amber-300 p-5 md:p-7">
-            <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-amber-700 mb-3">
+          <div className="bg-gray-50 border border-gray-300 p-5 md:p-7">
+            <p className="text-[10px] uppercase tracking-[0.2em] font-bold style={AMI.h2Style} mb-3">
               Original client brief - verbatim
             </p>
-            <p className="text-xs md:text-sm text-amber-900 leading-relaxed mb-3 font-mono">
+            <p className="text-xs md:text-sm style={AMI.h3Style} leading-relaxed mb-3 font-mono">
               "This project develops a personalized AI tutoring system that adapts its teaching style to
               individual learners. Rather than delivering uniform content, the system identifies cognitive
               preferences and learning gaps through interaction patterns and assessment data."
             </p>
-            <p className="text-xs md:text-sm text-amber-900 leading-relaxed mb-3 font-mono">
+            <p className="text-xs md:text-sm style={AMI.h3Style} leading-relaxed mb-3 font-mono">
               "The tutor is powered by LLMs connected to a curriculum knowledge graph, enabling
               prerequisite-aware lesson sequencing and targeted practice generation."
             </p>
-            <p className="text-xs text-amber-800 italic border-t border-amber-300 pt-3">
+            <p className="text-xs style={AMI.h3Style} italic border-t border-gray-300 pt-3">
               Ethical considerations listed: bias, transparency, and the role of AI in pedagogy, with no
               product-level specification.
             </p>
@@ -480,6 +480,35 @@ export default function AiTutorPage() {
           </div>
         </div>
       </section>
+
+      <section id="Video" className="py-1 px-6 pb-12">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-6">
+            <h2 className={AMI.h2} style={AMI.h2Style}>Demo</h2>
+            <h3 className={AMI.h3} style={AMI.h3Style}>End-to-end product walkthrough.</h3>
+          </div>
+          <div className={`border ${amiBorder} bg-white p-4 md:p-6`}>
+            <video
+              className={`w-full h-auto border ${amiBorderSubtle}`}
+              controls
+              preload="metadata"
+            >
+              <source src={amiImg('Final Demo.mp4')} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      </section>
+      <style>{`
+        .ai-tutor-page *::selection {
+          background: #e2e8f0;
+          color: #0f172a;
+        }
+        .ai-tutor-page *::-moz-selection {
+          background: #e2e8f0;
+          color: #0f172a;
+        }
+      `}</style>
     </div>
   );
 }

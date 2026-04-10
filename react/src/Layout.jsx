@@ -38,6 +38,7 @@ const AI_TUTOR_NAV_LINKS = [
   { name: 'Decisions', href: '#Decisions' },
   { name: 'Solution', href: '#Solution' },
   { name: 'Reflection', href: '#Reflection' },
+  { name: 'Video', href: '#Video' },
 ];
 
 /** Must match section `id`s on DesignStandardPage (design-standard-wcag). */
