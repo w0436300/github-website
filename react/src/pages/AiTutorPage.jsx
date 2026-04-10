@@ -103,29 +103,29 @@ export default function AiTutorPage() {
             return to.
           </p>
 
-          <div className={`border ${amiBorderSubtle} bg-white p-4 md:p-6 mb-8`}>
+          <div className={`bg-white p-4 md:p-6 mb-8`}>
             <img
               src={amiImg('overview.gif')}
               alt="Ami product overview"
-              className={`w-2/3 h-auto border-2 ${amiBorderSubtle}`}
+              className={`w-2/3 h-auto border-2 border-gray-300 ${amiBorderSubtle}`}
             />
           </div>
 
-          <div className={`grid md:grid-cols-4 gap-4 border-t ${amiBorderSubtle} pt-6`}>
-            <div className="md:pr-4 md:border-r md:border-cyan-200">
+          <div className={`grid md:grid-cols-4 gap-4`}>
+            <div className="md:pr-4 md:border-r md:border-gray-300">
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-1">My Role</p>
               <p className="text-sm text-slate-700">UX Research<br />Product Design<br />Frontend Engineering</p>
             </div>
-            <div className="md:px-4 md:border-r md:border-cyan-200">
+            <div className="md:px-4 md:border-r md:border-gray-300">
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-1">Team</p>
               <p className="text-sm text-slate-700">6-person cross-functional<br />1 PM · 2 Backend<br />1 Learning Analytics
               <br />2 UX Designers <br />1 User Research</p>
             </div>
-            <div className="md:px-4 md:border-r md:border-cyan-200">
+            <div className="md:px-4 md:border-r md:border-gray-300">
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-1">Timeline</p>
               <p className="text-sm text-slate-700">Jan - April 2026<br />12 weeks end-to-end</p>
             </div>
-            <div className="md:px-4 md:border-r md:border-cyan-200">
+            <div className="md:px-4 md:border-r md:border-gray-300">
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-1">Client & Technical advisor
               </p>
               <p className="text-sm text-slate-700">Dr. Ali Abbas — CEO of Smart Digital Medicin. <br />Ismaeel Al-Ridhawi — Associate Professor, School of Electrical Engineering and Computer Science, uOttawa</p>
@@ -165,7 +165,7 @@ export default function AiTutorPage() {
             </p>
           </div>
 
-          <p className={`mt-4 text-sm text-slate-600 border-l-4 border-cyan-700 pl-4`}>
+          <p className={`mt-4 text-sm text-slate-600 border-l-4 border-gray-300 pl-4`}>
             The first design decision was to close the gap between technical capability and learner
             experience.
           </p>
@@ -256,7 +256,7 @@ export default function AiTutorPage() {
           <div className="space-y-5">
             <article className={`border ${amiBorderSubtle} bg-white p-5 md:p-6`}>
               <div className="flex items-start gap-4 mb-4">
-                <span className="w-9 h-9 bg-emerald-600 text-white text-xs font-bold flex items-center justify-center">01</span>
+                <span className="w-9 h-9 bg-white border border-gray-300 text-xs font-bold flex items-center justify-center" style={{ color: 'rgb(52 118 128 / 0.88)' }}>01</span>
                 <div>
                   <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Onboarding</p>
                   <h4 className="text-lg font-semibold text-slate-900">
@@ -275,7 +275,7 @@ export default function AiTutorPage() {
                       <li className="text-slate-800 font-medium">Stage 4 (final): five behavioral labels mapping to FSLSM internally.</li>
                     </ul>
                   </div>
-                  <p className="text-sm text-slate-600 bg-emerald-50 border-l-4 border-emerald-300 p-3 mb-3 italic">
+                  <p className="text-sm bg-white border border-gray-300 p-3 mb-3 italic" style={{ color: 'rgb(52 118 128 / 0.88)' }}>
                     "Simple is not fewer steps. Simple is one clear decision at a time."
                   </p>
                   <p className="text-sm text-slate-600">
@@ -301,7 +301,7 @@ export default function AiTutorPage() {
 
             <article className={`border ${amiBorderSubtle} bg-white p-5 md:p-6`}>
               <div className="flex items-start gap-4 mb-4">
-                <span className="w-9 h-9 bg-emerald-600 text-white text-xs font-bold flex items-center justify-center">02</span>
+                <span className="w-9 h-9 bg-white border border-gray-300 text-xs font-bold flex items-center justify-center" style={{ color: 'rgb(52 118 128 / 0.88)' }}>02</span>
                 <div>
                   <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Skill Gap Review</p>
                   <h4 className="text-lg font-semibold text-slate-900">
@@ -312,13 +312,13 @@ export default function AiTutorPage() {
               <div className="grid lg:grid-cols-2 gap-5">
                 <div>
                   <div className={`grid md:grid-cols-2 border ${amiBorderSubtle} mb-3`}>
-                    <div className="p-3 border-b md:border-b-0 md:border-r border-cyan-100">
+                    <div className="p-3 border-b md:border-b-0 md:border-r border-gray-300">
                       <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-1">Option A</p>
                       <p className="text-sm text-slate-600">Skip review for fewer steps, but users cannot challenge wrong inferences.</p>
                     </div>
-                    <div className="p-3 bg-cyan-50">
-                      <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-cyan-800 mb-1">Chosen: Option B</p>
-                      <p className="text-sm text-slate-700">Show reasoning and allow edits before path generation.</p>
+                    <div className="p-3 bg-white border border-gray-300">
+                      <p className="text-[11px] font-bold uppercase tracking-[0.16em] mb-1" style={{ color: 'rgb(52 118 128 / 0.88)' }}>Chosen: Option B</p>
+                      <p className="text-sm" style={{ color: 'rgb(52 118 128 / 0.88)' }}>Show reasoning and allow edits before path generation.</p>
                     </div>
                   </div>
                   <p className="text-sm text-slate-600">
@@ -338,7 +338,7 @@ export default function AiTutorPage() {
 
             <article className={`border ${amiBorderSubtle} bg-white p-5 md:p-6`}>
               <div className="flex items-start gap-4 mb-4">
-                <span className="w-9 h-9 bg-emerald-600 text-white text-xs font-bold flex items-center justify-center">03</span>
+                <span className="w-9 h-9 bg-white border border-gray-300 text-xs font-bold flex items-center justify-center" style={{ color: 'rgb(52 118 128 / 0.88)' }}>03</span>
                 <div>
                   <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Chatbot Scope</p>
                   <h4 className="text-lg font-semibold text-slate-900">
@@ -352,23 +352,23 @@ export default function AiTutorPage() {
                     Global availability increased distraction during onboarding and review. Session-only
                     placement preserved flow focus and improved context quality for chatbot responses.
                   </p>
-                  <p className="text-sm text-slate-600 bg-emerald-50 border-l-4 border-emerald-300 p-3 italic">
+                  <p className="text-sm bg-white border border-gray-300 p-3 italic" style={{ color: 'rgb(52 118 128 / 0.88)' }}>
                     Same feature, different meaning based on placement. This was an IA decision, not only
                     a feature decision.
                   </p>
                 </div>
                 <div className={`border ${amiBorderSubtle} bg-white`}>
-                  <div className="p-3 border-b border-cyan-100">
+                  <div className="p-3 border-b border-gray-300">
                     <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-slate-500 mb-1">Onboarding</p>
                     <p className="text-sm text-red-600">Not available: keeps attention on setup decisions.</p>
                   </div>
-                  <div className="p-3 border-b border-cyan-100">
+                  <div className="p-3 border-b border-gray-300">
                     <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-slate-500 mb-1">Skill gap review</p>
                     <p className="text-sm text-red-600">Not available: prevents escape from review task.</p>
                   </div>
-                  <div className="p-3 bg-cyan-50">
-                    <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-cyan-800 mb-1">Learning session</p>
-                    <p className="text-sm text-cyan-900">Available: persistent sidebar with full session context.</p>
+                  <div className="p-3 bg-white border border-gray-300">
+                    <p className="text-[10px] uppercase tracking-[0.16em] font-bold mb-1" style={{ color: 'rgb(52 118 128 / 0.88)' }}>Learning session</p>
+                    <p className="text-sm" style={{ color: 'rgb(52 118 128 / 0.88)' }}>Available: persistent sidebar with full session context.</p>
                   </div>
                 </div>
               </div>
@@ -376,7 +376,7 @@ export default function AiTutorPage() {
 
             <article className={`border ${amiBorderSubtle} bg-white p-5 md:p-6`}>
               <div className="flex items-start gap-4 mb-4">
-                <span className="w-9 h-9 bg-emerald-600 text-white text-xs font-bold flex items-center justify-center">04</span>
+                <span className="w-9 h-9 bg-white border border-gray-300 text-xs font-bold flex items-center justify-center" style={{ color: 'rgb(52 118 128 / 0.88)' }}>04</span>
                 <div>
                   <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Content Citations</p>
                   <h4 className="text-lg font-semibold text-slate-900">
@@ -399,17 +399,17 @@ export default function AiTutorPage() {
                   </div>
                 </div>
                 <div className={`border ${amiBorderSubtle} bg-white`}>
-                  <div className="p-3 border-b border-cyan-100">
+                  <div className="p-3 border-b border-gray-300">
                     <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-slate-500">Skill gap review</p>
                     <p className="text-sm text-slate-600">Why does AI think I need this skill? Reasoning + confidence shown.</p>
                   </div>
-                  <div className="p-3 border-b border-cyan-100">
+                  <div className="p-3 border-b border-gray-300">
                     <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-slate-500">Profile page</p>
                     <p className="text-sm text-slate-600">How is my data used? Behavioral commitments are explicit.</p>
                   </div>
-                  <div className="p-3 border-b border-cyan-100 bg-cyan-50">
-                    <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-cyan-800">Session citations</p>
-                    <p className="text-sm text-slate-700">Where did this explanation come from? Source + page number.</p>
+                  <div className="p-3 border-b border-gray-300 bg-white">
+                    <p className="text-[10px] uppercase tracking-[0.16em] font-bold" style={{ color: 'rgb(52 118 128 / 0.88)' }}>Session citations</p>
+                    <p className="text-sm" style={{ color: 'rgb(52 118 128 / 0.88)' }}>Where did this explanation come from? Source + page number.</p>
                   </div>
                   <div className="p-3">
                     <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-slate-500">AI transparency page</p>
@@ -441,7 +441,7 @@ export default function AiTutorPage() {
                     <img src={amiImg(step.media)} alt={step.title} className="w-full h-auto max-h-[280px] object-contain" />
                   </div>
                   <div>
-                    <span className="inline-flex bg-emerald-600 text-white px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] mb-3">
+                    <span className="inline-flex bg-white border border-gray-300 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] mb-3" style={{ color: 'rgb(52 118 128 / 0.88)' }}>
                       {step.badge}
                     </span>
                     <h4 className="text-base font-semibold text-slate-900 mb-2">{step.title}</h4>

@@ -21,5 +21,5 @@ export const amiSectionHead = {
 };
 
 /** Ami content borders (Design Standard uses border-sky-200) */
-export const amiBorder = 'border-cyan-200';
-export const amiBorderSubtle = 'border-cyan-100';
+export const amiBorder = 'border-gray-300';
+export const amiBorderSubtle = 'border-gray-300';
