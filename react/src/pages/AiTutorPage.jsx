@@ -14,7 +14,7 @@ const RESEARCH_FINDINGS = [
   {
     no: '03',
     title: 'Academic terms miss user mental models',
-    body: 'FSLSM is pedagogically valid, but terms like sequential-global are not learner-facing language. The model needed translation, not replacement.',
+    body: 'FSLSM (a research-based framework for classifying learning styles) is pedagogically valid, but terms like sequential-global are not learner-facing language. The model needed translation, not replacement.',
   },
 ];
 
@@ -92,10 +92,10 @@ export default function AiTutorPage() {
           <div className="text-[10px] uppercase tracking-[0.18em] text-slate-600 mb-4">
             AI-Powered Education · UX Case Study · 2026
           </div>
-          <h1 className="text-2xl md:text-5xl font-extrabold leading-[1.05] tracking-tight mb-4">
-            Designing trust into an AI tutor,
-            <br />
-            <span style={{ color: `rgb(${amiAccentRgb})` }}>from the ground up.</span>
+          <h1 className="text-2xl md:text-2xl font-extrabold leading-[1.05] tracking-tight mb-4">
+            Designing trust into an AI tutor, 
+         
+            <span className="italic font-medium text-slate-600" style={{ color: `rgb(${amiAccentRgb})` }}> from the ground up.</span>
           </h1>
           <p className="text-sm md:text-base text-slate-600 max-w-4xl leading-relaxed mb-8">
             Ami is an adaptive learning platform built on a research AI baseline. The core challenge was
@@ -107,7 +107,7 @@ export default function AiTutorPage() {
             <img
               src={amiImg('overview.gif')}
               alt="Ami product overview"
-              className={`w-full h-auto border ${amiBorderSubtle}`}
+              className={`w-2/3 h-auto border-2 ${amiBorderSubtle}`}
             />
           </div>
 
@@ -118,16 +118,19 @@ export default function AiTutorPage() {
             </div>
             <div className="md:px-4 md:border-r md:border-cyan-200">
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-1">Team</p>
-              <p className="text-sm text-slate-700">6-person cross-functional<br />1 PM · 2 Backend<br />1 Learning Analytics</p>
+              <p className="text-sm text-slate-700">6-person cross-functional<br />1 PM · 2 Backend<br />1 Learning Analytics
+              <br />2 UX Designers <br />1 User Research</p>
             </div>
             <div className="md:px-4 md:border-r md:border-cyan-200">
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-1">Timeline</p>
               <p className="text-sm text-slate-700">Jan - April 2026<br />12 weeks end-to-end</p>
             </div>
-            <div className="md:pl-4">
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-1">Built on</p>
-              <p className="text-sm text-slate-700">GenMentor<br />(WWW 2025)</p>
+            <div className="md:px-4 md:border-r md:border-cyan-200">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-1">Client & Technical advisor
+              </p>
+              <p className="text-sm text-slate-700">Dr. Ali Abbas — CEO of Smart Digital Medicin. <br />Ismaeel Al-Ridhawi — Associate Professor, School of Electrical Engineering and Computer Science, uOttawa</p>
             </div>
+            
           </div>
         </div>
       </section>
@@ -253,7 +256,7 @@ export default function AiTutorPage() {
           <div className="space-y-5">
             <article className={`border ${amiBorderSubtle} bg-white p-5 md:p-6`}>
               <div className="flex items-start gap-4 mb-4">
-                <span className="w-9 h-9 bg-slate-900 text-white text-xs font-bold flex items-center justify-center">01</span>
+                <span className="w-9 h-9 bg-emerald-600 text-white text-xs font-bold flex items-center justify-center">01</span>
                 <div>
                   <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Onboarding</p>
                   <h4 className="text-lg font-semibold text-slate-900">
@@ -298,7 +301,7 @@ export default function AiTutorPage() {
 
             <article className={`border ${amiBorderSubtle} bg-white p-5 md:p-6`}>
               <div className="flex items-start gap-4 mb-4">
-                <span className="w-9 h-9 bg-slate-900 text-white text-xs font-bold flex items-center justify-center">02</span>
+                <span className="w-9 h-9 bg-emerald-600 text-white text-xs font-bold flex items-center justify-center">02</span>
                 <div>
                   <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Skill Gap Review</p>
                   <h4 className="text-lg font-semibold text-slate-900">
@@ -335,7 +338,7 @@ export default function AiTutorPage() {
 
             <article className={`border ${amiBorderSubtle} bg-white p-5 md:p-6`}>
               <div className="flex items-start gap-4 mb-4">
-                <span className="w-9 h-9 bg-slate-900 text-white text-xs font-bold flex items-center justify-center">03</span>
+                <span className="w-9 h-9 bg-emerald-600 text-white text-xs font-bold flex items-center justify-center">03</span>
                 <div>
                   <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Chatbot Scope</p>
                   <h4 className="text-lg font-semibold text-slate-900">
@@ -373,7 +376,7 @@ export default function AiTutorPage() {
 
             <article className={`border ${amiBorderSubtle} bg-white p-5 md:p-6`}>
               <div className="flex items-start gap-4 mb-4">
-                <span className="w-9 h-9 bg-slate-900 text-white text-xs font-bold flex items-center justify-center">04</span>
+                <span className="w-9 h-9 bg-emerald-600 text-white text-xs font-bold flex items-center justify-center">04</span>
                 <div>
                   <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Content Citations</p>
                   <h4 className="text-lg font-semibold text-slate-900">
@@ -438,7 +441,7 @@ export default function AiTutorPage() {
                     <img src={amiImg(step.media)} alt={step.title} className="w-full h-auto max-h-[280px] object-contain" />
                   </div>
                   <div>
-                    <span className="inline-flex bg-slate-900 text-white px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] mb-3">
+                    <span className="inline-flex bg-emerald-600 text-white px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] mb-3">
                       {step.badge}
                     </span>
                     <h4 className="text-base font-semibold text-slate-900 mb-2">{step.title}</h4>

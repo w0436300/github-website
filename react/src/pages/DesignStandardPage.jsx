@@ -293,7 +293,7 @@ export default function DesignStandardPage() {
               {
                 phase: 'Phase 03',
                 title: 'Align on standards',
-                body: 'Worked with PO and BA to define rules that could hold across platforms.',
+                body: 'Worked with PO and BA to define clear standards for each platform.',
                 tag: '✓ Complete',
                 done: true,
               },
@@ -542,18 +542,18 @@ export default function DesignStandardPage() {
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight leading-tight mb-4 text-slate-900">
                 From scattered files,
                 <br />
-                <span className="italic font-light text-[#0075BE]">to one shared reference.</span>
+                <span className="italic font-light text-[#0075BE]">to clear platform-specific references.</span>
               </h2>
               <p className="text-sm text-slate-600 leading-relaxed">
-                The result was a reusable internal standards library that made UI decisions easier to apply, review, and maintain across teams and platforms.
+                The result was a reusable internal documentation framework, with standards maintained separately for eForms, Letters, and eFes Lite Web.
               </p>
             </div>
             <div className="space-y-0 divide-y divide-sky-200">
               {[
                 { display: <>1000<span className="text-[#0075BE]">+</span></>, title: 'Projects reviewed in total', sub: 'Historical files across 3 platforms' },
                 { display: <>20<span className="text-[#0075BE]">+</span></>, title: 'Standards pages documented', sub: 'Components · patterns · standard blocks · and more' },
-                { display: '3', title: 'Platforms aligned', sub: 'eForms · Letters · eFes Lite Web' },
-                { display: '1', title: 'Internal standards library', sub: 'Reusable reference for future design work' },
+                { display: '3', title: 'Platform standards tracks', sub: 'eForms · Letters · eFes Lite Web' },
+                { display: '1', title: 'Documentation framework', sub: 'One method, maintained as separate platform standards' },
               ].map((row) => (
                 <div key={row.title} className="flex flex-wrap items-baseline justify-between gap-4 py-5 first:pt-0">
                   <span className="text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 tabular-nums">{row.display}</span>
