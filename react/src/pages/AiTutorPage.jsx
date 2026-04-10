@@ -484,18 +484,45 @@ export default function AiTutorPage() {
       <section id="Video" className="py-1 px-6 pb-12">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-6">
-            <h2 className={AMI.h2} style={AMI.h2Style}>Demo</h2>
+            <h2 className={AMI.h2} style={AMI.h2Style}>Vedio</h2>
             <h3 className={AMI.h3} style={AMI.h3Style}>End-to-end product walkthrough.</h3>
           </div>
-          <div className={`border ${amiBorder} bg-white p-4 md:p-6`}>
-            <video
-              className={`w-full h-auto border ${amiBorderSubtle}`}
-              controls
-              preload="metadata"
-            >
-              <source src={amiImg('Final Demo.mp4')} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+          <div className="grid lg:grid-cols-2 gap-4">
+            <div className={`border ${amiBorder} bg-white p-4 md:p-6`}>
+            <p
+                className="text-[10px] font-bold uppercase tracking-[0.2em] mb-3"
+                style={{ color: 'rgb(52 118 128 / 0.88)' }}
+              >
+                DEMO
+              </p>
+              <video
+                className={`w-full h-auto border ${amiBorderSubtle}`}
+                controls
+                preload="metadata"
+              >
+                <source src={amiImg('Final Demo.mp4')} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div className={`border ${amiBorder} bg-white p-4 md:p-6`}>
+              <p
+                className="text-[10px] font-bold uppercase tracking-[0.2em] mb-3"
+                style={{ color: 'rgb(52 118 128 / 0.88)' }}
+              >
+                Full presentation
+              </p>
+              <div className={`w-full aspect-video border ${amiBorderSubtle}`}>
+                <iframe
+                  className="w-full h-full"
+                  src="https://www.youtube.com/embed/X_UXuYaqbr4"
+                  title="Ami full presentation"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
