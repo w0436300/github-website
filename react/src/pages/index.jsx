@@ -221,7 +221,7 @@ export function HomePage() {
 
 export function ResumePage() {
   const baseTrim = BASE.endsWith('/') ? BASE.slice(0, -1) : BASE || '';
-  const pdfHref = `${baseTrim}/resume/resume-new.pdf`;
+  const pdfHref = `${baseTrim}/resume/ClaireWang_Resume_2026.pdf`;
 
   return (
     <div className="px-6 md:px-12 lg:px-20 py-20 md:py-32">
