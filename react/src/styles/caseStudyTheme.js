@@ -1,6 +1,11 @@
 /** Shared typography for case study pages (Open Sans is loaded in index.html). */
 export const openSans = { fontFamily: '"Open Sans", sans-serif' };
 
+/** Home hero + About (`/blog`) — overrides global Merriweather/Open Sans on headings/body. */
+export const sourceSansPro = {
+  fontFamily: '"Source Sans Pro", ui-sans-serif, system-ui, sans-serif',
+};
+
 /** Design Standard — blue section titles */
 export const dsAccentRgb = '0 117 190'; // #0075BE
 export const dsSectionHead = {

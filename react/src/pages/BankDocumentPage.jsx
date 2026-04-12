@@ -135,8 +135,10 @@ export default function BankDocumentPage() {
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto">
-        <section id="Reflection" className="py-1">
+      {/* Same horizontal frame as Overview: outer padding, then max-width (avoids flush-to-sidebar on narrow main). */}
+      <div className="px-6 md:px-12">
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 md:gap-14 pt-6 md:pt-10">
+        <section id="Reflection" className="scroll-mt-20 md:scroll-mt-24">
           <div className="text-center md:text-left mb-1">
             <h2 className={SECTION.h2} style={SECTION.h2Style}>
               Reflection
@@ -155,7 +157,7 @@ export default function BankDocumentPage() {
         </section>
 
         {/* Context */}
-        <section id="Context" className="py-12 md:py-16 ">
+        <section id="Context" className="scroll-mt-20 md:scroll-mt-24">
           <div className="text-center md:text-left mb-2">
             <h2 className={SECTION.h2} style={SECTION.h2Style}>
               Context
@@ -211,7 +213,7 @@ export default function BankDocumentPage() {
         </section>
 
         {/* Challenge */}
-        <section id="Challenge" className="py-1 ">
+        <section id="Challenge" className="scroll-mt-20 md:scroll-mt-24">
           <SectionIntro
             eyebrow="Challenge"
             title="Not a visual refresh. A structural rebuild."
@@ -231,7 +233,7 @@ export default function BankDocumentPage() {
         </section>
 
         {/* Role */}
-        <section id="Role" className="py-10">
+        <section id="Role" className="scroll-mt-20 md:scroll-mt-24">
           <SectionIntro eyebrow="My Role" title="What I was responsible for." />
           <div className="grid md:grid-cols-2 gap-8">
             <ul className="space-y-0 list-none">
@@ -260,7 +262,7 @@ export default function BankDocumentPage() {
         </section>
 
         {/* Process */}
-        <section id="Process" className="py-1 ">
+        <section id="Process" className="scroll-mt-20 md:scroll-mt-24">
           <SectionIntro eyebrow="Process" title="Four core questions, in order." />
           <div className="flex flex-col gap-px bg-gray-200 border border-gray-200">
             {PROCESS.map((step) => (
@@ -281,7 +283,7 @@ export default function BankDocumentPage() {
         </section>
 
         {/* Decisions */}
-        <section id="Decisions" className="py-1">
+        <section id="Decisions" className="scroll-mt-20 md:scroll-mt-24">
           <SectionIntro
             eyebrow="Decisions"
             title="Format exploration and sign-off"
@@ -307,7 +309,7 @@ export default function BankDocumentPage() {
         </section>
 
         {/* Mockup */}
-        <section id="Mockup" className="py-10">
+        <section id="Mockup" className="scroll-mt-20 md:scroll-mt-24 pb-4 md:pb-6">
           <SectionIntro
             eyebrow="Final Mockup"
             title="The redesigned template — Page 1 of 2."
@@ -421,6 +423,7 @@ export default function BankDocumentPage() {
             </div>
           </div>
         </section>
+        </div>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
 import {
   ArrowLeft,
@@ -8,8 +8,6 @@ import {
   Github,
   Linkedin,
   FileText,
-  Menu,
-  X,
 } from 'lucide-react';
 
 const HOME_NAV = [
@@ -19,7 +17,7 @@ const HOME_NAV = [
 
 const FOOTER_SOCIAL = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/xinping-w/', Icon: Linkedin },
-  { label: 'Github', href: 'https://github.com/w0436300', Icon: Github },
+  { label: 'GitHub', href: 'https://github.com/w0436300', Icon: Github },
   { label: 'Email', href: 'mailto:xinpingxh@gmail.com', Icon: Mail },
 ];
 
@@ -68,9 +66,9 @@ const BANK_DOCUMENT_NAV_LINKS = [
 ];
 
 export default function Layout() {
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeCaseStudySection, setActiveCaseStudySection] = useState('Overview');
+  const siteHeaderRef = useRef(null);
+  const [siteHeaderHeight, setSiteHeaderHeight] = useState(56);
   const navigate = useNavigate();
   const location = useLocation();
   const isHome = location.pathname === '/' || location.pathname === '';
@@ -81,7 +79,6 @@ export default function Layout() {
   const isBankDocumentPage = location.pathname === '/project/bank-document-system';
   const isBlueCaseStudy = isDesignStandardPage || isBankDocumentPage;
   const isCaseStudyPage = isAiTutorPage || isDesignStandardPage || isBankDocumentPage;
-  const sidebarCollapsed = isProjectPage ? false : isSidebarCollapsed;
   const caseStudyNavLinks = isAiTutorPage
     ? AI_TUTOR_NAV_LINKS
     : isDesignStandardPage
@@ -98,6 +95,16 @@ export default function Layout() {
     }
   }, [isProjectPage, location.pathname]);
 
+  useLayoutEffect(() => {
+    const el = siteHeaderRef.current;
+    if (!el || typeof ResizeObserver === 'undefined') return;
+    const apply = () => setSiteHeaderHeight(Math.round(el.getBoundingClientRect().height));
+    apply();
+    const ro = new ResizeObserver(apply);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [location.pathname]);
+
   useEffect(() => {
     if (!isCaseStudyPage) return;
     setActiveCaseStudySection('Overview');
@@ -107,7 +114,7 @@ export default function Layout() {
     if (!isCaseStudyPage || !caseStudyNavLinks?.length) return;
     const ids = caseStudyNavLinks.map((l) => l.href.slice(1));
     const compute = () => {
-      const threshold = 120;
+      const threshold = 100;
       let active = ids[0];
       for (const id of ids) {
         const el = document.getElementById(id);
@@ -136,22 +143,18 @@ export default function Layout() {
       if (el) el.scrollIntoView({ behavior: 'smooth' });
       if (window.history.replaceState) window.history.replaceState(null, '', '/#home');
     }
-    setIsMobileMenuOpen(false);
   };
 
   const handleAboutNav = () => {
     navigate('/blog');
-    setIsMobileMenuOpen(false);
   };
 
   const goHome = () => {
     navigate('/');
-    setIsMobileMenuOpen(false);
   };
 
   const goHomeProjectSection = () => {
     navigate('/');
-    setIsMobileMenuOpen(false);
     // When leaving a project page, always return to the top of Home.
     setTimeout(() => {
       window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
@@ -159,246 +162,145 @@ export default function Layout() {
     }, 0);
   };
 
+  /** Global top bar — always same look as home (not case-study tinted). */
+  const globalTopBarClass =
+    'border-gray-100 bg-white/95 backdrop-blur-md supports-[backdrop-filter]:bg-white/90';
+
+  const headerBarClass = isBlueCaseStudy
+    ? 'border-sky-200 bg-sky-50/95 backdrop-blur-md supports-[backdrop-filter]:bg-sky-50/90'
+    : isAiTutorPage
+      ? 'border-cyan-200/80 bg-cyan-50/90 backdrop-blur-md supports-[backdrop-filter]:bg-cyan-50/85'
+      : 'border-gray-100 bg-white/95 backdrop-blur-md supports-[backdrop-filter]:bg-white/90';
+
+  const backBtnClass = isBlueCaseStudy
+    ? 'text-slate-700 hover:text-sky-900'
+    : isAiTutorPage
+      ? 'text-slate-700 hover:text-cyan-900'
+      : 'text-gray-700 hover:text-blue-600';
+
+  const backIconClass = isBlueCaseStudy
+    ? 'text-slate-500 group-hover:text-sky-800'
+    : isAiTutorPage
+      ? 'text-slate-500 group-hover:text-cyan-800'
+      : 'text-gray-400 group-hover:text-blue-600';
+
+  const sectionLinkClass = (sectionId) => {
+    const active = isCaseStudyPage && activeCaseStudySection === sectionId;
+    if (active) {
+      if (isBlueCaseStudy) return 'bg-sky-200/80 text-sky-900';
+      if (isAiTutorPage) return 'border border-cyan-200/80 bg-cyan-50/90 text-cyan-950';
+      return 'bg-cyan-50 text-[rgb(52,118,128)]';
+    }
+    if (isCaseStudyPage) {
+      if (isBlueCaseStudy) return 'border border-transparent text-slate-600 hover:bg-sky-100/90 hover:text-sky-900';
+      if (isAiTutorPage) return 'border border-transparent text-slate-600 hover:bg-slate-100/90 hover:text-slate-900';
+      return 'text-gray-600 hover:bg-teal-50/50 hover:text-[rgb(52,118,128)]';
+    }
+    return 'text-gray-600 hover:bg-gray-100 hover:text-black';
+  };
+
+  const topSocialIconClass =
+    'top-social-link relative inline-flex rounded-md p-1.5 text-gray-500 transition-colors hover:bg-black/5 hover:text-black';
+
+  const topSocialTooltipClass =
+    'pointer-events-none absolute left-1/2 top-full z-[60] mt-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-[#FFCC00] px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-black opacity-0 shadow-md ring-1 ring-black/10 transition-opacity duration-150 group-hover:opacity-100';
+
+  const topSocialLinks = (
+    <>
+      {FOOTER_SOCIAL.map(({ label, href, Icon }) => (
+        <span key={label} className="group relative inline-flex">
+          <a
+            href={href}
+            target={href.startsWith('mailto') ? undefined : '_blank'}
+            rel={href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
+            className={topSocialIconClass}
+            aria-label={label}
+          >
+            <Icon size={17} className="shrink-0" />
+          </a>
+          <span className={topSocialTooltipClass} role="tooltip">
+            {label}
+          </span>
+        </span>
+      ))}
+      <span className="group relative inline-flex">
+        <Link to="/resume" className={topSocialIconClass} aria-label="Resume">
+          <FileText size={17} className="shrink-0" />
+        </Link>
+        <span className={topSocialTooltipClass} role="tooltip">
+          Resume
+        </span>
+      </span>
+    </>
+  );
+
+  const asideShell = isBlueCaseStudy
+    ? 'border-sky-200 bg-sky-50'
+    : isAiTutorPage
+      ? 'border-cyan-100 bg-cyan-50/50'
+      : 'border-gray-100 bg-white';
+
+  const scrollToSection = (href) => {
+    const sectionId = href.slice(1);
+    const el = document.getElementById(sectionId);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (window.history.replaceState) {
+      window.history.replaceState(null, '', `${location.pathname}${href}`);
+    }
+  };
+
+  const projectNavMobileRow = (
+    <div className="mx-auto flex w-full max-w-[100vw] items-center gap-2 px-3 py-2 sm:gap-3 sm:px-5 sm:py-2.5">
+      <button
+        type="button"
+        onClick={goHomeProjectSection}
+        className={`group flex shrink-0 items-center gap-1.5 rounded-md px-1.5 py-1.5 text-left transition-colors cursor-pointer sm:gap-2 sm:px-2 ${backBtnClass}`}
+      >
+        <ArrowLeft size={18} className={`shrink-0 transition-transform group-hover:-translate-x-0.5 ${backIconClass}`} aria-hidden />
+        <span className="hidden text-[10px] font-bold uppercase tracking-[0.18em] sm:inline sm:text-[11px]">Back</span>
+      </button>
+      <nav
+        className="flex min-h-0 min-w-0 flex-1 items-center gap-1 overflow-x-auto py-0.5 [-webkit-overflow-scrolling:touch]"
+        aria-label="Project sections"
+      >
+        {projectNavLinks.map((link) => {
+          const sectionId = link.href.slice(1);
+          return (
+            <button
+              key={link.name}
+              type="button"
+              onClick={() => scrollToSection(link.href)}
+              className={`shrink-0 rounded-md px-2 py-1.5 text-left text-[10px] font-bold uppercase tracking-wide transition-colors cursor-pointer sm:text-[11px] ${sectionLinkClass(sectionId)}`}
+            >
+              {link.name}
+            </button>
+          );
+        })}
+      </nav>
+    </div>
+  );
+
   return (
     <div className="bg-white text-black font-sans selection:bg-black selection:text-white overflow-x-hidden">
-      {/* Sidebar - 始终显示，用内联样式避免被全局 .hidden 覆盖 */}
-      <aside
-        className={`fixed top-0 left-0 h-full z-50 flex flex-col transition-all duration-500 ease-in-out border-r ${
-          isBlueCaseStudy
-            ? 'bg-sky-50 border-sky-200'
-            : isAiTutorPage
-              ? 'bg-cyan-50/50 border-cyan-100'
-              : 'bg-white border-gray-100'
-        } ${sidebarCollapsed ? 'w-24 p-6' : 'w-56 p-8'}`}
-        style={{ display: 'flex' }}
+      {/* Global site header — fixed to viewport so it stays on top while scrolling */}
+      <header
+        ref={siteHeaderRef}
+        className={`fixed inset-x-0 top-0 z-50 border-b shadow-[0_8px_30px_-12px_rgba(0,0,0,0.12)] ${globalTopBarClass}`}
       >
-        <div className="flex flex-col h-full justify-between overflow-hidden min-h-0">
-          <div className="min-h-0 flex-1 flex flex-col overflow-y-auto">
-            {!isProjectPage && (
-              <button
-                onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-                className="w-10 h-10 mb-12 flex items-center justify-center hover:bg-gray-50 rounded-xl transition-colors text-gray-400 hover:text-black shrink-0 cursor-pointer"
-              >
-                <Menu size={22} />
-              </button>
-            )}
-            {!isProjectPage && (
-              <button
-                onClick={goHome}
-                className={`cursor-pointer text-2xl font-black tracking-tighter mb-10 block group whitespace-nowrap transition-opacity duration-300 shrink-0 ${sidebarCollapsed ? 'opacity-0 h-0 pointer-events-none overflow-hidden' : 'opacity-100'}`}
-              >
-                XP<span className="text-blue-600 group-hover:ml-1 transition-all">.</span>
-              </button>
-            )}
-
-            {isProjectPage ? (
-              <nav className="flex flex-col gap-0">
-                <button
-                  type="button"
-                  onClick={goHomeProjectSection}
-                  className={`group flex items-center gap-2 transition-all w-full text-left cursor-pointer ${
-                    sidebarCollapsed ? 'justify-center' : ''
-                  } ${
-                    isBlueCaseStudy
-                      ? 'text-slate-700 hover:text-sky-900'
-                      : isAiTutorPage
-                        ? 'text-slate-700 hover:text-cyan-900'
-                        : 'text-gray-700 hover:text-blue-600'
-                  }`}
-                >
-                  <ArrowLeft
-                    size={16}
-                    className={`shrink-0 transition-transform group-hover:-translate-x-0.5 ${
-                      isBlueCaseStudy
-                        ? 'text-slate-500 group-hover:text-sky-800'
-                        : isAiTutorPage
-                          ? 'text-slate-500 group-hover:text-cyan-800'
-                          : 'text-gray-400 group-hover:text-blue-600'
-                    }`}
-                    aria-hidden
-                  />
-                  {!sidebarCollapsed && (
-                    <span className="text-[11px] uppercase tracking-[0.2em] font-bold">Back</span>
-                  )}
-                </button>
-                {!sidebarCollapsed && (
-                  <div
-                    className={`h-px w-full my-1 ${
-                      isBlueCaseStudy ? 'bg-sky-200' : isAiTutorPage ? 'bg-cyan-200/70' : 'bg-gray-100'
-                    }`}
-                  />
-                )}
-                {projectNavLinks.map((link) => {
-                  const sectionId = link.href.slice(1);
-                  const navActive =
-                    isCaseStudyPage && activeCaseStudySection === sectionId;
-                  return (
-                  <button
-                    key={link.name}
-                    type="button"
-                    onClick={() => {
-                      const el = document.getElementById(sectionId);
-                      if (el) el.scrollIntoView({ behavior: 'smooth' });
-                      if (window.history.replaceState) {
-                        window.history.replaceState(null, '', `${location.pathname}${link.href}`);
-                      }
-                    }}
-                    className={`group flex items-center gap-4 transition-all w-full text-left rounded-md cursor-pointer ${
-                      sidebarCollapsed ? 'justify-center px-0' : 'px-2 py-2 -mx-2'
-                    } ${
-                      navActive
-                        ? isBlueCaseStudy
-                          ? 'bg-sky-200/80 text-sky-900'
-                          : isAiTutorPage
-                            ? 'bg-cyan-50/90 text-cyan-950 border border-cyan-200/80'
-                            : 'bg-cyan-50 text-[rgb(52,118,128)]'
-                        : isCaseStudyPage
-                          ? isBlueCaseStudy
-                            ? 'text-slate-600 hover:bg-sky-100/90 hover:text-sky-900'
-                            : isAiTutorPage
-                              ? 'border border-transparent text-slate-600 hover:bg-slate-100/90 hover:text-slate-900'
-                              : 'text-gray-600 hover:bg-teal-50/50 hover:text-[rgb(52,118,128)]'
-                          : 'text-gray-600 hover:text-black'
-                    }`}
-                  >
-                    {!sidebarCollapsed && (
-                      <span className="text-[11px] uppercase tracking-[0.2em] font-bold">{link.name}</span>
-                    )}
-                  </button>
-                );
-                })}
-              </nav>
-            ) : (
-              <nav className="flex flex-col gap-2 shrink-0">
-                {HOME_NAV.map((link) => {
-                  const Icon = link.icon;
-                  const workActive = isHome && !isAboutPage;
-                  const aboutActive = isAboutPage;
-                  const isActive = link.kind === 'work' ? workActive : aboutActive;
-                  return (
-                    <button
-                      key={link.name}
-                      type="button"
-                      onClick={link.kind === 'work' ? handleWorkNav : handleAboutNav}
-                      className={`group flex items-center gap-4 transition-all w-full text-left rounded-md px-2 py-2.5 -mx-2 cursor-pointer ${
-                        sidebarCollapsed ? 'justify-center px-0' : ''
-                      } ${isActive ? 'bg-[#FFCC00] text-black' : 'text-gray-400 hover:text-black'}`}
-                    >
-                      <span
-                        className={`transition-colors shrink-0 ${
-                          isActive ? 'text-black' : 'text-gray-200 group-hover:text-blue-600'
-                        }`}
-                      >
-                        <Icon size={18} />
-                      </span>
-                      {!sidebarCollapsed && (
-                        <span className="text-[11px] uppercase tracking-[0.2em] font-bold">{link.name}</span>
-                      )}
-                    </button>
-                  );
-                })}
-              </nav>
-            )}
+        <div className="mx-auto flex w-full max-w-[100vw] items-center justify-between gap-3 px-3 py-2 sm:px-6 sm:py-2.5">
+          <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2 sm:gap-3">
+            <button
+              type="button"
+              onClick={goHome}
+              className="group shrink-0 cursor-pointer text-lg font-black tracking-tighter sm:text-xl"
+            >
+              Claire<span className="text-blue-600 transition-all group-hover:ml-0.5">.</span>
+            </button>
+            <div className="flex min-w-0 flex-wrap items-center gap-0.5 sm:gap-1">{topSocialLinks}</div>
+         
           </div>
-
-          <div
-            className={`shrink-0 flex flex-col gap-4 pt-6 border-t ${
-              isBlueCaseStudy ? 'border-sky-200' : isAiTutorPage ? 'border-cyan-200' : 'border-gray-100'
-            }`}
-          >
-            {!sidebarCollapsed ? (
-              <>
-                <div className="flex flex-col gap-2.5 text-[11px]">
-                  {FOOTER_SOCIAL.map(({ label, href, Icon }) => (
-                    <a
-                      key={label}
-                      href={href}
-                      target={href.startsWith('mailto') ? undefined : '_blank'}
-                      rel={href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
-                      className="underline underline-offset-[3px] text-gray-500 hover:text-black flex items-center gap-2 cursor-pointer"
-                    >
-                      <Icon size={14} className="shrink-0" />
-                      {label}
-                    </a>
-                  ))}
-                  <Link
-                    to="/resume"
-                    className="underline underline-offset-[3px] text-gray-500 hover:text-black flex items-center gap-2 cursor-pointer"
-                  >
-                    <FileText size={14} className="shrink-0" />
-                    Resume
-                  </Link>
-                </div>
-                <p className="text-[10px] text-gray-900 leading-snug">
-                  Designed + Engineered by Xinping(Claire)
-                </p>
-              </>
-            ) : (
-              <div className="flex flex-col gap-4 items-center pb-1">
-                {FOOTER_SOCIAL.map(({ label, href, Icon }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    target={href.startsWith('mailto') ? undefined : '_blank'}
-                    rel={href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
-                    className="text-gray-400 hover:text-black cursor-pointer"
-                    aria-label={label}
-                  >
-                    <Icon size={18} />
-                  </a>
-                ))}
-                <Link to="/resume" className="text-gray-400 hover:text-black cursor-pointer" aria-label="Resume">
-                  <FileText size={18} />
-                </Link>
-              </div>
-            )}
-          </div>
-        </div>
-      </aside>
-
-      {/* Mobile nav - 小屏时通过 CSS 媒体查询显示 */}
-      <nav className="sidebar-mobile-nav fixed top-0 left-0 right-0 z-40 bg-white/90 backdrop-blur-xl border-b border-gray-100 px-6 py-4 flex justify-between items-center">
-        <button type="button" onClick={goHome} className="text-xl font-black tracking-tighter cursor-pointer">
-          XP.
-        </button>
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={handleWorkNav}
-            className={`px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-colors cursor-pointer ${
-              isHome && !isAboutPage ? 'bg-[#FFCC00] text-black' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-            }`}
-          >
-            Work
-          </button>
-          <button
-            type="button"
-            onClick={handleAboutNav}
-            className={`px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-colors cursor-pointer ${
-              isAboutPage ? 'bg-[#FFCC00] text-black' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-            }`}
-          >
-            About
-          </button>
-          <button
-            type="button"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-black p-1 cursor-pointer"
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile menu overlay */}
-      {isMobileMenuOpen && (
-        <div
-          className="fixed inset-0 z-40 bg-white/95 backdrop-blur-xl pt-20 px-6 sidebar-mobile-overlay"
-          aria-hidden
-        >
-          <nav className="flex flex-col gap-3">
+          <nav className="flex shrink-0 items-center gap-1.5 sm:gap-2" aria-label="Primary">
             {HOME_NAV.map((link) => {
-              const Icon = link.icon;
               const workActive = isHome && !isAboutPage;
               const aboutActive = isAboutPage;
               const isActive = link.kind === 'work' ? workActive : aboutActive;
@@ -407,47 +309,72 @@ export default function Layout() {
                   key={link.name}
                   type="button"
                   onClick={link.kind === 'work' ? handleWorkNav : handleAboutNav}
-                  className={`flex items-center gap-4 text-left rounded-lg px-2 py-2 -mx-2 cursor-pointer ${
-                    isActive ? 'bg-[#FFCC00] text-black' : 'text-gray-600 hover:text-black'
+                  className={`cursor-pointer rounded-full px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-wider transition-colors sm:px-3 ${
+                    isActive ? 'bg-[#FFCC00] text-black' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}
                 >
-                  <Icon size={20} />
-                  <span className="text-sm font-bold uppercase tracking-wider">{link.name}</span>
+                  {link.name}
                 </button>
               );
             })}
-            <div className="flex flex-col gap-3 text-sm border-t border-gray-100 pt-6">
-              {FOOTER_SOCIAL.map(({ label, href, Icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target={href.startsWith('mailto') ? undefined : '_blank'}
-                  rel={href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="underline underline-offset-2 text-gray-600 flex items-center gap-2 cursor-pointer"
-                >
-                  <Icon size={18} />
-                  {label}
-                </a>
-              ))}
-              <Link
-                to="/resume"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="underline underline-offset-2 text-gray-600 flex items-center gap-2 cursor-pointer"
-              >
-                <FileText size={18} />
-                Resume
-              </Link>
-            </div>
-            <p className="text-xs text-gray-900 pt-2">Designed + Engineered by Xinping(Claire)</p>
           </nav>
         </div>
+      </header>
+      {/* Reserve space for fixed header (height synced with measured header) */}
+      <div className="shrink-0" style={{ height: siteHeaderHeight }} aria-hidden />
+
+      {isProjectPage && (
+        <>
+          {/* md+: section nav under global header */}
+          <aside
+            className={`fixed bottom-0 left-0 z-40 hidden w-56 flex-col border-r p-6 pt-4 md:flex ${asideShell}`}
+            style={{ top: siteHeaderHeight }}
+            aria-label="Project"
+          >
+            <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
+              <button
+                type="button"
+                onClick={goHomeProjectSection}
+                className={`group mb-6 flex w-full items-center gap-2 rounded-md text-left transition-colors cursor-pointer ${backBtnClass}`}
+              >
+                <ArrowLeft
+                  size={16}
+                  className={`shrink-0 transition-transform group-hover:-translate-x-0.5 ${backIconClass}`}
+                  aria-hidden
+                />
+                <span className="text-[11px] font-bold uppercase tracking-[0.2em]">Back</span>
+              </button>
+              <div
+                className={`mb-4 h-px w-full ${isBlueCaseStudy ? 'bg-sky-200' : isAiTutorPage ? 'bg-cyan-200/70' : 'bg-gray-100'}`}
+              />
+              <nav className="flex flex-col gap-0.5" aria-label="Project sections">
+                {projectNavLinks.map((link) => {
+                  const sectionId = link.href.slice(1);
+                  return (
+                    <button
+                      key={link.name}
+                      type="button"
+                      onClick={() => scrollToSection(link.href)}
+                      className={`w-full cursor-pointer rounded-md px-2 py-2 text-left text-[11px] font-bold uppercase tracking-[0.2em] transition-colors ${sectionLinkClass(sectionId)}`}
+                    >
+                      {link.name}
+                    </button>
+                  );
+                })}
+              </nav>
+            </div>
+          </aside>
+          {/* < md: second sticky row — Back + sections (social is in global header) */}
+          <div
+            className={`sticky z-40 border-b md:hidden ${headerBarClass}`}
+            style={{ top: siteHeaderHeight }}
+          >
+            {projectNavMobileRow}
+          </div>
+        </>
       )}
 
-      {/* Main content */}
-      <main
-        className={`min-w-0 transition-all duration-500 ease-in-out min-h-screen sidebar-main ${sidebarCollapsed ? 'pl-24' : 'pl-56'} pt-20 md:pt-4`}
-      >
+      <main className={`min-h-screen min-w-0 ${isProjectPage ? 'md:pl-56' : ''}`}>
         <Outlet />
       </main>
 
@@ -455,14 +382,10 @@ export default function Layout() {
         html { scroll-behavior: smooth; }
         @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .animate-spin-slow { animation: spin-slow 8s linear infinite; }
-        @media (max-width: 767px) {
-          .sidebar-mobile-nav { display: flex !important; }
-          main { padding-left: 0 !important; }
-          aside { display: none !important; }
-        }
-        @media (min-width: 768px) {
-          .sidebar-mobile-nav { display: none !important; }
-          .sidebar-mobile-overlay { display: none !important; }
+        .top-social-link:hover {
+          cursor: url("data:image/svg+xml,${encodeURIComponent(
+            '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28"><circle cx="14" cy="14" r="11" fill="#FFCC00"/></svg>'
+          )}") 14 14, auto;
         }
       `}</style>
     </div>

@@ -525,7 +525,7 @@ export default function DesignStandardPage() {
         </div>
       </section>
 
-      <section id="Outcome" className="py-1 px-6 pb-12">
+      {/* <section id="Outcome" className="py-1 px-6 pb-12">
         <div className="max-w-7xl mx-auto overflow-hidden border border-sky-200 bg-white text-slate-900">
           <div className="grid md:grid-cols-2 gap-10 p-8 md:p-12">
             <div>
@@ -557,7 +557,9 @@ export default function DesignStandardPage() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
+      
     </div>
+    
   );
 }

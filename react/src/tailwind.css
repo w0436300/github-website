@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+/*
+ * public/css/style.css sets h1–h6 → Merriweather, article p → Merriweather, button → Open Sans.
+ * Blog root uses inline sourceSansPro; force subtree to inherit it (not --font-main / --font-reading).
+ */
+.blog-page-root * {
+  font-family: inherit !important;
+}

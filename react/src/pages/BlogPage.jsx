@@ -7,11 +7,9 @@ import {
   ChevronRight,
   ChevronDown,
 } from 'lucide-react';
+import { sourceSansPro } from '../styles/caseStudyTheme.js';
 
 const BASE = import.meta.env.BASE_URL || '/';
-
-/** Whole page uses Source Sans Pro (loaded in index.html; stack matches home). */
-const sourceSansPro = { fontFamily: '"Source Sans Pro", ui-sans-serif, system-ui, sans-serif' };
 const PERSONAL_PHOTO = `${BASE}img/photo.png`;
 const CERTIFICATE_IMAGES = [`${BASE}img/certificate.png`];
 
@@ -229,7 +227,7 @@ export default function BlogPage() {
 
   return (
     <div
-      className="flex min-h-screen w-full min-w-0 flex-col bg-white text-black/85"
+      className="blog-page-root flex min-h-screen w-full min-w-0 flex-col bg-white text-black/85"
       style={sourceSansPro}
     >
       {hoverTip.show && (
@@ -269,9 +267,9 @@ export default function BlogPage() {
       <div className={`flex w-full min-w-0 flex-1 flex-col py-2 ${pageX} space-y-7 md:space-y-8 lg:space-y-9`}>
         {/* Intro — plain copy at top, no card */}
         <section className={`${textColumn} space-y-1`}>
-          <h3 className="text-base md:text-lg text-black/85 leading-relaxed">
+          <h2 className="text-base md:text-lg text-black/85 leading-relaxed">
             I&apos;m a designer, engineer, and surfer with a lifelong curiosity for learning and exploring.
-          </h3>
+          </h2>
           <p className="text-sm md:text-base text-black/80 leading-relaxed">
             I&apos;m focused on designing digital products that are clear, well-structured, and genuinely useful
             to the people who use them.
@@ -390,7 +388,7 @@ export default function BlogPage() {
 
       <footer className={`w-full min-w-0 shrink-0 border-t border-gray-200 py-8 text-center md:py-10 ${pageX}`}>
         <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-black/40">
-          Designed by Xinping — 2026
+          Designed + Engineered by Xinping(Claire) - 2026
         </p>
       </footer>
     </div>

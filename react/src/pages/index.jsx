@@ -3,6 +3,7 @@ import { Award, ArrowUpRight, Download } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useScrollToHash } from '../hooks/useScrollToHash.js';
 import { projects } from '../data/projects.js';
+import { sourceSansPro } from '../styles/caseStudyTheme.js';
 
 const BASE = import.meta.env.BASE_URL || '/';
 
@@ -95,7 +96,7 @@ export function HomePage() {
         </div>
         <h1
           className="text-3xl font-slate-700 leading-[1.1] tracking-tighter text-black max-w-4xl mb-2"
-          style={{ fontFamily: '"Source Sans Pro", ui-sans-serif, system-ui, sans-serif' }}
+          style={sourceSansPro}
         >
           I&apos;m Xinping (Claire), a product designer bridging <span className="text-blue-800">design</span> and <span className="text-blue-800">engineering</span>.
         </h1>
