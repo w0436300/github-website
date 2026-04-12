@@ -1,48 +1,5 @@
-import { useEffect, useState } from 'react';
 import { Lock } from 'lucide-react';
 import { dsSectionHead as SECTION_HEAD, openSans } from '../styles/caseStudyTheme.js';
-
-function DotGrid({ issueRate, resolvedRate, total = 60 }) {
-  const [dots, setDots] = useState([]);
-
-  useEffect(() => {
-    const out = [];
-    for (let i = 0; i < total; i++) {
-      const r = Math.random();
-      let kind = 'reviewed';
-      if (r < issueRate) kind = 'issue';
-      else if (r < issueRate + resolvedRate) kind = 'resolved';
-      out.push(kind);
-    }
-    setDots(out);
-  }, [issueRate, resolvedRate, total]);
-
-  return (
-    <div className="flex flex-wrap gap-0.5 mb-1">
-      {dots.map((k, i) => (
-        <div
-          key={i}
-          className={`w-[7px] h-[7px] ${
-            k === 'reviewed' ? 'bg-slate-800' : k === 'issue' ? 'bg-red-600' : 'bg-emerald-600'
-          }`}
-        />
-      ))}
-    </div>
-  );
-}
-
-function BarRow({ label, widthPct, tone }) {
-  const bg = tone === 'red' ? 'bg-red-600' : tone === 'blue' ? 'bg-[#0075BE]' : 'bg-slate-800';
-  return (
-    <div className="flex items-center gap-2 text-[10px]" style={openSans}>
-      <span className="w-16 shrink-0 uppercase tracking-wider text-slate-600">{label}</span>
-      <div className="flex-1 h-2 bg-sky-200 overflow-hidden">
-        <div className={`h-full ${bg} transition-all duration-700`} style={{ width: `${widthPct}%` }} />
-      </div>
-      <span className="w-8 text-right text-slate-600">{tone === 'red' ? 'High' : 'Med'}</span>
-    </div>
-  );
-}
 
 function FindingVisualAbstract({ variant }) {
   const c = 'w-full h-auto max-h-[92px] mx-auto block text-sky-300';
@@ -209,33 +166,29 @@ export default function DesignStandardPage() {
             </div>
 
             <div className="flex-1 border border-sky-200 bg-white p-5 max-w-xl mx-auto w-full">
-              <p className="text-[10px] uppercase tracking-wider text-slate-600 mb-4">
-                Projects reviewed by platform — each dot = a project
+              <p className="text-[10px] uppercase tracking-wider text-slate-600 mb-2">
+                Projects reviewed by platform
               </p>
-              {[
-                { name: 'eForms', issue: 0.38, resolved: 0.28 },
-                { name: 'Letters', issue: 0.22, resolved: 0.32 },
-                { name: 'eFes Lite Web', issue: 0.32, resolved: 0.24 },
-              ].map((row) => (
-                <div key={row.name} className="mb-4">
-                  <div className="flex justify-between text-[10px] uppercase mb-1">
-                    <span className="text-slate-900">{row.name}</span>
-                    <span className="text-slate-600">100s reviewed</span>
-                  </div>
-                  <DotGrid issueRate={row.issue} resolvedRate={row.resolved} />
-                </div>
-              ))}
-              <div className="flex flex-wrap gap-4 text-[9px] text-slate-600 mb-4">
-                <span className="flex items-center gap-1"><span className="w-2 h-2 bg-slate-800" /> Reviewed</span>
-                <span className="flex items-center gap-1"><span className="w-2 h-2 bg-red-600" /> Inconsistency</span>
-                <span className="flex items-center gap-1"><span className="w-2 h-2 bg-emerald-600" /> Standardized</span>
-              </div>
-              <div className="border-t border-sky-200 pt-4 space-y-2">
-                <p className="text-[10px] uppercase text-slate-600 mb-2">Inconsistency frequency by platform</p>
-                <BarRow label="eForms" widthPct={88} tone="red" />
-                <BarRow label="Letters" widthPct={64} tone="blue" />
-                <BarRow label="eFesLite" widthPct={76} tone="red" />
-              </div>
+              <p className="text-sm text-slate-700 leading-relaxed mb-5">
+                Each archive was reviewed at the screen level (hundreds of shipped projects in total, not a fixed
+                sample chart). The point was to see where teams repeatedly diverged — so new standards targeted real
+                debt, not one-off quirks.
+              </p>
+              <ul className="space-y-3 text-sm text-slate-700 leading-relaxed border-t border-sky-200 pt-4">
+                <li>
+                  <span className="font-semibold text-slate-900">eForms</span> — Strongest inconsistency signal of the
+                  three; drove the largest share of new rules (components, states, spacing).
+                </li>
+                <li>
+                  <span className="font-semibold text-slate-900">Letters</span> — Moderate drift; more work already
+                  followed older written guidance, so documentation focused on closing gaps instead of reinventing
+                  patterns.
+                </li>
+                <li>
+                  <span className="font-semibold text-slate-900">eFes Lite Web</span> — High inconsistency, second only
+                  to eForms; several clusters fed straight into the shared pattern library.
+                </li>
+              </ul>
             </div>
           </div>
         </div>

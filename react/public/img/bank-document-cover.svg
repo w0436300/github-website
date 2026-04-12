@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" role="img" aria-label="Abstract bank document template with header bar and field blocks">
+  <defs>
+    <linearGradient id="bdg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0075BE"/>
+      <stop offset="100%" stop-color="#005a94"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="540" fill="#f7f7f7"/>
+  <rect x="120" y="72" width="720" height="396" rx="2" fill="#fff" stroke="#e3e3e3" stroke-width="1.5"/>
+  <rect x="120" y="72" width="720" height="52" fill="url(#bdg)"/>
+  <rect x="132" y="84" width="100" height="28" fill="#fff" rx="2"/>
+  <text x="160" y="103" font-family="system-ui,sans-serif" font-size="11" font-weight="800" fill="#0075BE" text-anchor="middle">DOC</text>
+  <rect x="340" y="88" width="280" height="10" rx="1" fill="#fff" opacity="0.35"/>
+  <rect x="120" y="124" width="720" height="10" fill="#c8dff0" opacity="0.9"/>
+  <rect x="148" y="158" width="320" height="64" fill="#fafafa" stroke="#e3e3e3"/>
+  <rect x="148" y="240" width="664" height="8" fill="#0075BE" opacity="0.2" rx="1"/>
+  <rect x="148" y="260" width="580" height="6" fill="#cbd5e1" rx="1"/>
+  <rect x="148" y="274" width="520" height="6" fill="#cbd5e1" rx="1"/>
+  <rect x="148" y="288" width="600" height="6" fill="#cbd5e1" rx="1"/>
+  <rect x="148" y="320" width="664" height="36" fill="#f0f6fb" stroke="#c8dff0"/>
+  <rect x="148" y="372" width="240" height="8" fill="#0075BE" rx="1"/>
+  <rect x="148" y="388" width="200" height="8" fill="#0075BE" rx="1"/>
+  <rect x="148" y="404" width="280" height="8" fill="#0075BE" rx="1"/>
+  <rect x="560" y="372" width="252" height="72" fill="#fff" stroke="#e3e3e3"/>
+  <line x1="576" y1="392" x2="796" y2="392" stroke="#e2e8f0" stroke-width="4"/>
+  <line x1="576" y1="408" x2="760" y2="408" stroke="#e2e8f0" stroke-width="4"/>
+  <line x1="576" y1="424" x2="720" y2="424" stroke="#e2e8f0" stroke-width="4"/>
+</svg>

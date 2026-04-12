@@ -70,11 +70,8 @@ export default function ProjectDetailPage() {
               </div>
             ) : (
               <div className="mt-8 rounded-[2rem] border border-gray-200 border-dashed bg-gray-50 p-10 text-center">
-                <p className="text-sm font-bold text-gray-600">No preview image</p>
-                <p className="text-xs text-gray-500 mt-2">
-                  Add a <code className="font-mono">cover</code> or{' '}
-                  <code className="font-mono">modalImage</code> to show visuals here.
-                </p>
+                <p className="text-sm font-bold text-gray-600">preview image</p>
+                
               </div>
             )}
             </section>

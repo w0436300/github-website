@@ -55,6 +55,18 @@ const DESIGN_STANDARD_NAV_LINKS = [
   { name: 'Reflection', href: '#Reflection' },
 ];
 
+/** Must match section `id`s on BankDocumentPage (bank-document-system). */
+const BANK_DOCUMENT_NAV_LINKS = [
+  { name: 'Overview', href: '#Overview' },
+  { name: 'Reflection', href: '#Reflection' },
+  { name: 'Context', href: '#Context' },
+  { name: 'Challenge', href: '#Challenge' },
+  { name: 'Role', href: '#Role' },
+  { name: 'Process', href: '#Process' },
+  { name: 'Decisions', href: '#Decisions' },
+  { name: 'Mockup', href: '#Mockup' },
+];
+
 export default function Layout() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -66,13 +78,17 @@ export default function Layout() {
   const isProjectPage = location.pathname.startsWith('/project/');
   const isAiTutorPage = location.pathname === '/project/cognitive-adaptive-ai-tutor';
   const isDesignStandardPage = location.pathname === '/project/design-standard-wcag';
-  const isCaseStudyPage = isAiTutorPage || isDesignStandardPage;
+  const isBankDocumentPage = location.pathname === '/project/bank-document-system';
+  const isBlueCaseStudy = isDesignStandardPage || isBankDocumentPage;
+  const isCaseStudyPage = isAiTutorPage || isDesignStandardPage || isBankDocumentPage;
   const sidebarCollapsed = isProjectPage ? false : isSidebarCollapsed;
   const caseStudyNavLinks = isAiTutorPage
     ? AI_TUTOR_NAV_LINKS
     : isDesignStandardPage
       ? DESIGN_STANDARD_NAV_LINKS
-      : null;
+      : isBankDocumentPage
+        ? BANK_DOCUMENT_NAV_LINKS
+        : null;
   const projectNavLinks = isCaseStudyPage ? caseStudyNavLinks : PROJECT_NAV_LINKS;
 
   // Ensure project pages always start from the top when navigated to
@@ -148,7 +164,7 @@ export default function Layout() {
       {/* Sidebar - 始终显示，用内联样式避免被全局 .hidden 覆盖 */}
       <aside
         className={`fixed top-0 left-0 h-full z-50 flex flex-col transition-all duration-500 ease-in-out border-r ${
-          isDesignStandardPage
+          isBlueCaseStudy
             ? 'bg-sky-50 border-sky-200'
             : isAiTutorPage
               ? 'bg-cyan-50/50 border-cyan-100'
@@ -183,7 +199,7 @@ export default function Layout() {
                   className={`group flex items-center gap-2 transition-all w-full text-left cursor-pointer ${
                     sidebarCollapsed ? 'justify-center' : ''
                   } ${
-                    isDesignStandardPage
+                    isBlueCaseStudy
                       ? 'text-slate-700 hover:text-sky-900'
                       : isAiTutorPage
                         ? 'text-slate-700 hover:text-cyan-900'
@@ -193,7 +209,7 @@ export default function Layout() {
                   <ArrowLeft
                     size={16}
                     className={`shrink-0 transition-transform group-hover:-translate-x-0.5 ${
-                      isDesignStandardPage
+                      isBlueCaseStudy
                         ? 'text-slate-500 group-hover:text-sky-800'
                         : isAiTutorPage
                           ? 'text-slate-500 group-hover:text-cyan-800'
@@ -208,7 +224,7 @@ export default function Layout() {
                 {!sidebarCollapsed && (
                   <div
                     className={`h-px w-full my-1 ${
-                      isDesignStandardPage ? 'bg-sky-200' : isAiTutorPage ? 'bg-cyan-200/70' : 'bg-gray-100'
+                      isBlueCaseStudy ? 'bg-sky-200' : isAiTutorPage ? 'bg-cyan-200/70' : 'bg-gray-100'
                     }`}
                   />
                 )}
@@ -231,13 +247,13 @@ export default function Layout() {
                       sidebarCollapsed ? 'justify-center px-0' : 'px-2 py-2 -mx-2'
                     } ${
                       navActive
-                        ? isDesignStandardPage
+                        ? isBlueCaseStudy
                           ? 'bg-sky-200/80 text-sky-900'
                           : isAiTutorPage
                             ? 'bg-cyan-50/90 text-cyan-950 border border-cyan-200/80'
                             : 'bg-cyan-50 text-[rgb(52,118,128)]'
                         : isCaseStudyPage
-                          ? isDesignStandardPage
+                          ? isBlueCaseStudy
                             ? 'text-slate-600 hover:bg-sky-100/90 hover:text-sky-900'
                             : isAiTutorPage
                               ? 'border border-transparent text-slate-600 hover:bg-slate-100/90 hover:text-slate-900'
@@ -287,7 +303,7 @@ export default function Layout() {
 
           <div
             className={`shrink-0 flex flex-col gap-4 pt-6 border-t ${
-              isDesignStandardPage ? 'border-sky-200' : isAiTutorPage ? 'border-cyan-200' : 'border-gray-100'
+              isBlueCaseStudy ? 'border-sky-200' : isAiTutorPage ? 'border-cyan-200' : 'border-gray-100'
             }`}
           >
             {!sidebarCollapsed ? (

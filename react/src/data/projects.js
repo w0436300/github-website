@@ -36,6 +36,23 @@ export const projects = [
     modalTech: 'WCAG 2.x, Accessibility, Inclusive Design',
   },
   {
+    id: 'bank-document-system',
+    title: 'Bank Document System',
+    category: 'design',
+    tags: ['UI Design', 'Document Systems', 'Banking'],
+    year: '2026',
+    location: 'BMO',
+    cover: '/img/bank-document-cover.svg',
+    placeholderLabel: null,
+    description:
+      'Print-era disclosure forms rebuilt as system-ready digital templates — field mapping, conditional sections, and reusable patterns.',
+    demoUrl: null,
+    repoUrl: null,
+    externalUrl: null,
+    modalImage: null,
+    modalTech: 'InDesign · Mapping documents · Template systems',
+  },
+  {
     id: 'medisupply-hub-ui',
     title: 'DeliveryOps Platform',
     category: 'design',
