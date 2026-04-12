@@ -1,5 +1,34 @@
 import { amiSectionHead as AMI, amiAccentRgb, openSans, amiBorder, amiBorderSubtle } from '../styles/caseStudyTheme.js';
 
+/** Nielsen Norman-style heuristics — how we applied them in this product (not a checklist; a design lens). */
+const UX_PRINCIPLES_LENS = [
+  {
+    principle: 'Match between system and the real world',
+    application:
+      'FSLSM stays in the engine; learners see plain behavioral labels so vocabulary matches how people describe themselves, not the paper.',
+  },
+  {
+    principle: 'Visibility of system status',
+    application:
+      'Skill gap review shows reasoning and confidence; sessions surface where answers come from so the system never feels like a black box.',
+  },
+  {
+    principle: 'User control and freedom',
+    application:
+      'Optional resume, adjustable levels, include/ignore, and editable profile give exits and corrections without punishing early choices.',
+  },
+  {
+    principle: 'Recognition rather than recall',
+    application:
+      'One decision per onboarding screen and a scannable skill list with a detail panel reduce memory load compared to long forms or blank fields.',
+  },
+  {
+    principle: 'Help users recognize, diagnose, and recover from errors',
+    application:
+      'Reviewing inferred gaps before path generation turns “wrong AI” into a fixable moment instead of silent mistrust.',
+  },
+];
+
 const RESEARCH_FINDINGS = [
   {
     no: '01',
@@ -25,6 +54,8 @@ const SOLUTION_STEPS = [
     media: 'ami-onboarding.gif',
     body: 'Split into 3 steps, one question per screen. Resume upload is optional to reduce startup friction.',
     chips: ['Enter goal', 'Learning style', 'Resume (optional)'],
+    uxPrinciple:
+      'Progressive disclosure + recognition over recall — staged questions and labeled choices instead of one dense screen or free-text guesswork.',
   },
   {
     badge: 'Step 2',
@@ -32,6 +63,8 @@ const SOLUTION_STEPS = [
     media: 'ami-skillgap.png',
     body: 'AI explains inferred gaps with confidence and rationale. Learners can adjust levels, ignore skills, or proceed.',
     chips: ['AI suggests + explains', 'Learner adjusts levels', 'Include / Ignore'],
+    uxPrinciple:
+      'Visibility of system status + user control — show inference before commitment so learners can correct the model, not fight it.',
   },
   {
     badge: 'Steps 3 & 4',
@@ -39,6 +72,8 @@ const SOLUTION_STEPS = [
     media: 'ami-session.gif',
     body: 'Path structure adapts to learning style. Session delivery adapts format in real time with contextual chatbot support.',
     chips: ['Text', 'Diagram', 'Video', 'Audio'],
+    uxPrinciple:
+      'Flexibility and efficiency of use + consistency — format and pacing flex to style while session patterns stay predictable.',
   },
   {
     badge: 'Step 5',
@@ -46,6 +81,8 @@ const SOLUTION_STEPS = [
     media: 'ami-quiz.gif',
     body: 'Three triggers keep learner profile data fresh without additional burden.',
     chips: ['Quiz result', 'Chatbot behavior', 'Manual profile updates'],
+    uxPrinciple:
+      'Visibility of system status — outcomes and behavior quietly refresh the model so the product stays aligned without extra homework.',
   },
   {
     badge: 'Step 6',
@@ -53,6 +90,8 @@ const SOLUTION_STEPS = [
     media: 'ami-ai-transparency.gif',
     body: 'Trust remains visible through profile controls, progress analytics, citation behavior, and transparency commitments.',
     chips: ['Profile', 'Analytics', 'AI Transparency'],
+    uxPrinciple:
+      'Error prevention and recovery at scale — explicit data use, checkable sources, and disclosed limits turn trust into sustained behavior.',
   },
 ];
 
@@ -61,21 +100,25 @@ const REFLECTIONS = [
     no: '01',
     title: 'Translating a model is a design problem',
     body: 'FSLSM did not need replacement. It needed a UX translation layer so technical rigor and user clarity could coexist.',
+    principle: 'Match between system and the real world',
   },
   {
     no: '02',
     title: 'Adding a step can reduce friction',
     body: 'Skill gap review added one step but increased confidence and completion. Useful friction can improve outcomes.',
+    principle: 'Help users recognize, diagnose, and recover from errors',
   },
   {
     no: '03',
     title: 'Scope defines feature meaning',
     body: 'The chatbot became pedagogically meaningful when constrained to sessions rather than exposed globally.',
+    principle: 'Aesthetic and minimalist design',
   },
   {
     no: '04',
     title: 'Trust is a system, not a feature',
     body: 'Explanations, profile transparency, source citations, and bias disclosure work together as a trust architecture.',
+    principle: 'Visibility of system status',
   },
 ];
 
@@ -169,6 +212,12 @@ export default function AiTutorPage() {
             The first design decision was to close the gap between technical capability and learner
             experience.
           </p>
+          <p className="mt-3 text-xs text-slate-500 leading-relaxed">
+            <span className="font-semibold text-slate-600">UX principle in practice:</span> ISO-style
+            human-centered framing — if the brief centers the model and not the person using it, the
+            design process has to re-anchor on goals, context, and measurable learner outcomes before
+            screens.
+          </p>
         </div>
       </section>
 
@@ -251,6 +300,25 @@ export default function AiTutorPage() {
               Each decision involved a real trade-off. The goal was not fewer features, but better
               learning behavior and higher trust.
             </p>
+          </div>
+
+          <div className={`mb-8 border ${amiBorderSubtle} bg-slate-50/90 p-5 md:p-6`}>
+            <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-2">
+              UX principles as a research lens
+            </p>
+            <p className="text-sm text-slate-600 mb-4 max-w-4xl leading-relaxed">
+              Research findings were triangulated against Nielsen Norman usability heuristics; those same
+              heuristics became the shared language in design reviews when we weighed fewer steps versus
+              more transparency — arguing in learner terms, not only feasibility.
+            </p>
+            <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-3">
+              {UX_PRINCIPLES_LENS.map((row) => (
+                <div key={row.principle} className={`border ${amiBorderSubtle} bg-white p-4`}>
+                  <p className="text-[11px] font-bold text-slate-800 leading-snug mb-2">{row.principle}</p>
+                  <p className="text-xs text-slate-600 leading-relaxed">{row.application}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="space-y-5">
@@ -595,6 +663,12 @@ export default function AiTutorPage() {
                         </span>
                       ))}
                     </div>
+                    {step.uxPrinciple && (
+                      <p className="mt-3 text-xs text-slate-500 leading-relaxed border-t border-gray-200 pt-3">
+                        <span className="font-semibold text-slate-600">Principle applied: </span>
+                        {step.uxPrinciple}
+                      </p>
+                    )}
                   </div>
                 </div>
               ))}
@@ -615,6 +689,11 @@ export default function AiTutorPage() {
                 <p className="text-3xl leading-none mb-2" style={{ color: `rgb(${amiAccentRgb} / 0.32)` }}>
                   {lesson.no}
                 </p>
+                {lesson.principle && (
+                  <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500 mb-2">
+                    {lesson.principle}
+                  </p>
+                )}
                 <h4 className="font-bold text-sm mb-2 text-slate-900">{lesson.title}</h4>
                 <p className="text-sm text-slate-600 leading-relaxed">{lesson.body}</p>
               </div>
