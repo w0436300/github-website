@@ -98,18 +98,18 @@ export function HomePage() {
           className="text-3xl font-slate-700 leading-[1.1] tracking-tighter text-black max-w-4xl mb-2"
           style={sourceSansPro}
         >
-          I&apos;m Xinping (Claire), a product designer bridging <span className="text-blue-800">design</span> and <span className="text-blue-800">engineering</span>.
+          I&apos;m Xinping (Claire), a product designer bridging <span className="text-blue-700">design</span> and <span className="text-blue-700">engineering</span>.
         </h1>
 
 
         <div className="space-y-0 mb-6 max-w-4xl border-gray-200 pb-6">
           {SKILL_ROWS.map((row) => (
             <p key={row.label} className="text-regular leading-snug">
-              <span className="text-blue-800 font-medium uppercase tracking-wider border-l-4 border-blue-800 pl-2">
+              <span className="text-gray-800 font-medium uppercase tracking-wider border-l-4 border-gray-800 pl-2">
                 {row.label}
-                <span className="text-blue-800 mx-1.5">—</span>
+                <span className="text-gray-800 mx-1.5">—</span>
               </span>
-              <span className="text-blue-800 font-normal">{row.value}</span>
+              <span className="text-gray-800 font-normal">{row.value}</span>
             </p>
           ))}
         </div>
