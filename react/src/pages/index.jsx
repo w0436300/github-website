@@ -31,23 +31,28 @@ function projectMatchesTab(p, tab) {
 const SKILL_ROWS = [
   {
     label: 'UX Design',
-    value: 'User Research | Wireframing | Prototyping',
+    value: 'Figma | Adobe Creative Suite (InDesign, Illustrator, Photoshop) | Miro |User Research | Wireframing | Prototyping',
   },
   {
     label: 'Engineering',
-    value: 'React | JavaScript/TypeScript | HTML/CSS/Tailwind',
+    value: 'React | JavaScript/TypeScript | HTML/CSS/Tailwind | Claude |  Cursor | Git | Power BI | SQL | Python',
   },
-  {
-    label: 'Data',
-    value: 'Power BI | SQL | Python',
-  },
+ 
 ];
 
 export function HomePage() {
   useScrollToHash();
   const [activeCategory, setActiveCategory] = useState('Featured');
-  const [hoverTip, setHoverTip] = useState({ show: false, x: 0, y: 0 });
+  const [hoverTip, setHoverTip] = useState({ show: false, x: 0, y: 0, message: 'View details' });
   const navigate = useNavigate();
+
+  const showHoverTip = (e, message) => {
+    setHoverTip({ show: true, x: e.clientX, y: e.clientY, message });
+  };
+  const moveHoverTip = (e) => {
+    setHoverTip((prev) => (prev.show ? { ...prev, x: e.clientX, y: e.clientY } : prev));
+  };
+  const hideHoverTip = () => setHoverTip((prev) => ({ ...prev, show: false }));
 
   const filteredProjects = useMemo(
     () => projects.filter((p) => projectMatchesTab(p, activeCategory)),
@@ -64,7 +69,7 @@ export function HomePage() {
             aria-hidden
           >
             <span className="inline-flex items-center px-2 py-1 text-[10px] font-bold uppercase tracking-wider border border-gray-200 bg-white text-gray-700 shadow-sm">
-              View details
+              {hoverTip.message}
             </span>
           </div>
         )}
@@ -87,18 +92,18 @@ export function HomePage() {
           className="text-3xl font-slate-700 leading-[1.1] tracking-tighter text-black max-w-4xl mb-2"
           style={{ fontFamily: '"Source Sans Pro", ui-sans-serif, system-ui, sans-serif' }}
         >
-          I&apos;m Xinping (Claire), a product designer bridging design and engineering.
+          I&apos;m Xinping (Claire), a product designer bridging <span className="text-blue-800">design</span> and <span className="text-blue-800">engineering</span>.
         </h1>
 
 
         <div className="space-y-0 mb-6 max-w-4xl border-gray-200 pb-6">
           {SKILL_ROWS.map((row) => (
-            <p key={row.label} className="text-[10px] sm:text-[11px] md:text-xs leading-snug">
-              <span className="text-gray-600 font-medium uppercase tracking-wider">
+            <p key={row.label} className="text-regular leading-snug">
+              <span className="text-blue-800 font-medium uppercase tracking-wider border-l-4 border-blue-800 pl-2">
                 {row.label}
-                <span className="text-gray-300 mx-1.5">—</span>
+                <span className="text-blue-800 mx-1.5">—</span>
               </span>
-              <span className="text-gray-900 font-normal">{row.value}</span>
+              <span className="text-blue-800 font-normal">{row.value}</span>
             </p>
           ))}
         </div>
@@ -112,8 +117,11 @@ export function HomePage() {
                   key={tab.value}
                   type="button"
                   onClick={() => setActiveCategory(tab.value)}
-                  className={`relative pb-3 text-[11px] md:text-xs uppercase tracking-[0.15em] transition-colors ${
-                    isActive ? 'text-black' : 'text-gray-400 hover:text-gray-700'
+                  onMouseEnter={(e) => showHoverTip(e, tab.label)}
+                  onMouseMove={moveHoverTip}
+                  onMouseLeave={hideHoverTip}
+                  className={`relative pb-3 text-[11px] md:text-xs uppercase tracking-[0.15em] transition-colors cursor-none ${
+                    isActive ? 'text-black font-bold' : 'text-gray-600 hover:text-black hover:font-bold'
                   }`}
                 >
                   {tab.label}
@@ -138,13 +146,9 @@ export function HomePage() {
                   key={p.id}
                   type="button"
                   onClick={() => navigate(`/project/${p.id}`)}
-                  onMouseEnter={(e) =>
-                    setHoverTip({ show: true, x: e.clientX, y: e.clientY })
-                  }
-                  onMouseMove={(e) =>
-                    setHoverTip((prev) => (prev.show ? { ...prev, x: e.clientX, y: e.clientY } : prev))
-                  }
-                  onMouseLeave={() => setHoverTip((prev) => ({ ...prev, show: false }))}
+                  onMouseEnter={(e) => showHoverTip(e, 'View details')}
+                  onMouseMove={moveHoverTip}
+                  onMouseLeave={hideHoverTip}
                   className="group cursor-none text-left bg-white border border-gray-200 border-solid rounded-none shadow-none transition-all hover:shadow-sm hover:bg-gray-50/40 active:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                 >
                   <div className="aspect-video bg-white overflow-hidden border-b border-gray-200 relative">
@@ -224,7 +228,7 @@ export function ResumePage() {
         </p>
         <a
           href={pdfHref}
-          download="resume-new.pdf"
+          download="ClaireWang_Resume_2026.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center justify-center gap-2 bg-black text-white rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-blue-600 transition-all h-12 px-6"

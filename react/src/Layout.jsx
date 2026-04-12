@@ -161,7 +161,7 @@ export default function Layout() {
             {!isProjectPage && (
               <button
                 onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-                className="w-10 h-10 mb-12 flex items-center justify-center hover:bg-gray-50 rounded-xl transition-colors text-gray-400 hover:text-black shrink-0"
+                className="w-10 h-10 mb-12 flex items-center justify-center hover:bg-gray-50 rounded-xl transition-colors text-gray-400 hover:text-black shrink-0 cursor-pointer"
               >
                 <Menu size={22} />
               </button>
@@ -180,7 +180,7 @@ export default function Layout() {
                 <button
                   type="button"
                   onClick={goHomeProjectSection}
-                  className={`group flex items-center gap-2 transition-all w-full text-left ${
+                  className={`group flex items-center gap-2 transition-all w-full text-left cursor-pointer ${
                     sidebarCollapsed ? 'justify-center' : ''
                   } ${
                     isDesignStandardPage
@@ -227,7 +227,7 @@ export default function Layout() {
                         window.history.replaceState(null, '', `${location.pathname}${link.href}`);
                       }
                     }}
-                    className={`group flex items-center gap-4 transition-all w-full text-left rounded-md ${
+                    className={`group flex items-center gap-4 transition-all w-full text-left rounded-md cursor-pointer ${
                       sidebarCollapsed ? 'justify-center px-0' : 'px-2 py-2 -mx-2'
                     } ${
                       navActive
@@ -264,7 +264,7 @@ export default function Layout() {
                       key={link.name}
                       type="button"
                       onClick={link.kind === 'work' ? handleWorkNav : handleAboutNav}
-                      className={`group flex items-center gap-4 transition-all w-full text-left rounded-md px-2 py-2.5 -mx-2 ${
+                      className={`group flex items-center gap-4 transition-all w-full text-left rounded-md px-2 py-2.5 -mx-2 cursor-pointer ${
                         sidebarCollapsed ? 'justify-center px-0' : ''
                       } ${isActive ? 'bg-[#FFCC00] text-black' : 'text-gray-400 hover:text-black'}`}
                     >
@@ -299,7 +299,7 @@ export default function Layout() {
                       href={href}
                       target={href.startsWith('mailto') ? undefined : '_blank'}
                       rel={href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
-                      className="underline underline-offset-[3px] text-gray-500 hover:text-black flex items-center gap-2"
+                      className="underline underline-offset-[3px] text-gray-500 hover:text-black flex items-center gap-2 cursor-pointer"
                     >
                       <Icon size={14} className="shrink-0" />
                       {label}
@@ -307,7 +307,7 @@ export default function Layout() {
                   ))}
                   <Link
                     to="/resume"
-                    className="underline underline-offset-[3px] text-gray-500 hover:text-black flex items-center gap-2"
+                    className="underline underline-offset-[3px] text-gray-500 hover:text-black flex items-center gap-2 cursor-pointer"
                   >
                     <FileText size={14} className="shrink-0" />
                     Resume
@@ -325,13 +325,13 @@ export default function Layout() {
                     href={href}
                     target={href.startsWith('mailto') ? undefined : '_blank'}
                     rel={href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
-                    className="text-gray-400 hover:text-black"
+                    className="text-gray-400 hover:text-black cursor-pointer"
                     aria-label={label}
                   >
                     <Icon size={18} />
                   </a>
                 ))}
-                <Link to="/resume" className="text-gray-400 hover:text-black" aria-label="Resume">
+                <Link to="/resume" className="text-gray-400 hover:text-black cursor-pointer" aria-label="Resume">
                   <FileText size={18} />
                 </Link>
               </div>
@@ -342,14 +342,14 @@ export default function Layout() {
 
       {/* Mobile nav - 小屏时通过 CSS 媒体查询显示 */}
       <nav className="sidebar-mobile-nav fixed top-0 left-0 right-0 z-40 bg-white/90 backdrop-blur-xl border-b border-gray-100 px-6 py-4 flex justify-between items-center">
-        <button type="button" onClick={goHome} className="text-xl font-black tracking-tighter">
+        <button type="button" onClick={goHome} className="text-xl font-black tracking-tighter cursor-pointer">
           XP.
         </button>
         <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={handleWorkNav}
-            className={`px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-colors ${
+            className={`px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-colors cursor-pointer ${
               isHome && !isAboutPage ? 'bg-[#FFCC00] text-black' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
           >
@@ -358,7 +358,7 @@ export default function Layout() {
           <button
             type="button"
             onClick={handleAboutNav}
-            className={`px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-colors ${
+            className={`px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-colors cursor-pointer ${
               isAboutPage ? 'bg-[#FFCC00] text-black' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
           >
@@ -367,7 +367,7 @@ export default function Layout() {
           <button
             type="button"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-black p-1"
+            className="text-black p-1 cursor-pointer"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -391,7 +391,7 @@ export default function Layout() {
                   key={link.name}
                   type="button"
                   onClick={link.kind === 'work' ? handleWorkNav : handleAboutNav}
-                  className={`flex items-center gap-4 text-left rounded-lg px-2 py-2 -mx-2 ${
+                  className={`flex items-center gap-4 text-left rounded-lg px-2 py-2 -mx-2 cursor-pointer ${
                     isActive ? 'bg-[#FFCC00] text-black' : 'text-gray-600 hover:text-black'
                   }`}
                 >
@@ -408,7 +408,7 @@ export default function Layout() {
                   target={href.startsWith('mailto') ? undefined : '_blank'}
                   rel={href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="underline underline-offset-2 text-gray-600 flex items-center gap-2"
+                  className="underline underline-offset-2 text-gray-600 flex items-center gap-2 cursor-pointer"
                 >
                   <Icon size={18} />
                   {label}
@@ -417,7 +417,7 @@ export default function Layout() {
               <Link
                 to="/resume"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="underline underline-offset-2 text-gray-600 flex items-center gap-2"
+                className="underline underline-offset-2 text-gray-600 flex items-center gap-2 cursor-pointer"
               >
                 <FileText size={18} />
                 Resume
