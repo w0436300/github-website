@@ -44,6 +44,7 @@ const AI_TUTOR_NAV_LINKS = [
 /** Must match section `id`s on DesignStandardPage (design-standard-wcag). */
 const DESIGN_STANDARD_NAV_LINKS = [
   { name: 'Overview', href: '#Overview' },
+  { name: 'Reflection', href: '#Reflection' },
   { name: 'Challenge', href: '#Challenge' },
   { name: 'Approach', href: '#Approach' },
   { name: 'Documentation', href: '#Documentation' },
@@ -52,7 +53,6 @@ const DESIGN_STANDARD_NAV_LINKS = [
   { name: 'Examples', href: '#Examples' },
   { name: 'Collaboration', href: '#Collaboration' },
   { name: 'Outcome', href: '#Outcome' },
-  { name: 'Reflection', href: '#Reflection' },
 ];
 
 /** Must match section `id`s on BankDocumentPage (bank-document-system). */
@@ -446,7 +446,7 @@ export default function Layout() {
 
       {/* Main content */}
       <main
-        className={`transition-all duration-500 ease-in-out min-h-screen sidebar-main ${sidebarCollapsed ? 'pl-24' : 'pl-56'} pt-20 md:pt-4`}
+        className={`min-w-0 transition-all duration-500 ease-in-out min-h-screen sidebar-main ${sidebarCollapsed ? 'pl-24' : 'pl-56'} pt-20 md:pt-4`}
       >
         <Outlet />
       </main>

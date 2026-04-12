@@ -194,6 +194,44 @@ export default function DesignStandardPage() {
         </div>
       </section>
 
+      <section id="Reflection" className="py-1 px-6 pb-12">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-[minmax(0,320px)_1fr] gap-10">
+            <div>
+              <p className="text-[10px] uppercase tracking-wider text-[#0075BE] mb-3">Reflection</p>
+              <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-left" style={SECTION_HEAD.h3Style}>
+                What I learned
+              </h2>
+              <p className="text-sm text-slate-700 leading-relaxed mt-4">
+                The work was thorough, but the documentation workflow could have been structured earlier.
+              </p>
+              <p className="text-sm text-slate-700 leading-relaxed mt-4">
+                AI assistants also changed how I think about this project in hindsight. They lower the cost of generating
+                layouts and copy drafts, which makes inconsistency easier to ship, not harder. A design system and written
+                standards are where teams still negotiate what belongs in the product, how it should behave, and what can be
+                reused—before those fast outputs pile up as silent drift across squads.
+              </p>
+            </div>
+            <div className="space-y-3">
+              {[
+                [
+                  'Standards as the slow, deliberate layer',
+                  'When “how” gets faster, documentation is how you keep “what” and “why” legible for the next designer or developer.',
+                ],
+                ['Build a triage system earlier', 'Separate obvious fixes from discussion-heavy issues sooner.'],
+                ['Version the documentation earlier', 'Capture decisions as they happen instead of consolidating later.'],
+                ['Plan adoption, not just handoff', 'Pair the standards library with walkthroughs or quick-reference guidance.'],
+              ].map(([title, body]) => (
+                <div key={title} className="border border-sky-200 bg-white hover:bg-sky-50/80 px-4 py-3 transition-colors">
+                  <h4 className="text-sm font-semibold text-slate-900">{title}</h4>
+                  <p className="text-xs text-slate-700 leading-relaxed mt-1">{body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="Challenge" className="py-1 px-6 pb-12">
         <div className="max-w-7xl mx-auto">
           <div className="mb-6 border-t border-sky-200 pt-4">
@@ -518,37 +556,6 @@ export default function DesignStandardPage() {
               ))}
             </div>
           </div>
-        </div>
-      </section>
-
-      <section id="Reflection" className="py-1 px-6 pb-12">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-[minmax(0,320px)_1fr] gap-10">
-            <div>
-              <p className="text-[10px] uppercase tracking-wider text-[#0075BE] mb-3">Reflection</p>
-              <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-left" style={SECTION_HEAD.h3Style}>
-                What I learned
-              </h2>
-              <p className="text-sm text-slate-700 leading-relaxed mt-4">
-                The work was thorough, but the documentation workflow could have been structured earlier.
-              </p>
-           
-            </div>
-            <div className="space-y-3">
-              {[
-                ['Build a triage system earlier', 'Separate obvious fixes from discussion-heavy issues sooner.'],
-                ['Version the documentation earlier', 'Capture decisions as they happen instead of consolidating later.'],
-                ['Plan adoption, not just handoff', 'Pair the standards library with walkthroughs or quick-reference guidance.'],
-              ].map(([title, body]) => (
-                <div key={title} className="border border-sky-200 bg-white hover:bg-sky-50/80 px-4 py-3 transition-colors">
-                  <h4 className="text-sm font-semibold text-slate-900">{title}</h4>
-                  <p className="text-xs text-slate-700 leading-relaxed mt-1">{body}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-        
         </div>
       </section>
     </div>
