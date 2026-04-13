@@ -122,12 +122,20 @@ const REFLECTIONS = [
   },
 ];
 
+const OVERVIEW_WORKFLOW_STEPS = [
+  'Problem Definition',
+  'UX Structure in Figma',
+  'AI-Assisted Build with Cursor + Claude Code',
+  'Interactive Prototype in React + TypeScript',
+  'Client Feedback & Refinement',
+];
+
 export default function AiTutorPage() {
   const amiImg = (name) => `${import.meta.env.BASE_URL}img/ami/${name}`;
 
   return (
     <div
-      className="ai-tutor-page min-h-screen bg-white text-slate-900 selection:bg-slate-200 selection:text-slate-900 scroll-smooth pb-20"
+      className="ai-tutor-page min-h-screen bg-white text-slate-900 selection:bg-slate-200 selection:text-slate-900 scroll-smooth pb-2"
       style={openSans}
     >
       <section id="Overview" className="pt-2 pb-10 px-6">
@@ -140,17 +148,35 @@ export default function AiTutorPage() {
          
             <span className="italic font-medium text-slate-600" style={{ color: `rgb(${amiAccentRgb})` }}> from the ground up.</span>
           </h1>
-          <p className="text-sm md:text-base text-slate-600 max-w-4xl leading-relaxed mb-8">
+          <p className="text-sm md:text-base text-slate-600 max-w-4xl leading-relaxed mb-4">
             Ami is an adaptive learning platform built on a research AI baseline. The core challenge was
             to transform a technically strong system into something learners can understand, trust, and
             return to.
           </p>
+          <div className=" mb-0 rounded-[2px] p-2 border border-[rgba(52,118,128,0.55)] text-xs">
+            <p className="text-sm md:text-base text-slate-800 leading-relaxed">
+              This project explored an end-to-end, AI-assisted workflow that combined product thinking,
+              UX design, and front-end prototyping.
+            </p>
+            <div className="mt-1 flex flex-wrap items-center gap-1 text-xs md:text-sm">
+              {OVERVIEW_WORKFLOW_STEPS.map((step, idx) => (
+                <div key={step} className="inline-flex items-center gap-1">
+                  <span className="inline-flex rounded-1 border border-[rgba(52,118,128,0.55)] bg-green-50 px-3 py-1 text-slate-700">
+                    {step}
+                  </span>
+                  {idx < OVERVIEW_WORKFLOW_STEPS.length - 1 && (
+                    <span className="text-[rgba(52,118,128,0.9)]" aria-hidden="true">→</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
 
           <div className={`bg-white p-4 md:p-6 mb-8`}>
             <img
               src={amiImg('overview.gif')}
               alt="Ami product overview"
-              className={`w-2/3 h-auto border-2 border-gray-300 ${amiBorderSubtle}`}
+              className={`w-full md:w-2/3 h-auto border-2 border-gray-300 ${amiBorderSubtle}`}
             />
           </div>
 

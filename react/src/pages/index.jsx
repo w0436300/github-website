@@ -66,7 +66,7 @@ export function HomePage() {
   );
 
   return (
-    <section id="home" className="px-6 md:px-12 lg:px-20 pt-4 md:pt-4 pb-24 md:pb-32 bg-white">
+    <section id="home" className="px-6 md:px-12 lg:px-20 pt-4 md:pt-4 pb-12 md:pb-4 bg-white">
       <div className="max-w-7xl mx-auto w-full">
         {hoverTip.show && (
           <div

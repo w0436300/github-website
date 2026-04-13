@@ -377,6 +377,11 @@ export default function Layout() {
       <main className={`min-h-screen min-w-0 ${isProjectPage ? 'md:pl-56' : ''}`}>
         <Outlet />
       </main>
+      <footer className={`w-full min-w-0 shrink-0 border-t border-gray-200 bg-white py-1 text-center md:py-10 ${isProjectPage ? 'md:pl-56' : ''}`}>
+        <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-gray-800">
+          Designed + Engineered by Xinping(Claire) - 2026
+        </p>
+      </footer>
 
       <style>{`
         html { scroll-behavior: smooth; }

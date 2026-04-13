@@ -383,11 +383,6 @@ export default function BlogPage() {
         </section>
       </div>
 
-      <footer className={`w-full min-w-0 shrink-0 border-t border-gray-200 py-8 text-center md:py-10 ${pageX}`}>
-        <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-black/40">
-          Designed + Engineered by Xinping(Claire) - 2026
-        </p>
-      </footer>
     </div>
   );
 }
