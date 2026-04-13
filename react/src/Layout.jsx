@@ -203,7 +203,7 @@ export default function Layout() {
     'top-social-link relative inline-flex rounded-md p-1.5 text-gray-500 transition-colors hover:bg-black/5 hover:text-black';
 
   const topSocialTooltipClass =
-    'pointer-events-none absolute left-1/2 top-full z-[60] mt-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-[#FFCC00] px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-black opacity-0 shadow-md ring-1 ring-black/10 transition-opacity duration-150 group-hover:opacity-100';
+    'pointer-events-none absolute left-1/2 top-full z-[60] mt-2 -translate-x-1/2 whitespace-nowrap rounded-md border-2 border-[#FFCC00] bg-white px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-black opacity-0 shadow-md transition-opacity duration-150 group-hover:opacity-100';
 
   const topSocialLinks = (
     <>
@@ -377,7 +377,7 @@ export default function Layout() {
       <main className={`min-h-screen min-w-0 ${isProjectPage ? 'md:pl-56' : ''}`}>
         <Outlet />
       </main>
-      <footer className={`w-full min-w-0 shrink-0 border-t border-gray-200 bg-white py-1 text-center md:py-10 ${isProjectPage ? 'md:pl-56' : ''}`}>
+      <footer className={`w-full min-w-0 shrink-0 border-t border-gray-200 bg-white py-8 text-center md:py-10 ${isProjectPage ? 'md:pl-56' : ''}`}>
         <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-gray-800">
           Designed + Engineered by Xinping(Claire) - 2026
         </p>

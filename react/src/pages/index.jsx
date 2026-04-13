@@ -74,7 +74,13 @@ export function HomePage() {
             style={{ left: hoverTip.x + 14, top: hoverTip.y + 14 }}
             aria-hidden
           >
-            <span className="inline-flex items-center px-2 py-1 text-[10px] font-bold uppercase tracking-wider border border-gray-200 bg-white text-gray-700 shadow-sm">
+            <span
+              className={`inline-flex items-center px-2 py-1 text-[10px] font-bold uppercase tracking-wider shadow-sm ${
+                ['View details', 'Featured', 'UX Design', 'Full Stack', 'Data', 'All'].includes(hoverTip.message)
+                  ? 'border-2 border-[#FFCC00] bg-white text-black'
+                  : 'border border-gray-200 bg-white text-gray-700'
+              }`}
+            >
               {hoverTip.message}
             </span>
           </div>

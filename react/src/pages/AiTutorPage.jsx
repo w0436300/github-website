@@ -153,8 +153,11 @@ export default function AiTutorPage() {
             to transform a technically strong system into something learners can understand, trust, and
             return to.
           </p>
-          <div className=" mb-0 rounded-[2px] p-2 border border-[rgba(52,118,128,0.55)] text-xs">
-            <p className="text-sm md:text-base text-slate-800 leading-relaxed">
+          <div
+            className=" mb-0 rounded-[2px] p-2 text-xs"
+            style={{ borderWidth: "0px", borderColor: "rgba(0, 0, 0, 0)", borderStyle: "none", borderImage: "none" }}
+          >
+            <p className="text-sm md:text-base text-[rgba(52,118,128,1)] leading-relaxed font-medium">
               This project explored an end-to-end, AI-assisted workflow that combined product thinking,
               UX design, and front-end prototyping.
             </p>
