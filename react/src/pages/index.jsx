@@ -98,7 +98,7 @@ export function HomePage() {
           className="text-3xl font-slate-700 leading-[1.1] tracking-tighter text-black max-w-4xl mb-2"
           style={sourceSansPro}
         >
-          I&apos;m Xinping (Claire), a product designer bridging <span className="text-blue-800">design</span> and <span className="text-blue-800">engineering</span>.
+          I&apos;m Xinping (Claire), a product designer bridging <span className="text-gray-700 font-medium">design</span> and <span className="text-gray-700 font-medium">engineering</span>.
         </h1>
 
 
@@ -109,7 +109,7 @@ export function HomePage() {
                 {row.label}
                 <span className="text-blue-800 mx-1.5">—</span>
               </span>
-              <span className="text-blue-800 font-normal">{row.value}</span>
+              <span className="text-gray-800 font-normal">{row.value}</span>
             </p>
           ))}
         </div>
@@ -188,6 +188,12 @@ export function HomePage() {
                             {tag}
                           </span>
                         ))}
+                        {p.tags.length > 3 && (
+                          <span className="px-2.5 py-1 text-[10px] font-medium uppercase tracking-wide text-gray-700 border border-gray-300 bg-white">
+                            +{p.tags.length - 3}
+                          </span>
+                        )}
+                        
                       </div>
                       {(p.year || p.location) && (
                         <div className="flex items-center gap-2 text-[11px] text-gray-500 tabular-nums shrink-0 ml-auto">
@@ -196,18 +202,31 @@ export function HomePage() {
                           {p.location && <span>{p.location}</span>}
                         </div>
                       )}
+                      {Array.isArray(p.tools) && p.tools.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5">
+                          {p.tools.map((tool) => (
+                            <span
+                              key={tool}
+                              className="px-2 py-0.5 text-[12px] font-medium text-gray-800  border border-gray-200/90 group-hover:bg-[#FFCC00] group-hover: text-black   transition-all duration-300 group-hover:text-black"
+                            >
+                              {tool}
+                            </span>
+                          ))}
+                      </div>
+                    )}
                     </div>
                     <div className="flex justify-between items-start gap-2">
-                      <h2 className="text-lg md:text-xl font-black tracking-tight text-black group-hover:text-[#1F4D3A] transition-colors pr-2">
+                      <h2 className="text-lg md:text-xl font-medium text-gray-800 group-hover:text-black transition-colors pr-2">
                         {p.title}
                       </h2>
                       <ArrowUpRight
                         size={18}
-                        className="text-gray-300 group-hover:text-[#1F4D3A] transition-colors shrink-0 mt-0.5"
+                        className="text-gray-300 group-hover:text-black transition-colors shrink-0 mt-0.5"
                         aria-hidden
                       />
                     </div>
                     <p className="mt-3 text-sm text-gray-600 leading-relaxed line-clamp-3">{p.description}</p>
+                    
                   </div>
                 </button>
               );

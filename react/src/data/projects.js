@@ -17,6 +17,7 @@ export const projects = [
     externalUrl: null,
     modalImage: null,
     modalTech: null,
+    tools: ['Figma', 'Cursor', 'Claude', 'Git', 'React', 'Tailwind CSS', 'Vite'],
   },
   {
     id: 'design-standard-wcag',
@@ -34,6 +35,7 @@ export const projects = [
     externalUrl: null,
     modalImage: null,
     modalTech: 'WCAG 2.x, Accessibility, Inclusive Design',
+    tools: ['Figma', 'WCAG 2.x', 'Accessibility', 'Design systems'],
   },
   {
     id: 'bank-document-system',
@@ -51,6 +53,7 @@ export const projects = [
     externalUrl: null,
     modalImage: null,
     modalTech: 'InDesign · Mapping documents · Template systems',
+    tools: ['InDesign', 'Template systems', 'Field mapping'],
   },
   {
     id: 'medisupply-hub-ui',
@@ -65,6 +68,7 @@ export const projects = [
     externalUrl: null,
     modalImage: null,
     modalTech: null,
+    tools: ['Figma', 'User research', 'Journey mapping'],
   },
   {
     id: 'analytics-dashboard',
@@ -78,6 +82,7 @@ export const projects = [
     externalUrl: null,
     modalImage: null,
     modalTech: null,
+    tools: ['React', 'Express', 'MongoDB'],
   },
   {
     id: 'koii-website',
@@ -91,6 +96,7 @@ export const projects = [
     externalUrl: 'https://www.koii.network/ecosystem',
     modalImage: null,
     modalTech: null,
+    tools: ['React'],
   },
   {
     id: 'albums-app',
@@ -104,6 +110,7 @@ export const projects = [
     externalUrl: null,
     modalImage: null,
     modalTech: null,
+    tools: ['Express', 'Node.js'],
   },
   {
     id: 'weather-app',
@@ -117,6 +124,7 @@ export const projects = [
     externalUrl: null,
     modalImage: null,
     modalTech: null,
+    tools: ['JavaScript', 'HTML', 'CSS', 'OpenWeather API'],
   },
   {
     id: 'ecommerce',
@@ -130,6 +138,7 @@ export const projects = [
     externalUrl: null,
     modalImage: null,
     modalTech: null,
+    tools: ['Next.js', 'MongoDB'],
   },
   {
     id: 'react-native-app',
@@ -143,6 +152,7 @@ export const projects = [
     externalUrl: null,
     modalImage: null,
     modalTech: null,
+    tools: ['React Native'],
   },
   {
     id: 'halifax-bustracker',
@@ -156,6 +166,7 @@ export const projects = [
     externalUrl: null,
     modalImage: null,
     modalTech: null,
+    tools: ['Leaflet.js', 'JavaScript', 'GeoJSON', 'Fetch API'],
   },
   {
     id: 'electron-video',
@@ -169,6 +180,7 @@ export const projects = [
     externalUrl: null,
     modalImage: null,
     modalTech: null,
+    tools: ['Electron', 'JavaScript'],
   },
   {
     id: 'chatroom',
@@ -182,6 +194,7 @@ export const projects = [
     externalUrl: null,
     modalImage: null,
     modalTech: null,
+    tools: ['Socket.IO', 'Node.js', 'Express'],
   },
   {
     id: 'three-in-a-row',
@@ -195,6 +208,7 @@ export const projects = [
     externalUrl: null,
     modalImage: null,
     modalTech: null,
+    tools: ['HTML', 'CSS', 'JavaScript', 'Fetch API'],
   },
   {
     id: 'mern-camera',
@@ -208,6 +222,7 @@ export const projects = [
     externalUrl: null,
     modalImage: null,
     modalTech: null,
+    tools: ['MongoDB', 'Express', 'React', 'Node.js', 'Mongoose'],
   },
   // Design (with modal)
   {
@@ -222,6 +237,7 @@ export const projects = [
     externalUrl: null,
     modalImage: '/img/ai_visual.png',
     modalTech: 'Illustrator/Tableau',
+    tools: ['Illustrator', 'Tableau'],
   },
   {
     id: 'analytics-dashboard-design',
@@ -235,6 +251,7 @@ export const projects = [
     externalUrl: null,
     modalImage: '/img/design-dashboard.png',
     modalTech: 'Figma/React',
+    tools: ['Figma', 'React', 'Express', 'MongoDB'],
   },
   {
     id: 'wireframe-practice',
@@ -248,6 +265,7 @@ export const projects = [
     externalUrl: 'https://www.figma.com/proto/cMSBAARS40BTvxKRRjphsH/googleAnalytics-wireframe?node-id=1-14&p=f&t=AmWIm2XAuxXwRj2i-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A14',
     modalImage: '/img/google_wireframe_long.jpg',
     modalTech: 'Figma',
+    tools: ['Figma'],
   },
   {
     id: 'bbc-style-guide',
@@ -261,6 +279,7 @@ export const projects = [
     externalUrl: null,
     modalImage: '/img/bbc_detail.png',
     modalTech: 'Figma',
+    tools: ['Figma'],
   },
   {
     id: 'sign-design',
@@ -274,6 +293,7 @@ export const projects = [
     externalUrl: null,
     modalImage: '/img/hospital0-0.png',
     modalTech: 'Adobe',
+    tools: ['Illustrator', 'Photoshop', 'InDesign'],
   },
   // Data Visualization
   {
@@ -288,6 +308,7 @@ export const projects = [
     externalUrl: 'https://app.powerbi.com/view?r=eyJrIjoiNDEwZDhiMzQtYjgzYS00MGM4LTllOGQtMWUxOTMzMGVlZWM1IiwidCI6ImFiMTYzNWE4LWMwMTAtNDYxZS05ZGU5LTYwZDdkYjIxZGY1ZiIsImMiOjN9',
     modalImage: null,
     modalTech: null,
+    tools: ['Power BI', 'DAX', 'SQL', 'ETL'],
   },
   {
     id: 'mcommerce-analytics',
@@ -301,6 +322,7 @@ export const projects = [
     externalUrl: null,
     modalImage: null,
     modalTech: null,
+    tools: ['React', 'Recharts', 'D3.js', 'Node.js', 'Express', 'Google Analytics', 'JWT', 'NextAuth.js'],
   },
   {
     id: 'halifax-bustracker-dv',
@@ -314,6 +336,7 @@ export const projects = [
     externalUrl: null,
     modalImage: null,
     modalTech: null,
+    tools: ['JavaScript', 'Leaflet.js', 'OpenStreetMap', 'GeoJSON', 'Fetch API'],
   },
   {
     id: 'text-classification',
@@ -327,6 +350,7 @@ export const projects = [
     externalUrl: 'https://colab.research.google.com/drive/1Ox9eKbNWLH-1gWk6qQsUnR8mg8tEFmGk?usp=sharing',
     modalImage: null,
     modalTech: null,
+    tools: ['Python', 'scikit-learn', 'Jupyter', 'NLP', 'ML'],
   },
   {
     id: 'data-info-viz',
@@ -340,6 +364,7 @@ export const projects = [
     externalUrl: null,
     modalImage: '/img/ai_visual.png',
     modalTech: 'Illustrator/Tableau',
+    tools: ['Illustrator', 'Tableau'],
   },
 ];
 

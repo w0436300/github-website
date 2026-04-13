@@ -304,9 +304,6 @@ export default function BlogPage() {
         {/* Photos — flex wrap, full main width */}
         <section className="w-full min-w-0 pb-2">
           <h2 className={sectionTitleClass}>Photos</h2>
-          <p className={`text-xs text-black/55 leading-relaxed mb-2 ${textColumn}`}>
-            Portrait and gallery—tiles wrap with the width of the page.
-          </p>
           <div className="flex flex-wrap gap-2 md:gap-3">
             {PHOTO_GRID_ITEMS.map((item) => (
               <figure
