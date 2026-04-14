@@ -324,7 +324,7 @@ export default function AiTutorPage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-6">
             <h2 className={AMI.h2} style={AMI.h2Style}>Design Decisions</h2>
-            <h3 className={AMI.h3} style={AMI.h3Style}>Four decisions that defined the product.</h3>
+            <h3 className={AMI.h3} style={AMI.h3Style}>Five decisions that defined the product.</h3>
             <p className="text-slate-600 text-sm text-left mt-3">
               Each decision involved a real trade-off. The goal was not fewer features, but better
               learning behavior and higher trust.
@@ -653,6 +653,51 @@ export default function AiTutorPage() {
                   <div className="p-3 border-t border-gray-300 text-sm text-slate-600">
                     No single screen makes AI trustworthy. These four layers work together, each answering a
                     different learner trust question.
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article className={`border ${amiBorderSubtle} bg-white p-5 md:p-6`}>
+              <div className="flex items-start gap-4 mb-4">
+                <span className="w-9 h-9 bg-white border border-gray-300 text-xs font-bold flex items-center justify-center" style={{ color: 'rgb(52 118 128 / 0.88)' }}>05</span>
+                <div>
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Guided Onboarding Flow</p>
+                  <h4 className="text-lg font-semibold text-slate-900">
+                    Split onboarding into guided steps: learning goal → learning style → resume.
+                  </h4>
+                </div>
+              </div>
+              <div className="grid lg:grid-cols-2 gap-5">
+                <div className="space-y-3">
+                  <div className={`border ${amiBorderSubtle} bg-white p-4`}>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-2">Problem · Decision · Outcome</p>
+                    <p className="text-sm text-slate-600"><span className="font-semibold text-slate-800">Problem:</span> Putting all onboarding inputs on one screen created cognitive load and drop-off.</p>
+                    <p className="text-sm text-slate-600"><span className="font-semibold text-slate-800">Decision:</span> Sequence inputs into three guided steps: learning goal, learning style, then resume.</p>
+                    <p className="text-sm text-slate-600"><span className="font-semibold text-slate-800">Outcome:</span> Users focus on one decision at a time, with lower friction and clearer intent capture.</p>
+                  </div>
+                  <div className={`border ${amiBorderSubtle} bg-white p-4`}>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-2">Flow logic</p>
+                    <p className="text-sm text-slate-600 mb-1">
+                      1) <span className="font-semibold text-slate-800">Learning goal</span> sets direction.
+                    </p>
+                    <p className="text-sm text-slate-600 mb-1">
+                      2) <span className="font-semibold text-slate-800">Learning style</span> tunes delivery.
+                    </p>
+                    <p className="text-sm text-slate-600">
+                      3) <span className="font-semibold text-slate-800">Resume</span> enriches personalization (optional).
+                    </p>
+                  </div>
+                </div>
+                <div className={`border ${amiBorderSubtle} bg-white p-4`}>
+                  <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-2">Why this works</p>
+                  <p className="text-sm text-slate-600 mb-3">
+                    The order mirrors learner mental models: start with intention, then preference, then optional depth.
+                  </p>
+                  <div className={`border ${amiBorderSubtle} bg-slate-50 p-3`}>
+                    <p className="text-sm italic" style={{ color: 'rgb(52 118 128 / 0.88)' }}>
+                      "Progressive disclosure works when each step answers one clear learner question."
+                    </p>
                   </div>
                 </div>
               </div>
