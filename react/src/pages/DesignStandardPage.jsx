@@ -198,10 +198,10 @@ export default function DesignStandardPage() {
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-[minmax(0,320px)_1fr] gap-10">
             <div>
-              <p className="text-[10px] uppercase tracking-wider text-[#0075BE] mb-3">Reflection</p>
-              <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-left" style={SECTION_HEAD.h3Style}>
+              <h2 className={SECTION_HEAD.h2} style={SECTION_HEAD.h2Style}>Reflection</h2>
+              <h3 className={SECTION_HEAD.h3} style={SECTION_HEAD.h3Style}>
                 What I learned
-              </h2>
+              </h3>
               <p className="text-sm text-slate-700 leading-relaxed mt-4">
                 The work was thorough, but the documentation workflow could have been structured earlier.
               </p>
@@ -336,10 +336,8 @@ export default function DesignStandardPage() {
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-[minmax(0,320px)_1fr] gap-10 items-start border border-sky-200 bg-white p-6 md:p-8">
             <div>
-              <p className="text-[10px] uppercase tracking-wider text-[#0075BE] mb-3">Standards structure</p>
-              <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-left" style={SECTION_HEAD.h3Style}>
-                A repeatable page format
-              </h2>
+              <h3 className={SECTION_HEAD.h3} style={SECTION_HEAD.h3Style}>Standards structure</h3>
+              A repeatable page format
               <p className="text-sm text-slate-700 leading-relaxed mt-4">
                 Each standards page followed the same structure so designers could quickly understand what the item was, how it should be used, and what spacing or layout rules applied.
               </p>
@@ -416,7 +414,7 @@ export default function DesignStandardPage() {
             ))}
           </div>
 
-          <div className="mt-4 border border-sky-200 bg-sky-50 px-4 py-3 text-sm text-slate-700">
+          <div className="mt-4 border border-sky-200 px-4 py-3 text-sm text-slate-700">
             Actual standards pages are NDA-protected. Examples shown here focus on page structure, taxonomy, and
             documentation format rather than product-specific content.
           </div>
@@ -464,7 +462,7 @@ export default function DesignStandardPage() {
                 rule: '4px base scale · gaps use 4, 8, 16, 24, 32 · no freeform values',
               },
             ].map((f, i) => (
-              <div key={f.name} className="bg-white p-6 hover:bg-sky-50/80 transition-colors">
+              <div key={f.name} className="bg-white p-6 hover:bg-sky-50/100 transition-colors">
                 <div className="flex justify-between items-start gap-2 mb-4">
                   <span className="text-[9px] uppercase px-2 py-0.5 border border-emerald-200 bg-emerald-50 text-emerald-800">{f.tag}</span>
                   <span className="text-[9px] text-slate-500 text-right">{f.freq}</span>
@@ -475,7 +473,7 @@ export default function DesignStandardPage() {
                 </div>
                 <h4 className="text-base font-semibold text-slate-900 mb-2">{f.name}</h4>
                 <p className="text-sm text-slate-700 leading-relaxed mb-3">{f.body}</p>
-                <p className="text-[11px] text-[#0075BE] leading-snug border border-sky-200 bg-sky-50 px-2 py-2">
+                <p className="text-[11px] text-[#0075BE] leading-snug bg-white border border-sky-200 px-2 py-2">
                   → {f.rule}
                 </p>
               </div>
@@ -486,40 +484,42 @@ export default function DesignStandardPage() {
 
       <section id="Collaboration" className="py-1 px-6 pb-12">
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-0 border border-sky-200 overflow-hidden bg-white">
-            <div className="p-6 md:p-10 lg:border-r border-sky-200">
-              <p className="text-[10px] uppercase tracking-wider text-[#0075BE] mb-3">Collaboration</p>
-              <h2 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight mb-4">
-                How audit findings became standards
-              </h2>
-              <p className="text-sm text-slate-700 leading-relaxed mb-6">
-                I surfaced recurring inconsistencies, documented the variants, and brought options into alignment discussions. PO and BA made the final call; I translated those decisions into reusable standards pages.
-              </p>
-              <div className="border border-sky-200 bg-sky-50 px-4 py-3 text-sm text-slate-800 leading-relaxed">
-                My role was to make drift visible, structure the rules clearly, and turn decisions into a reference the team could actually use.
-              </div>
-            </div>
-            <div className="p-6 md:p-10 bg-sky-50/50">
-              <ul className="space-y-0 divide-y divide-sky-200">
+          <div className="text-center mb-8 md:text-left md:mb-10">
+            <h2 className={SECTION_HEAD.h2} style={SECTION_HEAD.h2Style}>Collaboration</h2>
+            <h3 className={SECTION_HEAD.h3} style={SECTION_HEAD.h3Style}>
+              How audit findings became standards
+            </h3>
+            <p className="text-sm text-slate-700 leading-relaxed max-w-2xl">
+              I surfaced recurring inconsistencies, documented the variants, and brought options into alignment discussions. PO and BA made the final call; I translated those decisions into reusable standards pages.
+            </p>
+          </div>
+
+          <div className="max-w-3xl space-y-10">
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.14em] text-[#0075BE] mb-4">My contribution</p>
+              <ul className="space-y-5 border-l border-sky-200 pl-5">
                 {[
-                  { who: 'me', title: 'Audited historical work', desc: 'Compared many projects side by side across years of files.', tag: 'My contribution' },
-                  { who: 'me', title: 'Structured the variations', desc: 'Grouped repeated differences into decision-ready categories.', tag: 'My contribution' },
-                  { who: 'me', title: 'Prepared rule options', desc: 'Summarized possible approaches and trade-offs.', tag: 'My contribution' },
-                  { who: 'team', title: 'Aligned with PO & BA', desc: 'Confirmed the rules that best fit business and product needs.', tag: 'Product Owner + BA' },
-                  { who: 'me', title: 'Documented the outcome', desc: 'Converted agreed decisions into reusable standards documentation.', tag: 'My contribution' },
+                  { title: 'Audited historical work', desc: 'Compared many projects side by side across years of files.' },
+                  { title: 'Structured the variations', desc: 'Grouped repeated differences into decision-ready categories.' },
+                  { title: 'Prepared rule options', desc: 'Summarized possible approaches and trade-offs.' },
+                  { title: 'Documented the outcome', desc: 'Converted agreed decisions into reusable standards documentation.' },
                 ].map((row) => (
-                  <li key={row.title} className="flex gap-3 py-4 first:pt-0">
-                    <span className={`shrink-0 w-8 h-8 flex items-center justify-center text-[9px] border ${row.who === 'me' ? 'bg-white border-sky-200 text-[#0075BE]' : 'bg-emerald-50 border-emerald-200 text-emerald-800'}`}>
-                      {row.who === 'me' ? 'me' : 'PO'}
-                    </span>
-                    <div>
-                      <p className="text-sm font-medium text-slate-900">{row.title}</p>
-                      <p className="text-xs text-slate-700 leading-relaxed mt-1">{row.desc}</p>
-                      <span className="inline-block mt-2 text-[9px] uppercase px-2 py-0.5 border border-sky-200 text-slate-600">{row.tag}</span>
-                    </div>
+                  <li key={row.title}>
+                    <p className="text-sm font-medium text-slate-900">{row.title}</p>
+                    <p className="text-sm text-slate-600 leading-relaxed mt-1">{row.desc}</p>
                   </li>
                 ))}
               </ul>
+            </div>
+
+            <div className="pt-8 border-t border-slate-200">
+              <p className="text-[10px] uppercase tracking-[0.14em] text-emerald-800 mb-4">Product Owner + BA</p>
+              <div className="border-l border-emerald-200 pl-5">
+                <p className="text-sm font-medium text-slate-900">Aligned with PO & BA</p>
+                <p className="text-sm text-slate-600 leading-relaxed mt-1">
+                  Confirmed the rules that best fit business and product needs.
+                </p>
+              </div>
             </div>
           </div>
         </div>

@@ -10,19 +10,19 @@ export const sourceSansPro = {
 export const dsAccentRgb = '0 117 190'; // #0075BE
 export const dsSectionHead = {
   h2: 'text-sm font-medium text-left uppercase',
-  h2Style: { ...openSans, color: `rgb(${dsAccentRgb})` },
+  h2Style: { ...openSans, color: `rgb(${dsAccentRgb})`, backgroundColor: "rgb(240, 247, 255)" },
   h3: 'text-xl font-medium text-left tracking-tight',
-  h3Style: { ...openSans, color: `rgb(${dsAccentRgb} / 0.9)` },
+  h3Style: { ...openSans, color: `rgb(${dsAccentRgb} / 0.9)`, backgroundColor: "rgb(240, 247, 255)" },
 };
 
 /** Ami — soft blue‑green section titles (cyan, less “grass green” than old teal) */
-export const amiAccentRgb = '52 118 128';
+export const amiAccentRgb = '28 83 47';
 
 export const amiSectionHead = {
   h2: 'text-sm font-medium text-left uppercase',
-  h2Style: { ...openSans, color: `rgb(${amiAccentRgb})` },
+  h2Style: { ...openSans, color: `rgb(${amiAccentRgb})`, backgroundColor: "rgb(242, 255, 251)" },
   h3: 'text-xl font-medium text-left tracking-tight',
-  h3Style: { ...openSans, color: `rgb(${amiAccentRgb} / 0.88)` },
+  h3Style: { ...openSans, color: `rgb(${amiAccentRgb} / 0.88)`, backgroundColor: "rgb(242, 255, 251)"},
 };
 
 /** Ami content borders (Design Standard uses border-sky-200) */

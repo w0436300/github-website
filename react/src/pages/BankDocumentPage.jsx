@@ -143,7 +143,7 @@ export default function BankDocumentPage() {
             <h2 className={SECTION.h2} style={SECTION.h2Style}>
               Reflection
             </h2>
-            <h3 className={`${SECTION.h3} mt-1`} style={SECTION.h3Style}>
+            <h3 className={`${SECTION.h3}`} style={SECTION.h3Style}>
               What I learned.
             </h3>
           </div>
@@ -162,7 +162,7 @@ export default function BankDocumentPage() {
             <h2 className={SECTION.h2} style={SECTION.h2Style}>
               Context
             </h2>
-            <h3 className={`${SECTION.h3} mt-1`} style={SECTION.h3Style}>
+            <h3 className={`${SECTION.h3}`} style={SECTION.h3Style}>
               Old forms built for print. New forms need to work digitally.
             </h3>
           </div>
@@ -214,18 +214,22 @@ export default function BankDocumentPage() {
 
         {/* Challenge */}
         <section id="Challenge" className="scroll-mt-20 md:scroll-mt-24">
-          <SectionIntro
-            eyebrow="Challenge"
-            title="Not a visual refresh. A structural rebuild."
-            subtitle="The difficulty was not aesthetics — it was establishing consistent rules across multiple competing constraints."
-          />
+          <div className="text-center md:text-left mb-2">
+            <h2 className={SECTION.h2} style={SECTION.h2Style}>Challenge</h2>
+            <h3 className={`${SECTION.h3}`} style={SECTION.h3Style}>
+            Not a visual refresh. A structural rebuild.
+            </h3>
+            </div>
+          <p className="text-sm text-slate-600 max-w-3xl mb-8 leading-relaxed">
+            The difficulty was not aesthetics — it was establishing consistent rules across multiple competing constraints.
+          </p>
           <div className="grid md:grid-cols-2 gap-px bg-gray-200 border border-gray-200">
             {CHALLENGE.map((c) => (
               <div key={c.no} className="bg-white p-5 md:p-6">
                 <p className="text-3xl font-light leading-none mb-3" style={{ color: ACCENT_FAINT }}>
                   
                 </p>
-                <h4 className="text-sm font-semibold text-slate-900 mb-2">{c.title}</h4>
+                <h4 className="text-sm font-semibold text-slate-900">{c.title}</h4>
                 <p className="text-sm text-slate-600 leading-relaxed">{c.body}</p>
               </div>
             ))}
@@ -234,7 +238,12 @@ export default function BankDocumentPage() {
 
         {/* Role */}
         <section id="Role" className="scroll-mt-20 md:scroll-mt-24">
-          <SectionIntro eyebrow="My Role" title="What I was responsible for." />
+          <div className="text-center md:text-left mb-2">
+            <h2 className={SECTION.h2} style={SECTION.h2Style}>My Role</h2>
+            <h3 className={`${SECTION.h3}`} style={SECTION.h3Style}>
+              What I was responsible for.
+            </h3>
+          </div>
           <div className="grid md:grid-cols-2 gap-8">
             <ul className="space-y-0 list-none">
               {ROLE_LEFT.map((item) => (
@@ -263,13 +272,18 @@ export default function BankDocumentPage() {
 
         {/* Process */}
         <section id="Process" className="scroll-mt-20 md:scroll-mt-24">
-          <SectionIntro eyebrow="Process" title="Four core questions, in order." />
+          <div className="text-center md:text-left mb-2">
+            <h2 className={SECTION.h2} style={SECTION.h2Style}>Process</h2>
+            <h3 className={`${SECTION.h3}`} style={SECTION.h3Style}>
+              Four core questions, in order.
+            </h3>
+          </div>
           <div className="flex flex-col gap-px bg-gray-200 border border-gray-200">
             {PROCESS.map((step) => (
               <div key={step.n} className="grid grid-cols-[52px_1fr] md:grid-cols-[56px_1fr] bg-white">
                 <div
-                  className="flex items-center justify-center text-lg font-light text-white/60"
-                  style={{ backgroundColor: ACCENT, fontFamily: 'Georgia, "Times New Roman", serif' }}
+                  className="flex items-center justify-center bg-white text-lg font-light"
+                  style={{ fontFamily: 'Georgia, "Times New Roman", serif', color: ACCENT }}
                 >
                   {step.n}
                 </div>
@@ -284,11 +298,12 @@ export default function BankDocumentPage() {
 
         {/* Decisions */}
         <section id="Decisions" className="scroll-mt-20 md:scroll-mt-24">
-          <SectionIntro
-            eyebrow="Decisions"
-            title="Format exploration and sign-off"
-            subtitle="High-level only — the work was comparing how each block should read, not documenting every variant."
-          />
+          <div className="text-center md:text-left mb-2">
+            <h2 className={SECTION.h2} style={SECTION.h2Style}>Decisions</h2>
+            <h3 className={`${SECTION.h3}`} style={SECTION.h3Style}>
+              Format exploration and sign-off
+            </h3>
+          </div>
           <div className="border border-gray-200 bg-white p-5 md:p-6 max-w-3xl">
             <p className="text-sm text-slate-700 leading-relaxed mb-4">
               For many sections we started from plain body copy, then tried clearer structures: key values called out in the paragraph,
@@ -310,11 +325,12 @@ export default function BankDocumentPage() {
 
         {/* Mockup */}
         <section id="Mockup" className="scroll-mt-20 md:scroll-mt-24 pb-4 md:pb-6">
-          <SectionIntro
-            eyebrow="Final Mockup"
-            title="The redesigned template — Page 1 of 2."
-            subtitle="Unified header, section hierarchy, paragraph with highlighted fields, key-value list, and conditional section rendering."
-          />
+          <div className="text-center md:text-left mb-4">
+            <h2 className={SECTION.h2} style={SECTION.h2Style}>Final Mockup</h2>
+            <h3 className={`${SECTION.h3}`} style={SECTION.h3Style}>
+              The redesigned template — Page 1 of 2.
+            </h3>
+          </div>
           <div className="border border-gray-200 bg-white text-[10px] text-slate-800 shadow-sm overflow-hidden">
             <div className="flex items-stretch min-h-[44px]" style={{ backgroundColor: ACCENT }}>
               <div className="flex items-center px-3 bg-white text-sm font-black tracking-widest shrink-0" style={{ color: ACCENT }}>
