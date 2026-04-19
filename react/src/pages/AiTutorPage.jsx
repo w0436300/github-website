@@ -156,7 +156,9 @@ export default function AiTutorPage() {
   useEffect(() => {
     const syncSlideModeFromUrl = () => {
       const params = new URLSearchParams(window.location.search);
-      setIsSlideMode(params.get('mode') === 'slide');
+      const enabled = params.get('mode') === 'slide';
+      setIsSlideMode(enabled);
+      window.dispatchEvent(new CustomEvent('aitutor-slide-mode-change', { detail: enabled }));
     };
 
     syncSlideModeFromUrl();
@@ -191,6 +193,7 @@ export default function AiTutorPage() {
     }
     window.history.replaceState({}, '', url.toString());
     setIsSlideMode(enabled);
+    window.dispatchEvent(new CustomEvent('aitutor-slide-mode-change', { detail: enabled }));
     if (enabled) {
       setActiveSlide(0);
       window.scrollTo({ top: 0, behavior: 'auto' });
@@ -248,11 +251,47 @@ export default function AiTutorPage() {
           </>
         )}
       </div>
-      {isSlideMode && (
-        <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 border border-gray-300 bg-white/95 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-700 shadow-sm backdrop-blur">
-          {SLIDE_SECTIONS[activeSlide]?.label}
-        </div>
-      )}
+      {isSlideMode && (() => {
+        const TOP_NAV_GROUPS = [
+          { label: 'Overview', indices: [0] },
+          { label: 'Problem', indices: [1] },
+          { label: 'Research', indices: [2, 3, 4] },
+          { label: 'Decisions', indices: [5, 6, 7, 8, 9, 10] },
+          { label: 'Solution', indices: [11] },
+          { label: 'Reflection', indices: [12] },
+          { label: 'Video', indices: [13] },
+        ];
+        return (
+          <div className="fixed top-3 left-1/2 -translate-x-1/2 z-50 max-w-[calc(100vw-2rem)] overflow-x-auto border border-gray-300 bg-white/95 px-2 py-1.5 shadow-sm backdrop-blur">
+            <div className="flex items-center gap-1">
+              {TOP_NAV_GROUPS.map((g) => {
+                const isActive = g.indices.includes(activeSlide);
+                const activePos = isActive ? g.indices.indexOf(activeSlide) + 1 : 0;
+                return (
+                  <button
+                    key={g.label}
+                    type="button"
+                    onClick={() => goToSlide(g.indices[0])}
+                    title={SLIDE_SECTIONS[activeSlide]?.label}
+                    className={`whitespace-nowrap px-2.5 py-1 text-[10px] uppercase tracking-[0.14em] transition-colors ${
+                      isActive
+                        ? 'bg-gray-700 text-white font-bold'
+                        : 'text-slate-900 hover:font-bold font-medium'
+                    }`}
+                  >
+                    {g.label}
+                    {isActive && g.indices.length > 1 && (
+                      <span className="ml-1.5 opacity-70">
+                        {activePos}/{g.indices.length}
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })()}
 
       {isSlideMode && <SlideDeck activeSlide={activeSlide} amiImg={amiImg} />}
 

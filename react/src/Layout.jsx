@@ -69,6 +69,7 @@ export default function Layout() {
   const [activeCaseStudySection, setActiveCaseStudySection] = useState('Overview');
   const siteHeaderRef = useRef(null);
   const [siteHeaderHeight, setSiteHeaderHeight] = useState(56);
+  const [isAiTutorSlideMode, setIsAiTutorSlideMode] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const isHome = location.pathname === '/' || location.pathname === '';
@@ -109,6 +110,25 @@ export default function Layout() {
     if (!isCaseStudyPage) return;
     setActiveCaseStudySection('Overview');
   }, [location.pathname, isCaseStudyPage]);
+
+  useEffect(() => {
+    if (!isAiTutorPage) {
+      setIsAiTutorSlideMode(false);
+      return undefined;
+    }
+    const sync = () => {
+      const params = new URLSearchParams(window.location.search);
+      setIsAiTutorSlideMode(params.get('mode') === 'slide');
+    };
+    sync();
+    const onSlide = (e) => setIsAiTutorSlideMode(!!e.detail);
+    window.addEventListener('popstate', sync);
+    window.addEventListener('aitutor-slide-mode-change', onSlide);
+    return () => {
+      window.removeEventListener('popstate', sync);
+      window.removeEventListener('aitutor-slide-mode-change', onSlide);
+    };
+  }, [isAiTutorPage, location.pathname]);
 
   useEffect(() => {
     if (!isCaseStudyPage || !caseStudyNavLinks?.length) return;
@@ -323,7 +343,7 @@ export default function Layout() {
       {/* Reserve space for fixed header (height synced with measured header) */}
       <div className="shrink-0" style={{ height: siteHeaderHeight }} aria-hidden />
 
-      {isProjectPage && (
+      {isProjectPage && !isAiTutorSlideMode && (
         <>
           {/* md+: section nav under global header */}
           <aside
@@ -374,10 +394,10 @@ export default function Layout() {
         </>
       )}
 
-      <main className={`min-h-screen min-w-0 ${isProjectPage ? 'md:pl-56' : ''}`}>
+      <main className={`min-h-screen min-w-0 ${isProjectPage && !isAiTutorSlideMode ? 'md:pl-56' : ''}`}>
         <Outlet />
       </main>
-      <footer className={`w-full min-w-0 shrink-0 border-t border-gray-200 bg-white py-8 text-center md:py-10 ${isProjectPage ? 'md:pl-56' : ''}`}>
+      <footer className={`w-full min-w-0 shrink-0 border-t border-gray-200 bg-white py-8 text-center md:py-10 ${isProjectPage && !isAiTutorSlideMode ? 'md:pl-56' : ''}`}>
         <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-gray-800">
           Designed + Engineered by Xinping(Claire) - 2026
         </p>
