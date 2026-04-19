@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { amiSectionHead as AMI, amiAccentRgb, openSans, amiBorder, amiBorderSubtle } from '../styles/caseStudyTheme.js';
 
 /** Nielsen Norman-style heuristics — how we applied them in this product (not a checklist; a design lens). */
@@ -130,15 +131,132 @@ const OVERVIEW_WORKFLOW_STEPS = [
   'Client Feedback & Refinement',
 ];
 
+const SLIDE_SECTIONS = [
+  { id: 'Overview', label: 'Overview' },
+  { id: 'Problem', label: 'Problem' },
+  { id: 'Research-Findings', label: 'Research · Findings' },
+  { id: 'Research-Competitive', label: 'Research · Competitive' },
+  { id: 'Research-Journey', label: 'Research · Journey' },
+  { id: 'Decisions-Overview', label: 'Decisions · Overview' },
+  { id: 'Decision-Onboarding', label: 'Decision 01 · Learning Style' },
+  { id: 'Decision-SkillGap', label: 'Decision 02 · Skill Gap' },
+  { id: 'Decision-Chatbot', label: 'Decision 03 · Chatbot Scope' },
+  { id: 'Decision-Citations', label: 'Decision 04 · Citations' },
+  { id: 'Decision-GuidedFlow', label: 'Decision 05 · Guided Flow' },
+  { id: 'Solution', label: 'Solution' },
+  { id: 'Reflection', label: 'Reflection' },
+  { id: 'Video', label: 'Video' },
+];
+
 export default function AiTutorPage() {
   const amiImg = (name) => `${import.meta.env.BASE_URL}img/ami/${name}`;
+  const [isSlideMode, setIsSlideMode] = useState(false);
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  useEffect(() => {
+    const syncSlideModeFromUrl = () => {
+      const params = new URLSearchParams(window.location.search);
+      setIsSlideMode(params.get('mode') === 'slide');
+    };
+
+    syncSlideModeFromUrl();
+    window.addEventListener('popstate', syncSlideModeFromUrl);
+    return () => window.removeEventListener('popstate', syncSlideModeFromUrl);
+  }, []);
+
+  useEffect(() => {
+    if (!isSlideMode) return;
+
+    const onKeyDown = (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+        e.preventDefault();
+        goToSlide(activeSlide + 1);
+      }
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        goToSlide(activeSlide - 1);
+      }
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [isSlideMode, activeSlide]);
+
+  const setSlideModeInUrl = (enabled) => {
+    const url = new URL(window.location.href);
+    if (enabled) {
+      url.searchParams.set('mode', 'slide');
+    } else {
+      url.searchParams.delete('mode');
+    }
+    window.history.replaceState({}, '', url.toString());
+    setIsSlideMode(enabled);
+    if (enabled) {
+      setActiveSlide(0);
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
+  };
+
+  const goToSlide = (nextIdx) => {
+    const safeIdx = Math.max(0, Math.min(nextIdx, SLIDE_SECTIONS.length - 1));
+    setActiveSlide(safeIdx);
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  };
 
   return (
     <div
-      className="ai-tutor-page min-h-screen bg-white text-slate-900 selection:bg-slate-200 selection:text-slate-900 scroll-smooth pb-2"
+      className={`ai-tutor-page min-h-screen bg-white text-slate-900 selection:bg-slate-200 selection:text-slate-900 scroll-smooth pb-2 ${isSlideMode ? 'slide-mode' : ''}`}
       style={openSans}
     >
-      <section id="Overview" className="pt-2 pb-10 px-6">
+      <div className="fixed bottom-4 right-4 z-50 flex items-center gap-2">
+        {!isSlideMode ? (
+          <button
+            type="button"
+            onClick={() => setSlideModeInUrl(true)}
+            className="border border-gray-300 bg-white px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-700 shadow-sm hover:bg-slate-50"
+          >
+            Slide Mode
+          </button>
+        ) : (
+          <>
+            <button
+              type="button"
+              onClick={() => goToSlide(activeSlide - 1)}
+              className="border border-gray-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 shadow-sm hover:bg-slate-50 disabled:opacity-40"
+              disabled={activeSlide === 0}
+            >
+              Prev
+            </button>
+            <div className="border border-gray-300 bg-white px-3 py-2 text-xs font-semibold tracking-wide text-slate-700 shadow-sm">
+              {activeSlide + 1} / {SLIDE_SECTIONS.length}
+            </div>
+            <button
+              type="button"
+              onClick={() => goToSlide(activeSlide + 1)}
+              className="border border-gray-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 shadow-sm hover:bg-slate-50 disabled:opacity-40"
+              disabled={activeSlide === SLIDE_SECTIONS.length - 1}
+            >
+              Next
+            </button>
+            <button
+              type="button"
+              onClick={() => setSlideModeInUrl(false)}
+              className="border border-gray-300 bg-white px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-700 shadow-sm hover:bg-slate-50"
+            >
+              Exit
+            </button>
+          </>
+        )}
+      </div>
+      {isSlideMode && (
+        <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 border border-gray-300 bg-white/95 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-700 shadow-sm backdrop-blur">
+          {SLIDE_SECTIONS[activeSlide]?.label}
+        </div>
+      )}
+
+      {isSlideMode && <SlideDeck activeSlide={activeSlide} amiImg={amiImg} />}
+
+      <section id="Overview" className={`pt-2 pb-10 px-6 ${isSlideMode ? 'hidden' : ''}`}>
         <div className="max-w-7xl mx-auto">
           <div className="text-[10px] uppercase tracking-[0.18em] text-slate-600 mb-4">
             AI-Powered Education · UX Case Study · 2026
@@ -207,14 +325,15 @@ export default function AiTutorPage() {
         </div>
       </section>
 
-      <section id="Problem" className="py-1 px-6 pb-12">
+      <section id="Problem" className={`py-1 px-6 pb-12 ${isSlideMode ? 'hidden' : ''}`}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-5">
             <h2 className={AMI.h2} style={AMI.h2Style}>Problem</h2>
-            <h3 className={AMI.h3} style={AMI.h3Style}>The brief said nothing about users.</h3>
+            <h3 className={AMI.h3} style={AMI.h3Style}>The technical brief was strong, but trust was undefined.</h3>
             <p className="text-slate-600 text-sm text-left mt-3">
-              The original specification described architecture and model behavior, but not user
-              experience or trust mechanisms.
+              The original specification described architecture and model behavior. For product success,
+              the real risk was learner trust: if users could not understand system decisions, they would not
+              complete onboarding or return.
             </p>
           </div>
 
@@ -250,14 +369,14 @@ export default function AiTutorPage() {
         </div>
       </section>
 
-      <section id="Research" className="py-1 px-6 pb-12">
+      <section id="Research" className={`py-1 px-6 pb-12 ${isSlideMode ? 'hidden' : ''}`}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-6">
             <h2 className={AMI.h2} style={AMI.h2Style}>Research</h2>
-            <h3 className={AMI.h3} style={AMI.h3Style}>Three findings that drove every decision.</h3>
+            <h3 className={AMI.h3} style={AMI.h3Style}>Evidence first: three findings that shaped scope.</h3>
             <p className="text-slate-600 text-sm text-left mt-3">
-              We ran competitive analysis, journey mapping, and architecture review of the GenMentor
-              baseline before designing the interaction layer.
+              Before redesigning screens, I validated where trust and friction actually broke the experience:
+              competitive benchmark, journey map, and architecture-level constraints.
             </p>
           </div>
 
@@ -320,14 +439,14 @@ export default function AiTutorPage() {
         </div>
       </section>
 
-      <section id="Decisions" className="py-1 px-6 pb-12">
+      <section id="Decisions" className={`py-1 px-6 pb-12 ${isSlideMode ? 'hidden' : ''}`}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-6">
             <h2 className={AMI.h2} style={AMI.h2Style}>Design Decisions</h2>
-            <h3 className={AMI.h3} style={AMI.h3Style}>Five decisions that defined the product.</h3>
+            <h3 className={AMI.h3} style={AMI.h3Style}>Five high-impact decisions and their trade-offs.</h3>
             <p className="text-slate-600 text-sm text-left mt-3">
-              Each decision involved a real trade-off. The goal was not fewer features, but better
-              learning behavior and higher trust.
+              In interviews, this is the core section: each decision shows what options existed, why one was
+              selected, and how it changed learner behavior and trust.
             </p>
           </div>
 
@@ -355,11 +474,19 @@ export default function AiTutorPage() {
               <div className="flex items-start gap-4 mb-4">
                 <span className="w-9 h-9 bg-white border border-gray-300 text-xs font-bold flex items-center justify-center" style={{ color: 'rgb(52 118 128 / 0.88)' }}>01</span>
                 <div>
-                  <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Onboarding</p>
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Learning Style Translation</p>
                   <h4 className="text-lg font-semibold text-slate-900">
-                    When a design principle conflicts with user behavior, interrogate the principle.
+                    Translate FSLSM into behavioral labels learners actually recognize.
                   </h4>
                 </div>
+              </div>
+              <div className={`mb-4 border ${amiBorderSubtle} bg-slate-50 p-3`}>
+                <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500 mb-1">30s talk track</p>
+                <p className="text-sm text-slate-700 leading-relaxed">
+                  <span className="font-semibold text-slate-900">Context:</span> onboarding drop-off was the largest funnel loss.
+                  <span className="font-semibold text-slate-900"> Decision:</span> one question per step and optional resume.
+                  <span className="font-semibold text-slate-900"> Impact:</span> lower friction without losing personalization quality.
+                </p>
               </div>
               <div className="grid lg:grid-cols-2 gap-5">
                 <div className="space-y-3">
@@ -400,32 +527,6 @@ export default function AiTutorPage() {
                   </div>
 
                   <div className={`border ${amiBorderSubtle} bg-white p-4`}>
-                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-2">Resume — quality vs. friction</p>
-                    <p className="text-sm text-slate-600">
-                      Resume improves skill-gap quality, but required upload adds friction. We kept it optional and made the trade-off explicit.
-                    </p>
-                  </div>
-
-                  <div className={`border ${amiBorderSubtle} bg-white p-4`}>
-                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-2">MVP failure — and what it meant</p>
-                    <p className="text-sm text-slate-600 mb-2">
-                      ✕ MVP put goal + style + resume on one screen. Drop-off came from unclear context, not length.
-                    </p>
-                    <p className="text-sm italic" style={{ color: 'rgb(52 118 128 / 0.88)' }}>
-                      "A good design principle should support user behavior. When they conflict, reinterpret the principle."
-                    </p>
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <div className={`border ${amiBorder} bg-white p-3`}>
-                    <img src={amiImg('ami-onboarding.png')} alt="Onboarding step 2" className="w-full h-auto" />
-                    <p className="text-xs text-slate-500 italic mt-2">
-                      Final design — Step 2 of 3: one question per screen, with learner-facing language instead of academic labels.
-                    </p>
-                  </div>
-
-                  <div className={`border ${amiBorderSubtle} bg-white p-4`}>
                     <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-2">5 options → FSLSM mapping</p>
                     <div className="flex flex-wrap gap-2 mb-2">
                       <span className={`inline-flex border ${amiBorderSubtle} px-2 py-1 text-xs text-slate-700`}>Interactive</span>
@@ -436,6 +537,23 @@ export default function AiTutorPage() {
                     </div>
                     <p className="text-sm text-slate-600">
                       Users never see FSLSM terms; they feel it through session structure, pacing, and format.
+                    </p>
+                  </div>
+
+                </div>
+
+                <div className="space-y-3">
+                  <div className={`border ${amiBorder} bg-white p-3`}>
+                    <img src={amiImg('ami-onboarding.gif')} alt="Final onboarding flow — goal, style, resume" className="w-full h-auto" />
+                    <p className="text-xs text-slate-500 italic mt-2">
+                      Final design — 3 guided steps, one question per screen, with learner-facing language instead of academic labels.
+                    </p>
+                  </div>
+
+                  <div className={`border ${amiBorder} bg-white p-3`}>
+                    <img src={amiImg('ami-profile.gif')} alt="Profile page showing behavioral style labels" className="w-full h-auto" />
+                    <p className="text-xs text-slate-500 italic mt-2">
+                      Profile — behavioral style labels stay visible and editable; FSLSM remains in the engine.
                     </p>
                   </div>
 
@@ -456,6 +574,14 @@ export default function AiTutorPage() {
                     Should we show AI skill-gap analysis and let users adjust it?
                   </h4>
                 </div>
+              </div>
+              <div className={`mb-4 border ${amiBorderSubtle} bg-slate-50 p-3`}>
+                <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500 mb-1">30s talk track</p>
+                <p className="text-sm text-slate-700 leading-relaxed">
+                  <span className="font-semibold text-slate-900">Context:</span> hidden AI inference felt arbitrary.
+                  <span className="font-semibold text-slate-900"> Decision:</span> expose rationale and let users adjust levels.
+                  <span className="font-semibold text-slate-900"> Impact:</span> users could correct the model before path lock-in.
+                </p>
               </div>
               <div className="grid lg:grid-cols-2 gap-5">
                 <div className="space-y-3">
@@ -524,6 +650,14 @@ export default function AiTutorPage() {
                   </h4>
                 </div>
               </div>
+              <div className={`mb-4 border ${amiBorderSubtle} bg-slate-50 p-3`}>
+                <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500 mb-1">30s talk track</p>
+                <p className="text-sm text-slate-700 leading-relaxed">
+                  <span className="font-semibold text-slate-900">Context:</span> global chatbot interrupted setup focus.
+                  <span className="font-semibold text-slate-900"> Decision:</span> limit chatbot to active learning sessions.
+                  <span className="font-semibold text-slate-900"> Impact:</span> higher focus early, better contextual help later.
+                </p>
+              </div>
               <div className="grid lg:grid-cols-2 gap-5">
                 <div className="space-y-3">
                   <div className={`border ${amiBorderSubtle} bg-white p-4`}>
@@ -561,21 +695,29 @@ export default function AiTutorPage() {
                     </p>
                   </div>
                 </div>
-                <div className={`border ${amiBorderSubtle} bg-white`}>
-                  <div className="p-3 border-b border-gray-300">
-                    <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-slate-500 mb-1">Onboarding</p>
-                    <p className="text-sm text-red-600">🚫 Not available — user needs focused attention.</p>
+                <div className="space-y-3">
+                  <div className={`border ${amiBorder} bg-white p-3`}>
+                    <img src={amiImg('ami-chatbot.gif')} alt="Session-scoped chatbot with full learning context" className="w-full h-auto" />
+                    <p className="text-xs text-slate-500 italic mt-2">
+                      Chatbot appears only inside an active learning session, carrying topic + style context.
+                    </p>
                   </div>
-                  <div className="p-3 border-b border-gray-300">
-                    <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-slate-500 mb-1">Skill gap review</p>
-                    <p className="text-sm text-red-600">🚫 Not available — review requires focused decisions.</p>
-                  </div>
-                  <div className="p-3 bg-white border border-gray-300">
-                    <p className="text-[10px] uppercase tracking-[0.16em] font-bold mb-1" style={{ color: 'rgb(52 118 128 / 0.88)' }}>Learning session</p>
-                    <p className="text-sm" style={{ color: 'rgb(52 118 128 / 0.88)' }}>✓ Available — persistent sidebar with full session context.</p>
-                  </div>
-                  <div className="p-3 text-sm text-slate-600">
-                    Chatbot appears after learning starts, with full session context.
+                  <div className={`border ${amiBorderSubtle} bg-white`}>
+                    <div className="p-3 border-b border-gray-300">
+                      <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-slate-500 mb-1">Onboarding</p>
+                      <p className="text-sm text-red-600">🚫 Not available — user needs focused attention.</p>
+                    </div>
+                    <div className="p-3 border-b border-gray-300">
+                      <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-slate-500 mb-1">Skill gap review</p>
+                      <p className="text-sm text-red-600">🚫 Not available — review requires focused decisions.</p>
+                    </div>
+                    <div className="p-3 bg-white border border-gray-300">
+                      <p className="text-[10px] uppercase tracking-[0.16em] font-bold mb-1" style={{ color: 'rgb(52 118 128 / 0.88)' }}>Learning session</p>
+                      <p className="text-sm" style={{ color: 'rgb(52 118 128 / 0.88)' }}>✓ Available — persistent sidebar with full session context.</p>
+                    </div>
+                    <div className="p-3 text-sm text-slate-600">
+                      Chatbot appears after learning starts, with full session context.
+                    </div>
                   </div>
                 </div>
               </div>
@@ -590,6 +732,14 @@ export default function AiTutorPage() {
                     Ground AI outputs in verifiable sources by design, not as an afterthought.
                   </h4>
                 </div>
+              </div>
+              <div className={`mb-4 border ${amiBorderSubtle} bg-slate-50 p-3`}>
+                <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500 mb-1">30s talk track</p>
+                <p className="text-sm text-slate-700 leading-relaxed">
+                  <span className="font-semibold text-slate-900">Context:</span> trust fails when answers are not verifiable.
+                  <span className="font-semibold text-slate-900"> Decision:</span> show source and page citations in-session.
+                  <span className="font-semibold text-slate-900"> Impact:</span> trust shifts from claims to checkable behavior.
+                </p>
               </div>
               <div className="grid lg:grid-cols-2 gap-5">
                 <div className="space-y-3">
@@ -631,6 +781,16 @@ export default function AiTutorPage() {
                   </div>
                 </div>
                 <div className={`border ${amiBorderSubtle} bg-white`}>
+                  <div className={`border-b ${amiBorderSubtle} bg-white p-3`}>
+                    <img
+                      src={amiImg('ami-verified-content.gif')}
+                      alt="Verified content with citation source and page references"
+                      className="w-full h-auto"
+                    />
+                    <p className="text-xs text-slate-500 italic mt-2">
+                      In-session citation view: answers include source and page-level references learners can verify.
+                    </p>
+                  </div>
                   <div className="p-3 border-b border-gray-300 bg-slate-50">
                     <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-600">The four-layer trust architecture</p>
                   </div>
@@ -668,6 +828,14 @@ export default function AiTutorPage() {
                   </h4>
                 </div>
               </div>
+              <div className={`mb-4 border ${amiBorderSubtle} bg-slate-50 p-3`}>
+                <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500 mb-1">30s talk track</p>
+                <p className="text-sm text-slate-700 leading-relaxed">
+                  <span className="font-semibold text-slate-900">Context:</span> all inputs on one screen overloaded first-time users.
+                  <span className="font-semibold text-slate-900"> Decision:</span> progressive flow: goal → style → resume.
+                  <span className="font-semibold text-slate-900"> Impact:</span> clearer mental model and better completion quality.
+                </p>
+              </div>
               <div className="grid lg:grid-cols-2 gap-5">
                 <div className="space-y-3">
                   <div className={`border ${amiBorderSubtle} bg-white p-4`}>
@@ -688,16 +856,41 @@ export default function AiTutorPage() {
                       3) <span className="font-semibold text-slate-800">Resume</span> enriches personalization (optional).
                     </p>
                   </div>
-                </div>
-                <div className={`border ${amiBorderSubtle} bg-white p-4`}>
-                  <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-2">Why this works</p>
-                  <p className="text-sm text-slate-600 mb-3">
-                    The order mirrors learner mental models: start with intention, then preference, then optional depth.
-                  </p>
-                  <div className={`border ${amiBorderSubtle} bg-slate-50 p-3`}>
-                    <p className="text-sm italic" style={{ color: 'rgb(52 118 128 / 0.88)' }}>
-                      "Progressive disclosure works when each step answers one clear learner question."
+
+                  <div className={`border ${amiBorderSubtle} bg-white p-4`}>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-2">Resume — quality vs. friction</p>
+                    <p className="text-sm text-slate-600">
+                      Resume improves skill-gap quality, but required upload adds friction. We kept it optional and made the trade-off explicit.
                     </p>
+                  </div>
+
+                  <div className={`border ${amiBorderSubtle} bg-white p-4`}>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-2">MVP failure — and what it meant</p>
+                    <p className="text-sm text-slate-600 mb-2">
+                      ✕ MVP put goal + style + resume on one screen. Drop-off came from unclear context, not length.
+                    </p>
+                    <p className="text-sm italic" style={{ color: 'rgb(52 118 128 / 0.88)' }}>
+                      "A good design principle should support user behavior. When they conflict, reinterpret the principle."
+                    </p>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <div className={`border ${amiBorder} bg-white p-3`}>
+                    <img src={amiImg('ami-onboarding.gif')} alt="Guided onboarding flow — goal, style, resume" className="w-full h-auto" />
+                    <p className="text-xs text-slate-500 italic mt-2">
+                      Goal → Style → Resume — progressive disclosure, one decision per step.
+                    </p>
+                  </div>
+                  <div className={`border ${amiBorderSubtle} bg-white p-4`}>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-2">Why this works</p>
+                    <p className="text-sm text-slate-600 mb-3">
+                      The order mirrors learner mental models: start with intention, then preference, then optional depth.
+                    </p>
+                    <div className={`border ${amiBorderSubtle} bg-slate-50 p-3`}>
+                      <p className="text-sm italic" style={{ color: 'rgb(52 118 128 / 0.88)' }}>
+                        "Progressive disclosure works when each step answers one clear learner question."
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -706,14 +899,14 @@ export default function AiTutorPage() {
         </div>
       </section>
 
-      <section id="Solution" className="py-1 px-6 pb-12">
+      <section id="Solution" className={`py-1 px-6 pb-12 ${isSlideMode ? 'hidden' : ''}`}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-6">
             <h2 className={AMI.h2} style={AMI.h2Style}>Solution</h2>
-            <h3 className={AMI.h3} style={AMI.h3Style}>The product those decisions built.</h3>
+            <h3 className={AMI.h3} style={AMI.h3Style}>End-to-end learner flow produced by those decisions.</h3>
             <p className="text-slate-600 text-sm text-left mt-3">
-              Each decision maps directly to the learner experience from onboarding to continuous
-              adaptation.
+              This sequence shows how the decisions connect into one coherent product behavior:
+              onboarding clarity, editable inference, contextual support, and continuous adaptation.
             </p>
           </div>
 
@@ -751,11 +944,11 @@ export default function AiTutorPage() {
         </div>
       </section>
 
-      <section id="Reflection" className="py-1 px-6 pb-12">
+      <section id="Reflection" className={`py-1 px-6 pb-12 ${isSlideMode ? 'hidden' : ''}`}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-6">
             <h2 className={AMI.h2} style={AMI.h2Style}>Reflection</h2>
-            <h3 className={AMI.h3} style={AMI.h3Style}>Four lessons that shaped how I design AI experiences.</h3>
+            <h3 className={AMI.h3} style={AMI.h3Style}>What this project changed in my AI product thinking.</h3>
           </div>
           <div className="grid md:grid-cols-2 gap-3">
             {REFLECTIONS.map((lesson) => (
@@ -776,11 +969,11 @@ export default function AiTutorPage() {
         </div>
       </section>
 
-      <section id="Video" className="py-1 px-6 pb-12">
+      <section id="Video" className={`py-1 px-6 pb-12 ${isSlideMode ? 'hidden' : ''}`}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-6">
             <h2 className={AMI.h2} style={AMI.h2Style}>Vedio</h2>
-            <h3 className={AMI.h3} style={AMI.h3Style}>End-to-end product walkthrough.</h3>
+            <h3 className={AMI.h3} style={AMI.h3Style}>Live walkthrough for interview discussion.</h3>
           </div>
           <div className="grid lg:grid-cols-2 gap-4">
             <div className={`border ${amiBorder} bg-white p-4 md:p-6`}>
@@ -830,8 +1023,552 @@ export default function AiTutorPage() {
           background: #e2e8f0;
           color: #0f172a;
         }
+        .ai-tutor-page.slide-mode .slide-deck-section {
+          min-height: calc(100vh - 80px);
+        }
       `}</style>
     </div>
   );
+}
+
+function SlideDeck({ activeSlide, amiImg }) {
+  const accent = `rgb(${amiAccentRgb})`;
+  const accentSoft = `rgb(${amiAccentRgb} / 0.12)`;
+
+  const SlideFrame = ({ eyebrow, title, subtitle, children, wide = false }) => (
+    <section className="slide-deck-section flex items-start px-8 md:px-16 pt-24 pb-10">
+      <div className={`w-full ${wide ? 'max-w-7xl' : 'max-w-6xl'} mx-auto`}>
+        {eyebrow && (
+          <p
+            className="text-[11px] font-bold uppercase tracking-[0.24em] mb-3"
+            style={{ color: accent }}
+          >
+            {eyebrow}
+          </p>
+        )}
+        <h1 className="text-2xl md:text-4xl font-extrabold tracking-tight leading-[1.1] text-slate-900 mb-3">
+          {title}
+        </h1>
+        {subtitle && (
+          <p className="text-sm md:text-base text-slate-600 max-w-4xl leading-relaxed mb-6">
+            {subtitle}
+          </p>
+        )}
+        {children}
+      </div>
+    </section>
+  );
+
+  const PointCard = ({ index, title, body, highlight }) => (
+    <div
+      className={`border ${highlight ? '' : 'border-gray-300'} bg-white p-4`}
+      style={highlight ? { borderColor: accent } : undefined}
+    >
+      {index !== undefined && (
+        <p
+          className="text-[10px] font-bold uppercase tracking-[0.18em] mb-2"
+          style={{ color: accent }}
+        >
+          {String(index + 1).padStart(2, '0')}
+        </p>
+      )}
+      <p className="text-sm md:text-base font-semibold text-slate-900 mb-1">{title}</p>
+      <p className="text-sm text-slate-600 leading-relaxed">{body}</p>
+    </div>
+  );
+
+  const Figure = ({ src, alt, caption }) => (
+    <figure className="border border-gray-300 bg-white p-3">
+      <img src={src} alt={alt} className="w-full h-auto max-h-[60vh] object-contain" />
+      {caption && (
+        <figcaption className="text-xs text-slate-500 italic mt-2">{caption}</figcaption>
+      )}
+    </figure>
+  );
+
+  switch (activeSlide) {
+    case 0:
+      return (
+        <SlideFrame
+          eyebrow="Case Study · 2026"
+          title={(
+            <>
+              Designing trust into an AI tutor,{' '}
+              <span style={{ color: accent }}>from the ground up.</span>
+            </>
+          )}
+          subtitle="Ami turns a research-grade AI baseline into a product learners can understand, trust, and return to."
+          wide
+        >
+          <div className="grid md:grid-cols-[1.1fr_1fr] gap-6 mt-2">
+            <Figure src={amiImg('overview.gif')} alt="Ami product overview" />
+            <div className="grid grid-cols-2 gap-3 self-start">
+              <div className="border border-gray-300 bg-white p-4">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-1">Role</p>
+                <p className="text-sm text-slate-800">UX Research · Product Design · Frontend</p>
+              </div>
+              <div className="border border-gray-300 bg-white p-4">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-1">Team</p>
+                <p className="text-sm text-slate-800">6 cross-functional · 12 weeks</p>
+              </div>
+              <div className="border border-gray-300 bg-white p-4">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-1">Timeline</p>
+                <p className="text-sm text-slate-800">Jan — April 2026</p>
+              </div>
+              <div className="border border-gray-300 bg-white p-4">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-1">Outcome</p>
+                <p className="text-sm text-slate-800">Trusted learner flow, onboarding to adaptation</p>
+              </div>
+              <div className="col-span-2 border border-gray-300 p-4" style={{ backgroundColor: accentSoft }}>
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-1" style={{ color: accent }}>
+                  Workflow
+                </p>
+                <p className="text-sm text-slate-800 leading-relaxed">
+                  Problem definition → UX structure in Figma → AI-assisted build (Cursor + Claude) → React + TS prototype → client feedback.
+                </p>
+              </div>
+            </div>
+          </div>
+        </SlideFrame>
+      );
+
+    case 1:
+      return (
+        <SlideFrame
+          eyebrow="Problem"
+          title="The brief was strong on AI. Silent on trust."
+          subtitle="If learners cannot understand why the AI decides what it decides, they will not finish onboarding or return."
+          wide
+        >
+          <div className="grid md:grid-cols-[1.15fr_1fr] gap-6">
+            <div className="border border-gray-300 bg-slate-50 p-5">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-3">
+                Original client brief — verbatim
+              </p>
+              <p className="text-sm text-slate-700 leading-relaxed font-mono mb-3">
+                "This project develops a personalized AI tutoring system that adapts its teaching style to individual learners…"
+              </p>
+              <p className="text-sm text-slate-700 leading-relaxed font-mono mb-3">
+                "The tutor is powered by LLMs connected to a curriculum knowledge graph, enabling prerequisite-aware lesson sequencing…"
+              </p>
+              <p className="text-xs text-slate-500 italic border-t border-gray-300 pt-3">
+                Ethical considerations listed: bias, transparency, pedagogy — no product-level UX specification.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 gap-3 self-start">
+              <PointCard index={0} title="Model-centric brief" body="Architecture and FSLSM logic, but no learner experience." />
+              <PointCard index={1} title="Hidden inference" body="Learning paths felt arbitrary without visible reasoning." />
+              <PointCard index={2} title="Trust = retention" body="The real risk was trust, not model accuracy." highlight />
+            </div>
+          </div>
+        </SlideFrame>
+      );
+
+    case 2:
+      return (
+        <SlideFrame
+          eyebrow="Research · Findings"
+          title="Three findings that shaped scope."
+          subtitle="From competitive review, journey mapping, and interviews."
+          wide
+        >
+          <div className="grid md:grid-cols-3 gap-4">
+            {RESEARCH_FINDINGS.map((item, i) => (
+              <div key={item.no} className="border border-gray-300 bg-white p-5">
+                <p
+                  className="text-4xl leading-none mb-3 font-extrabold"
+                  style={{ color: `rgb(${amiAccentRgb} / 0.32)` }}
+                >
+                  {item.no}
+                </p>
+                <h4 className="font-bold text-base mb-2 text-slate-900">{item.title}</h4>
+                <p className="text-sm text-slate-600 leading-relaxed">{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </SlideFrame>
+      );
+
+    case 3:
+      return (
+        <SlideFrame
+          eyebrow="Research · Competitive"
+          title="The white space no tool was occupying."
+          subtitle="Most tools optimize for either pedagogical rigor or usability. Ami targets both."
+          wide
+        >
+          <div className="grid md:grid-cols-[1.4fr_1fr] gap-6">
+            <Figure
+              src={amiImg('Competitive-positioning-matrix.png')}
+              alt="Competitive positioning matrix"
+              caption="Ami combines FSLSM + SOLO + RAG-grounded content with UX designed for real learners."
+            />
+            <div className="grid grid-cols-1 gap-3 self-start">
+              <PointCard title="High rigor, high usability" body="The under-served quadrant — pedagogy and UX together." />
+              <PointCard title="Beyond content generation" body="Trust, transparency, and control as first-class features." />
+              <PointCard title="Positioning statement" body="A tutor learners can interrogate, not only consume." highlight />
+            </div>
+          </div>
+        </SlideFrame>
+      );
+
+    case 4:
+      return (
+        <SlideFrame
+          eyebrow="Research · Journey"
+          title="Where the emotional cost actually happens."
+          subtitle="Setup and tool-switching — not difficult content — caused the steepest drop."
+          wide
+        >
+          <div className="grid md:grid-cols-2 gap-5">
+            <Figure
+              src={amiImg('current-journey-map.png')}
+              alt="Current journey map without Ami"
+              caption="Without Ami: hopeful → discouraged. High cognitive load, unclear progress."
+            />
+            <Figure
+              src={amiImg('future-journey-map.png')}
+              alt="Future journey map with Ami"
+              caption="With Ami: clear direction, staged support, visible reasoning."
+            />
+          </div>
+        </SlideFrame>
+      );
+
+    case 5: {
+      const decisions = [
+        { tag: 'Learning Style', line: 'Behavioral labels translate FSLSM into learner language.' },
+        { tag: 'Skill Gap Review', line: 'Expose AI reasoning and let users adjust.' },
+        { tag: 'Chatbot Scope', line: 'Session-only, not global — protects focus.' },
+        { tag: 'Content Citations', line: 'Source + page, verifiable by design.' },
+        { tag: 'Guided Flow', line: 'Goal → style → resume, one step each.' },
+      ];
+      return (
+        <SlideFrame
+          eyebrow="Design Decisions"
+          title="Five decisions. Five trade-offs."
+          subtitle="Each decision maps to a specific learner behavior change — not a feature list."
+          wide
+        >
+          <ol className="grid md:grid-cols-2 gap-3 mt-2">
+            {decisions.map((d, i) => (
+              <li key={d.tag} className="border border-gray-300 bg-white p-4 flex gap-4">
+                <span className="text-3xl font-extrabold leading-none" style={{ color: accent }}>
+                  0{i + 1}
+                </span>
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-1">
+                    {d.tag}
+                  </p>
+                  <p className="text-sm md:text-base text-slate-800">{d.line}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </SlideFrame>
+      );
+    }
+
+    case 6:
+      return (
+        <SlideFrame
+          eyebrow="Decision 01 · Learning Style Translation"
+          title="Translate FSLSM into behavioral labels learners recognize."
+          subtitle="FSLSM stayed in the engine. The UI exposed five plain-language options learners could actually map to themselves."
+          wide
+        >
+          <div className="grid md:grid-cols-[1fr_1.1fr] gap-5">
+            <div className="space-y-4 self-start">
+              <Figure
+                src={amiImg('ami-onboarding.gif')}
+                alt="Guided onboarding with behavioral style selection"
+                caption="One decision per step, learner-facing language."
+              />
+              <Figure
+                src={amiImg('ami-profile.gif')}
+                alt="Profile page exposing behavioral style labels"
+                caption="Profile — behavioral labels stay visible and editable; FSLSM stays in the engine."
+              />
+            </div>
+            <div className="grid grid-cols-1 gap-3 self-start">
+              <div className="border border-gray-300 bg-white p-4">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">Problem · Decision · Outcome</p>
+                <p className="text-sm text-slate-700"><span className="font-semibold text-slate-900">Problem:</span> Academic terms (FSLSM) missed learner mental models.</p>
+                <p className="text-sm text-slate-700"><span className="font-semibold text-slate-900">Decision:</span> Expose 5 behavioral labels, keep FSLSM internal.</p>
+                <p className="text-sm text-slate-700"><span className="font-semibold text-slate-900">Outcome:</span> Learner-recognizable inputs, rigor preserved.</p>
+              </div>
+              <div className="border border-gray-300 bg-white p-4">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">How it evolved</p>
+                <ul className="text-sm text-slate-700 space-y-1">
+                  <li>✕ Free text → inconsistent FSLSM inference</li>
+                  <li>✕ Long questionnaire → too much friction</li>
+                  <li>✕ Persona cards → felt distant</li>
+                  <li style={{ color: accent }}>✓ Behavioral labels mapped to FSLSM</li>
+                </ul>
+              </div>
+              <div className="border border-gray-300 bg-white p-4">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">5 options → FSLSM mapping</p>
+                <div className="flex flex-wrap gap-2 mb-2">
+                  <span className="inline-flex border border-gray-300 px-2 py-1 text-xs text-slate-700">Interactive</span>
+                  <span className="inline-flex border border-gray-300 px-2 py-1 text-xs text-slate-700">Textual</span>
+                  <span className="inline-flex border border-gray-300 px-2 py-1 text-xs" style={{ color: accent }}>Visual ✓</span>
+                  <span className="inline-flex border border-gray-300 px-2 py-1 text-xs text-slate-700">Concise</span>
+                  <span className="inline-flex border border-gray-300 px-2 py-1 text-xs text-slate-700">Balanced</span>
+                </div>
+                <p className="text-sm text-slate-700">
+                  Users never see FSLSM terms; they feel it through session structure, pacing, and format.
+                </p>
+              </div>
+            </div>
+          </div>
+        </SlideFrame>
+      );
+
+    case 7:
+      return (
+        <SlideFrame
+          eyebrow="Decision 02 · Skill Gap Review"
+          title="Show the AI's reasoning. Let users adjust it."
+          subtitle="Adding a step increased trust and completion — useful friction."
+          wide
+        >
+          <div className="grid md:grid-cols-[1.1fr_1fr] gap-5">
+            <Figure
+              src={amiImg('ami-skillgap.png')}
+              alt="Skill gap analysis view"
+              caption="Left: scannable list. Right: reasoning, dual sliders, include/ignore."
+            />
+            <div className="grid grid-cols-1 gap-3 self-start">
+              <div className="border border-gray-300 bg-white p-4">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">Problem · Decision · Outcome</p>
+                <p className="text-sm text-slate-700"><span className="font-semibold text-slate-900">Problem:</span> Hidden inference felt arbitrary.</p>
+                <p className="text-sm text-slate-700"><span className="font-semibold text-slate-900">Decision:</span> Surface reasoning, allow level edits.</p>
+                <p className="text-sm text-slate-700"><span className="font-semibold text-slate-900">Outcome:</span> Users correct AI before path lock-in.</p>
+              </div>
+              <div className="grid grid-cols-2 border border-gray-300">
+                <div className="p-3 border-r border-gray-300">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-1">✕ Skip it</p>
+                  <p className="text-xs text-slate-600">No visibility, no recourse.</p>
+                </div>
+                <div className="p-3" style={{ backgroundColor: accentSoft }}>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.16em] mb-1" style={{ color: accent }}>✓ Show & adjust</p>
+                  <p className="text-xs" style={{ color: accent }}>Reasoning + editable levels.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </SlideFrame>
+      );
+
+    case 8:
+      return (
+        <SlideFrame
+          eyebrow="Decision 03 · Chatbot Scope"
+          title="Session-only, not global."
+          subtitle="Placement is meaning. The chatbot became pedagogical once scoped to active sessions."
+          wide
+        >
+          <div className="grid md:grid-cols-[1.1fr_1fr] gap-5">
+            <Figure
+              src={amiImg('ami-chatbot.gif')}
+              alt="Session-scoped chatbot with full learning context"
+              caption="Chatbot appears only inside a learning session, with full topic and style context."
+            />
+            <div className="grid grid-cols-1 gap-3 self-start">
+              <div className="border border-gray-300 bg-white p-4">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">Problem · Decision · Outcome</p>
+                <p className="text-sm text-slate-700"><span className="font-semibold text-slate-900">Problem:</span> Global chatbot distracted during setup/review.</p>
+                <p className="text-sm text-slate-700"><span className="font-semibold text-slate-900">Decision:</span> Restrict to learning sessions.</p>
+                <p className="text-sm text-slate-700"><span className="font-semibold text-slate-900">Outcome:</span> Focused early flow, richer context later.</p>
+              </div>
+              <p className="text-sm italic border border-gray-300 bg-white p-3" style={{ color: accent }}>
+                "This wasn't a feature decision. It was an information architecture decision."
+              </p>
+              <div className="border border-gray-300 bg-white">
+                <div className="p-3 border-b border-gray-300">
+                  <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-slate-500">Onboarding</p>
+                  <p className="text-sm text-red-600">🚫 Not available — needs focus.</p>
+                </div>
+                <div className="p-3 border-b border-gray-300">
+                  <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-slate-500">Skill gap review</p>
+                  <p className="text-sm text-red-600">🚫 Not available — review requires focus.</p>
+                </div>
+                <div className="p-3" style={{ backgroundColor: accentSoft }}>
+                  <p className="text-[10px] uppercase tracking-[0.16em] font-bold" style={{ color: accent }}>Learning session</p>
+                  <p className="text-sm" style={{ color: accent }}>✓ Persistent sidebar with full session context.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </SlideFrame>
+      );
+
+    case 9:
+      return (
+        <SlideFrame
+          eyebrow="Decision 04 · Content Citations"
+          title="Trust becomes checkable behavior."
+          subtitle="RAG grounds answers. Citations + page numbers make them verifiable."
+          wide
+        >
+          <div className="grid md:grid-cols-[1.1fr_1fr] gap-5">
+            <Figure
+              src={amiImg('ami-verified-content.gif')}
+              alt="Verified content with citation source and page references"
+              caption="Each answer ties back to source + page in the course materials."
+            />
+            <div className="grid grid-cols-1 gap-3 self-start">
+              <div className="border border-gray-300 bg-white p-4">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">Problem · Decision · Outcome</p>
+                <p className="text-sm text-slate-700"><span className="font-semibold text-slate-900">Problem:</span> Unverifiable answers = no trust calibration.</p>
+                <p className="text-sm text-slate-700"><span className="font-semibold text-slate-900">Decision:</span> Show source + page citations in-session.</p>
+                <p className="text-sm text-slate-700"><span className="font-semibold text-slate-900">Outcome:</span> Trust shifts from claims to behavior.</p>
+              </div>
+              <div className="border border-gray-300 bg-white">
+                <div className="p-3 border-b border-gray-300 bg-slate-50">
+                  <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-700">Four-layer trust architecture</p>
+                </div>
+                <div className="p-3 border-b border-gray-300">
+                  <p className="text-[10px] uppercase font-bold text-slate-500">Skill gap review</p>
+                  <p className="text-xs text-slate-600">Reasoning + confidence.</p>
+                </div>
+                <div className="p-3 border-b border-gray-300">
+                  <p className="text-[10px] uppercase font-bold text-slate-500">Profile page</p>
+                  <p className="text-xs text-slate-600">Explicit data use.</p>
+                </div>
+                <div className="p-3 border-b border-gray-300" style={{ backgroundColor: accentSoft }}>
+                  <p className="text-[10px] uppercase font-bold" style={{ color: accent }}>Session citations</p>
+                  <p className="text-xs" style={{ color: accent }}>Source + page number.</p>
+                </div>
+                <div className="p-3">
+                  <p className="text-[10px] uppercase font-bold text-slate-500">Transparency page</p>
+                  <p className="text-xs text-slate-600">Bias audits + safeguards.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </SlideFrame>
+      );
+
+    case 10:
+      return (
+        <SlideFrame
+          eyebrow="Decision 05 · Guided Flow"
+          title="Goal → Style → Resume."
+          subtitle="One question per step. Each step answers one clear learner question."
+          wide
+        >
+          <div className="grid md:grid-cols-[1.1fr_1fr] gap-5">
+            <Figure
+              src={amiImg('ami-onboarding.gif')}
+              alt="Guided onboarding flow — goal, style, resume"
+              caption="Progressive disclosure mirrors the learner's mental model."
+            />
+            <div className="grid grid-cols-1 gap-3 self-start">
+              <div className="border border-gray-300 bg-white p-4">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">Flow logic</p>
+                <p className="text-sm text-slate-700 mb-1">
+                  1) <span className="font-semibold text-slate-900">Learning goal</span> — sets direction.
+                </p>
+                <p className="text-sm text-slate-700 mb-1">
+                  2) <span className="font-semibold text-slate-900">Learning style</span> — tunes delivery.
+                </p>
+                <p className="text-sm text-slate-700">
+                  3) <span className="font-semibold text-slate-900">Resume</span> — enriches personalization (optional).
+                </p>
+              </div>
+              <div className="border border-gray-300 bg-white p-4">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">Why this works</p>
+                <p className="text-sm text-slate-700">
+                  Start with intention, then preference, then optional depth. Friction drops, intent capture improves.
+                </p>
+              </div>
+              <div className="border border-gray-300 bg-white p-4">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">MVP failure — and what it meant</p>
+                <p className="text-sm text-slate-700 mb-2">
+                  ✕ MVP put goal + style + resume on one screen. Drop-off came from unclear context, not length.
+                </p>
+                <p className="text-sm italic" style={{ color: accent }}>
+                  "A good design principle should support user behavior. When they conflict, reinterpret the principle."
+                </p>
+              </div>
+            </div>
+          </div>
+        </SlideFrame>
+      );
+
+    case 11:
+      return (
+        <SlideFrame
+          eyebrow="Solution"
+          title="One learner flow, connected end-to-end."
+          subtitle="Each screen carries a decision from the previous step."
+          wide
+        >
+          <div className="grid md:grid-cols-[1.1fr_1fr] gap-6">
+            <Figure src={amiImg('overview.gif')} alt="Ami end-to-end flow" />
+            <ul className="space-y-2 self-start">
+              {SOLUTION_STEPS.map((step, i) => (
+                <li
+                  key={step.title}
+                  className="border border-gray-300 bg-white px-4 py-3 flex items-start gap-3"
+                >
+                  <span className="text-xs font-bold mt-0.5" style={{ color: accent }}>
+                    0{i + 1}
+                  </span>
+                  <div>
+                    <p className="text-sm font-semibold text-slate-900">{step.title}</p>
+                    <p className="text-xs text-slate-600 leading-relaxed">{step.body}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </SlideFrame>
+      );
+
+    case 12:
+      return (
+        <SlideFrame
+          eyebrow="Reflection"
+          title="What this project changed in my AI product thinking."
+          wide
+        >
+          <div className="grid md:grid-cols-2 gap-4">
+            {REFLECTIONS.map((lesson) => (
+              <div key={lesson.no} className="border border-gray-300 bg-slate-50 p-5">
+                <p className="text-4xl leading-none mb-2 font-extrabold" style={{ color: `rgb(${amiAccentRgb} / 0.32)` }}>
+                  {lesson.no}
+                </p>
+                {lesson.principle && (
+                  <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500 mb-2">
+                    {lesson.principle}
+                  </p>
+                )}
+                <h4 className="font-bold text-base mb-2 text-slate-900">{lesson.title}</h4>
+                <p className="text-sm text-slate-600 leading-relaxed">{lesson.body}</p>
+              </div>
+            ))}
+          </div>
+        </SlideFrame>
+      );
+
+    default:
+      return (
+        <SlideFrame
+          eyebrow="Video"
+          title="Live walkthrough."
+          subtitle="Happy to deep-dive on any decision, flow, or trade-off."
+          wide
+        >
+          <div className="border border-gray-300 bg-white p-3 max-w-4xl">
+            <video className="w-full h-auto" controls preload="metadata">
+              <source src={amiImg('Final Demo.mp4')} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </SlideFrame>
+      );
+  }
 }
 
