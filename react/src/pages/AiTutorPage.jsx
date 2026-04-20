@@ -289,18 +289,18 @@ export default function AiTutorPage() {
             <button
               type="button"
               onClick={() => goToSlide(activeSlide - 1)}
-              className="border border-gray-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 shadow-sm hover:bg-slate-50 disabled:opacity-40"
+              className="border border-gray-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm hover:bg-slate-50 disabled:opacity-40"
               disabled={activeSlide === 0}
             >
               Prev
             </button>
-            <div className="border border-gray-300 bg-white px-3 py-2 text-xs font-semibold tracking-wide text-slate-700 shadow-sm">
+            <div className="border border-gray-300 bg-white px-3 py-2 text-sm font-semibold tracking-wide text-slate-700 shadow-sm">
               {activeSlide + 1} / {SLIDE_SECTIONS.length}
             </div>
             <button
               type="button"
               onClick={() => goToSlide(activeSlide + 1)}
-              className="border border-gray-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 shadow-sm hover:bg-slate-50 disabled:opacity-40"
+              className="border border-gray-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm hover:bg-slate-50 disabled:opacity-40"
               disabled={activeSlide === SLIDE_SECTIONS.length - 1}
             >
               Next
@@ -308,7 +308,7 @@ export default function AiTutorPage() {
             <button
               type="button"
               onClick={() => setSlideModeInUrl(false)}
-              className="border border-gray-300 bg-white px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-700 shadow-sm hover:bg-slate-50"
+              className="border border-gray-300 bg-white px-3 py-2 text-sm font-semibold uppercase tracking-[0.12em] text-slate-700 shadow-sm hover:bg-slate-50"
             >
               Exit
             </button>
@@ -336,7 +336,7 @@ export default function AiTutorPage() {
                     type="button"
                     onClick={() => goToSlide(g.indices[0])}
                     title={SLIDE_SECTIONS[activeSlide]?.label}
-                    className={`whitespace-nowrap px-2.5 py-1 text-[10px] uppercase tracking-[0.14em] transition-colors ${
+                    className={`whitespace-nowrap px-3 py-1.5 text-xs uppercase tracking-[0.14em] transition-colors ${
                       isActive
                         ? 'bg-gray-700 text-white font-bold'
                         : 'text-slate-900 hover:font-bold font-medium'
@@ -1304,17 +1304,17 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
       <div className={`w-full ${wide ? 'max-w-7xl' : 'max-w-6xl'} mx-auto`}>
         {eyebrow && (
           <p
-            className="text-[11px] font-bold uppercase tracking-[0.24em] mb-3"
+            className="text-xs md:text-sm font-bold uppercase tracking-[0.24em] mb-3"
             style={{ color: accent }}
           >
             {eyebrow}
           </p>
         )}
-        <h1 className="text-2xl md:text-4xl font-extrabold tracking-tight leading-[1.1] text-slate-900 mb-3">
+        <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-[1.08] text-slate-900 mb-3">
           {title}
         </h1>
         {subtitle && (
-          <p className="text-sm md:text-base text-slate-600 max-w-4xl leading-relaxed mb-6">
+          <p className="text-base md:text-lg text-slate-600 max-w-4xl leading-relaxed mb-6">
             {subtitle}
           </p>
         )}
@@ -1330,14 +1330,14 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
     >
       {index !== undefined && (
         <p
-          className="text-[10px] font-bold uppercase tracking-[0.18em] mb-2"
+          className="text-[11px] md:text-xs font-bold uppercase tracking-[0.18em] mb-2"
           style={{ color: accent }}
         >
           {String(index + 1).padStart(2, '0')}
         </p>
       )}
-      <p className="text-sm md:text-base font-semibold text-slate-900 mb-1">{title}</p>
-      <p className="text-sm text-slate-600 leading-relaxed">{body}</p>
+      <p className="text-base md:text-lg font-semibold text-slate-900 mb-1">{title}</p>
+      <p className="text-base text-slate-600 leading-relaxed">{body}</p>
     </div>
   );
 
@@ -1345,7 +1345,7 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
     <figure className="border border-gray-300 bg-white p-3">
       <img src={src} alt={alt} className="w-full h-auto max-h-[60vh] object-contain" />
       {caption && (
-        <figcaption className="text-xs text-slate-500 italic mt-2">{caption}</figcaption>
+        <figcaption className="text-sm text-slate-500 italic mt-2">{caption}</figcaption>
       )}
     </figure>
   );
@@ -1517,7 +1517,7 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
                       key={step.title}
                       type="button"
                       onClick={() => setActiveStep(idx)}
-                      className={`px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] border transition-colors ${
+                      className={`px-3 py-1.5 text-xs font-bold uppercase tracking-[0.14em] border transition-colors ${
                         isActive
                           ? 'border-gray-700 bg-gray-700 text-white'
                           : 'border-gray-300 bg-white text-slate-600 hover:text-slate-900'
@@ -1534,13 +1534,13 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
                 caption={SOLUTION_STEPS[activeStep].body}
               />
               <div className="mt-3 border border-gray-300 bg-slate-50 p-3">
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-1">
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500 mb-1">
                   Current page
                 </p>
-                <p className="text-sm font-semibold text-slate-900">{SOLUTION_STEPS[activeStep].title}</p>
+                <p className="text-base md:text-lg font-semibold text-slate-900">{SOLUTION_STEPS[activeStep].title}</p>
                 <div className="flex flex-wrap gap-2 mt-2">
                   {SOLUTION_STEPS[activeStep].chips.map((chip) => (
-                    <span key={chip} className="inline-flex border border-gray-300 bg-white px-2 py-1 text-[10px] text-slate-600">
+                    <span key={chip} className="inline-flex border border-gray-300 bg-white px-2.5 py-1 text-xs text-slate-600">
                       {chip}
                     </span>
                   ))}
@@ -1549,8 +1549,8 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
             </div>
             <div className="grid grid-cols-1 gap-3 self-start">
               <div className="border border-gray-300 bg-white p-4">
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">Key outputs</p>
-                <ul className="space-y-1 text-sm text-slate-700">
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">Key outputs</p>
+                <ul className="space-y-2 text-base md:text-lg text-slate-700">
                   <li>Guided onboarding: Goal → Style → Resume (optional)</li>
                   <li>Skill Gap Review with reasoning, confidence, and editable levels</li>
                   <li>Contextual learning session across text, visuals, audio, and video</li>
@@ -1558,8 +1558,8 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
                 </ul>
               </div>
               <div className="border border-gray-300 bg-white p-4">
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">How I validated the work</p>
-                <ul className="space-y-1 text-sm text-slate-700">
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">How I validated the work</p>
+                <ul className="space-y-2 text-base md:text-lg text-slate-700">
                   <li>Used research findings and journey mapping to locate trust gaps</li>
                   <li>Compared multiple interaction approaches before choosing the final flow</li>
                   <li>Built interactive prototypes with Cursor + Claude</li>
@@ -1586,24 +1586,24 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
             />
             <div className="grid grid-cols-1 gap-3 self-start">
               <div className="border border-gray-300 bg-white p-4">
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">What I learned</p>
-                <ul className="space-y-1 text-sm text-slate-700">
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">What I learned</p>
+                <ul className="space-y-2 text-base md:text-lg text-slate-700">
                   <li>A designer’s role is not just to make AI usable — it is to make AI understandable.</li>
                   <li>Fewer steps are not always better — the right friction can increase trust.</li>
                   <li>Trust is not one feature — it is built through a system of visible decisions.</li>
                 </ul>
               </div>
               <div className="border border-gray-300 p-4" style={{ backgroundColor: accentSoft }}>
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-2" style={{ color: accent }}>
+                <p className="text-xs font-bold uppercase tracking-[0.18em] mb-2" style={{ color: accent }}>
                   Biggest takeaway
                 </p>
-                <p className="text-lg font-semibold leading-snug text-slate-900">
+                <p className="text-xl md:text-2xl font-semibold leading-snug text-slate-900">
                   Trust is not a feature. It is a system of visible decisions.
                 </p>
               </div>
               <div className="border border-gray-300 bg-white p-4">
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">How this changed me</p>
-                <p className="text-sm text-slate-700">
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">How this changed me</p>
+                <p className="text-base md:text-lg text-slate-700 leading-relaxed">
                   I now think more about product logic, not just interface design. I pay more attention to how users understand, verify, and adjust AI behavior.
                 </p>
               </div>
