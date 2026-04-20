@@ -30,21 +30,108 @@ const UX_PRINCIPLES_LENS = [
   },
 ];
 
+const RESEARCH_SUMMARY =
+  'Research highlighted three issues: early onboarding friction, invisible AI trust gaps, and a mismatch between model language and user mental models.';
+
 const RESEARCH_FINDINGS = [
   {
     no: '01',
-    title: 'Drop-off happens at setup',
-    body: "Across tools, the biggest abandonment point wasn't hard content. It was onboarding with too many decisions and too little visible payoff.",
+    title: 'The product asked for trust before it earned it.',
+    body: 'The highest-friction moment was onboarding: users were expected to provide inputs and preferences before the system had shown enough value to justify that effort.',
   },
   {
     no: '02',
-    title: 'Users distrust invisible AI',
-    body: "Most products don't explain why they assess a learner's level. Opacity, not capability, was the real trust blocker.",
+    title: 'Hidden AI felt harder to trust than complex content.',
+    body: 'Learners were less concerned with whether the system was advanced, and more concerned with whether they could understand and challenge its reasoning.',
   },
   {
     no: '03',
-    title: 'Academic terms miss user mental models',
-    body: 'FSLSM (a research-based framework for classifying learning styles) is pedagogically valid, but terms like sequential-global are not learner-facing language. The model needed translation, not replacement.',
+    title: 'Research-backed logic needed learner-facing language.',
+    body: "FSLSM was useful inside the system, but not meaningful in the interface. The model didn't need replacement; it needed translation.",
+  },
+];
+
+const DECISION_SUMMARIES = [
+  {
+    no: '01',
+    label: 'Learning Style Translation',
+    title: 'Translate learning-style theory into behavioral labels.',
+    intro:
+      'Instead of asking learners to describe themselves in abstract terms or exposing academic categories, I mapped the model to plain-language options such as Interactive, Textual, Visual, Concise, and Balanced.',
+    why: 'Preserved pedagogical rigor while making onboarding faster and more self-recognizable.',
+  },
+  {
+    no: '02',
+    label: 'Skill Gap Review',
+    title: 'Show AI skill-gap analysis before generating the path.',
+    intro:
+      'Rather than silently inferring ability and locking users into a path, I introduced a review step where learners could inspect reasoning, confidence, and levels before proceeding.',
+    why: 'Trust increased when inference became collaborative instead of hidden.',
+  },
+  {
+    no: '03',
+    label: 'Chatbot Scope',
+    title: 'Limit the chatbot to active learning sessions.',
+    intro:
+      'I chose not to make the chatbot globally available. Instead, it appears only when a learner is inside a lesson, where it has topic, skill, and session context.',
+    why: 'Protected focus during setup and made AI support more relevant when it did appear.',
+  },
+  {
+    no: '04',
+    label: 'Content Citations',
+    title: 'Make citations visible inside the session.',
+    intro:
+      'Because hallucination was a core trust risk, I surfaced source attribution and page-level citations directly in the learning experience.',
+    why: 'Shifted trust from brand claims to checkable behavior.',
+  },
+  {
+    no: '05',
+    label: 'Guided Onboarding Flow',
+    title: 'Break onboarding into guided steps.',
+    intro:
+      'I separated onboarding into three decisions: goal → learning style → resume (optional).',
+    why: 'Users could focus on one decision at a time, reducing cognitive load without sacrificing personalization quality.',
+  },
+];
+
+const FINAL_EXPERIENCE_HIGHLIGHTS = [
+  {
+    eyebrow: 'Personalized onboarding',
+    title: 'Lightweight, guided first-time setup',
+    body: 'Learners begin with a lightweight, guided flow that captures their goal, learning preference, and optional background information without overwhelming them on first use.',
+  },
+  {
+    eyebrow: 'Collaborative adaptation',
+    title: 'AI inference becomes reviewable',
+    body: 'Instead of hiding AI inference, Ami surfaces skill-gap analysis before path generation, allowing learners to review, adjust, and shape the system’s understanding of them.',
+  },
+  {
+    eyebrow: 'Contextual learning support',
+    title: 'Help that only appears when it fits',
+    body: 'Once a session begins, lesson format adapts to the learner’s preference through text, visuals, audio, or video, while the chatbot appears only where it can provide relevant, in-context help.',
+  },
+  {
+    eyebrow: 'Visible trust signals',
+    title: 'Legible system behavior over time',
+    body: 'Citations, progress updates, profile controls, and AI transparency cues work together to make the system’s behavior legible over time.',
+  },
+];
+
+const FINAL_EXPERIENCE_BLOCKS = [
+  {
+    title: 'Research-backed learner model',
+    media: 'ami-onboarding.gif',
+    body: 'How the system learns about the learner with low friction — goal, style, and optional resume feed a model grounded in FSLSM without exposing academic terms.',
+  },
+  {
+    title: 'Adaptive session experience',
+    media: 'ami-session.gif',
+    body: 'How learning adapts in real time without losing focus — format flexes between text, visuals, audio, and video while the chatbot stays scoped to the active session.',
+  },
+  {
+    title: 'Trust by design',
+    media: 'ami-verified-content.gif',
+    body: 'How trust stays visible and checkable across the product — citations, verified content, and transparency cues make AI reasoning inspectable, not opaque.',
   },
 ];
 
@@ -88,7 +175,7 @@ const SOLUTION_STEPS = [
   {
     badge: 'Step 6',
     title: 'Profile, Analytics & AI Transparency',
-    media: 'ami-ai-transparency.gif',
+    media: 'ami-profile.gif',
     body: 'Trust remains visible through profile controls, progress analytics, citation behavior, and transparency commitments.',
     chips: ['Profile', 'Analytics', 'AI Transparency'],
     uxPrinciple:
@@ -96,31 +183,13 @@ const SOLUTION_STEPS = [
   },
 ];
 
-const REFLECTIONS = [
-  {
-    no: '01',
-    title: 'Translating a model is a design problem',
-    body: 'FSLSM did not need replacement. It needed a UX translation layer so technical rigor and user clarity could coexist.',
-    principle: 'Match between system and the real world',
-  },
-  {
-    no: '02',
-    title: 'Adding a step can reduce friction',
-    body: 'Skill gap review added one step but increased confidence and completion. Useful friction can improve outcomes.',
-    principle: 'Help users recognize, diagnose, and recover from errors',
-  },
-  {
-    no: '03',
-    title: 'Scope defines feature meaning',
-    body: 'The chatbot became pedagogically meaningful when constrained to sessions rather than exposed globally.',
-    principle: 'Aesthetic and minimalist design',
-  },
-  {
-    no: '04',
-    title: 'Trust is a system, not a feature',
-    body: 'Explanations, profile transparency, source citations, and bias disclosure work together as a trust architecture.',
-    principle: 'Visibility of system status',
-  },
+const REFLECTION_INTRO =
+  'This project changed how I think about AI product design. Trust does not come from model sophistication alone. It comes from whether users can understand system behavior, verify outputs, and recover when the system gets something wrong.';
+
+const REFLECTION_BULLETS = [
+  'Translating a model is a UX problem, not just a content problem.',
+  'Adding the right friction can reduce overall uncertainty.',
+  'Trust grows when the system stays legible over time.',
 ];
 
 const OVERVIEW_WORKFLOW_STEPS = [
@@ -132,19 +201,11 @@ const OVERVIEW_WORKFLOW_STEPS = [
 ];
 
 const SLIDE_SECTIONS = [
-  { id: 'Overview', label: 'Overview' },
-  { id: 'Problem', label: 'Problem' },
-  { id: 'Research-Findings', label: 'Research · Findings' },
-  { id: 'Research-Competitive', label: 'Research · Competitive' },
-  { id: 'Research-Journey', label: 'Research · Journey' },
-  { id: 'Decisions-Overview', label: 'Decisions · Overview' },
-  { id: 'Decision-Onboarding', label: 'Decision 01 · Learning Style' },
-  { id: 'Decision-SkillGap', label: 'Decision 02 · Skill Gap' },
-  { id: 'Decision-Chatbot', label: 'Decision 03 · Chatbot Scope' },
-  { id: 'Decision-Citations', label: 'Decision 04 · Citations' },
-  { id: 'Decision-GuidedFlow', label: 'Decision 05 · Guided Flow' },
-  { id: 'Solution', label: 'Solution' },
-  { id: 'Reflection', label: 'Reflection' },
+  { id: 'Project-Background', label: 'Project Background' },
+  { id: 'Challenges-Constraints', label: 'Challenges' },
+  { id: 'Thinking-Strategy', label: 'Strategy' },
+  { id: 'Outputs-Validation', label: 'Outputs' },
+  { id: 'Reflection-Takeaways', label: 'Reflection' },
   { id: 'Video', label: 'Video' },
 ];
 
@@ -152,6 +213,9 @@ export default function AiTutorPage() {
   const amiImg = (name) => `${import.meta.env.BASE_URL}img/ami/${name}`;
   const [isSlideMode, setIsSlideMode] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
+  const [expandedDecision, setExpandedDecision] = useState(null);
+  const [activeStep, setActiveStep] = useState(0);
+  const [uxLensExpanded, setUxLensExpanded] = useState(false);
 
   useEffect(() => {
     const syncSlideModeFromUrl = () => {
@@ -253,13 +317,12 @@ export default function AiTutorPage() {
       </div>
       {isSlideMode && (() => {
         const TOP_NAV_GROUPS = [
-          { label: 'Overview', indices: [0] },
-          { label: 'Problem', indices: [1] },
-          { label: 'Research', indices: [2, 3, 4] },
-          { label: 'Decisions', indices: [5, 6, 7, 8, 9, 10] },
-          { label: 'Solution', indices: [11] },
-          { label: 'Reflection', indices: [12] },
-          { label: 'Video', indices: [13] },
+          { label: 'Background', indices: [0] },
+          { label: 'Challenges', indices: [1] },
+          { label: 'Strategy', indices: [2] },
+          { label: 'Outputs', indices: [3] },
+          { label: 'Reflection', indices: [4] },
+          { label: 'Video', indices: [5] },
         ];
         return (
           <div className="fixed top-3 left-1/2 -translate-x-1/2 z-50 max-w-[calc(100vw-2rem)] overflow-x-auto border border-gray-300 bg-white/95 px-2 py-1.5 shadow-sm backdrop-blur">
@@ -293,7 +356,14 @@ export default function AiTutorPage() {
         );
       })()}
 
-      {isSlideMode && <SlideDeck activeSlide={activeSlide} amiImg={amiImg} />}
+      {isSlideMode && (
+        <SlideDeck
+          activeSlide={activeSlide}
+          amiImg={amiImg}
+          activeStep={activeStep}
+          setActiveStep={setActiveStep}
+        />
+      )}
 
       <section id="Overview" className={`pt-2 pb-10 px-6 ${isSlideMode ? 'hidden' : ''}`}>
         <div className="max-w-7xl mx-auto">
@@ -306,17 +376,17 @@ export default function AiTutorPage() {
             <span className="italic font-medium text-slate-600" style={{ color: `rgb(${amiAccentRgb})` }}> from the ground up.</span>
           </h1>
           <p className="text-sm md:text-base text-slate-600 max-w-4xl leading-relaxed mb-4">
-            Ami is an adaptive learning platform built on a research AI baseline. The core challenge was
-            to transform a technically strong system into something learners can understand, trust, and
-            return to.
+            Ami is an adaptive learning platform built on a research-backed AI baseline. The design
+            challenge was not only to make personalization work, but to make learners understand,
+            verify, and trust how the system adapts to them.
           </p>
           <div
             className=" mb-0 rounded-[2px] p-2 text-xs"
             style={{ borderWidth: "0px", borderColor: "rgba(0, 0, 0, 0)", borderStyle: "none", borderImage: "none" }}
           >
             <p className="text-sm md:text-base text-[rgba(52,118,128,1)] leading-relaxed font-medium">
-              This project explored an end-to-end, AI-assisted workflow that combined product thinking,
-              UX design, and front-end prototyping.
+              Over a 12-week end-to-end process, I translated a technically strong tutoring model into a
+              learner-facing experience through UX research, product design, and front-end prototyping.
             </p>
             <div className="mt-1 flex flex-wrap items-center gap-1 text-xs md:text-sm">
               {OVERVIEW_WORKFLOW_STEPS.map((step, idx) => (
@@ -366,70 +436,43 @@ export default function AiTutorPage() {
 
       <section id="Problem" className={`py-1 px-6 pb-12 ${isSlideMode ? 'hidden' : ''}`}>
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-5">
+          <div className="mb-5">
             <h2 className={AMI.h2} style={AMI.h2Style}>Problem</h2>
-            <h3 className={AMI.h3} style={AMI.h3Style}>The technical brief was strong, but trust was undefined.</h3>
-            <p className="text-slate-600 text-sm text-left mt-3">
-              The original specification described architecture and model behavior. For product success,
-              the real risk was learner trust: if users could not understand system decisions, they would not
-              complete onboarding or return.
-            </p>
+            <h3 className={AMI.h3} style={AMI.h3Style}>
+              The system was technically strong, but learner trust was undefined.
+            </h3>
           </div>
 
-          <div className="bg-gray-50 border border-gray-300 p-5 md:p-7">
-            <p className="text-[10px] uppercase tracking-[0.2em] font-bold style={AMI.h2Style} mb-3">
-              Original client brief - verbatim
+          <div className="max-w-4xl space-y-4 text-sm md:text-base text-slate-600 leading-relaxed">
+            <p>
+              The original brief described model behavior, curriculum intelligence, and personalization
+              logic. But from a product perspective, the core risk was trust: if learners could not
+              understand why the system assessed them, adapted content, or generated a path, they would
+              hesitate early, disengage, or never return.
             </p>
-            <p className="text-xs md:text-sm style={AMI.h3Style} leading-relaxed mb-3 font-mono">
-              "This project develops a personalized AI tutoring system that adapts its teaching style to
-              individual learners. Rather than delivering uniform content, the system identifies cognitive
-              preferences and learning gaps through interaction patterns and assessment data."
-            </p>
-            <p className="text-xs md:text-sm style={AMI.h3Style} leading-relaxed mb-3 font-mono">
-              "The tutor is powered by LLMs connected to a curriculum knowledge graph, enabling
-              prerequisite-aware lesson sequencing and targeted practice generation."
-            </p>
-            <p className="text-xs style={AMI.h3Style} italic border-t border-gray-300 pt-3">
-              Ethical considerations listed: bias, transparency, and the role of AI in pedagogy, with no
-              product-level specification.
+            <p
+              className="border-l-4 pl-4"
+              style={{ borderColor: `rgb(${amiAccentRgb} / 0.6)`, color: `rgb(${amiAccentRgb})` }}
+            >
+              This reframed the challenge from <em>"How do we build adaptive tutoring?"</em> to{' '}
+              <em>"How do we make adaptive tutoring feel understandable, editable, and trustworthy?"</em>
             </p>
           </div>
-
-          <p className={`mt-4 text-sm text-slate-600 border-l-4 border-gray-300 pl-4`}>
-            The first design decision was to close the gap between technical capability and learner
-            experience.
-          </p>
-          <p className="mt-3 text-xs text-slate-500 leading-relaxed">
-            <span className="font-semibold text-slate-600">UX principle in practice:</span> ISO-style
-            human-centered framing — if the brief centers the model and not the person using it, the
-            design process has to re-anchor on goals, context, and measurable learner outcomes before
-            screens.
-          </p>
         </div>
       </section>
 
       <section id="Research" className={`py-1 px-6 pb-12 ${isSlideMode ? 'hidden' : ''}`}>
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-6">
+          <div className="mb-6">
             <h2 className={AMI.h2} style={AMI.h2Style}>Research</h2>
-            <h3 className={AMI.h3} style={AMI.h3Style}>Evidence first: three findings that shaped scope.</h3>
-            <p className="text-slate-600 text-sm text-left mt-3">
-              Before redesigning screens, I validated where trust and friction actually broke the experience:
-              competitive benchmark, journey map, and architecture-level constraints.
-            </p>
+            <h3 className={AMI.h3} style={AMI.h3Style}>
+              Landscape, journey maps, then synthesis into product direction.
+            </h3>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-3 mb-10">
-            {RESEARCH_FINDINGS.map((item) => (
-              <div key={item.no} className={`border ${amiBorderSubtle} bg-white p-4`}>
-                <p className="text-3xl leading-none mb-2" style={{ color: `rgb(${amiAccentRgb} / 0.32)` }}>
-                  {item.no}
-                </p>
-                <h4 className="font-bold text-sm mb-2 text-slate-800">{item.title}</h4>
-                <p className="text-sm text-slate-600 leading-relaxed">{item.body}</p>
-              </div>
-            ))}
-          </div>
+          <p className="text-sm md:text-base text-slate-600 max-w-3xl leading-relaxed mb-10">
+            {RESEARCH_SUMMARY}
+          </p>
 
           <div className="mb-10">
             <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Competitive positioning</p>
@@ -445,8 +488,7 @@ export default function AiTutorPage() {
                 className="w-full h-auto object-contain"
               />
               <p className="text-xs text-slate-500 italic mt-3">
-                Ami combines FSLSM + SOLO + RAG-grounded content with a UX layer designed for real
-                learners.
+                Ami combines FSLSM + SOLO + RAG-grounded content with a UX layer designed for real learners.
               </p>
             </div>
           </div>
@@ -455,24 +497,48 @@ export default function AiTutorPage() {
             <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Journey mapping</p>
             <h4 className="text-lg font-semibold mb-3">Mapping emotional cost before and after Ami</h4>
             <p className="text-sm text-slate-600 mb-4">
-              The steepest drop happened during setup and tool-switching, not during difficult content.
-              This insight directly shaped onboarding and trust-related decisions.
+              The steepest drop happened during setup and tool-switching, not during difficult content. This
+              insight directly shaped onboarding and trust-related decisions.
             </p>
             <div className="grid md:grid-cols-2 gap-4">
               <div className={`border ${amiBorder} bg-white p-3`}>
-                <img src={amiImg('current-journey-map.png')} alt="Current journey map without Ami" className="w-full h-auto" />
+                <img
+                  src={amiImg('current-journey-map.png')}
+                  alt="Current journey map without Ami"
+                  className="w-full h-auto"
+                />
                 <p className="text-xs text-slate-500 italic mt-2">
-                  Without Ami: emotional arc declines from hopeful to discouraged due to high cognitive
-                  load and unclear progress.
+                  Without Ami: emotional arc declines from hopeful to discouraged due to high cognitive load
+                  and unclear progress.
                 </p>
               </div>
               <div className={`border ${amiBorder} bg-white p-3`}>
-                <img src={amiImg('future-journey-map.png')} alt="Future journey map with Ami" className="w-full h-auto" />
+                <img
+                  src={amiImg('future-journey-map.png')}
+                  alt="Future journey map with Ami"
+                  className="w-full h-auto"
+                />
                 <p className="text-xs text-slate-500 italic mt-2">
-                  With Ami: arc rises from clear direction to trust building through staged support and
-                  visible reasoning.
+                  With Ami: arc rises from clear direction to trust building through staged support and visible
+                  reasoning.
                 </p>
               </div>
+            </div>
+          </div>
+
+          <div className="mt-10">
+            <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Research findings</p>
+            <h4 className="text-lg font-semibold text-slate-900 mb-6">Three findings shaped the product direction.</h4>
+            <div className="grid md:grid-cols-3 gap-3">
+              {RESEARCH_FINDINGS.map((item) => (
+                <div key={item.no} className={`border ${amiBorderSubtle} bg-white p-5`}>
+                  <p className="text-3xl leading-none mb-3" style={{ color: `rgb(${amiAccentRgb} / 0.32)` }}>
+                    {item.no}
+                  </p>
+                  <h4 className="font-bold text-sm mb-2 text-slate-800 leading-snug">{item.title}</h4>
+                  <p className="text-sm text-slate-600 leading-relaxed">{item.body}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -480,35 +546,126 @@ export default function AiTutorPage() {
 
       <section id="Decisions" className={`py-1 px-6 pb-12 ${isSlideMode ? 'hidden' : ''}`}>
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-6">
-            <h2 className={AMI.h2} style={AMI.h2Style}>Design Decisions</h2>
-            <h3 className={AMI.h3} style={AMI.h3Style}>Five high-impact decisions and their trade-offs.</h3>
-            <p className="text-slate-600 text-sm text-left mt-3">
-              In interviews, this is the core section: each decision shows what options existed, why one was
-              selected, and how it changed learner behavior and trust.
+          <div className="mb-6">
+            <h2 className={AMI.h2} style={AMI.h2Style}>Key Design Decisions</h2>
+            <h3 className={AMI.h3} style={AMI.h3Style}>
+              Key decisions that turned technical capability into learner trust.
+            </h3>
+            <p className="text-slate-600 text-sm mt-3">
+              Click any decision to expand the full trade-off study, iterations, and final design.
             </p>
           </div>
 
           <div className={`mb-8 border ${amiBorderSubtle} bg-slate-50/90 p-5 md:p-6`}>
-            <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-2">
-              UX principles as a research lens
-            </p>
-            <p className="text-sm text-slate-600 mb-4 max-w-4xl leading-relaxed">
-              Research findings were triangulated against Nielsen Norman usability heuristics; those same
-              heuristics became the shared language in design reviews when we weighed fewer steps versus
-              more transparency — arguing in learner terms, not only feasibility.
-            </p>
-            <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-3">
-              {UX_PRINCIPLES_LENS.map((row) => (
-                <div key={row.principle} className={`border ${amiBorderSubtle} bg-white p-4`}>
-                  <p className="text-[11px] font-bold text-slate-800 leading-snug mb-2">{row.principle}</p>
-                  <p className="text-xs text-slate-600 leading-relaxed">{row.application}</p>
-                </div>
-              ))}
+            <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
+              <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500">
+                UX principles as a research lens
+              </p>
+              {uxLensExpanded && (
+                <button
+                  type="button"
+                  onClick={() => setUxLensExpanded(false)}
+                  className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 hover:text-slate-800"
+                >
+                  Collapse
+                </button>
+              )}
             </div>
+            {!uxLensExpanded ? (
+              <button
+                type="button"
+                onClick={() => setUxLensExpanded(true)}
+                className="w-full text-left rounded-sm border border-transparent hover:border-gray-300 hover:bg-white/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[rgb(52_118_128/0.5)] transition-colors p-0"
+              >
+                <p className="text-sm text-slate-600 max-w-4xl leading-relaxed line-clamp-2 mb-3">
+                  Research findings were triangulated against Nielsen Norman usability heuristics; those same
+                  heuristics became the shared language in design reviews when we weighed fewer steps versus
+                  more transparency — arguing in learner terms, not only feasibility.
+                </p>
+                <div className="flex flex-wrap gap-1.5 mb-2">
+                  {UX_PRINCIPLES_LENS.map((row) => (
+                    <span
+                      key={row.principle}
+                      className={`inline-flex max-w-full truncate border ${amiBorderSubtle} bg-white px-2 py-0.5 text-[10px] text-slate-600`}
+                      title={row.principle}
+                    >
+                      {row.principle}
+                    </span>
+                  ))}
+                </div>
+                <span
+                  className="text-[10px] font-bold uppercase tracking-[0.18em]"
+                  style={{ color: 'rgb(52 118 128 / 0.88)' }}
+                >
+                  Expand full lens →
+                </span>
+              </button>
+            ) : (
+              <>
+                <p className="text-sm text-slate-600 mb-4 max-w-4xl leading-relaxed">
+                  Research findings were triangulated against Nielsen Norman usability heuristics; those same
+                  heuristics became the shared language in design reviews when we weighed fewer steps versus
+                  more transparency — arguing in learner terms, not only feasibility.
+                </p>
+                <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-3">
+                  {UX_PRINCIPLES_LENS.map((row) => (
+                    <div key={row.principle} className={`border ${amiBorderSubtle} bg-white p-4`}>
+                      <p className="text-[11px] font-bold text-slate-800 leading-snug mb-2">{row.principle}</p>
+                      <p className="text-xs text-slate-600 leading-relaxed">{row.application}</p>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
 
-          <div className="space-y-5">
+          <div className="grid md:grid-cols-5 gap-3 mb-6">
+            {DECISION_SUMMARIES.map((d, idx) => {
+              const isOpen = expandedDecision === idx;
+              return (
+                <button
+                  key={d.no}
+                  type="button"
+                  onClick={() => setExpandedDecision(isOpen ? null : idx)}
+                  className={`group text-left border bg-white p-4 flex flex-col gap-2 transition-all ${
+                    isOpen
+                      ? 'border-[rgba(52,118,128,0.88)] shadow-sm'
+                      : 'border-gray-300 hover:border-[rgba(52,118,128,0.55)]'
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span
+                      className={`w-8 h-8 border border-gray-300 text-xs font-bold flex items-center justify-center ${
+                        isOpen ? 'text-white' : ''
+                      }`}
+                      style={{
+                        color: isOpen ? '#fff' : 'rgb(52 118 128 / 0.88)',
+                        backgroundColor: isOpen ? 'rgb(52 118 128 / 0.88)' : '#fff',
+                      }}
+                    >
+                      {d.no}
+                    </span>
+                    <span
+                      className="text-lg leading-none select-none"
+                      style={{ color: 'rgb(52 118 128 / 0.88)' }}
+                      aria-hidden
+                    >
+                      {isOpen ? '−' : '+'}
+                    </span>
+                  </div>
+                  <p className="text-[10px] uppercase tracking-[0.18em] text-slate-500">{d.label}</p>
+                  <h4 className="text-sm font-semibold text-slate-900 leading-snug">{d.title}</h4>
+                  <p className="text-xs text-slate-600 leading-relaxed mt-auto">
+                    <span className="font-semibold text-slate-800">Why it mattered · </span>
+                    {d.why}
+                  </p>
+                </button>
+              );
+            })}
+          </div>
+
+          <div className={`space-y-5 ${expandedDecision === null ? 'hidden' : ''}`}>
+            {expandedDecision === 0 && (
             <article className={`border ${amiBorderSubtle} bg-white p-5 md:p-6`}>
               <div className="flex items-start gap-4 mb-4">
                 <span className="w-9 h-9 bg-white border border-gray-300 text-xs font-bold flex items-center justify-center" style={{ color: 'rgb(52 118 128 / 0.88)' }}>01</span>
@@ -518,14 +675,6 @@ export default function AiTutorPage() {
                     Translate FSLSM into behavioral labels learners actually recognize.
                   </h4>
                 </div>
-              </div>
-              <div className={`mb-4 border ${amiBorderSubtle} bg-slate-50 p-3`}>
-                <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500 mb-1">30s talk track</p>
-                <p className="text-sm text-slate-700 leading-relaxed">
-                  <span className="font-semibold text-slate-900">Context:</span> onboarding drop-off was the largest funnel loss.
-                  <span className="font-semibold text-slate-900"> Decision:</span> one question per step and optional resume.
-                  <span className="font-semibold text-slate-900"> Impact:</span> lower friction without losing personalization quality.
-                </p>
               </div>
               <div className="grid lg:grid-cols-2 gap-5">
                 <div className="space-y-3">
@@ -603,7 +752,9 @@ export default function AiTutorPage() {
                 </div>
               </div>
             </article>
+            )}
 
+            {expandedDecision === 1 && (
             <article className={`border ${amiBorderSubtle} bg-white p-5 md:p-6`}>
               <div className="flex items-start gap-4 mb-4">
                 <span className="w-9 h-9 bg-white border border-gray-300 text-xs font-bold flex items-center justify-center" style={{ color: 'rgb(52 118 128 / 0.88)' }}>02</span>
@@ -613,14 +764,6 @@ export default function AiTutorPage() {
                     Should we show AI skill-gap analysis and let users adjust it?
                   </h4>
                 </div>
-              </div>
-              <div className={`mb-4 border ${amiBorderSubtle} bg-slate-50 p-3`}>
-                <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500 mb-1">30s talk track</p>
-                <p className="text-sm text-slate-700 leading-relaxed">
-                  <span className="font-semibold text-slate-900">Context:</span> hidden AI inference felt arbitrary.
-                  <span className="font-semibold text-slate-900"> Decision:</span> expose rationale and let users adjust levels.
-                  <span className="font-semibold text-slate-900"> Impact:</span> users could correct the model before path lock-in.
-                </p>
               </div>
               <div className="grid lg:grid-cols-2 gap-5">
                 <div className="space-y-3">
@@ -678,7 +821,9 @@ export default function AiTutorPage() {
                 </div>
               </div>
             </article>
+            )}
 
+            {expandedDecision === 2 && (
             <article className={`border ${amiBorderSubtle} bg-white p-5 md:p-6`}>
               <div className="flex items-start gap-4 mb-4">
                 <span className="w-9 h-9 bg-white border border-gray-300 text-xs font-bold flex items-center justify-center" style={{ color: 'rgb(52 118 128 / 0.88)' }}>03</span>
@@ -688,14 +833,6 @@ export default function AiTutorPage() {
                     Should the chatbot be global, or only available during sessions?
                   </h4>
                 </div>
-              </div>
-              <div className={`mb-4 border ${amiBorderSubtle} bg-slate-50 p-3`}>
-                <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500 mb-1">30s talk track</p>
-                <p className="text-sm text-slate-700 leading-relaxed">
-                  <span className="font-semibold text-slate-900">Context:</span> global chatbot interrupted setup focus.
-                  <span className="font-semibold text-slate-900"> Decision:</span> limit chatbot to active learning sessions.
-                  <span className="font-semibold text-slate-900"> Impact:</span> higher focus early, better contextual help later.
-                </p>
               </div>
               <div className="grid lg:grid-cols-2 gap-5">
                 <div className="space-y-3">
@@ -761,7 +898,9 @@ export default function AiTutorPage() {
                 </div>
               </div>
             </article>
+            )}
 
+            {expandedDecision === 3 && (
             <article className={`border ${amiBorderSubtle} bg-white p-5 md:p-6`}>
               <div className="flex items-start gap-4 mb-4">
                 <span className="w-9 h-9 bg-white border border-gray-300 text-xs font-bold flex items-center justify-center" style={{ color: 'rgb(52 118 128 / 0.88)' }}>04</span>
@@ -771,14 +910,6 @@ export default function AiTutorPage() {
                     Ground AI outputs in verifiable sources by design, not as an afterthought.
                   </h4>
                 </div>
-              </div>
-              <div className={`mb-4 border ${amiBorderSubtle} bg-slate-50 p-3`}>
-                <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500 mb-1">30s talk track</p>
-                <p className="text-sm text-slate-700 leading-relaxed">
-                  <span className="font-semibold text-slate-900">Context:</span> trust fails when answers are not verifiable.
-                  <span className="font-semibold text-slate-900"> Decision:</span> show source and page citations in-session.
-                  <span className="font-semibold text-slate-900"> Impact:</span> trust shifts from claims to checkable behavior.
-                </p>
               </div>
               <div className="grid lg:grid-cols-2 gap-5">
                 <div className="space-y-3">
@@ -856,7 +987,9 @@ export default function AiTutorPage() {
                 </div>
               </div>
             </article>
+            )}
 
+            {expandedDecision === 4 && (
             <article className={`border ${amiBorderSubtle} bg-white p-5 md:p-6`}>
               <div className="flex items-start gap-4 mb-4">
                 <span className="w-9 h-9 bg-white border border-gray-300 text-xs font-bold flex items-center justify-center" style={{ color: 'rgb(52 118 128 / 0.88)' }}>05</span>
@@ -866,14 +999,6 @@ export default function AiTutorPage() {
                     Split onboarding into guided steps: learning goal → learning style → resume.
                   </h4>
                 </div>
-              </div>
-              <div className={`mb-4 border ${amiBorderSubtle} bg-slate-50 p-3`}>
-                <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500 mb-1">30s talk track</p>
-                <p className="text-sm text-slate-700 leading-relaxed">
-                  <span className="font-semibold text-slate-900">Context:</span> all inputs on one screen overloaded first-time users.
-                  <span className="font-semibold text-slate-900"> Decision:</span> progressive flow: goal → style → resume.
-                  <span className="font-semibold text-slate-900"> Impact:</span> clearer mental model and better completion quality.
-                </p>
               </div>
               <div className="grid lg:grid-cols-2 gap-5">
                 <div className="space-y-3">
@@ -934,50 +1059,144 @@ export default function AiTutorPage() {
                 </div>
               </div>
             </article>
+            )}
           </div>
         </div>
       </section>
 
       <section id="Solution" className={`py-1 px-6 pb-12 ${isSlideMode ? 'hidden' : ''}`}>
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-6">
-            <h2 className={AMI.h2} style={AMI.h2Style}>Solution</h2>
-            <h3 className={AMI.h3} style={AMI.h3Style}>End-to-end learner flow produced by those decisions.</h3>
-            <p className="text-slate-600 text-sm text-left mt-3">
-              This sequence shows how the decisions connect into one coherent product behavior:
-              onboarding clarity, editable inference, contextual support, and continuous adaptation.
+          <div className="mb-6">
+            <h2 className={AMI.h2} style={AMI.h2Style}>Final Experience</h2>
+            <h3 className={AMI.h3} style={AMI.h3Style}>
+              An end-to-end learning experience shaped by transparent AI decisions.
+            </h3>
+            <p className="text-slate-600 text-sm md:text-base max-w-4xl mt-3 leading-relaxed">
+              The final product experience was designed to make AI personalization feel understandable,
+              editable, and trustworthy.
             </p>
           </div>
 
-          <div className={`border ${amiBorder} bg-white p-4 md:p-6`}>
-            <div className="space-y-7">
-              {SOLUTION_STEPS.map((step) => (
-                <div key={step.title} className={`grid lg:grid-cols-2 gap-5 pb-6 border-b ${amiBorderSubtle} last:border-b-0 last:pb-0`}>
-                  <div className={`border border-dashed ${amiBorderSubtle} bg-white p-3`}>
-                    <img src={amiImg(step.media)} alt={step.title} className="w-full h-auto max-h-[280px] object-contain" />
-                  </div>
+          <div className="grid md:grid-cols-2 gap-4 mb-8">
+            {FINAL_EXPERIENCE_HIGHLIGHTS.map((h) => (
+              <div key={h.title} className={`border ${amiBorderSubtle} bg-white p-5`}>
+                <p
+                  className="text-[10px] font-bold uppercase tracking-[0.18em] mb-2"
+                  style={{ color: 'rgb(52 118 128 / 0.88)' }}
+                >
+                  {h.eyebrow}
+                </p>
+                <h4 className="text-base font-semibold text-slate-900 mb-2">{h.title}</h4>
+                <p className="text-sm text-slate-600 leading-relaxed">{h.body}</p>
+              </div>
+            ))}
+          </div>
+
+          <p
+            className="mb-8 border-l-4 pl-4 text-sm md:text-base max-w-4xl leading-relaxed"
+            style={{ borderColor: `rgb(${amiAccentRgb} / 0.6)`, color: `rgb(${amiAccentRgb})` }}
+          >
+            Together, these decisions turned a technically strong tutoring model into a product experience
+            learners could understand, verify, and grow with.
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-4">
+            {FINAL_EXPERIENCE_BLOCKS.map((b) => (
+              <div key={b.title} className={`border ${amiBorder} bg-white flex flex-col`}>
+                <div className={`border-b ${amiBorderSubtle} bg-white p-3`}>
+                  <img src={amiImg(b.media)} alt={b.title} className="w-full h-auto" />
+                </div>
+                <div className="p-5 flex flex-col gap-2">
+                  <h4 className="text-base font-semibold text-slate-900">{b.title}</h4>
+                  <p className="text-sm text-slate-600 leading-relaxed">{b.body}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="VisualDirection" className={`py-1 px-6 pb-12 ${isSlideMode ? 'hidden' : ''}`}>
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-6">
+            <h2 className={AMI.h2} style={AMI.h2Style}>Visual Direction</h2>
+            <h3 className={AMI.h3} style={AMI.h3Style}>
+              Step through the learner flow, one screen at a time.
+            </h3>
+            <p className="text-slate-600 text-sm mt-3">
+              Click any step on the left to preview the corresponding screen and design note.
+            </p>
+          </div>
+
+          <div className={`border ${amiBorder} bg-white grid md:grid-cols-[220px_1fr]`}>
+            <div className={`border-b md:border-b-0 md:border-r ${amiBorderSubtle} flex md:flex-col overflow-x-auto`}>
+              {SOLUTION_STEPS.map((step, idx) => {
+                const isActive = activeStep === idx;
+                return (
+                  <button
+                    key={step.title}
+                    type="button"
+                    onClick={() => setActiveStep(idx)}
+                    className={`group text-left px-4 py-4 border-gray-200 md:border-b last:border-b-0 transition-colors shrink-0 md:shrink ${
+                      isActive
+                        ? 'bg-white'
+                        : 'bg-slate-50 hover:bg-white'
+                    }`}
+                    style={
+                      isActive
+                        ? { borderLeft: '3px solid rgb(52 118 128 / 0.88)', paddingLeft: 'calc(1rem - 3px)' }
+                        : { borderLeft: '3px solid transparent', paddingLeft: 'calc(1rem - 3px)' }
+                    }
+                  >
+                    <p
+                      className="text-[10px] font-bold uppercase tracking-[0.18em] mb-1"
+                      style={{ color: isActive ? 'rgb(52 118 128 / 0.88)' : '#64748b' }}
+                    >
+                      {step.badge}
+                    </p>
+                    <p
+                      className={`text-sm leading-snug ${isActive ? 'font-semibold text-slate-900' : 'text-slate-700'}`}
+                    >
+                      {step.title}
+                    </p>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="p-4 md:p-6">
+              {(() => {
+                const step = SOLUTION_STEPS[activeStep];
+                return (
                   <div>
-                    <span className="inline-flex bg-white border border-gray-300 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] mb-3" style={{ color: 'rgb(52 118 128 / 0.88)' }}>
+                    <div className={`border ${amiBorderSubtle} bg-white p-3 mb-4`}>
+                      <img
+                        src={amiImg(step.media)}
+                        alt={step.title}
+                        className="w-full h-auto max-h-[440px] object-contain"
+                      />
+                    </div>
+                    <span
+                      className="inline-flex bg-white border border-gray-300 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] mb-3"
+                      style={{ color: 'rgb(52 118 128 / 0.88)' }}
+                    >
                       {step.badge}
                     </span>
                     <h4 className="text-base font-semibold text-slate-900 mb-2">{step.title}</h4>
                     <p className="text-sm text-slate-600 leading-relaxed mb-3">{step.body}</p>
                     <div className="flex flex-wrap gap-2">
                       {step.chips.map((chip) => (
-                        <span key={chip} className={`inline-flex border ${amiBorderSubtle} bg-white px-3 py-1 text-xs text-slate-600`}>
+                        <span
+                          key={chip}
+                          className={`inline-flex border ${amiBorderSubtle} bg-white px-3 py-1 text-xs text-slate-600`}
+                        >
                           {chip}
                         </span>
                       ))}
                     </div>
-                    {step.uxPrinciple && (
-                      <p className="mt-3 text-xs text-slate-500 leading-relaxed border-t border-gray-200 pt-3">
-                        <span className="font-semibold text-slate-600">Principle applied: </span>
-                        {step.uxPrinciple}
-                      </p>
-                    )}
                   </div>
-                </div>
-              ))}
+                );
+              })()}
             </div>
           </div>
         </div>
@@ -985,23 +1204,24 @@ export default function AiTutorPage() {
 
       <section id="Reflection" className={`py-1 px-6 pb-12 ${isSlideMode ? 'hidden' : ''}`}>
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-6">
+          <div className="mb-6">
             <h2 className={AMI.h2} style={AMI.h2Style}>Reflection</h2>
-            <h3 className={AMI.h3} style={AMI.h3Style}>What this project changed in my AI product thinking.</h3>
+            <h3 className={AMI.h3} style={AMI.h3Style}>
+              Trust is not a feature. It is a system of visible decisions.
+            </h3>
           </div>
-          <div className="grid md:grid-cols-2 gap-3">
-            {REFLECTIONS.map((lesson) => (
-              <div key={lesson.no} className={`p-5 bg-slate-50 border ${amiBorderSubtle}`}>
-                <p className="text-3xl leading-none mb-2" style={{ color: `rgb(${amiAccentRgb} / 0.32)` }}>
-                  {lesson.no}
+
+          <div className="max-w-4xl mb-8">
+            <p className="text-sm md:text-base text-slate-600 leading-relaxed">{REFLECTION_INTRO}</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-3">
+            {REFLECTION_BULLETS.map((line, i) => (
+              <div key={line} className={`border ${amiBorderSubtle} bg-white p-5`}>
+                <p className="text-3xl leading-none mb-3" style={{ color: `rgb(${amiAccentRgb} / 0.32)` }}>
+                  {String(i + 1).padStart(2, '0')}
                 </p>
-                {lesson.principle && (
-                  <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500 mb-2">
-                    {lesson.principle}
-                  </p>
-                )}
-                <h4 className="font-bold text-sm mb-2 text-slate-900">{lesson.title}</h4>
-                <p className="text-sm text-slate-600 leading-relaxed">{lesson.body}</p>
+                <p className="text-sm text-slate-700 leading-relaxed">{line}</p>
               </div>
             ))}
           </div>
@@ -1012,7 +1232,7 @@ export default function AiTutorPage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-6">
             <h2 className={AMI.h2} style={AMI.h2Style}>Vedio</h2>
-            <h3 className={AMI.h3} style={AMI.h3Style}>Live walkthrough for interview discussion.</h3>
+            <h3 className={AMI.h3} style={AMI.h3Style}>Live walkthrough.</h3>
           </div>
           <div className="grid lg:grid-cols-2 gap-4">
             <div className={`border ${amiBorder} bg-white p-4 md:p-6`}>
@@ -1062,6 +1282,11 @@ export default function AiTutorPage() {
           background: #e2e8f0;
           color: #0f172a;
         }
+        /* Decisions: global style.css uses Merriweather for headings + article p — force Open Sans here */
+        #Decisions,
+        #Decisions * {
+          font-family: "Open Sans", sans-serif !important;
+        }
         .ai-tutor-page.slide-mode .slide-deck-section {
           min-height: calc(100vh - 80px);
         }
@@ -1070,7 +1295,7 @@ export default function AiTutorPage() {
   );
 }
 
-function SlideDeck({ activeSlide, amiImg }) {
+function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
   const accent = `rgb(${amiAccentRgb})`;
   const accentSoft = `rgb(${amiAccentRgb} / 0.12)`;
 
@@ -1129,41 +1354,50 @@ function SlideDeck({ activeSlide, amiImg }) {
     case 0:
       return (
         <SlideFrame
-          eyebrow="Case Study · 2026"
-          title={(
-            <>
-              Designing trust into an AI tutor,{' '}
-              <span style={{ color: accent }}>from the ground up.</span>
-            </>
-          )}
-          subtitle="Ami turns a research-grade AI baseline into a product learners can understand, trust, and return to."
+          eyebrow="Slide 1 · Project Background"
+          title="AMI — Designing trust into an AI tutor"
+          subtitle="What existed, what was missing, and the core product challenge."
           wide
         >
-          <div className="grid md:grid-cols-[1.1fr_1fr] gap-6 mt-2">
-            <Figure src={amiImg('overview.gif')} alt="Ami product overview" />
-            <div className="grid grid-cols-2 gap-3 self-start">
+          <div className="grid md:grid-cols-[1.1fr_1fr] gap-6">
+            <Figure
+              src={amiImg('overview.gif')}
+              alt="AMI product overview"
+              caption="Onboarding, session, and profile together show the learner-facing system."
+            />
+            <div className="grid grid-cols-1 gap-3 self-start">
               <div className="border border-gray-300 bg-white p-4">
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-1">Role</p>
-                <p className="text-sm text-slate-800">UX Research · Product Design · Frontend</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">What AMI already had</p>
+                <ul className="space-y-1 text-sm text-slate-700">
+                  <li>Research-backed learner model</li>
+                  <li>AI-driven skill gap analysis</li>
+                  <li>RAG-grounded course content</li>
+                  <li>Personalized learning path generation</li>
+                </ul>
               </div>
               <div className="border border-gray-300 bg-white p-4">
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-1">Team</p>
-                <p className="text-sm text-slate-800">6 cross-functional · 12 weeks</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">What was still missing</p>
+                <ul className="space-y-1 text-sm text-slate-700">
+                  <li>Why the system assessed them that way</li>
+                  <li>Why it generated a certain path</li>
+                  <li>How AI adapted over time</li>
+                </ul>
               </div>
-              <div className="border border-gray-300 bg-white p-4">
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-1">Timeline</p>
-                <p className="text-sm text-slate-800">Jan — April 2026</p>
-              </div>
-              <div className="border border-gray-300 bg-white p-4">
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-1">Outcome</p>
-                <p className="text-sm text-slate-800">Trusted learner flow, onboarding to adaptation</p>
-              </div>
-              <div className="col-span-2 border border-gray-300 p-4" style={{ backgroundColor: accentSoft }}>
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-1" style={{ color: accent }}>
-                  Workflow
+              <div className="border border-gray-300 p-4" style={{ backgroundColor: accentSoft }}>
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-2" style={{ color: accent }}>
+                  Core product challenge
                 </p>
-                <p className="text-sm text-slate-800 leading-relaxed">
-                  Problem definition → UX structure in Figma → AI-assisted build (Cursor + Claude) → React + TS prototype → client feedback.
+                <p className="text-base font-semibold leading-snug text-slate-900">
+                  Turn a model-driven AI tutor into an experience that feels understandable, editable, and trustworthy.
+                </p>
+              </div>
+              <div className="border border-gray-300 bg-white p-4">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">My role</p>
+                <p className="text-sm text-slate-700">
+                  UX Research<br />
+                  Product Design<br />
+                  Front-end Prototyping<br />
+                  Built key flows in React + TypeScript using Cursor + Claude
                 </p>
               </div>
             </div>
@@ -1174,30 +1408,45 @@ function SlideDeck({ activeSlide, amiImg }) {
     case 1:
       return (
         <SlideFrame
-          eyebrow="Problem"
-          title="The brief was strong on AI. Silent on trust."
-          subtitle="If learners cannot understand why the AI decides what it decides, they will not finish onboarding or return."
+          eyebrow="Slide 2 · Challenges and Constraints"
+          title="The challenge was not only interface design. It was trust design."
           wide
         >
-          <div className="grid md:grid-cols-[1.15fr_1fr] gap-6">
-            <div className="border border-gray-300 bg-slate-50 p-5">
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-3">
-                Original client brief — verbatim
-              </p>
-              <p className="text-sm text-slate-700 leading-relaxed font-mono mb-3">
-                "This project develops a personalized AI tutoring system that adapts its teaching style to individual learners…"
-              </p>
-              <p className="text-sm text-slate-700 leading-relaxed font-mono mb-3">
-                "The tutor is powered by LLMs connected to a curriculum knowledge graph, enabling prerequisite-aware lesson sequencing…"
-              </p>
-              <p className="text-xs text-slate-500 italic border-t border-gray-300 pt-3">
-                Ethical considerations listed: bias, transparency, pedagogy — no product-level UX specification.
-              </p>
+          <div className="grid md:grid-cols-[1.1fr_1fr] gap-6">
+            <div className="grid grid-cols-1 gap-4 self-start">
+              <Figure
+                src={amiImg('current-journey-map.png')}
+                alt="Journey map showing friction and emotional drop-off"
+                caption="Journey map: the steepest emotional drop happened during setup and tool-switching, not difficult learning."
+              />
+              <Figure
+                src={amiImg('Competitive-positioning-matrix.png')}
+                alt="Competitive positioning matrix"
+                caption="Competitive review: Ami aimed for the under-served space between pedagogical rigor and usability."
+              />
             </div>
             <div className="grid grid-cols-1 gap-3 self-start">
-              <PointCard index={0} title="Model-centric brief" body="Architecture and FSLSM logic, but no learner experience." />
-              <PointCard index={1} title="Hidden inference" body="Learning paths felt arbitrary without visible reasoning." />
-              <PointCard index={2} title="Trust = retention" body="The real risk was trust, not model accuracy." highlight />
+              <PointCard
+                index={0}
+                title="System logic did not match learner language"
+                body="FSLSM worked inside the platform, but academic theory was not meaningful in the interface."
+              />
+              <PointCard
+                index={1}
+                title="Trust was weak by default"
+                body="If learners could not see how AI reasoned, the product felt like a black box."
+              />
+              <PointCard
+                index={2}
+                title="Speed and trust had to be balanced"
+                body="Fewer steps vs. more transparency. Faster onboarding vs. better personalization."
+              />
+              <PointCard
+                index={3}
+                title="Static screens were not enough"
+                body="This was an adaptive experience, so I had to design both interface and behavior."
+                highlight
+              />
             </div>
           </div>
         </SlideFrame>
@@ -1206,24 +1455,47 @@ function SlideDeck({ activeSlide, amiImg }) {
     case 2:
       return (
         <SlideFrame
-          eyebrow="Research · Findings"
-          title="Three findings that shaped scope."
-          subtitle="From competitive review, journey mapping, and interviews."
+          eyebrow="Slide 3 · Thinking and Strategy"
+          title="I reframed the design question, then mapped each trust problem to a product move."
           wide
         >
-          <div className="grid md:grid-cols-3 gap-4">
-            {RESEARCH_FINDINGS.map((item, i) => (
-              <div key={item.no} className="border border-gray-300 bg-white p-5">
-                <p
-                  className="text-4xl leading-none mb-3 font-extrabold"
-                  style={{ color: `rgb(${amiAccentRgb} / 0.32)` }}
-                >
-                  {item.no}
+          <div className="grid md:grid-cols-[1fr_1.1fr] gap-6">
+            <div className="grid grid-cols-2 gap-3 self-start">
+              <Figure src={amiImg('ami-onboarding.gif')} alt="Onboarding flow" caption="Translate theory into learner language." />
+              <Figure src={amiImg('ami-skillgap.png')} alt="Skill gap review" caption="Make AI inference reviewable." />
+              <Figure src={amiImg('ami-chatbot.gif')} alt="Chatbot in session" caption="Scope the chatbot to the right context." />
+              <Figure src={amiImg('ami-verified-content.gif')} alt="Verified content citations" caption="Make trust visible in-session." />
+            </div>
+            <div className="grid grid-cols-1 gap-3 self-start">
+              <div className="border border-gray-300 p-4" style={{ backgroundColor: accentSoft }}>
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-2" style={{ color: accent }}>
+                  Reframe
                 </p>
-                <h4 className="font-bold text-base mb-2 text-slate-900">{item.title}</h4>
-                <p className="text-sm text-slate-600 leading-relaxed">{item.body}</p>
+                <p className="text-base font-semibold text-slate-900 leading-snug">
+                  Not “How do we build adaptive tutoring?” but “How do we make adaptive tutoring feel understandable, editable, and trustworthy?”
+                </p>
               </div>
-            ))}
+              <PointCard
+                index={0}
+                title="Translate theory into learner language"
+                body="FSLSM → Interactive, Textual, Visual, Concise, Balanced."
+              />
+              <PointCard
+                index={1}
+                title="Make AI inference reviewable"
+                body="Added Skill Gap Review so learners could inspect and adjust the model."
+              />
+              <PointCard
+                index={2}
+                title="Scope the chatbot to the right context"
+                body="Available only during active learning sessions."
+              />
+              <PointCard
+                index={3}
+                title="Make trust visible"
+                body="Added citations and source references directly into the session experience."
+              />
+            </div>
           </div>
         </SlideFrame>
       );
@@ -1231,21 +1503,69 @@ function SlideDeck({ activeSlide, amiImg }) {
     case 3:
       return (
         <SlideFrame
-          eyebrow="Research · Competitive"
-          title="The white space no tool was occupying."
-          subtitle="Most tools optimize for either pedagogical rigor or usability. Ami targets both."
+          eyebrow="Slide 4 · Key Outputs and Validation"
+          title="The output was not just polished screens. It was a testable product behavior."
           wide
         >
-          <div className="grid md:grid-cols-[1.4fr_1fr] gap-6">
-            <Figure
-              src={amiImg('Competitive-positioning-matrix.png')}
-              alt="Competitive positioning matrix"
-              caption="Ami combines FSLSM + SOLO + RAG-grounded content with UX designed for real learners."
-            />
+          <div className="grid md:grid-cols-[1.1fr_1fr] gap-6">
+            <div className="border border-gray-300 bg-white p-3 self-start">
+              <div className="flex flex-wrap gap-1.5 mb-3">
+                {SOLUTION_STEPS.map((step, idx) => {
+                  const isActive = activeStep === idx;
+                  return (
+                    <button
+                      key={step.title}
+                      type="button"
+                      onClick={() => setActiveStep(idx)}
+                      className={`px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] border transition-colors ${
+                        isActive
+                          ? 'border-gray-700 bg-gray-700 text-white'
+                          : 'border-gray-300 bg-white text-slate-600 hover:text-slate-900'
+                      }`}
+                    >
+                      {step.badge}
+                    </button>
+                  );
+                })}
+              </div>
+              <Figure
+                src={amiImg(SOLUTION_STEPS[activeStep].media)}
+                alt={SOLUTION_STEPS[activeStep].title}
+                caption={SOLUTION_STEPS[activeStep].body}
+              />
+              <div className="mt-3 border border-gray-300 bg-slate-50 p-3">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-1">
+                  Current page
+                </p>
+                <p className="text-sm font-semibold text-slate-900">{SOLUTION_STEPS[activeStep].title}</p>
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {SOLUTION_STEPS[activeStep].chips.map((chip) => (
+                    <span key={chip} className="inline-flex border border-gray-300 bg-white px-2 py-1 text-[10px] text-slate-600">
+                      {chip}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
             <div className="grid grid-cols-1 gap-3 self-start">
-              <PointCard title="High rigor, high usability" body="The under-served quadrant — pedagogy and UX together." />
-              <PointCard title="Beyond content generation" body="Trust, transparency, and control as first-class features." />
-              <PointCard title="Positioning statement" body="A tutor learners can interrogate, not only consume." highlight />
+              <div className="border border-gray-300 bg-white p-4">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">Key outputs</p>
+                <ul className="space-y-1 text-sm text-slate-700">
+                  <li>Guided onboarding: Goal → Style → Resume (optional)</li>
+                  <li>Skill Gap Review with reasoning, confidence, and editable levels</li>
+                  <li>Contextual learning session across text, visuals, audio, and video</li>
+                  <li>Multi-layer trust system: profile, reasoning, citations, transparency</li>
+                </ul>
+              </div>
+              <div className="border border-gray-300 bg-white p-4">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">How I validated the work</p>
+                <ul className="space-y-1 text-sm text-slate-700">
+                  <li>Used research findings and journey mapping to locate trust gaps</li>
+                  <li>Compared multiple interaction approaches before choosing the final flow</li>
+                  <li>Built interactive prototypes with Cursor + Claude</li>
+                  <li>Used prototypes to validate product behavior, not just UI screens</li>
+                </ul>
+              </div>
             </div>
           </div>
         </SlideFrame>
@@ -1254,59 +1574,60 @@ function SlideDeck({ activeSlide, amiImg }) {
     case 4:
       return (
         <SlideFrame
-          eyebrow="Research · Journey"
-          title="Where the emotional cost actually happens."
-          subtitle="Setup and tool-switching — not difficult content — caused the steepest drop."
+          eyebrow="Slide 5 · Reflection and Takeaways"
+          title="Trust is not a feature. It is a system of visible decisions."
           wide
         >
-          <div className="grid md:grid-cols-2 gap-5">
+          <div className="grid md:grid-cols-[1.05fr_1fr] gap-6">
             <Figure
-              src={amiImg('current-journey-map.png')}
-              alt="Current journey map without Ami"
-              caption="Without Ami: hopeful → discouraged. High cognitive load, unclear progress."
+              src={amiImg('ami-profile.gif')}
+              alt="Profile and trust-related product screen"
+              caption="Trust stays visible when learners can inspect, verify, and adjust the system over time."
             />
-            <Figure
-              src={amiImg('future-journey-map.png')}
-              alt="Future journey map with Ami"
-              caption="With Ami: clear direction, staged support, visible reasoning."
-            />
+            <div className="grid grid-cols-1 gap-3 self-start">
+              <div className="border border-gray-300 bg-white p-4">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">What I learned</p>
+                <ul className="space-y-1 text-sm text-slate-700">
+                  <li>A designer’s role is not just to make AI usable — it is to make AI understandable.</li>
+                  <li>Fewer steps are not always better — the right friction can increase trust.</li>
+                  <li>Trust is not one feature — it is built through a system of visible decisions.</li>
+                </ul>
+              </div>
+              <div className="border border-gray-300 p-4" style={{ backgroundColor: accentSoft }}>
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-2" style={{ color: accent }}>
+                  Biggest takeaway
+                </p>
+                <p className="text-lg font-semibold leading-snug text-slate-900">
+                  Trust is not a feature. It is a system of visible decisions.
+                </p>
+              </div>
+              <div className="border border-gray-300 bg-white p-4">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">How this changed me</p>
+                <p className="text-sm text-slate-700">
+                  I now think more about product logic, not just interface design. I pay more attention to how users understand, verify, and adjust AI behavior.
+                </p>
+              </div>
+            </div>
           </div>
         </SlideFrame>
       );
 
-    case 5: {
-      const decisions = [
-        { tag: 'Learning Style', line: 'Behavioral labels translate FSLSM into learner language.' },
-        { tag: 'Skill Gap Review', line: 'Expose AI reasoning and let users adjust.' },
-        { tag: 'Chatbot Scope', line: 'Session-only, not global — protects focus.' },
-        { tag: 'Content Citations', line: 'Source + page, verifiable by design.' },
-        { tag: 'Guided Flow', line: 'Goal → style → resume, one step each.' },
-      ];
+    case 5:
       return (
         <SlideFrame
-          eyebrow="Design Decisions"
-          title="Five decisions. Five trade-offs."
-          subtitle="Each decision maps to a specific learner behavior change — not a feature list."
+          eyebrow="Video"
+          title="Live walkthrough."
+          subtitle="Happy to deep-dive on any decision, flow, or trade-off."
           wide
         >
-          <ol className="grid md:grid-cols-2 gap-3 mt-2">
-            {decisions.map((d, i) => (
-              <li key={d.tag} className="border border-gray-300 bg-white p-4 flex gap-4">
-                <span className="text-3xl font-extrabold leading-none" style={{ color: accent }}>
-                  0{i + 1}
-                </span>
-                <div>
-                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-1">
-                    {d.tag}
-                  </p>
-                  <p className="text-sm md:text-base text-slate-800">{d.line}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
+          <div className="border border-gray-300 bg-white p-3 max-w-4xl">
+            <video className="w-full h-auto" controls preload="metadata">
+              <source src={amiImg('Final Demo.mp4')} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
         </SlideFrame>
       );
-    }
 
     case 6:
       return (
@@ -1539,29 +1860,28 @@ function SlideDeck({ activeSlide, amiImg }) {
     case 11:
       return (
         <SlideFrame
-          eyebrow="Solution"
-          title="One learner flow, connected end-to-end."
-          subtitle="Each screen carries a decision from the previous step."
+          eyebrow="Final Experience"
+          title="One end-to-end learning experience, shaped by visible AI decisions."
+          subtitle="Personalization stays understandable, editable, and trustworthy across the flow."
           wide
         >
           <div className="grid md:grid-cols-[1.1fr_1fr] gap-6">
-            <Figure src={amiImg('overview.gif')} alt="Ami end-to-end flow" />
-            <ul className="space-y-2 self-start">
-              {SOLUTION_STEPS.map((step, i) => (
-                <li
-                  key={step.title}
-                  className="border border-gray-300 bg-white px-4 py-3 flex items-start gap-3"
-                >
-                  <span className="text-xs font-bold mt-0.5" style={{ color: accent }}>
-                    0{i + 1}
-                  </span>
-                  <div>
-                    <p className="text-sm font-semibold text-slate-900">{step.title}</p>
-                    <p className="text-xs text-slate-600 leading-relaxed">{step.body}</p>
-                  </div>
-                </li>
+            <Figure
+              src={amiImg('overview.gif')}
+              alt="Ami end-to-end flow"
+              caption="Goal capture, learner modeling, adaptive sessions, and visible trust signals work as one flow."
+            />
+            <div className="grid grid-cols-1 gap-3 self-start">
+              {FINAL_EXPERIENCE_HIGHLIGHTS.map((item) => (
+                <div key={item.eyebrow} className="border border-gray-300 bg-white p-4">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-1">
+                    {item.eyebrow}
+                  </p>
+                  <p className="text-sm font-semibold text-slate-900 mb-1">{item.title}</p>
+                  <p className="text-xs text-slate-600 leading-relaxed">{item.body}</p>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
         </SlideFrame>
       );
@@ -1570,22 +1890,22 @@ function SlideDeck({ activeSlide, amiImg }) {
       return (
         <SlideFrame
           eyebrow="Reflection"
-          title="What this project changed in my AI product thinking."
+          title="Trust is not a feature. It is a system of visible decisions."
           wide
         >
-          <div className="grid md:grid-cols-2 gap-4">
-            {REFLECTIONS.map((lesson) => (
-              <div key={lesson.no} className="border border-gray-300 bg-slate-50 p-5">
-                <p className="text-4xl leading-none mb-2 font-extrabold" style={{ color: `rgb(${amiAccentRgb} / 0.32)` }}>
-                  {lesson.no}
+          <div className="border border-gray-300 bg-slate-50 p-5 mb-5 max-w-4xl" style={{ backgroundColor: accentSoft }}>
+            <p className="text-sm md:text-base text-slate-800 leading-relaxed">{REFLECTION_INTRO}</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-4">
+            {REFLECTION_BULLETS.map((line, i) => (
+              <div key={line} className="border border-gray-300 bg-white p-5">
+                <p
+                  className="text-3xl leading-none mb-3 font-extrabold"
+                  style={{ color: `rgb(${amiAccentRgb} / 0.32)` }}
+                >
+                  {String(i + 1).padStart(2, '0')}
                 </p>
-                {lesson.principle && (
-                  <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500 mb-2">
-                    {lesson.principle}
-                  </p>
-                )}
-                <h4 className="font-bold text-base mb-2 text-slate-900">{lesson.title}</h4>
-                <p className="text-sm text-slate-600 leading-relaxed">{lesson.body}</p>
+                <p className="text-sm text-slate-700 leading-relaxed">{line}</p>
               </div>
             ))}
           </div>
