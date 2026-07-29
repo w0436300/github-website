@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 280" width="800" height="280" role="img" aria-label="Before and after: one-size learning path versus Ami adaptive style onboarding">
+  <defs>
+    <linearGradient id="ami-g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5e9ea5"/>
+      <stop offset="100%" stop-color="#78b2b9"/>
+    </linearGradient>
+    <filter id="amiShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#347680" flood-opacity="0.14"/>
+    </filter>
+    <filter id="amiShadowSm" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#347680" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="280" fill="#f2fffb"/>
+
+  <!-- LEFT: one-size path / identical gray modules -->
+  <g>
+    <rect x="36" y="28" width="300" height="224" rx="6" fill="#e8eef0"/>
+
+    <rect x="68" y="56" width="236" height="36" rx="8" fill="#cbd5e1" transform="rotate(-2 186 74)" filter="url(#amiShadowSm)"/>
+    <rect x="78" y="66" width="120" height="8" rx="2" fill="#94a3b8" transform="rotate(-2 138 70)"/>
+    <rect x="78" y="78" width="80" height="6" rx="2" fill="#94a3b8" transform="rotate(-2 118 81)"/>
+
+    <rect x="62" y="108" width="236" height="36" rx="8" fill="#94a3b8" transform="rotate(1.5 180 126)" filter="url(#amiShadowSm)"/>
+    <rect x="72" y="118" width="120" height="8" rx="2" fill="#e2e8f0" transform="rotate(1.5 132 122)"/>
+    <rect x="72" y="130" width="80" height="6" rx="2" fill="#e2e8f0" transform="rotate(1.5 112 133)"/>
+
+    <rect x="70" y="160" width="236" height="36" rx="8" fill="#64748b" transform="rotate(-1 188 178)" filter="url(#amiShadowSm)"/>
+    <rect x="80" y="170" width="120" height="8" rx="2" fill="#cbd5e1" transform="rotate(-1 140 174)"/>
+    <rect x="80" y="182" width="80" height="6" rx="2" fill="#cbd5e1" transform="rotate(-1 120 185)"/>
+
+    <text x="186" y="228" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#64748b">Same path for everyone</text>
+    <text x="186" y="268" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#64748b" letter-spacing="0.12em">BEFORE</text>
+  </g>
+
+  <!-- VS -->
+  <g>
+    <circle cx="400" cy="130" r="26" fill="#fff" stroke="#78b2b9" stroke-width="2" filter="url(#amiShadowSm)"/>
+    <text x="400" y="135" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="800" fill="#347680" letter-spacing="0.06em">VS</text>
+  </g>
+
+  <!-- RIGHT: Ami onboarding collage -->
+  <g>
+    <rect x="464" y="28" width="300" height="224" rx="6" fill="#dff5f3"/>
+
+    <!-- soft back plate -->
+    <rect x="500" y="48" width="222" height="156" rx="20" fill="#c3f0ed" filter="url(#amiShadow)"/>
+
+    <!-- front card -->
+    <rect x="486" y="62" width="224" height="148" rx="20" fill="#fff" filter="url(#amiShadow)"/>
+
+    <!-- Ami logo mark + wordmark -->
+    <g transform="translate(508 84)">
+      <path d="M14 4 L26 24 L2 24 Z" fill="#1e293b"/>
+      <path d="M4 18 Q14 8 24 18" fill="none" stroke="#78b2b9" stroke-width="3.2" stroke-linecap="round"/>
+      <text x="34" y="20" font-family="system-ui,sans-serif" font-size="18" font-weight="800" fill="#0f172a">Ami</text>
+    </g>
+    <text x="508" y="120" font-family="system-ui,sans-serif" font-size="9" font-weight="500" fill="#94a3b8">Adaptive learning companion</text>
+
+    <!-- learning style chips -->
+    <rect x="508" y="132" width="72" height="22" rx="11" fill="#f1f5f9" stroke="#e2e8f0"/>
+    <text x="544" y="147" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" font-weight="600" fill="#64748b">Interactive</text>
+
+    <rect x="588" y="132" width="58" height="22" rx="11" fill="#e8f9f7" stroke="#78b2b9" filter="url(#amiShadowSm)"/>
+    <circle cx="600" cy="143" r="4" fill="#78b2b9"/>
+    <text x="622" y="147" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" font-weight="700" fill="#347680">Visual</text>
+
+    <rect x="654" y="132" width="40" height="22" rx="11" fill="#f1f5f9" stroke="#e2e8f0"/>
+    <text x="674" y="147" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" font-weight="600" fill="#64748b">Text</text>
+
+    <!-- Continue CTA -->
+    <rect x="508" y="168" width="108" height="28" rx="14" fill="url(#ami-g)" filter="url(#amiShadowSm)"/>
+    <text x="562" y="186" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#fff">Continue</text>
+
+    <!-- step dots -->
+    <circle cx="640" cy="182" r="6" fill="#78b2b9"/>
+    <path d="M637 182 L639 184 L644 179" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="660" cy="182" r="6" fill="none" stroke="#78b2b9" stroke-width="1.8"/>
+    <text x="660" y="185" text-anchor="middle" font-family="system-ui,sans-serif" font-size="7" font-weight="700" fill="#347680">2</text>
+    <circle cx="680" cy="182" r="6" fill="#e2e8f0"/>
+    <text x="680" y="185" text-anchor="middle" font-family="system-ui,sans-serif" font-size="7" font-weight="700" fill="#94a3b8">3</text>
+
+    <text x="614" y="268" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#347680" letter-spacing="0.12em">AFTER</text>
+  </g>
+</svg>

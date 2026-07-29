@@ -8,7 +8,7 @@ export const projects = [
     tags: ['UX Design', 'UX Research', 'Frontend'],
     year: '2026',
     location: 'uOttawa',
-    cover: '/img/ami/overview.png',
+    cover: '/img/ami-cover.svg',
     placeholderLabel: null,
     description:
       'An adaptive learning experience combining UX research, interface design, and technical implementation.',
