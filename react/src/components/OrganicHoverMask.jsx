@@ -40,21 +40,21 @@ export const HOVER_MASK_SHAPES = {
 };
 
 const THEME_BY_ID = {
-  'cognitive-adaptive-ai-tutor': { color: '#bbf7d0', accent: '#86efac', ink: '#1c532f', shape: 'leaf' },
-  'design-standard-wcag': { color: '#bae6fd', accent: '#7dd3fc', ink: '#0075BE', shape: 'petal' },
-  'bank-document-system': { color: '#bae6fd', accent: '#7dd3fc', ink: '#0075BE', shape: 'brush' },
-  'ai-knowledge-base-engineering': { color: '#fed7aa', accent: '#fdba74', ink: '#c2410c', shape: 'flower' },
-  'project-request-collaboration': { color: '#bbf7d0', accent: '#4ade80', ink: '#15803d', shape: 'scribble' },
-  'medisupply-hub-ui': { color: '#fbcfe8', accent: '#f9a8d4', ink: '#be185d', shape: 'blot' },
+  'cognitive-adaptive-ai-tutor': { color: '#ecfdf5', accent: '#d1fae5', ink: '#1c532f', shape: 'leaf' },
+  'design-standard-wcag': { color: '#f0f9ff', accent: '#e0f2fe', ink: '#0075BE', shape: 'petal' },
+  'bank-document-system': { color: '#f0f9ff', accent: '#e0f2fe', ink: '#0075BE', shape: 'brush' },
+  'ai-knowledge-base-engineering': { color: '#fff7ed', accent: '#ffedd5', ink: '#c2410c', shape: 'flower' },
+  'project-request-collaboration': { color: '#f0fdf4', accent: '#dcfce7', ink: '#15803d', shape: 'scribble' },
+  'medisupply-hub-ui': { color: '#fdf2f8', accent: '#fce7f3', ink: '#be185d', shape: 'blot' },
 };
 
 const FALLBACK_THEMES = [
-  { color: '#fde68a', accent: '#fcd34d', ink: '#a16207', shape: 'leaf' },
-  { color: '#c7d2fe', accent: '#a5b4fc', ink: '#4338ca', shape: 'flower' },
-  { color: '#a5f3fc', accent: '#67e8f9', ink: '#0e7490', shape: 'brush' },
-  { color: '#fecaca', accent: '#fca5a5', ink: '#b91c1c', shape: 'petal' },
-  { color: '#d9f99d', accent: '#bef264', ink: '#4d7c0f', shape: 'scribble' },
-  { color: '#ddd6fe', accent: '#c4b5fd', ink: '#6d28d9', shape: 'blot' },
+  { color: '#fefce8', accent: '#fef9c3', ink: '#a16207', shape: 'leaf' },
+  { color: '#eef2ff', accent: '#e0e7ff', ink: '#4338ca', shape: 'flower' },
+  { color: '#ecfeff', accent: '#cffafe', ink: '#0e7490', shape: 'brush' },
+  { color: '#fef2f2', accent: '#fee2e2', ink: '#b91c1c', shape: 'petal' },
+  { color: '#f7fee7', accent: '#ecfccb', ink: '#4d7c0f', shape: 'scribble' },
+  { color: '#f5f3ff', accent: '#ede9fe', ink: '#6d28d9', shape: 'blot' },
 ];
 
 /** Jump-cue mark — long shaft + chevron, tinted via currentColor */
@@ -108,9 +108,9 @@ export function OrganicHoverMask({ theme }) {
       preserveAspectRatio="none"
       aria-hidden
     >
-      {shape.wash && <path d={shape.wash} fill={theme.color} fillOpacity="0.55" />}
-      <path d={shape.main} fill={theme.color} fillOpacity="0.95" />
-      <path d={shape.accent} fill={theme.accent} fillOpacity="0.65" />
+      {shape.wash && <path d={shape.wash} fill={theme.color} fillOpacity="0.7" />}
+      <path d={shape.main} fill={theme.color} fillOpacity="0.85" />
+      <path d={shape.accent} fill={theme.accent} fillOpacity="0.55" />
     </svg>
   );
 }
