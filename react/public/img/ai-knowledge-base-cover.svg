@@ -1,18 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 280" width="800" height="280" role="img" aria-label="Before and after: email OneDrive and asking people versus AI agent answers">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 280" width="800" height="280" role="img" aria-label="Before and after: email OneDrive and asking people versus modular AI agent feature cards">
   <defs>
     <linearGradient id="kb-g" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#9a3412"/>
       <stop offset="100%" stop-color="#ea580c"/>
     </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#9a3412" flood-opacity="0.12"/>
+    </filter>
+    <filter id="softShadowSm" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#9a3412" flood-opacity="0.14"/>
+    </filter>
   </defs>
 
-  <rect width="800" height="280" fill="#fafaf9"/>
+  <rect width="800" height="280" fill="#f5f5f4"/>
 
   <!-- LEFT: Email + OneDrive + Ask people -->
   <g>
     <rect x="36" y="28" width="300" height="224" fill="#fff" stroke="#d6d3d1" stroke-width="1.5"/>
 
-    <!-- Email -->
     <g transform="translate(52 70)">
       <rect width="56" height="56" rx="7" fill="#64748b"/>
       <rect x="11" y="16" width="34" height="24" rx="2" fill="none" stroke="#fff" stroke-width="2.5"/>
@@ -20,7 +25,6 @@
       <text x="28" y="76" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" font-weight="700" fill="#78716c" letter-spacing="0.06em">EMAIL</text>
     </g>
 
-    <!-- OneDrive -->
     <g transform="translate(158 70)">
       <rect width="56" height="56" rx="7" fill="#ea580c"/>
       <path d="M16 34c0-8 6-14 14-14 2 0 5 1 6 2 2-5 8-9 14-9 9 0 16 7 16 16v2h-2c-6 0-12 4-14 9H30c-8 0-14-6-14-16z" fill="#fff" opacity="0.95"/>
@@ -28,15 +32,12 @@
       <text x="28" y="76" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" font-weight="700" fill="#78716c" letter-spacing="0.02em">ONEDRIVE</text>
     </g>
 
-    <!-- Ask people / verbal inquiry -->
     <g transform="translate(264 70)">
       <rect width="56" height="56" rx="7" fill="#78716c"/>
-      <!-- two people -->
       <circle cx="20" cy="20" r="6" fill="#fff"/>
       <path d="M10 40c0-7 4-11 10-11s10 4 10 11" fill="#fff"/>
       <circle cx="36" cy="22" r="5" fill="#e7e5e4"/>
       <path d="M28 40c0-6 3-9 8-9s8 3 8 9" fill="#e7e5e4"/>
-      <!-- speech bubble -->
       <path d="M40 12h12v8h-3l-3 3v-3h-6z" fill="#fdba74"/>
       <text x="28" y="76" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" font-weight="700" fill="#78716c" letter-spacing="0.02em">ASK PEOPLE</text>
     </g>
@@ -49,31 +50,40 @@
 
   <!-- VS badge -->
   <g>
-    <circle cx="400" cy="130" r="26" fill="#fff" stroke="#ea580c" stroke-width="2"/>
+    <circle cx="400" cy="130" r="26" fill="#fff" stroke="#ea580c" stroke-width="2" filter="url(#softShadowSm)"/>
     <text x="400" y="135" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="800" fill="#c2410c" letter-spacing="0.06em">VS</text>
   </g>
 
-  <!-- RIGHT: AI agent feature highlight -->
+  <!-- RIGHT: modular overlapping cards (feature collage, not a full page) -->
   <g>
-    <rect x="464" y="28" width="300" height="224" fill="#fff" stroke="#fdba74" stroke-width="1.5"/>
+    <!-- soft ambient panel -->
+    <rect x="464" y="28" width="300" height="224" rx="4" fill="#fff7ed"/>
 
-    <text x="614" y="78" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#c2410c" letter-spacing="0.04em">ASK ONCE · GET ANSWERS</text>
+    <!-- back card -->
+    <rect x="500" y="52" width="220" height="150" rx="18" fill="#ffedd5" filter="url(#softShadow)"/>
 
-    <rect x="500" y="100" width="228" height="64" rx="10" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
-    <circle cx="524" cy="124" r="12" fill="url(#kb-g)"/>
-    <path d="M519 124h10M524 119v10" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-    <rect x="546" y="114" width="150" height="8" rx="1" fill="#c2410c" opacity="0.55"/>
-    <rect x="546" y="130" width="120" height="6" rx="1" fill="#fdba74"/>
-    <rect x="546" y="144" width="90" height="6" rx="1" fill="#fed7aa"/>
+    <!-- front hero card -->
+    <rect x="488" y="68" width="220" height="132" rx="18" fill="#ffffff" filter="url(#softShadow)"/>
 
-    <rect x="500" y="182" width="64" height="18" rx="2" fill="#ffedd5" stroke="#fb923c"/>
-    <text x="532" y="194" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" font-weight="700" fill="#9a3412">SOURCE</text>
-    <rect x="574" y="182" width="64" height="18" rx="2" fill="#ffedd5" stroke="#fb923c"/>
-    <text x="606" y="194" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" font-weight="700" fill="#9a3412">TRUST</text>
-    <rect x="648" y="182" width="80" height="18" rx="2" fill="#ffedd5" stroke="#fb923c"/>
-    <text x="688" y="194" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" font-weight="700" fill="#9a3412">CITATIONS</text>
+    <!-- floating accent thumb -->
+    <rect x="666" y="54" width="42" height="28" rx="8" fill="url(#kb-g)" filter="url(#softShadowSm)"/>
 
-    <text x="614" y="224" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#78716c">AI agent</text>
+    <!-- hero copy block -->
+    <text x="510" y="104" font-family="system-ui,sans-serif" font-size="15" font-weight="800" fill="#1c1917">Ask once.</text>
+    <text x="510" y="124" font-family="system-ui,sans-serif" font-size="15" font-weight="800" fill="#1c1917">Get trusted answers.</text>
+
+    <!-- floating pill -->
+    <rect x="510" y="138" width="148" height="22" rx="11" fill="#fff7ed" stroke="#fed7aa" filter="url(#softShadowSm)"/>
+    <circle cx="524" cy="149" r="5" fill="#ea580c"/>
+    <text x="536" y="153" font-family="system-ui,sans-serif" font-size="9" font-weight="600" fill="#9a3412">AI agent for engineering</text>
+
+    <!-- circular action -->
+    <circle cx="690" cy="172" r="16" fill="#1c1917" filter="url(#softShadowSm)"/>
+    <path d="M684 172h12M690 166v12" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+
+    <!-- bottom metric / citation strip -->
+    <rect x="510" y="172" width="18" height="18" rx="4" fill="#fdba74"/>
+    <text x="536" y="185" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="#c2410c">Sources + citations</text>
 
     <text x="614" y="268" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#c2410c" letter-spacing="0.12em">AFTER</text>
   </g>
