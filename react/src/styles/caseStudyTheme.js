@@ -48,6 +48,12 @@ export const amiSectionHead = {
   h3Style: { ...openSans, color: `rgb(${amiAccentRgb} / 0.92)`, backgroundColor: `rgb(${amiAccentSoftBg})` },
 };
 
-/** Ami content borders (Design Standard uses border-sky-200) */
-export const amiBorder = 'border-gray-300';
-export const amiBorderSubtle = 'border-gray-300';
+/** Soft theme borders (lower contrast, still hue-aligned) */
+export const amiBorder = 'border-slate-200';
+export const amiBorderSubtle = 'border-slate-200';
+export const dsBorder = 'border-sky-100';
+export const dsBorderStrong = 'border-sky-200';
+export const kbBorder = 'border-orange-100';
+export const kbBorderStrong = 'border-orange-200';
+export const prBorder = 'border-green-100';
+export const prBorderStrong = 'border-green-200';

@@ -112,7 +112,7 @@ export default function BankDocumentPage() {
               {['UI Design', 'Document Systems', 'Print → Digital', 'Banking', 'Template Design'].map((t) => (
                 <span
                   key={t}
-                  className="text-[11px] px-2.5 py-1 border border-gray-200 bg-gray-50 text-black/85 rounded-sm"
+                  className="text-[11px] px-2.5 py-1 border border-gray-100 bg-gray-50 text-black/85 rounded-sm"
                 >
                   {t}
                 </span>
@@ -125,7 +125,7 @@ export default function BankDocumentPage() {
                 ['Output', 'Digital mockups · Reusable patterns'],
                 ['Tools', 'InDesign · Mapping documents · Specification notes'],
               ].map(([k, v]) => (
-                <div key={k} className="md:pr-6 md:border-r md:border-gray-600 last:border-0 last:pr-0">
+                <div key={k} className="md:pr-6 md:border-r md:border-gray-200 last:border-0 last:pr-0">
                   <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-black/85 mb-1.5">{k}</p>
                   <p className="text-xs text-black/85 leading-snug font-regular">{v}</p>
                 </div>
@@ -147,7 +147,7 @@ export default function BankDocumentPage() {
               What I learned.
             </h3>
           </div>
-          <div className="border border-gray-200 bg-white p-5 md:p-6 space-y-4 text-sm text-slate-700 leading-relaxed">
+          <div className="border border-gray-100 bg-white p-5 md:p-6 space-y-4 text-sm text-slate-700 leading-relaxed">
             <p>
             This project taught me that product design is not just about making things look better. In enterprise products, a big part of the work is translating business requirements, system logic, and legal constraints into something clear and usable.
 
@@ -170,7 +170,7 @@ export default function BankDocumentPage() {
             Legacy templates were static InDesign files designed for physical printing — no field logic, no data mapping. The new version
             needed to be auto-populated by backend systems and aligned to an updated brand direction.
           </p>
-          <div className="grid md:grid-cols-2 gap-px bg-gray-200 border border-gray-200">
+          <div className="grid md:grid-cols-2 gap-px bg-gray-100 border border-gray-100">
             <div className="bg-white p-5 md:p-6">
               <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-gray-400 mb-4">Legacy — print-era</p>
               <ul className="text-sm text-slate-600 space-y-2.5 list-none">
@@ -223,7 +223,7 @@ export default function BankDocumentPage() {
           <p className="text-sm text-slate-600 max-w-3xl mb-8 leading-relaxed">
             The difficulty was not aesthetics — it was establishing consistent rules across multiple competing constraints.
           </p>
-          <div className="grid md:grid-cols-2 gap-px bg-gray-200 border border-gray-200">
+          <div className="grid md:grid-cols-2 gap-px bg-gray-100 border border-gray-100">
             {CHALLENGE.map((c) => (
               <div key={c.no} className="bg-white p-5 md:p-6">
                 <p className="text-3xl font-light leading-none mb-3" style={{ color: ACCENT_FAINT }}>
@@ -249,7 +249,7 @@ export default function BankDocumentPage() {
               {ROLE_LEFT.map((item) => (
                 <li
                   key={item}
-                  className="text-sm text-slate-600 py-2 border-b border-gray-200 flex gap-2.5 items-baseline last:border-0"
+                  className="text-sm text-slate-600 py-2 border-b border-gray-100 flex gap-2.5 items-baseline last:border-0"
                 >
                  
                   {item}
@@ -260,7 +260,7 @@ export default function BankDocumentPage() {
               {ROLE_RIGHT.map((item) => (
                 <li
                   key={item}
-                  className="text-sm text-slate-600 py-2 border-b border-gray-200 flex gap-2.5 items-baseline last:border-0"
+                  className="text-sm text-slate-600 py-2 border-b border-gray-100 flex gap-2.5 items-baseline last:border-0"
                 >
                   
                   {item}
@@ -278,7 +278,7 @@ export default function BankDocumentPage() {
               Four core questions, in order.
             </h3>
           </div>
-          <div className="flex flex-col gap-px bg-gray-200 border border-gray-200">
+          <div className="flex flex-col gap-px bg-gray-100 border border-gray-100">
             {PROCESS.map((step) => (
               <div key={step.n} className="grid grid-cols-[52px_1fr] md:grid-cols-[56px_1fr] bg-white">
                 <div
@@ -287,7 +287,7 @@ export default function BankDocumentPage() {
                 >
                   {step.n}
                 </div>
-                <div className="p-4 md:p-5 border-l border-gray-200">
+                <div className="p-4 md:p-5 border-l border-gray-100">
                   <p className="text-sm font-semibold text-slate-900 mb-1">{step.title}</p>
                   <p className="text-sm text-slate-600 leading-relaxed">{step.body}</p>
                 </div>
@@ -304,7 +304,7 @@ export default function BankDocumentPage() {
               Format exploration and sign-off
             </h3>
           </div>
-          <div className="border border-gray-200 bg-white p-5 md:p-6 max-w-3xl">
+          <div className="border border-gray-100 bg-white p-5 md:p-6 max-w-3xl">
             <p className="text-sm text-slate-700 leading-relaxed mb-4">
               For many sections we started from plain body copy, then tried clearer structures: key values called out in the paragraph,
               short lists where steps or options read better as lines, or tables where comparing fields side by side helped. Some blocks
@@ -331,7 +331,7 @@ export default function BankDocumentPage() {
               The redesigned template — Page 1 of 2.
             </h3>
           </div>
-          <div className="border border-gray-200 bg-white text-[10px] text-slate-800 shadow-sm overflow-hidden">
+          <div className="border border-gray-100 bg-white text-[10px] text-slate-800 shadow-sm overflow-hidden">
             <div className="flex items-stretch min-h-[44px]" style={{ backgroundColor: ACCENT }}>
               <div className="flex items-center px-3 bg-white text-sm font-black tracking-widest shrink-0" style={{ color: ACCENT }}>
                 BANK
@@ -348,7 +348,7 @@ export default function BankDocumentPage() {
               <div className="flex flex-col md:flex-row md:justify-between gap-4 mb-2">
                 <div>
                   <p className="text-[8.5px] font-bold text-slate-600 mb-1">Account Title and Mailing Address</p>
-                  <div className="border border-gray-300 min-h-[48px] w-full max-w-[270px] p-2 text-[8.5px] text-gray-400 leading-relaxed">
+                  <div className="border border-slate-200 min-h-[48px] w-full max-w-[270px] p-2 text-[8.5px] text-gray-400 leading-relaxed">
                     [Full Name]
                     <br />
                     [Street Address]
@@ -424,14 +424,14 @@ export default function BankDocumentPage() {
                 </tbody>
               </table>
             </div>
-            <div className="flex justify-between px-4 md:px-6 py-1.5 text-[8px] text-gray-500 border-t border-gray-300">
+            <div className="flex justify-between px-4 md:px-6 py-1.5 text-[8px] text-gray-500 border-t border-slate-200">
               <span className="font-bold" style={{ color: ACCENT }}>
                 [form#]
               </span>
               <span>[DD/MM/YYYY]</span>
               <span>Page 1 of 2</span>
             </div>
-            <div className="bg-gray-100 border-t border-gray-300 text-[7.5px] text-gray-500 px-4 md:px-6 py-1 flex flex-wrap gap-3">
+            <div className="bg-gray-100 border-t border-slate-200 text-[7.5px] text-gray-500 px-4 md:px-6 py-1 flex flex-wrap gap-3">
               <span>ID#:[ ]</span>
               <span>By:[ ]</span>
               <span>Date:[DD/MM/YYYY HH:MM]</span>
