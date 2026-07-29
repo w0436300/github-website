@@ -10,8 +10,7 @@ import {
   FileText,
 } from 'lucide-react';
 import {
-  isPasswordProtectedProject,
-  unlockStorageKey,
+  isProjectUnlocked,
 } from './data/projectPasswords.js';
 
 const HOME_NAV = [
@@ -86,15 +85,6 @@ const PROJECT_REQUEST_NAV_LINKS = [
   { name: 'Outcome', href: '#Outcome' },
 ];
 
-function readProjectUnlocked(projectId) {
-  if (!projectId || !isPasswordProtectedProject(projectId)) return true;
-  try {
-    return sessionStorage.getItem(unlockStorageKey(projectId)) === '1';
-  } catch {
-    return false;
-  }
-}
-
 export default function Layout() {
   const [activeCaseStudySection, setActiveCaseStudySection] = useState('Overview');
   const siteHeaderRef = useRef(null);
@@ -112,11 +102,11 @@ export default function Layout() {
   const isAiKnowledgePage = location.pathname === '/project/ai-knowledge-base-engineering';
   const isProjectRequestPage = location.pathname === '/project/project-request-collaboration';
   const [protectedUnlocked, setProtectedUnlocked] = useState(() =>
-    readProjectUnlocked(projectIdFromPath)
+    projectIdFromPath ? isProjectUnlocked(projectIdFromPath) : true
   );
 
   useEffect(() => {
-    setProtectedUnlocked(readProjectUnlocked(projectIdFromPath));
+    setProtectedUnlocked(projectIdFromPath ? isProjectUnlocked(projectIdFromPath) : true);
     const onUnlock = (e) => {
       if (e?.detail?.projectId === projectIdFromPath) setProtectedUnlocked(true);
     };
@@ -367,8 +357,8 @@ export default function Layout() {
         ref={siteHeaderRef}
         className={`fixed inset-x-0 top-0 z-50 border-b shadow-[0_8px_30px_-12px_rgba(0,0,0,0.12)] ${globalTopBarClass}`}
       >
-        <div className="relative mx-auto flex w-full max-w-[100vw] items-center justify-between gap-3 px-3 py-2 sm:px-6 sm:py-2.5">
-          <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2 sm:gap-3">
+        <div className="relative mx-auto flex w-full max-w-[100vw] items-center px-3 py-2 sm:px-6 sm:py-2.5">
+          <div className="flex min-w-0 flex-wrap items-center gap-2 sm:gap-3">
             <button
               type="button"
               onClick={goHome}
@@ -400,10 +390,6 @@ export default function Layout() {
               );
             })}
           </nav>
-          {/* Balances the left cluster so the bar keeps consistent height/spacing */}
-          <div className="pointer-events-none invisible flex flex-1 select-none justify-end" aria-hidden>
-            <span className="text-lg font-black tracking-tighter sm:text-xl">Claire.</span>
-          </div>
         </div>
       </header>
       {/* Reserve space for fixed header (height synced with measured header) */}

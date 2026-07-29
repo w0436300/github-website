@@ -1,8 +1,11 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 import { Award, ArrowUpRight, Download, Lock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useScrollToHash } from '../hooks/useScrollToHash.js';
 import { projects } from '../data/projects.js';
+import { isProjectUnlocked } from '../data/projectPasswords.js';
+import { tryUnlockProject } from '../hooks/useProjectUnlock.js';
+import PasswordModal from '../components/PasswordModal.jsx';
 import { sourceSansPro } from '../styles/caseStudyTheme.js';
 
 const BASE = import.meta.env.BASE_URL || '/';
@@ -52,6 +55,8 @@ export function HomePage() {
   useScrollToHash();
   const [activeCategory, setActiveCategory] = useState('Featured');
   const [hoverTip, setHoverTip] = useState({ show: false, x: 0, y: 0, message: 'View details' });
+  const [passwordModal, setPasswordModal] = useState({ open: false, project: null });
+  const [passwordError, setPasswordError] = useState('');
   const navigate = useNavigate();
 
   const showHoverTip = (e, message) => {
@@ -62,6 +67,41 @@ export function HomePage() {
   };
   const hideHoverTip = () => setHoverTip((prev) => ({ ...prev, show: false }));
 
+  const closePasswordModal = useCallback(() => {
+    setPasswordModal({ open: false, project: null });
+    setPasswordError('');
+  }, []);
+
+  const openProject = useCallback(
+    (p) => {
+      hideHoverTip();
+      if (p.passwordProtected && !isProjectUnlocked(p.id)) {
+        setPasswordError('');
+        setPasswordModal({ open: true, project: p });
+        return;
+      }
+      navigate(`/project/${p.id}`);
+    },
+    [navigate]
+  );
+
+  const handlePasswordUnlock = useCallback(
+    (password) => {
+      const project = passwordModal.project;
+      if (!project) return false;
+      const ok = tryUnlockProject(project.id, password);
+      if (!ok) {
+        setPasswordError('Incorrect password. Please try again.');
+        return false;
+      }
+      setPasswordError('');
+      setPasswordModal({ open: false, project: null });
+      navigate(`/project/${project.id}`);
+      return true;
+    },
+    [navigate, passwordModal.project]
+  );
+
   const filteredProjects = useMemo(() => {
     const list = projects.filter((p) => projectMatchesTab(p, activeCategory));
     if (activeCategory !== 'Featured') return list;
@@ -71,6 +111,14 @@ export function HomePage() {
 
   return (
     <section id="home" className="px-6 md:px-12 lg:px-20 pt-4 md:pt-4 pb-12 md:pb-4 bg-white">
+      <PasswordModal
+        open={passwordModal.open}
+        title={passwordModal.project?.title || ''}
+        onUnlock={handlePasswordUnlock}
+        error={passwordError}
+        onClearError={() => setPasswordError('')}
+        onClose={closePasswordModal}
+      />
       <div className="max-w-7xl mx-auto w-full">
         {hoverTip.show && (
           <div
@@ -164,7 +212,7 @@ export function HomePage() {
                 <button
                   key={p.id}
                   type="button"
-                  onClick={() => navigate(`/project/${p.id}`)}
+                  onClick={() => openProject(p)}
                   onMouseEnter={(e) => showHoverTip(e, isProtected ? 'Enter password' : 'View details')}
                   onMouseMove={moveHoverTip}
                   onMouseLeave={hideHoverTip}

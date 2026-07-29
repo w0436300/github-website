@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Lock, ArrowLeft, Eye, EyeOff } from 'lucide-react';
+import { Lock, ArrowLeft, Eye, EyeOff, Mail } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { openSans } from '../styles/caseStudyTheme.js';
+import { PASSWORD_REQUEST_EMAIL } from '../data/projectPasswords.js';
 
 /**
- * Full-page password gate matching Design Standard / Bank case-study chrome.
+ * Full-page password gate for direct URL access to protected case studies.
  */
 export default function PasswordGate({
   title,
@@ -85,7 +86,7 @@ export default function PasswordGate({
                     }`}
                     placeholder="Enter password"
                     aria-invalid={Boolean(error)}
-                    aria-describedby={error ? 'password-error' : undefined}
+                    aria-describedby={error ? 'password-error' : 'password-hint'}
                   />
                   <button
                     type="button"
@@ -112,6 +113,23 @@ export default function PasswordGate({
                 Unlock case study
               </button>
             </form>
+
+            <p
+              id="password-hint"
+              className="mt-6 pt-5 border-t border-sky-100 text-xs text-slate-500 leading-relaxed flex items-start gap-2"
+            >
+              <Mail size={14} className="mt-0.5 shrink-0 text-slate-400" aria-hidden />
+              <span>
+                Need the password? Contact{' '}
+                <a
+                  href={`mailto:${PASSWORD_REQUEST_EMAIL}`}
+                  className="text-[#0075BE] font-medium underline underline-offset-2 hover:text-[#005a94]"
+                >
+                  {PASSWORD_REQUEST_EMAIL}
+                </a>
+                .
+              </span>
+            </p>
           </div>
         </div>
       </div>

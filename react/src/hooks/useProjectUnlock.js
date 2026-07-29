@@ -2,25 +2,15 @@ import { useCallback, useState } from 'react';
 import {
   getProjectPassword,
   isPasswordProtectedProject,
+  isProjectUnlocked,
   unlockStorageKey,
 } from '../data/projectPasswords.js';
 
-function readUnlocked(projectId) {
-  if (typeof window === 'undefined') return false;
-  if (!isPasswordProtectedProject(projectId)) return true;
-  try {
-    return sessionStorage.getItem(unlockStorageKey(projectId)) === '1';
-  } catch {
-    return false;
-  }
-}
-
 /**
  * Session-scoped unlock for password-protected case studies.
- * Returns [unlocked, unlockWithPassword, error, clearError].
  */
 export function useProjectUnlock(projectId) {
-  const [unlocked, setUnlocked] = useState(() => readUnlocked(projectId));
+  const [unlocked, setUnlocked] = useState(() => isProjectUnlocked(projectId));
   const [error, setError] = useState('');
 
   const unlockWithPassword = useCallback(
@@ -55,4 +45,20 @@ export function useProjectUnlock(projectId) {
   const clearError = useCallback(() => setError(''), []);
 
   return { unlocked, unlockWithPassword, error, clearError };
+}
+
+/** Standalone unlock helper for homepage modal (no React state required). */
+export function tryUnlockProject(projectId, password) {
+  if (!isPasswordProtectedProject(projectId)) return true;
+  const expected = getProjectPassword(projectId);
+  if (String(password).trim() !== expected) return false;
+  try {
+    sessionStorage.setItem(unlockStorageKey(projectId), '1');
+  } catch {
+    /* ignore */
+  }
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('project-unlock', { detail: { projectId } }));
+  }
+  return true;
 }
