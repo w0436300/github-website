@@ -272,7 +272,7 @@ export default function AiTutorPage() {
 
   return (
     <div
-      className={`ai-tutor-page min-h-screen bg-white text-slate-900 selection:bg-slate-200 selection:text-slate-900 scroll-smooth pb-2 ${isSlideMode ? 'slide-mode' : ''}`}
+      className={`case-study-page ai-tutor-page min-h-screen bg-white text-slate-900 selection:bg-slate-200 selection:text-slate-900 scroll-smooth pb-2 ${isSlideMode ? 'slide-mode' : ''}`}
       style={{ ...openSans, ['--ami-accent']: amiAccentRgb }}
     >
       <div className="fixed bottom-4 right-4 z-50 flex items-center gap-2">

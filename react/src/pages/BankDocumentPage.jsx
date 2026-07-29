@@ -90,7 +90,7 @@ function SectionIntro({ eyebrow, title, subtitle }) {
 export default function BankDocumentPage() {
   return (
     <div
-      className="bank-document-page min-h-screen bg-white text-slate-900 selection:bg-sky-200 selection:text-slate-900 scroll-smooth pb-20"
+      className="case-study-page bank-document-page min-h-screen bg-white text-slate-900 selection:bg-sky-200 selection:text-slate-900 scroll-smooth pb-20"
       style={openSans}
     >
       {/* Overview / Hero */}

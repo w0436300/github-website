@@ -114,7 +114,7 @@ function DocumentationCard({ title, body }) {
 
 export default function DesignStandardPage() {
   return (
-    <div className="min-h-screen bg-white text-slate-900 selection:bg-sky-200 scroll-smooth pb-20" style={openSans}>
+    <div className="case-study-page min-h-screen bg-white text-slate-900 selection:bg-sky-200 scroll-smooth pb-20" style={openSans}>
       <section id="Overview" className="pt-2 pb-10 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-wrap items-center gap-2 mb-3 text-[10px] uppercase tracking-widest text-slate-600">

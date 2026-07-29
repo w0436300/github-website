@@ -46,7 +46,7 @@ export default function ProjectDetailPage() {
   const demoHref = project.demoUrl ? resolveUrl(base, project.demoUrl) : null;
 
   return (
-    <div className="px-6 md:px-12 lg:px-20 py-16">
+    <div className="case-study-page px-6 md:px-12 lg:px-20 py-16">
       <div className="max-w-5xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           <div className="lg:col-span-7 space-y-10">

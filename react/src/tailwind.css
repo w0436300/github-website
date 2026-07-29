@@ -7,3 +7,33 @@
 .blog-page-root * {
   font-family: inherit !important;
 }
+
+/*
+ * Project case study pages: turn sharp bordered boxes into 12px rounded surfaces.
+ * Skip directional-only borders (table cells / split panels) and full pills.
+ */
+.case-study-page :where([class~="border"], [class~="border-2"]):not(
+  :where(
+    .border-b,
+    .border-t,
+    .border-l,
+    .border-r,
+    .border-x,
+    .border-y,
+    [class*="border-b-"],
+    [class*="border-t-"],
+    [class*="border-l-"],
+    [class*="border-r-"],
+    [class*="border-x-"],
+    [class*="border-y-"],
+    .rounded-full,
+    [class*="rounded-full"]
+  )
+) {
+  border-radius: 12px;
+}
+
+.case-study-page :where([class~="border"], [class~="border-2"]):has(> img),
+.case-study-page :where([class~="border"].grid, [class~="border"][class*="grid-cols"]) {
+  overflow: hidden;
+}
