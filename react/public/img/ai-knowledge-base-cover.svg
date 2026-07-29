@@ -1,42 +1,91 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" role="img" aria-label="Abstract knowledge base interface with sidebar and article panels in orange">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 280" width="800" height="280" role="img" aria-label="Before and after: email and OneDrive versus AI chat knowledge base">
   <defs>
     <linearGradient id="kb-g" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#9a3412"/>
       <stop offset="100%" stop-color="#ea580c"/>
     </linearGradient>
   </defs>
-  <rect width="960" height="540" fill="#ffffff"/>
-  <g opacity="0.4" stroke="#fed7aa" stroke-width="1" fill="none">
-    <path d="M80 60v420M160 60v420M240 60v420M320 60v420M400 60v420M480 60v420M560 60v420M640 60v420M720 60v420M800 60v420M880 60v420"/>
-    <path d="M60 100h840M60 180h840M60 260h840M60 340h840M60 420h840"/>
+
+  <rect width="800" height="280" fill="#fafaf9"/>
+
+  <!-- LEFT: Email + OneDrive (fragmented knowledge) -->
+  <g>
+    <rect x="36" y="28" width="300" height="224" fill="#fff" stroke="#d6d3d1" stroke-width="1.5"/>
+
+    <!-- Email window -->
+    <rect x="52" y="44" width="168" height="100" fill="#fff" stroke="#d6d3d1"/>
+    <rect x="52" y="44" width="168" height="22" fill="#e7e5e4"/>
+    <circle cx="64" cy="55" r="3" fill="#a8a29e"/>
+    <circle cx="74" cy="55" r="3" fill="#a8a29e"/>
+    <circle cx="84" cy="55" r="3" fill="#a8a29e"/>
+    <rect x="96" y="51" width="70" height="8" rx="1" fill="#a8a29e"/>
+    <!-- inbox rows -->
+    <rect x="62" y="76" width="12" height="10" rx="1" fill="#fdba74"/>
+    <rect x="80" y="78" width="120" height="5" fill="#a8a29e"/>
+    <rect x="62" y="94" width="12" height="10" rx="1" fill="#fed7aa"/>
+    <rect x="80" y="96" width="100" height="5" fill="#d6d3d1"/>
+    <rect x="62" y="112" width="12" height="10" rx="1" fill="#fed7aa"/>
+    <rect x="80" y="114" width="110" height="5" fill="#d6d3d1"/>
+    <text x="136" y="152" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" font-weight="700" fill="#78716c" letter-spacing="0.08em">EMAIL</text>
+
+    <!-- OneDrive / folder stack -->
+    <rect x="236" y="56" width="82" height="58" rx="2" fill="#fff7ed" stroke="#fdba74"/>
+    <rect x="246" y="48" width="40" height="12" rx="1" fill="#fb923c"/>
+    <rect x="248" y="72" width="58" height="5" fill="#c2410c" opacity="0.55"/>
+    <rect x="248" y="84" width="48" height="4" fill="#d6d3d1"/>
+    <rect x="248" y="94" width="52" height="4" fill="#d6d3d1"/>
+    <text x="277" y="152" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" font-weight="700" fill="#78716c" letter-spacing="0.04em">ONEDRIVE</text>
+
+    <!-- scattered file chips -->
+    <rect x="56" y="168" width="70" height="22" rx="2" fill="#f5f5f4" stroke="#d6d3d1"/>
+    <rect x="64" y="176" width="40" height="5" fill="#a8a29e"/>
+    <rect x="136" y="168" width="70" height="22" rx="2" fill="#f5f5f4" stroke="#d6d3d1"/>
+    <rect x="144" y="176" width="46" height="5" fill="#a8a29e"/>
+    <rect x="216" y="168" width="100" height="22" rx="2" fill="#f5f5f4" stroke="#d6d3d1"/>
+    <rect x="224" y="176" width="60" height="5" fill="#a8a29e"/>
+
+    <rect x="72" y="202" width="90" height="22" rx="2" fill="#f5f5f4" stroke="#d6d3d1"/>
+    <rect x="80" y="210" width="50" height="5" fill="#a8a29e"/>
+    <rect x="176" y="202" width="110" height="22" rx="2" fill="#f5f5f4" stroke="#d6d3d1"/>
+    <rect x="184" y="210" width="70" height="5" fill="#a8a29e"/>
+
+    <text x="186" y="268" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#78716c" letter-spacing="0.12em">BEFORE</text>
   </g>
-  <rect x="100" y="80" width="760" height="380" rx="3" fill="#fff" stroke="#fdba74" stroke-width="1.5"/>
-  <rect x="100" y="80" width="200" height="380" fill="#fff7ed" stroke="#fdba74" stroke-width="1.5"/>
-  <rect x="120" y="104" width="100" height="10" rx="1" fill="#c2410c"/>
-  <rect x="120" y="140" width="140" height="8" rx="1" fill="#a8a29e"/>
-  <rect x="120" y="160" width="120" height="8" rx="1" fill="#d6d3d1"/>
-  <rect x="120" y="180" width="128" height="8" rx="1" fill="#d6d3d1"/>
-  <rect x="120" y="220" width="140" height="8" rx="1" fill="#a8a29e"/>
-  <rect x="120" y="240" width="110" height="8" rx="1" fill="#d6d3d1"/>
-  <rect x="120" y="260" width="132" height="8" rx="1" fill="#d6d3d1"/>
-  <rect x="120" y="300" width="90" height="22" rx="2" fill="#ffedd5" stroke="#fb923c"/>
-  <rect x="340" y="108" width="220" height="14" rx="1" fill="#9a3412"/>
-  <rect x="340" y="140" width="460" height="8" rx="1" fill="#d6d3d1"/>
-  <rect x="340" y="158" width="400" height="8" rx="1" fill="#e7e5e4"/>
-  <rect x="340" y="190" width="480" height="96" rx="2" fill="#fffaf5" stroke="#fed7aa"/>
-  <rect x="360" y="210" width="180" height="8" rx="1" fill="#a8a29e"/>
-  <rect x="360" y="228" width="320" height="6" rx="1" fill="#d6d3d1"/>
-  <rect x="360" y="244" width="280" height="6" rx="1" fill="#d6d3d1"/>
-  <rect x="360" y="260" width="300" height="6" rx="1" fill="#d6d3d1"/>
-  <rect x="340" y="310" width="230" height="110" rx="2" fill="#fff" stroke="#fdba74"/>
-  <rect x="360" y="330" width="120" height="8" rx="1" fill="#c2410c"/>
-  <rect x="360" y="352" width="180" height="6" rx="1" fill="#d6d3d1"/>
-  <rect x="360" y="368" width="160" height="6" rx="1" fill="#d6d3d1"/>
-  <rect x="360" y="384" width="140" height="6" rx="1" fill="#e7e5e4"/>
-  <rect x="590" y="310" width="230" height="110" rx="2" fill="#fff" stroke="#fdba74"/>
-  <rect x="610" y="330" width="100" height="8" rx="1" fill="#c2410c"/>
-  <rect x="610" y="352" width="170" height="6" rx="1" fill="#d6d3d1"/>
-  <rect x="610" y="368" width="150" height="6" rx="1" fill="#d6d3d1"/>
-  <circle cx="800" cy="130" r="28" fill="url(#kb-g)"/>
-  <path d="M790 130h20M800 120v20" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- VS badge -->
+  <g>
+    <circle cx="400" cy="130" r="26" fill="#fff" stroke="#ea580c" stroke-width="2"/>
+    <text x="400" y="135" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="800" fill="#c2410c" letter-spacing="0.06em">VS</text>
+  </g>
+
+  <!-- RIGHT: AI chat knowledge interface -->
+  <g>
+    <rect x="464" y="28" width="300" height="224" fill="#fff" stroke="#fdba74" stroke-width="1.5"/>
+    <rect x="464" y="28" width="300" height="36" fill="url(#kb-g)"/>
+    <circle cx="486" cy="46" r="10" fill="#fff" opacity="0.95"/>
+    <path d="M481 46h10M486 41v10" stroke="#ea580c" stroke-width="2" stroke-linecap="round"/>
+    <rect x="506" y="40" width="120" height="12" rx="1" fill="#fff" opacity="0.35"/>
+    <text x="640" y="51" font-family="system-ui,sans-serif" font-size="9" font-weight="700" fill="#fff" letter-spacing="0.08em">AI CHAT</text>
+
+    <!-- user question bubble -->
+    <rect x="520" y="80" width="220" height="36" rx="4" fill="#fff7ed" stroke="#fed7aa"/>
+    <rect x="532" y="92" width="160" height="6" rx="1" fill="#c2410c" opacity="0.5"/>
+    <rect x="532" y="104" width="120" height="5" rx="1" fill="#d6d3d1"/>
+
+    <!-- AI answer with citations -->
+    <rect x="484" y="128" width="240" height="72" rx="4" fill="#fffaf5" stroke="#fdba74"/>
+    <rect x="496" y="140" width="180" height="6" rx="1" fill="#9a3412"/>
+    <rect x="496" y="154" width="200" height="5" rx="1" fill="#d6d3d1"/>
+    <rect x="496" y="166" width="176" height="5" rx="1" fill="#d6d3d1"/>
+    <rect x="496" y="182" width="52" height="10" rx="2" fill="#ffedd5" stroke="#fb923c"/>
+    <rect x="556" y="182" width="52" height="10" rx="2" fill="#ffedd5" stroke="#fb923c"/>
+    <rect x="616" y="182" width="52" height="10" rx="2" fill="#ffedd5" stroke="#fb923c"/>
+
+    <!-- composer -->
+    <rect x="484" y="214" width="240" height="24" rx="3" fill="#fff" stroke="#fdba74"/>
+    <rect x="494" y="222" width="140" height="6" rx="1" fill="#e7e5e4"/>
+    <rect x="684" y="218" width="30" height="16" rx="2" fill="#ea580c"/>
+
+    <text x="614" y="268" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#c2410c" letter-spacing="0.12em">AFTER</text>
+  </g>
 </svg>
