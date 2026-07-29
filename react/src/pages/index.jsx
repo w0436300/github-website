@@ -1,5 +1,5 @@
 import { useMemo, useState, useCallback } from 'react';
-import { Award, ArrowUpRight, Download, Lock } from 'lucide-react';
+import { Award, Download, Lock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useScrollToHash } from '../hooks/useScrollToHash.js';
 import { projects } from '../data/projects.js';
@@ -258,16 +258,13 @@ export function HomePage() {
                           <h2 className="text-sm sm:text-base md:text-lg font-medium text-gray-800 truncate min-w-0 pr-1">
                             {p.title}
                           </h2>
-                          <div className="flex items-center gap-2 shrink-0 mt-0.5">
-                            {(p.year || p.location) && (
-                              <div className="flex items-center gap-1.5 text-[10px] text-gray-500 tabular-nums">
-                                {p.year && <span>{p.year}</span>}
-                                {p.year && p.location && <span className="text-gray-300">·</span>}
-                                {p.location && <span>{p.location}</span>}
-                              </div>
-                            )}
-                            <ArrowUpRight size={16} className="text-gray-300 shrink-0" aria-hidden />
-                          </div>
+                          {(p.year || p.location) && (
+                            <div className="flex items-center gap-1.5 text-[10px] text-gray-500 tabular-nums shrink-0 mt-0.5">
+                              {p.year && <span>{p.year}</span>}
+                              {p.year && p.location && <span className="text-gray-300">·</span>}
+                              {p.location && <span>{p.location}</span>}
+                            </div>
+                          )}
                         </div>
                         <div className="flex flex-wrap items-center gap-1 min-w-0">
                           {p.tags.slice(0, 3).map((tag) => (
@@ -293,11 +290,17 @@ export function HomePage() {
 
                       <OrganicHoverMask theme={hoverTheme} />
 
-                      {/* Hover: description only */}
-                      <div className="absolute inset-0 z-20 flex items-center px-3 py-2 sm:px-4 md:px-5 opacity-0 transition-opacity duration-300 delay-100 group-hover:opacity-100 group-focus-within:opacity-100">
-                        <p className="text-sm sm:text-base text-gray-900 leading-snug line-clamp-3">
+                      {/* Hover: description + >>> jump cue */}
+                      <div className="absolute inset-0 z-20 flex items-center justify-between gap-3 px-3 py-2 sm:px-4 md:px-5 opacity-0 transition-opacity duration-300 delay-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        <p className="text-sm sm:text-base text-gray-900 leading-snug line-clamp-3 min-w-0 flex-1">
                           {p.description}
                         </p>
+                        <span
+                          className="shrink-0 text-base sm:text-lg font-black tracking-[0.12em] text-gray-900/80"
+                          aria-hidden
+                        >
+                          {'>>>'}
+                        </span>
                       </div>
                     </div>
                   </div>
