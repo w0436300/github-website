@@ -351,7 +351,7 @@ export function ResumePage() {
       <div className="max-w-4xl">
         <Link
           to="/"
-          className="group mb-8 inline-flex items-center gap-2 text-gray-700 transition-colors hover:text-black"
+          className="group mb-6 inline-flex items-center gap-2 text-gray-700 transition-colors hover:text-black"
         >
           <ArrowLeft
             size={16}
@@ -360,16 +360,18 @@ export function ResumePage() {
           />
           <span className="text-[11px] font-bold uppercase tracking-[0.2em]">Back to home</span>
         </Link>
-        <a
-          href={pdfHref}
-          download="ClaireWang_Resume_2026.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-2 bg-black text-white rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-blue-600 transition-all h-12 px-6"
-        >
-          <Download size={16} />
-          Download PDF
-        </a>
+        <div>
+          <a
+            href={pdfHref}
+            download="ClaireWang_Resume_2026.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 bg-black text-white rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-blue-600 transition-all h-12 px-6"
+          >
+            <Download size={16} />
+            Download PDF
+          </a>
+        </div>
       </div>
       <div className="mt-16 rounded-2xl overflow-hidden border border-gray-100 bg-gray-50/50">
         <iframe
