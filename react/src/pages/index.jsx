@@ -179,14 +179,14 @@ export function HomePage() {
                  C 640 122, 520 116, 430 102
                  C 320 120, 200 118, 110 100
                  C 40 112, -6 92, 18 58 Z"
-              fill="#FFF3B0"
+              fill="#FCE7F3"
             />
             <path
               d="M120 8
                  C 200 -6, 290 10, 340 28
                  C 280 18, 190 14, 120 8 Z"
-              fill="#FFE566"
-              opacity="0.55"
+              fill="#F9A8D4"
+              opacity="0.45"
             />
           </svg>
           <div className="relative z-10 space-y-0">
