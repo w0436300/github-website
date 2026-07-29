@@ -21,7 +21,7 @@ export const projects = [
   },
   {
     id: 'design-standard-wcag',
-    title: 'Design Standard',
+    title: 'Enterprise Design Standard',
     category: 'design',
     tags: ['WCAG', 'Accessibility', 'Design Systems'],
     year: '2025',
