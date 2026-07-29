@@ -245,7 +245,7 @@ export function HomePage() {
                   onMouseEnter={(e) => showHoverTip(e, isProtected ? 'Enter password' : 'View details')}
                   onMouseMove={moveHoverTip}
                   onMouseLeave={hideHoverTip}
-                  className="group cursor-none text-left bg-white border border-gray-200 border-solid rounded-none shadow-none transition-all hover:shadow-sm active:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black w-full"
+                  className="group cursor-none text-left bg-white border border-gray-200 border-solid rounded-[8px] overflow-hidden shadow-none transition-all hover:shadow-sm active:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black w-full"
                 >
                   <div className="flex flex-row items-stretch h-[70px] sm:h-[84px] md:h-[100px]">
                     <div className="relative w-[28%] sm:w-[30%] md:w-[32%] max-w-[280px] shrink-0 bg-white overflow-hidden border-r border-gray-200 self-stretch">
