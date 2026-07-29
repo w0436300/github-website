@@ -253,8 +253,10 @@ export function HomePage() {
                         <img
                           src={imgSrc}
                           alt={p.title}
-                          className={`absolute inset-0 h-full w-full object-cover object-center ${
-                            p.cover?.endsWith('.svg') ? '' : 'scale-[1.06]'
+                          className={`absolute inset-0 h-full w-full object-center ${
+                            p.cover?.endsWith('.svg')
+                              ? 'object-contain p-1 bg-white'
+                              : 'object-cover scale-[1.06]'
                           }`}
                         />
                       ) : (
