@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Award, ArrowUpRight, Download } from 'lucide-react';
+import { Award, ArrowUpRight, Download, Lock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useScrollToHash } from '../hooks/useScrollToHash.js';
 import { projects } from '../data/projects.js';
@@ -13,6 +13,8 @@ const FEATURED_IDS = [
   'design-standard-wcag',
   'bank-document-system',
   'medisupply-hub-ui',
+  'ai-knowledge-base-engineering',
+  'project-request-collaboration',
 ];
 
 const WORK_TABS = [
@@ -76,7 +78,9 @@ export function HomePage() {
           >
             <span
               className={`inline-flex items-center px-2 py-1 text-[10px] font-bold uppercase tracking-wider shadow-sm ${
-                ['View details', 'Featured', 'UX Design', 'Full Stack', 'Data', 'All'].includes(hoverTip.message)
+                ['View details', 'Enter password', 'Featured', 'UX Design', 'Full Stack', 'Data', 'All'].includes(
+                  hoverTip.message
+                )
                   ? 'border-2 border-[#FFCC00] bg-white text-black'
                   : 'border border-gray-200 bg-white text-gray-700'
               }`}
@@ -153,12 +157,13 @@ export function HomePage() {
               const imgSrc = p.cover
                 ? `${BASE}${p.cover.startsWith('/') ? p.cover.slice(1) : p.cover}`
                 : null;
+              const isProtected = Boolean(p.passwordProtected);
               return (
                 <button
                   key={p.id}
                   type="button"
                   onClick={() => navigate(`/project/${p.id}`)}
-                  onMouseEnter={(e) => showHoverTip(e, 'View details')}
+                  onMouseEnter={(e) => showHoverTip(e, isProtected ? 'Enter password' : 'View details')}
                   onMouseMove={moveHoverTip}
                   onMouseLeave={hideHoverTip}
                   className="group cursor-none text-left bg-white border border-gray-200 border-solid rounded-none shadow-none transition-all hover:shadow-sm hover:bg-gray-50/40 active:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
@@ -182,6 +187,12 @@ export function HomePage() {
                         )}
                       </div>
                     )}
+                    {isProtected && (
+                      <span className="absolute top-3 right-3 inline-flex items-center gap-1.5 border border-gray-300 bg-white/95 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-gray-700 shadow-sm">
+                        <Lock size={11} strokeWidth={2.5} aria-hidden />
+                        Password
+                      </span>
+                    )}
                   </div>
                   <div className="p-5 md:p-6">
                     <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
@@ -199,7 +210,6 @@ export function HomePage() {
                             +{p.tags.length - 3}
                           </span>
                         )}
-                        
                       </div>
                       {(p.year || p.location) && (
                         <div className="flex items-center gap-2 text-[11px] text-gray-500 tabular-nums shrink-0 ml-auto">

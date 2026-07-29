@@ -9,6 +9,10 @@ import {
   Linkedin,
   FileText,
 } from 'lucide-react';
+import {
+  isPasswordProtectedProject,
+  unlockStorageKey,
+} from './data/projectPasswords.js';
 
 const HOME_NAV = [
   { name: 'Work', icon: Briefcase, href: '#home', kind: 'work' },
@@ -66,6 +70,31 @@ const BANK_DOCUMENT_NAV_LINKS = [
   { name: 'Mockup', href: '#Mockup' },
 ];
 
+/** Must match section `id`s on AiKnowledgeBasePage. */
+const AI_KNOWLEDGE_NAV_LINKS = [
+  { name: 'Overview', href: '#Overview' },
+  { name: 'Problem', href: '#Problem' },
+  { name: 'Approach', href: '#Approach' },
+  { name: 'Outcome', href: '#Outcome' },
+];
+
+/** Must match section `id`s on ProjectRequestPage. */
+const PROJECT_REQUEST_NAV_LINKS = [
+  { name: 'Overview', href: '#Overview' },
+  { name: 'Challenge', href: '#Challenge' },
+  { name: 'Process', href: '#Process' },
+  { name: 'Outcome', href: '#Outcome' },
+];
+
+function readProjectUnlocked(projectId) {
+  if (!projectId || !isPasswordProtectedProject(projectId)) return true;
+  try {
+    return sessionStorage.getItem(unlockStorageKey(projectId)) === '1';
+  } catch {
+    return false;
+  }
+}
+
 export default function Layout() {
   const [activeCaseStudySection, setActiveCaseStudySection] = useState('Overview');
   const siteHeaderRef = useRef(null);
@@ -76,19 +105,49 @@ export default function Layout() {
   const isHome = location.pathname === '/' || location.pathname === '';
   const isAboutPage = location.pathname === '/blog';
   const isProjectPage = location.pathname.startsWith('/project/');
+  const projectIdFromPath = isProjectPage ? location.pathname.replace(/^\/project\//, '') : null;
   const isAiTutorPage = location.pathname === '/project/cognitive-adaptive-ai-tutor';
   const isDesignStandardPage = location.pathname === '/project/design-standard-wcag';
   const isBankDocumentPage = location.pathname === '/project/bank-document-system';
-  const isBlueCaseStudy = isDesignStandardPage || isBankDocumentPage;
-  const isCaseStudyPage = isAiTutorPage || isDesignStandardPage || isBankDocumentPage;
+  const isAiKnowledgePage = location.pathname === '/project/ai-knowledge-base-engineering';
+  const isProjectRequestPage = location.pathname === '/project/project-request-collaboration';
+  const [protectedUnlocked, setProtectedUnlocked] = useState(() =>
+    readProjectUnlocked(projectIdFromPath)
+  );
+
+  useEffect(() => {
+    setProtectedUnlocked(readProjectUnlocked(projectIdFromPath));
+    const onUnlock = (e) => {
+      if (e?.detail?.projectId === projectIdFromPath) setProtectedUnlocked(true);
+    };
+    window.addEventListener('project-unlock', onUnlock);
+    return () => window.removeEventListener('project-unlock', onUnlock);
+  }, [projectIdFromPath]);
+
+  const isBlueCaseStudy =
+    isDesignStandardPage || isBankDocumentPage || isAiKnowledgePage || isProjectRequestPage;
+  const isProtectedCaseStudy = isAiKnowledgePage || isProjectRequestPage;
+  const isCaseStudyPage =
+    isAiTutorPage ||
+    isDesignStandardPage ||
+    isBankDocumentPage ||
+    (isProtectedCaseStudy && protectedUnlocked);
   const caseStudyNavLinks = isAiTutorPage
     ? AI_TUTOR_NAV_LINKS
     : isDesignStandardPage
       ? DESIGN_STANDARD_NAV_LINKS
       : isBankDocumentPage
         ? BANK_DOCUMENT_NAV_LINKS
-        : null;
-  const projectNavLinks = isCaseStudyPage ? caseStudyNavLinks : PROJECT_NAV_LINKS;
+        : isAiKnowledgePage
+          ? AI_KNOWLEDGE_NAV_LINKS
+          : isProjectRequestPage
+            ? PROJECT_REQUEST_NAV_LINKS
+            : null;
+  const projectNavLinks = isCaseStudyPage
+    ? caseStudyNavLinks
+    : isProtectedCaseStudy && !protectedUnlocked
+      ? []
+      : PROJECT_NAV_LINKS;
 
   // Ensure project pages always start from the top when navigated to
   useEffect(() => {

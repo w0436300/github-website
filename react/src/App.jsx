@@ -5,6 +5,8 @@ import BlogPage from './pages/BlogPage.jsx';
 import AiTutorPage from './pages/AiTutorPage.jsx';
 import DesignStandardPage from './pages/DesignStandardPage.jsx';
 import BankDocumentPage from './pages/BankDocumentPage.jsx';
+import AiKnowledgeBasePage from './pages/AiKnowledgeBasePage.jsx';
+import ProjectRequestPage from './pages/ProjectRequestPage.jsx';
 import ProjectDetailPage from './pages/ProjectDetailPage.jsx';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
 
@@ -25,6 +27,8 @@ function App() {
         <Route path="project/cognitive-adaptive-ai-tutor" element={<AiTutorPage />} />
         <Route path="project/design-standard-wcag" element={<DesignStandardPage />} />
         <Route path="project/bank-document-system" element={<BankDocumentPage />} />
+        <Route path="project/ai-knowledge-base-engineering" element={<AiKnowledgeBasePage />} />
+        <Route path="project/project-request-collaboration" element={<ProjectRequestPage />} />
         <Route path="project/:projectId" element={<ProjectDetailPage />} />
         <Route path="*" element={<NotFound />} />
       </Route>
