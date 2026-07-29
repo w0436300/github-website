@@ -280,7 +280,7 @@ export default function AiTutorPage() {
           <button
             type="button"
             onClick={() => setSlideModeInUrl(true)}
-            className="border border-slate-200 bg-white px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-700 shadow-sm hover:bg-slate-50"
+            className="border border-gray-200 bg-white px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-700 shadow-sm hover:bg-slate-50"
           >
             Slide Mode
           </button>
@@ -289,18 +289,18 @@ export default function AiTutorPage() {
             <button
               type="button"
               onClick={() => goToSlide(activeSlide - 1)}
-              className="border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm hover:bg-slate-50 disabled:opacity-40"
+              className="border border-gray-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm hover:bg-slate-50 disabled:opacity-40"
               disabled={activeSlide === 0}
             >
               Prev
             </button>
-            <div className="border border-slate-200 bg-white px-3 py-2 text-sm font-semibold tracking-wide text-slate-700 shadow-sm">
+            <div className="border border-gray-200 bg-white px-3 py-2 text-sm font-semibold tracking-wide text-slate-700 shadow-sm">
               {activeSlide + 1} / {SLIDE_SECTIONS.length}
             </div>
             <button
               type="button"
               onClick={() => goToSlide(activeSlide + 1)}
-              className="border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm hover:bg-slate-50 disabled:opacity-40"
+              className="border border-gray-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm hover:bg-slate-50 disabled:opacity-40"
               disabled={activeSlide === SLIDE_SECTIONS.length - 1}
             >
               Next
@@ -308,7 +308,7 @@ export default function AiTutorPage() {
             <button
               type="button"
               onClick={() => setSlideModeInUrl(false)}
-              className="border border-slate-200 bg-white px-3 py-2 text-sm font-semibold uppercase tracking-[0.12em] text-slate-700 shadow-sm hover:bg-slate-50"
+              className="border border-gray-200 bg-white px-3 py-2 text-sm font-semibold uppercase tracking-[0.12em] text-slate-700 shadow-sm hover:bg-slate-50"
             >
               Exit
             </button>
@@ -325,7 +325,7 @@ export default function AiTutorPage() {
           { label: 'Video', indices: [5] },
         ];
         return (
-          <div className="fixed top-3 left-1/2 -translate-x-1/2 z-50 max-w-[calc(100vw-2rem)] overflow-x-auto border border-slate-200 bg-white/95 px-2 py-1.5 shadow-sm backdrop-blur">
+          <div className="fixed top-3 left-1/2 -translate-x-1/2 z-50 max-w-[calc(100vw-2rem)] overflow-x-auto border border-gray-200 bg-white/95 px-2 py-1.5 shadow-sm backdrop-blur">
             <div className="flex items-center gap-1">
               {TOP_NAV_GROUPS.map((g) => {
                 const isActive = g.indices.includes(activeSlide);
@@ -406,25 +406,25 @@ export default function AiTutorPage() {
             <img
               src={amiImg('overview.gif')}
               alt="Ami product overview"
-              className={`w-full md:w-2/3 h-auto border-2 border-slate-200 ${amiBorderSubtle}`}
+              className={`w-full md:w-2/3 h-auto border-2 border-gray-200 ${amiBorderSubtle}`}
             />
           </div>
 
           <div className={`grid md:grid-cols-4 gap-4`}>
-            <div className="md:pr-4 md:border-r md:border-slate-200">
+            <div className="md:pr-4 md:border-r md:border-gray-200">
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-1">My Role</p>
               <p className="text-sm text-slate-700">UX Research<br />Product Design<br />Frontend Engineering</p>
             </div>
-            <div className="md:px-4 md:border-r md:border-slate-200">
+            <div className="md:px-4 md:border-r md:border-gray-200">
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-1">Team</p>
               <p className="text-sm text-slate-700">6-person cross-functional<br />1 PM · 2 Backend<br />1 Learning Analytics
               <br />2 UX Designers <br />1 User Research</p>
             </div>
-            <div className="md:px-4 md:border-r md:border-slate-200">
+            <div className="md:px-4 md:border-r md:border-gray-200">
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-1">Timeline</p>
               <p className="text-sm text-slate-700">Jan - April 2026<br />12 weeks end-to-end</p>
             </div>
-            <div className="md:px-4 md:border-r md:border-slate-200">
+            <div className="md:px-4 md:border-r md:border-gray-200">
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-1">Client & Technical advisor
               </p>
               <p className="text-sm text-slate-700">Dr. Ali Abbas — CEO of Smart Digital Medicin. <br />Ismaeel Al-Ridhawi — Associate Professor, School of Electrical Engineering and Computer Science, uOttawa</p>
@@ -575,7 +575,7 @@ export default function AiTutorPage() {
               <button
                 type="button"
                 onClick={() => setUxLensExpanded(true)}
-                className="w-full text-left rounded-sm border border-transparent hover:border-slate-200 hover:bg-white/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[rgb(var(--ami-accent)/0.5)] transition-colors p-0"
+                className="w-full text-left rounded-sm border border-transparent hover:border-gray-200 hover:bg-white/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[rgb(var(--ami-accent)/0.5)] transition-colors p-0"
               >
                 <p className="text-sm text-slate-600 max-w-4xl leading-relaxed line-clamp-2 mb-3">
                   Research findings were triangulated against Nielsen Norman usability heuristics; those same
@@ -630,12 +630,12 @@ export default function AiTutorPage() {
                   className={`group text-left border bg-white p-4 flex flex-col gap-2 transition-all ${
                     isOpen
                       ? 'border-[rgb(var(--ami-accent)/0.35)] shadow-sm'
-                      : 'border-slate-200 hover:border-[rgb(var(--ami-accent)/0.28)]'
+                      : 'border-gray-200 hover:border-[rgb(var(--ami-accent)/0.28)]'
                   }`}
                 >
                   <div className="flex items-center justify-between">
                     <span
-                      className={`w-8 h-8 border border-slate-200 text-xs font-bold flex items-center justify-center ${
+                      className={`w-8 h-8 border border-gray-200 text-xs font-bold flex items-center justify-center ${
                         isOpen ? 'text-white' : ''
                       }`}
                       style={{
@@ -668,7 +668,7 @@ export default function AiTutorPage() {
             {expandedDecision === 0 && (
             <article className={`border ${amiBorderSubtle} bg-white p-5 md:p-6`}>
               <div className="flex items-start gap-4 mb-4">
-                <span className="w-9 h-9 bg-white border border-slate-200 text-xs font-bold flex items-center justify-center" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>01</span>
+                <span className="w-9 h-9 bg-white border border-gray-200 text-xs font-bold flex items-center justify-center" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>01</span>
                 <div>
                   <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Learning Style Translation</p>
                   <h4 className="text-lg font-semibold text-slate-900">
@@ -757,7 +757,7 @@ export default function AiTutorPage() {
             {expandedDecision === 1 && (
             <article className={`border ${amiBorderSubtle} bg-white p-5 md:p-6`}>
               <div className="flex items-start gap-4 mb-4">
-                <span className="w-9 h-9 bg-white border border-slate-200 text-xs font-bold flex items-center justify-center" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>02</span>
+                <span className="w-9 h-9 bg-white border border-gray-200 text-xs font-bold flex items-center justify-center" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>02</span>
                 <div>
                   <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Skill Gap Review</p>
                   <h4 className="text-lg font-semibold text-slate-900">
@@ -776,15 +776,15 @@ export default function AiTutorPage() {
                   <p className="text-sm text-slate-600">
                       After onboarding, Ami infers skills and levels. Show it, or skip straight to path generation?
                   </p>
-                  <p className="text-sm bg-white border border-slate-200 p-3 italic" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>
+                  <p className="text-sm bg-white border border-gray-200 p-3 italic" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>
                     "If the path feels wrong and users have no recourse, they have no reason to trust it — or return."
                   </p>
                   <div className={`grid md:grid-cols-2 border ${amiBorderSubtle}`}>
-                    <div className="p-3 border-b md:border-b-0 md:border-r border-slate-200">
+                    <div className="p-3 border-b md:border-b-0 md:border-r border-gray-200">
                       <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-1">✕ Option A — Skip it</p>
                       <p className="text-sm text-slate-600">Fewer steps, but no visibility and no way to challenge AI assumptions.</p>
                     </div>
-                    <div className="p-3 bg-white border border-slate-200">
+                    <div className="p-3 bg-white border border-gray-200">
                       <p className="text-[11px] font-bold uppercase tracking-[0.16em] mb-1" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>✓ Option B — Show it, let them adjust</p>
                       <p className="text-sm" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>One extra step: see reasoning, adjust levels, then confirm path.</p>
                     </div>
@@ -826,7 +826,7 @@ export default function AiTutorPage() {
             {expandedDecision === 2 && (
             <article className={`border ${amiBorderSubtle} bg-white p-5 md:p-6`}>
               <div className="flex items-start gap-4 mb-4">
-                <span className="w-9 h-9 bg-white border border-slate-200 text-xs font-bold flex items-center justify-center" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>03</span>
+                <span className="w-9 h-9 bg-white border border-gray-200 text-xs font-bold flex items-center justify-center" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>03</span>
                 <div>
                   <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Chatbot Scope</p>
                   <h4 className="text-lg font-semibold text-slate-900">
@@ -845,15 +845,15 @@ export default function AiTutorPage() {
                   <p className="text-sm text-slate-600">
                     The chatbot could be global, or limited to sessions with learning context.
                   </p>
-                  <p className="text-sm bg-white border border-slate-200 p-3 italic" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>
+                  <p className="text-sm bg-white border border-gray-200 p-3 italic" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>
                     "This wasn't a feature decision. It was an information architecture decision."
                   </p>
                   <div className={`grid md:grid-cols-2 border ${amiBorderSubtle}`}>
-                    <div className="p-3 border-b md:border-b-0 md:border-r border-slate-200">
+                    <div className="p-3 border-b md:border-b-0 md:border-r border-gray-200">
                       <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-1">✕ Option A — Global chatbot</p>
                       <p className="text-sm text-slate-600">Always available, but distracts users during setup and review.</p>
                     </div>
-                    <div className="p-3 bg-white border border-slate-200">
+                    <div className="p-3 bg-white border border-gray-200">
                       <p className="text-[11px] font-bold uppercase tracking-[0.16em] mb-1" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>✓ Option B — Session-only</p>
                       <p className="text-sm" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>Protects focus and keeps chatbot pedagogical, not generic support.</p>
                     </div>
@@ -879,15 +879,15 @@ export default function AiTutorPage() {
                     </p>
                   </div>
                   <div className={`border ${amiBorderSubtle} bg-white`}>
-                    <div className="p-3 border-b border-slate-200">
+                    <div className="p-3 border-b border-gray-200">
                       <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-slate-500 mb-1">Onboarding</p>
                       <p className="text-sm text-red-600">🚫 Not available — user needs focused attention.</p>
                     </div>
-                    <div className="p-3 border-b border-slate-200">
+                    <div className="p-3 border-b border-gray-200">
                       <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-slate-500 mb-1">Skill gap review</p>
                       <p className="text-sm text-red-600">🚫 Not available — review requires focused decisions.</p>
                     </div>
-                    <div className="p-3 bg-white border border-slate-200">
+                    <div className="p-3 bg-white border border-gray-200">
                       <p className="text-[10px] uppercase tracking-[0.16em] font-bold mb-1" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>Learning session</p>
                       <p className="text-sm" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>✓ Available — persistent sidebar with full session context.</p>
                     </div>
@@ -903,7 +903,7 @@ export default function AiTutorPage() {
             {expandedDecision === 3 && (
             <article className={`border ${amiBorderSubtle} bg-white p-5 md:p-6`}>
               <div className="flex items-start gap-4 mb-4">
-                <span className="w-9 h-9 bg-white border border-slate-200 text-xs font-bold flex items-center justify-center" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>04</span>
+                <span className="w-9 h-9 bg-white border border-gray-200 text-xs font-bold flex items-center justify-center" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>04</span>
                 <div>
                   <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Content Citations</p>
                   <h4 className="text-lg font-semibold text-slate-900">
@@ -922,7 +922,7 @@ export default function AiTutorPage() {
                   <p className="text-sm text-slate-600">
                     Hallucination is the main trust risk in AI tutoring, so we designed for verification from day one.
                   </p>
-                  <p className="text-sm bg-white border border-slate-200 p-3 italic" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>
+                  <p className="text-sm bg-white border border-gray-200 p-3 italic" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>
                     "If a learner can't verify where the AI's explanation came from, they have no way to calibrate trust."
                   </p>
                   <div className={`border ${amiBorderSubtle} bg-white p-4`}>
@@ -961,18 +961,18 @@ export default function AiTutorPage() {
                       In-session citation view: answers include source and page-level references learners can verify.
                     </p>
                   </div>
-                  <div className="p-3 border-b border-slate-200 bg-slate-50">
+                  <div className="p-3 border-b border-gray-200 bg-slate-50">
                     <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-600">The four-layer trust architecture</p>
                   </div>
-                  <div className="p-3 border-b border-slate-200">
+                  <div className="p-3 border-b border-gray-200">
                     <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-slate-500">Skill gap review</p>
                     <p className="text-sm text-slate-600">Why does AI think I need this skill? Reasoning + confidence shown.</p>
                   </div>
-                  <div className="p-3 border-b border-slate-200">
+                  <div className="p-3 border-b border-gray-200">
                     <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-slate-500">Profile page</p>
                     <p className="text-sm text-slate-600">How is my data used? Behavioral commitments are explicit.</p>
                   </div>
-                  <div className="p-3 border-b border-slate-200 bg-white">
+                  <div className="p-3 border-b border-gray-200 bg-white">
                     <p className="text-[10px] uppercase tracking-[0.16em] font-bold" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>Session citations</p>
                     <p className="text-sm" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>Where did this explanation come from? Source + page number.</p>
                   </div>
@@ -980,7 +980,7 @@ export default function AiTutorPage() {
                     <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-slate-500">AI transparency page</p>
                     <p className="text-sm text-slate-600">Bias audits and safeguards disclosed.</p>
                   </div>
-                  <div className="p-3 border-t border-slate-200 text-sm text-slate-600">
+                  <div className="p-3 border-t border-gray-200 text-sm text-slate-600">
                     No single screen makes AI trustworthy. These four layers work together, each answering a
                     different learner trust question.
                   </div>
@@ -992,7 +992,7 @@ export default function AiTutorPage() {
             {expandedDecision === 4 && (
             <article className={`border ${amiBorderSubtle} bg-white p-5 md:p-6`}>
               <div className="flex items-start gap-4 mb-4">
-                <span className="w-9 h-9 bg-white border border-slate-200 text-xs font-bold flex items-center justify-center" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>05</span>
+                <span className="w-9 h-9 bg-white border border-gray-200 text-xs font-bold flex items-center justify-center" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>05</span>
                 <div>
                   <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Guided Onboarding Flow</p>
                   <h4 className="text-lg font-semibold text-slate-900">
@@ -1137,14 +1137,14 @@ export default function AiTutorPage() {
                     key={step.title}
                     type="button"
                     onClick={() => setActiveStep(idx)}
-                    className={`group text-left px-4 py-1 border-r border-slate-200 last:border-r-0 transition-colors shrink-0 min-w-[140px] md:min-w-0 md:flex-1 ${
+                    className={`group text-left px-4 py-1 border-r border-gray-200 last:border-r-0 transition-colors shrink-0 min-w-[140px] md:min-w-0 md:flex-1 ${
                       isActive
                         ? 'bg-white'
                         : 'bg-slate-50 hover:bg-white'
                     }`}
                     style={
                       isActive
-                        ? { borderBottom: `3px solid rgb(${amiAccentRgb} / 0.45)`, paddingBottom: '1px' }
+                        ? { borderBottom: '3px solid #9ca3af', paddingBottom: '1px' }
                         : { borderBottom: '3px solid transparent', paddingBottom: '1px' }
                     }
                   >
@@ -1177,7 +1177,7 @@ export default function AiTutorPage() {
                       />
                     </div>
                     <span
-                      className="inline-flex bg-white border border-slate-200 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] mb-3"
+                      className="inline-flex bg-white border border-gray-200 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] mb-3"
                       style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}
                     >
                       {step.badge}
@@ -1325,7 +1325,7 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
 
   const PointCard = ({ index, title, body, highlight }) => (
     <div
-      className={`border ${highlight ? '' : 'border-slate-200'} bg-white p-4`}
+      className={`border ${highlight ? '' : 'border-gray-200'} bg-white p-4`}
       style={highlight ? { borderColor: accent } : undefined}
     >
       {index !== undefined && (
@@ -1342,7 +1342,7 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
   );
 
   const Figure = ({ src, alt, caption }) => (
-    <figure className="border border-slate-200 bg-white p-3">
+    <figure className="border border-gray-200 bg-white p-3">
       <img src={src} alt={alt} className="w-full h-auto max-h-[60vh] object-contain" />
       {caption && (
         <figcaption className="text-sm text-slate-500 italic mt-2">{caption}</figcaption>
@@ -1366,7 +1366,7 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
               caption="Onboarding, session, and profile together show the learner-facing system."
             />
             <div className="grid grid-cols-1 gap-3 self-start">
-              <div className="border border-slate-200 bg-white p-4">
+              <div className="border border-gray-200 bg-white p-4">
                 <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">What AMI already had</p>
                 <ul className="space-y-1 text-sm text-slate-700">
                   <li>Research-backed learner model</li>
@@ -1375,7 +1375,7 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
                   <li>Personalized learning path generation</li>
                 </ul>
               </div>
-              <div className="border border-slate-200 bg-white p-4">
+              <div className="border border-gray-200 bg-white p-4">
                 <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">What was still missing</p>
                 <ul className="space-y-1 text-sm text-slate-700">
                   <li>Why the system assessed them that way</li>
@@ -1383,7 +1383,7 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
                   <li>How AI adapted over time</li>
                 </ul>
               </div>
-              <div className="border border-slate-200 p-4" style={{ backgroundColor: accentSoft }}>
+              <div className="border border-gray-200 p-4" style={{ backgroundColor: accentSoft }}>
                 <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-2" style={{ color: accent }}>
                   Core product challenge
                 </p>
@@ -1391,7 +1391,7 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
                   Turn a model-driven AI tutor into an experience that feels understandable, editable, and trustworthy.
                 </p>
               </div>
-              <div className="border border-slate-200 bg-white p-4">
+              <div className="border border-gray-200 bg-white p-4">
                 <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">My role</p>
                 <p className="text-sm text-slate-700">
                   UX Research<br />
@@ -1467,7 +1467,7 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
               <Figure src={amiImg('ami-verified-content.gif')} alt="Verified content citations" caption="Make trust visible in-session." />
             </div>
             <div className="grid grid-cols-1 gap-3 self-start">
-              <div className="border border-slate-200 p-4" style={{ backgroundColor: accentSoft }}>
+              <div className="border border-gray-200 p-4" style={{ backgroundColor: accentSoft }}>
                 <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-2" style={{ color: accent }}>
                   Reframe
                 </p>
@@ -1508,7 +1508,7 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
           wide
         >
           <div className="grid md:grid-cols-[1.1fr_1fr] gap-6">
-            <div className="border border-slate-200 bg-white p-3 self-start">
+            <div className="border border-gray-200 bg-white p-3 self-start">
               <div className="flex flex-wrap gap-1.5 mb-3">
                 {SOLUTION_STEPS.map((step, idx) => {
                   const isActive = activeStep === idx;
@@ -1520,7 +1520,7 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
                       className={`px-3 py-1.5 text-xs font-bold uppercase tracking-[0.14em] border transition-colors ${
                         isActive
                           ? 'border-gray-700 bg-gray-700 text-white'
-                          : 'border-slate-200 bg-white text-slate-600 hover:text-slate-900'
+                          : 'border-gray-200 bg-white text-slate-600 hover:text-slate-900'
                       }`}
                     >
                       {step.badge}
@@ -1533,14 +1533,14 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
                 alt={SOLUTION_STEPS[activeStep].title}
                 caption={SOLUTION_STEPS[activeStep].body}
               />
-              <div className="mt-3 border border-slate-200 bg-slate-50 p-3">
+              <div className="mt-3 border border-gray-200 bg-slate-50 p-3">
                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500 mb-1">
                   Current page
                 </p>
                 <p className="text-base md:text-lg font-semibold text-slate-900">{SOLUTION_STEPS[activeStep].title}</p>
                 <div className="flex flex-wrap gap-2 mt-2">
                   {SOLUTION_STEPS[activeStep].chips.map((chip) => (
-                    <span key={chip} className="inline-flex border border-slate-200 bg-white px-2.5 py-1 text-xs text-slate-600">
+                    <span key={chip} className="inline-flex border border-gray-200 bg-white px-2.5 py-1 text-xs text-slate-600">
                       {chip}
                     </span>
                   ))}
@@ -1548,7 +1548,7 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
               </div>
             </div>
             <div className="grid grid-cols-1 gap-3 self-start">
-              <div className="border border-slate-200 bg-white p-4">
+              <div className="border border-gray-200 bg-white p-4">
                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">Key outputs</p>
                 <ul className="space-y-2 text-base md:text-lg text-slate-700">
                   <li>Guided onboarding: Goal → Style → Resume (optional)</li>
@@ -1557,7 +1557,7 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
                   <li>Multi-layer trust system: profile, reasoning, citations, transparency</li>
                 </ul>
               </div>
-              <div className="border border-slate-200 bg-white p-4">
+              <div className="border border-gray-200 bg-white p-4">
                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">How I validated the work</p>
                 <ul className="space-y-2 text-base md:text-lg text-slate-700">
                   <li>Used research findings and journey mapping to locate trust gaps</li>
@@ -1585,7 +1585,7 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
               caption="Trust stays visible when learners can inspect, verify, and adjust the system over time."
             />
             <div className="grid grid-cols-1 gap-3 self-start">
-              <div className="border border-slate-200 bg-white p-4">
+              <div className="border border-gray-200 bg-white p-4">
                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">What I learned</p>
                 <ul className="space-y-2 text-base md:text-lg text-slate-700">
                   <li>A designer’s role is not just to make AI usable — it is to make AI understandable.</li>
@@ -1593,7 +1593,7 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
                   <li>Trust is not one feature — it is built through a system of visible decisions.</li>
                 </ul>
               </div>
-              <div className="border border-slate-200 p-4" style={{ backgroundColor: accentSoft }}>
+              <div className="border border-gray-200 p-4" style={{ backgroundColor: accentSoft }}>
                 <p className="text-xs font-bold uppercase tracking-[0.18em] mb-2" style={{ color: accent }}>
                   Biggest takeaway
                 </p>
@@ -1601,7 +1601,7 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
                   Trust is not a feature. It is a system of visible decisions.
                 </p>
               </div>
-              <div className="border border-slate-200 bg-white p-4">
+              <div className="border border-gray-200 bg-white p-4">
                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">How this changed me</p>
                 <p className="text-base md:text-lg text-slate-700 leading-relaxed">
                   I now think more about product logic, not just interface design. I pay more attention to how users understand, verify, and adjust AI behavior.
@@ -1620,7 +1620,7 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
           subtitle="Happy to deep-dive on any decision, flow, or trade-off."
           wide
         >
-          <div className="border border-slate-200 bg-white p-3 max-w-4xl">
+          <div className="border border-gray-200 bg-white p-3 max-w-4xl">
             <video className="w-full h-auto" controls preload="metadata">
               <source src={amiImg('Final Demo.mp4')} type="video/mp4" />
               Your browser does not support the video tag.
@@ -1651,13 +1651,13 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
               />
             </div>
             <div className="grid grid-cols-1 gap-3 self-start">
-              <div className="border border-slate-200 bg-white p-4">
+              <div className="border border-gray-200 bg-white p-4">
                 <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">Problem · Decision · Outcome</p>
                 <p className="text-sm text-slate-700"><span className="font-semibold text-slate-900">Problem:</span> Academic terms (FSLSM) missed learner mental models.</p>
                 <p className="text-sm text-slate-700"><span className="font-semibold text-slate-900">Decision:</span> Expose 5 behavioral labels, keep FSLSM internal.</p>
                 <p className="text-sm text-slate-700"><span className="font-semibold text-slate-900">Outcome:</span> Learner-recognizable inputs, rigor preserved.</p>
               </div>
-              <div className="border border-slate-200 bg-white p-4">
+              <div className="border border-gray-200 bg-white p-4">
                 <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">How it evolved</p>
                 <ul className="text-sm text-slate-700 space-y-1">
                   <li>✕ Free text → inconsistent FSLSM inference</li>
@@ -1666,14 +1666,14 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
                   <li style={{ color: accent }}>✓ Behavioral labels mapped to FSLSM</li>
                 </ul>
               </div>
-              <div className="border border-slate-200 bg-white p-4">
+              <div className="border border-gray-200 bg-white p-4">
                 <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">5 options → FSLSM mapping</p>
                 <div className="flex flex-wrap gap-2 mb-2">
-                  <span className="inline-flex border border-slate-200 px-2 py-1 text-xs text-slate-700">Interactive</span>
-                  <span className="inline-flex border border-slate-200 px-2 py-1 text-xs text-slate-700">Textual</span>
-                  <span className="inline-flex border border-slate-200 px-2 py-1 text-xs" style={{ color: accent }}>Visual ✓</span>
-                  <span className="inline-flex border border-slate-200 px-2 py-1 text-xs text-slate-700">Concise</span>
-                  <span className="inline-flex border border-slate-200 px-2 py-1 text-xs text-slate-700">Balanced</span>
+                  <span className="inline-flex border border-gray-200 px-2 py-1 text-xs text-slate-700">Interactive</span>
+                  <span className="inline-flex border border-gray-200 px-2 py-1 text-xs text-slate-700">Textual</span>
+                  <span className="inline-flex border border-gray-200 px-2 py-1 text-xs" style={{ color: accent }}>Visual ✓</span>
+                  <span className="inline-flex border border-gray-200 px-2 py-1 text-xs text-slate-700">Concise</span>
+                  <span className="inline-flex border border-gray-200 px-2 py-1 text-xs text-slate-700">Balanced</span>
                 </div>
                 <p className="text-sm text-slate-700">
                   Users never see FSLSM terms; they feel it through session structure, pacing, and format.
@@ -1699,14 +1699,14 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
               caption="Left: scannable list. Right: reasoning, dual sliders, include/ignore."
             />
             <div className="grid grid-cols-1 gap-3 self-start">
-              <div className="border border-slate-200 bg-white p-4">
+              <div className="border border-gray-200 bg-white p-4">
                 <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">Problem · Decision · Outcome</p>
                 <p className="text-sm text-slate-700"><span className="font-semibold text-slate-900">Problem:</span> Hidden inference felt arbitrary.</p>
                 <p className="text-sm text-slate-700"><span className="font-semibold text-slate-900">Decision:</span> Surface reasoning, allow level edits.</p>
                 <p className="text-sm text-slate-700"><span className="font-semibold text-slate-900">Outcome:</span> Users correct AI before path lock-in.</p>
               </div>
-              <div className="grid grid-cols-2 border border-slate-200">
-                <div className="p-3 border-r border-slate-200">
+              <div className="grid grid-cols-2 border border-gray-200">
+                <div className="p-3 border-r border-gray-200">
                   <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-500 mb-1">✕ Skip it</p>
                   <p className="text-xs text-slate-600">No visibility, no recourse.</p>
                 </div>
@@ -1735,21 +1735,21 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
               caption="Chatbot appears only inside a learning session, with full topic and style context."
             />
             <div className="grid grid-cols-1 gap-3 self-start">
-              <div className="border border-slate-200 bg-white p-4">
+              <div className="border border-gray-200 bg-white p-4">
                 <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">Problem · Decision · Outcome</p>
                 <p className="text-sm text-slate-700"><span className="font-semibold text-slate-900">Problem:</span> Global chatbot distracted during setup/review.</p>
                 <p className="text-sm text-slate-700"><span className="font-semibold text-slate-900">Decision:</span> Restrict to learning sessions.</p>
                 <p className="text-sm text-slate-700"><span className="font-semibold text-slate-900">Outcome:</span> Focused early flow, richer context later.</p>
               </div>
-              <p className="text-sm italic border border-slate-200 bg-white p-3" style={{ color: accent }}>
+              <p className="text-sm italic border border-gray-200 bg-white p-3" style={{ color: accent }}>
                 "This wasn't a feature decision. It was an information architecture decision."
               </p>
-              <div className="border border-slate-200 bg-white">
-                <div className="p-3 border-b border-slate-200">
+              <div className="border border-gray-200 bg-white">
+                <div className="p-3 border-b border-gray-200">
                   <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-slate-500">Onboarding</p>
                   <p className="text-sm text-red-600">🚫 Not available — needs focus.</p>
                 </div>
-                <div className="p-3 border-b border-slate-200">
+                <div className="p-3 border-b border-gray-200">
                   <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-slate-500">Skill gap review</p>
                   <p className="text-sm text-red-600">🚫 Not available — review requires focus.</p>
                 </div>
@@ -1778,25 +1778,25 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
               caption="Each answer ties back to source + page in the course materials."
             />
             <div className="grid grid-cols-1 gap-3 self-start">
-              <div className="border border-slate-200 bg-white p-4">
+              <div className="border border-gray-200 bg-white p-4">
                 <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">Problem · Decision · Outcome</p>
                 <p className="text-sm text-slate-700"><span className="font-semibold text-slate-900">Problem:</span> Unverifiable answers = no trust calibration.</p>
                 <p className="text-sm text-slate-700"><span className="font-semibold text-slate-900">Decision:</span> Show source + page citations in-session.</p>
                 <p className="text-sm text-slate-700"><span className="font-semibold text-slate-900">Outcome:</span> Trust shifts from claims to behavior.</p>
               </div>
-              <div className="border border-slate-200 bg-white">
-                <div className="p-3 border-b border-slate-200 bg-slate-50">
+              <div className="border border-gray-200 bg-white">
+                <div className="p-3 border-b border-gray-200 bg-slate-50">
                   <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-700">Four-layer trust architecture</p>
                 </div>
-                <div className="p-3 border-b border-slate-200">
+                <div className="p-3 border-b border-gray-200">
                   <p className="text-[10px] uppercase font-bold text-slate-500">Skill gap review</p>
                   <p className="text-xs text-slate-600">Reasoning + confidence.</p>
                 </div>
-                <div className="p-3 border-b border-slate-200">
+                <div className="p-3 border-b border-gray-200">
                   <p className="text-[10px] uppercase font-bold text-slate-500">Profile page</p>
                   <p className="text-xs text-slate-600">Explicit data use.</p>
                 </div>
-                <div className="p-3 border-b border-slate-200" style={{ backgroundColor: accentSoft }}>
+                <div className="p-3 border-b border-gray-200" style={{ backgroundColor: accentSoft }}>
                   <p className="text-[10px] uppercase font-bold" style={{ color: accent }}>Session citations</p>
                   <p className="text-xs" style={{ color: accent }}>Source + page number.</p>
                 </div>
@@ -1825,7 +1825,7 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
               caption="Progressive disclosure mirrors the learner's mental model."
             />
             <div className="grid grid-cols-1 gap-3 self-start">
-              <div className="border border-slate-200 bg-white p-4">
+              <div className="border border-gray-200 bg-white p-4">
                 <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">Flow logic</p>
                 <p className="text-sm text-slate-700 mb-1">
                   1) <span className="font-semibold text-slate-900">Learning goal</span> — sets direction.
@@ -1837,13 +1837,13 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
                   3) <span className="font-semibold text-slate-900">Resume</span> — enriches personalization (optional).
                 </p>
               </div>
-              <div className="border border-slate-200 bg-white p-4">
+              <div className="border border-gray-200 bg-white p-4">
                 <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">Why this works</p>
                 <p className="text-sm text-slate-700">
                   Start with intention, then preference, then optional depth. Friction drops, intent capture improves.
                 </p>
               </div>
-              <div className="border border-slate-200 bg-white p-4">
+              <div className="border border-gray-200 bg-white p-4">
                 <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">MVP failure — and what it meant</p>
                 <p className="text-sm text-slate-700 mb-2">
                   ✕ MVP put goal + style + resume on one screen. Drop-off came from unclear context, not length.
@@ -1873,7 +1873,7 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
             />
             <div className="grid grid-cols-1 gap-3 self-start">
               {FINAL_EXPERIENCE_HIGHLIGHTS.map((item) => (
-                <div key={item.eyebrow} className="border border-slate-200 bg-white p-4">
+                <div key={item.eyebrow} className="border border-gray-200 bg-white p-4">
                   <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-1">
                     {item.eyebrow}
                   </p>
@@ -1893,12 +1893,12 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
           title="Trust is not a feature. It is a system of visible decisions."
           wide
         >
-          <div className="border border-slate-200 bg-slate-50 p-5 mb-5 max-w-4xl" style={{ backgroundColor: accentSoft }}>
+          <div className="border border-gray-200 bg-slate-50 p-5 mb-5 max-w-4xl" style={{ backgroundColor: accentSoft }}>
             <p className="text-sm md:text-base text-slate-800 leading-relaxed">{REFLECTION_INTRO}</p>
           </div>
           <div className="grid md:grid-cols-3 gap-4">
             {REFLECTION_BULLETS.map((line, i) => (
-              <div key={line} className="border border-slate-200 bg-white p-5">
+              <div key={line} className="border border-gray-200 bg-white p-5">
                 <p
                   className="text-3xl leading-none mb-3 font-extrabold"
                   style={{ color: `rgb(${amiAccentRgb} / 0.32)` }}
@@ -1920,7 +1920,7 @@ function SlideDeck({ activeSlide, amiImg, activeStep, setActiveStep }) {
           subtitle="Happy to deep-dive on any decision, flow, or trade-off."
           wide
         >
-          <div className="border border-slate-200 bg-white p-3 max-w-4xl">
+          <div className="border border-gray-200 bg-white p-3 max-w-4xl">
             <video className="w-full h-auto" controls preload="metadata">
               <source src={amiImg('Final Demo.mp4')} type="video/mp4" />
               Your browser does not support the video tag.

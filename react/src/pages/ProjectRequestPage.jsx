@@ -21,22 +21,22 @@ function SectionIntro({ eyebrow, title, subtitle }) {
 
 function AbstractBoardUi() {
   return (
-    <svg viewBox="0 0 640 260" className="w-full h-auto border border-green-100 bg-white" fill="none" aria-hidden>
+    <svg viewBox="0 0 640 260" className="w-full h-auto border border-gray-200 bg-white" fill="none" aria-hidden>
       <rect x="0" y="0" width="640" height="44" fill="#15803d" />
       <rect x="16" y="14" width="120" height="16" rx="2" fill="#fff" opacity="0.9" />
       <rect x="24" y="64" width="180" height="10" rx="1" fill="#94a3b8" />
-      <rect x="24" y="88" width="180" height="56" rx="2" fill="#f0fdf4" stroke="#bbf7d0" />
+      <rect x="24" y="88" width="180" height="56" rx="2" fill="#f9fafb" stroke="#e5e7eb" />
       <rect x="36" y="102" width="100" height="8" rx="1" fill="#15803d" />
       <rect x="36" y="118" width="140" height="6" rx="1" fill="#94a3b8" />
       <rect x="24" y="156" width="180" height="56" rx="2" fill="#fff" stroke="#e8eef0" />
       <rect x="230" y="64" width="180" height="10" rx="1" fill="#94a3b8" />
-      <rect x="230" y="88" width="180" height="72" rx="2" fill="#dcfce7" stroke="#86efac" />
+      <rect x="230" y="88" width="180" height="72" rx="2" fill="#f3f4f6" stroke="#e5e7eb" />
       <rect x="242" y="104" width="110" height="8" rx="1" fill="#15803d" />
       <rect x="242" y="122" width="140" height="6" rx="1" fill="#64748b" />
-      <rect x="242" y="138" width="64" height="12" rx="2" fill="#fff" stroke="#bbf7d0" />
+      <rect x="242" y="138" width="64" height="12" rx="2" fill="#fff" stroke="#e5e7eb" />
       <rect x="436" y="64" width="180" height="10" rx="1" fill="#94a3b8" />
       <rect x="436" y="88" width="180" height="56" rx="2" fill="#fff" stroke="#e8eef0" />
-      <rect x="436" y="156" width="180" height="72" rx="2" fill="#f0fdf4" stroke="#bbf7d0" />
+      <rect x="436" y="156" width="180" height="72" rx="2" fill="#f9fafb" stroke="#e5e7eb" />
       <rect x="448" y="172" width="120" height="8" rx="1" fill="#15803d" />
       <rect x="448" y="192" width="64" height="16" rx="2" fill="#15803d" />
     </svg>
@@ -45,12 +45,12 @@ function AbstractBoardUi() {
 
 function CaseStudyContent() {
   return (
-    <div className="case-study-page min-h-screen bg-white text-slate-900 selection:bg-green-200 scroll-smooth pb-20" style={openSans}>
+    <div className="case-study-page min-h-screen bg-white text-slate-900 selection:bg-gray-200 scroll-smooth pb-20" style={openSans}>
       <section id="Overview" className="pt-2 pb-10 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-wrap items-center gap-2 mb-3 text-[10px] uppercase tracking-widest text-slate-600">
             <span>Intake · Workflow · Cross-team Collaboration</span>
-            <span className="inline-flex items-center gap-1 border border-green-100 px-2 py-0.5 text-slate-700">
+            <span className="inline-flex items-center gap-1 border border-gray-200 px-2 py-0.5 text-slate-700">
               <Lock className="w-3 h-3" aria-hidden /> NDA
             </span>
           </div>
@@ -63,14 +63,14 @@ function CaseStudyContent() {
             requesters, design, and engineering.
           </p>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-0 border border-green-100 overflow-hidden text-[13px] bg-white mb-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-0 border border-gray-200 overflow-hidden text-[13px] bg-white mb-10">
             {[
               ['Role', 'Product Designer · Freelance'],
               ['Focus', 'Intake · Status model · Collaboration'],
               ['Users', 'Design · Eng · Stakeholders'],
               ['Status', '✓ Near complete'],
             ].map(([k, v]) => (
-              <div key={k} className="border-r border-b border-green-100 p-3 last:border-r-0 md:[&:nth-child(4n)]:border-r-0">
+              <div key={k} className="border-r border-b border-gray-200 p-3 last:border-r-0 md:[&:nth-child(4n)]:border-r-0">
                 <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-600 mb-1">{k}</p>
                 <p className={k === 'Status' ? 'text-green-800 font-medium' : 'text-slate-800'}>{v}</p>
               </div>
@@ -81,21 +81,21 @@ function CaseStudyContent() {
         </div>
       </section>
 
-      <section id="Challenge" className="py-12 px-6 border-t border-green-100">
+      <section id="Challenge" className="py-12 px-6 border-t border-gray-200">
         <div className="max-w-7xl mx-auto">
           <SectionIntro
             eyebrow="Challenge"
             title="Requests arrived — ownership and next steps did not."
             subtitle="Teams needed a shared language for priority, readiness, and who moves the work forward."
           />
-          <div className="grid md:grid-cols-2 gap-0 border border-green-100">
+          <div className="grid md:grid-cols-2 gap-0 border border-gray-200">
             {[
               ['Ambiguous intake', 'Requests arrived incomplete, so discovery restarted on every thread.'],
               ['Invisible status', 'Stakeholders could not tell what was blocked, waiting, or in progress.'],
               ['Scattered conversation', 'Decisions lived in email and chat, disconnected from the request record.'],
               ['Uneven handoffs', 'Design and engineering lacked a clear ready-for-handoff checklist.'],
             ].map(([t, b]) => (
-              <div key={t} className="border-r border-b border-green-100 p-5 md:[&:nth-child(2n)]:border-r-0">
+              <div key={t} className="border-r border-b border-gray-200 p-5 md:[&:nth-child(2n)]:border-r-0">
                 <h4 className="text-sm font-semibold text-slate-900 mb-2">{t}</h4>
                 <p className="text-xs text-slate-600 leading-relaxed">{b}</p>
               </div>
@@ -104,7 +104,7 @@ function CaseStudyContent() {
         </div>
       </section>
 
-      <section id="Process" className="py-12 px-6 border-t border-green-100">
+      <section id="Process" className="py-12 px-6 border-t border-gray-200">
         <div className="max-w-7xl mx-auto">
           <SectionIntro
             eyebrow="Process"
@@ -117,7 +117,7 @@ function CaseStudyContent() {
               ['Design progressive intake', 'Collect only what is needed up front; deepen detail as the request advances.'],
               ['Anchor collaboration to the record', 'Comments, decisions, and artifacts stay attached to the request — not lost in side channels.'],
             ].map(([t, b], i) => (
-              <li key={t} className="flex gap-4 border border-green-100 p-4 bg-white">
+              <li key={t} className="flex gap-4 border border-gray-200 p-4 bg-white">
                 <span className="text-[11px] font-bold tabular-nums shrink-0" style={{ color: prAccent }}>
                   {String(i + 1).padStart(2, '0')}
                 </span>
@@ -131,7 +131,7 @@ function CaseStudyContent() {
         </div>
       </section>
 
-      <section id="Outcome" className="py-12 px-6 border-t border-green-100">
+      <section id="Outcome" className="py-12 px-6 border-t border-gray-200">
         <div className="max-w-7xl mx-auto">
           <SectionIntro
             eyebrow="Outcome"

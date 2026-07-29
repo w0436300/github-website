@@ -105,7 +105,7 @@ function LibraryPreviewAbstract({ variant }) {
 
 function DocumentationCard({ title, body }) {
   return (
-    <div className="border border-sky-100 bg-white p-5 hover:bg-sky-50/80 transition-colors">
+    <div className="border border-gray-200 bg-white p-5 hover:bg-gray-50 transition-colors">
       <h4 className="text-sm font-semibold text-slate-900 mb-2">{title}</h4>
       <p className="text-xs text-slate-700 leading-relaxed">{body}</p>
     </div>
@@ -114,12 +114,12 @@ function DocumentationCard({ title, body }) {
 
 export default function DesignStandardPage() {
   return (
-    <div className="case-study-page min-h-screen bg-white text-slate-900 selection:bg-sky-100 scroll-smooth pb-20" style={openSans}>
+    <div className="case-study-page min-h-screen bg-white text-slate-900 selection:bg-gray-100 scroll-smooth pb-20" style={openSans}>
       <section id="Overview" className="pt-2 pb-10 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-wrap items-center gap-2 mb-3 text-[10px] uppercase tracking-widest text-slate-600">
             <span>Enterprise Design Standards · Legacy Audit · Internal Documentation</span>
-            <span className="hidden sm:inline-flex items-center gap-1 border border-sky-100 px-2 py-0.5 text-slate-700">
+            <span className="hidden sm:inline-flex items-center gap-1 border border-gray-200 px-2 py-0.5 text-slate-700">
               <Lock className="w-3 h-3" aria-hidden /> NDA
             </span>
           </div>
@@ -131,9 +131,9 @@ export default function DesignStandardPage() {
           <p className="text-slate-700 text-sm md:text-base leading-relaxed max-w-3xl mb-8">
           Turned years of inconsistent UI decisions into a structured internal standards documentation system used to guide future design work.
           </p>
-          <div className="flex flex-col gap-10 lg:flex-row lg:gap-12 border-t border-sky-100 pt-8">
+          <div className="flex flex-col gap-10 lg:flex-row lg:gap-12 border-t border-gray-200 pt-8">
             <div className="flex-1 space-y-6">
-              <div className="grid grid-cols-2 gap-0 border border-sky-100 overflow-hidden text-[13px] bg-white">
+              <div className="grid grid-cols-2 gap-0 border border-gray-200 overflow-hidden text-[13px] bg-white">
                 {[
                   ['Role', 'Product Designer · BMO'],
                   ['Contribution', 'Audit · Synthesis · Standards Writing'],
@@ -142,7 +142,7 @@ export default function DesignStandardPage() {
                 ].map(([k, v]) => (
                   <div
                     key={k}
-                    className="border-r border-b border-sky-100 p-3 last:border-r-0 [&:nth-child(2n)]:border-r-0 bg-white"
+                    className="border-r border-b border-gray-200 p-3 last:border-r-0 [&:nth-child(2n)]:border-r-0 bg-white"
                   >
                     <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-600 mb-1">{k}</p>
                     <p className={k === 'Status' ? 'text-emerald-700 font-medium' : 'text-slate-800'}>{v}</p>
@@ -150,7 +150,7 @@ export default function DesignStandardPage() {
                 ))}
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-0 border border-sky-100 divide-x divide-sky-100 bg-white">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-0 border border-gray-200 divide-x divide-gray-200 bg-white">
                 {[
                   ['1000+', 'Projects reviewed total'],
                   ['3', 'Platforms aligned'],
@@ -165,7 +165,7 @@ export default function DesignStandardPage() {
               </div>
             </div>
 
-            <div className="flex-1 border border-sky-100 bg-white p-5 max-w-xl mx-auto w-full">
+            <div className="flex-1 border border-gray-200 bg-white p-5 max-w-xl mx-auto w-full">
               <p className="text-[10px] uppercase tracking-wider text-slate-600 mb-2">
                 Projects reviewed by platform
               </p>
@@ -174,7 +174,7 @@ export default function DesignStandardPage() {
                 sample chart). The point was to see where teams repeatedly diverged — so new standards targeted real
                 debt, not one-off quirks.
               </p>
-              <ul className="space-y-3 text-sm text-slate-700 leading-relaxed border-t border-sky-100 pt-4">
+              <ul className="space-y-3 text-sm text-slate-700 leading-relaxed border-t border-gray-200 pt-4">
                 <li>
                   <span className="font-semibold text-slate-900">eForms</span> — Strongest inconsistency signal of the
                   three; drove the largest share of new rules (components, states, spacing).
@@ -222,7 +222,7 @@ export default function DesignStandardPage() {
                 ['Version the documentation earlier', 'Capture decisions as they happen instead of consolidating later.'],
                 ['Plan adoption, not just handoff', 'Pair the standards library with walkthroughs or quick-reference guidance.'],
               ].map(([title, body]) => (
-                <div key={title} className="border border-sky-100 bg-white hover:bg-sky-50/80 px-4 py-3 transition-colors">
+                <div key={title} className="border border-gray-200 bg-white hover:bg-gray-50 px-4 py-3 transition-colors">
                   <h4 className="text-sm font-semibold text-slate-900">{title}</h4>
                   <p className="text-xs text-slate-700 leading-relaxed mt-1">{body}</p>
                 </div>
@@ -234,7 +234,7 @@ export default function DesignStandardPage() {
 
       <section id="Challenge" className="py-1 px-6 pb-12">
         <div className="max-w-7xl mx-auto">
-          <div className="mb-6 border-t border-sky-100 pt-4">
+          <div className="mb-6 border-t border-gray-200 pt-4">
             <h2 className={SECTION_HEAD.h2} style={SECTION_HEAD.h2Style}>Challenge</h2>
             <h3 className={SECTION_HEAD.h3} style={SECTION_HEAD.h3Style}>Outdated guidance, uneven detail
             </h3>
@@ -246,7 +246,7 @@ export default function DesignStandardPage() {
               ['Outdated standards', 'Some standards already existed, but they were outdated and not detailed enough to guide current components, patterns, spacing, and states.'],
               ['Hard to reuse consistently', 'Teams could not quickly check how components, patterns, or spacing should behave.'],
             ].map(([title, body]) => (
-              <div key={title} className="border border-sky-100 bg-white p-5">
+              <div key={title} className="border border-gray-200 bg-white p-5">
                 <h4 className="text-sm font-semibold text-slate-900 mb-2">{title}</h4>
                 <p className="text-sm text-slate-700 leading-relaxed">{body}</p>
               </div>
@@ -257,7 +257,7 @@ export default function DesignStandardPage() {
 
       <section id="Approach" className="py-1 px-6 pb-12">
         <div className="max-w-7xl mx-auto">
-          <div className="mb-6 border-t border-sky-100 pt-4">
+          <div className="mb-6 border-t border-gray-200 pt-4">
             <h2 className={SECTION_HEAD.h2} style={SECTION_HEAD.h2Style}>Approach</h2>
             <h3 className={SECTION_HEAD.h3} style={SECTION_HEAD.h3Style}>From audit to standards library</h3>
             <p className="text-slate-700 text-sm text-left max-w-2xl mt-2">
@@ -296,13 +296,13 @@ export default function DesignStandardPage() {
                 done: false,
               },
             ].map((step) => (
-              <div key={step.phase} className="border border-sky-100 bg-white p-5 pt-6">
+              <div key={step.phase} className="border border-gray-200 bg-white p-5 pt-6">
                 <p className="text-[10px] uppercase tracking-wider text-slate-600 mb-2">{step.phase}</p>
                 <h4 className="text-base font-semibold text-slate-900 mb-2">{step.title}</h4>
                 <p className="text-sm text-slate-700 leading-relaxed mb-4">{step.body}</p>
                 <span
                   className={`inline-block text-[9px] uppercase px-2 py-1 border ${
-                    step.done ? 'border-sky-100 bg-sky-50 text-slate-800' : 'border-sky-100 bg-white text-[#0075BE]'
+                    step.done ? 'border-gray-200 bg-gray-50 text-slate-800' : 'border-gray-200 bg-white text-[#0075BE]'
                   }`}
                 >
                   {step.tag}
@@ -315,7 +315,7 @@ export default function DesignStandardPage() {
 
       <section id="Documentation" className="py-1 px-6 pb-12">
         <div className="max-w-7xl mx-auto">
-          <div className="mb-6 border-t border-sky-100 pt-4">
+          <div className="mb-6 border-t border-gray-200 pt-4">
             <h2 className={SECTION_HEAD.h2} style={SECTION_HEAD.h2Style}>Documentation</h2>
             <h3 className={SECTION_HEAD.h3} style={SECTION_HEAD.h3Style}>What I actually produced</h3>
             <p className="text-slate-700 text-sm text-left max-w-3xl mt-2">
@@ -334,7 +334,7 @@ export default function DesignStandardPage() {
 
       <section id="Structure" className="py-1 px-6 pb-12">
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-[minmax(0,320px)_1fr] gap-10 items-start border border-sky-100 bg-white p-6 md:p-8">
+          <div className="grid lg:grid-cols-[minmax(0,320px)_1fr] gap-10 items-start border border-gray-200 bg-white p-6 md:p-8">
             <div>
               <h3 className={SECTION_HEAD.h3} style={SECTION_HEAD.h3Style}>Standards structure</h3>
               A repeatable page format
@@ -360,7 +360,7 @@ export default function DesignStandardPage() {
 
       <section id="LibraryExamples" className="py-1 px-6 pb-12">
         <div className="max-w-7xl mx-auto">
-          <div className="mb-6 border-t border-sky-100 pt-4">
+          <div className="mb-6 border-t border-gray-200 pt-4">
             <h2 className={SECTION_HEAD.h2} style={SECTION_HEAD.h2Style}>
               Examples from the standards library
             </h2>
@@ -396,15 +396,15 @@ export default function DesignStandardPage() {
             ].map((item) => (
               <div
                 key={item.title}
-                className="border border-sky-100 bg-white overflow-hidden hover:bg-sky-50/60 transition-colors"
+                className="border border-gray-200 bg-white overflow-hidden hover:bg-gray-50 transition-colors"
               >
-                <div className="border-b border-sky-100 bg-slate-50 px-4 py-3">
+                <div className="border-b border-gray-200 bg-slate-50 px-4 py-3">
                   <p className="text-[10px] uppercase tracking-wider text-slate-500 mb-1">{item.label}</p>
                   <h4 className="text-sm font-semibold text-slate-900">{item.title}</h4>
                 </div>
 
                 <div className="p-4">
-                  <div className="border border-dashed border-sky-100 bg-white mb-4 overflow-hidden">
+                  <div className="border border-dashed border-gray-200 bg-white mb-4 overflow-hidden">
                     <LibraryPreviewAbstract variant={item.variant} />
                   </div>
 
@@ -414,7 +414,7 @@ export default function DesignStandardPage() {
             ))}
           </div>
 
-          <div className="mt-4 border border-sky-100 px-4 py-3 text-sm text-slate-700">
+          <div className="mt-4 border border-gray-200 px-4 py-3 text-sm text-slate-700">
             Actual standards pages are NDA-protected. Examples shown here focus on page structure, taxonomy, and
             documentation format rather than product-specific content.
           </div>
@@ -431,7 +431,7 @@ export default function DesignStandardPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-px bg-sky-100 border border-sky-100 overflow-hidden">
+          <div className="grid md:grid-cols-2 gap-px bg-gray-100 border border-gray-200 overflow-hidden">
             {[
               {
                 tag: '✓ Standard set',
@@ -462,18 +462,18 @@ export default function DesignStandardPage() {
                 rule: '4px base scale · gaps use 4, 8, 16, 24, 32 · no freeform values',
               },
             ].map((f, i) => (
-              <div key={f.name} className="bg-white p-6 hover:bg-sky-50/100 transition-colors">
+              <div key={f.name} className="bg-white p-6 hover:bg-gray-50/100 transition-colors">
                 <div className="flex justify-between items-start gap-2 mb-4">
                   <span className="text-[9px] uppercase px-2 py-0.5 border border-emerald-200 bg-emerald-50 text-emerald-800">{f.tag}</span>
                   <span className="text-[9px] text-slate-500 text-right">{f.freq}</span>
                 </div>
-                <div className="border border-dashed border-sky-100 bg-white p-3 mb-4 overflow-hidden">
+                <div className="border border-dashed border-gray-200 bg-white p-3 mb-4 overflow-hidden">
                   <FindingVisualAbstract variant={i % 4} />
                   <span className="sr-only">Visual comparison abstracted (NDA)</span>
                 </div>
                 <h4 className="text-base font-semibold text-slate-900 mb-2">{f.name}</h4>
                 <p className="text-sm text-slate-700 leading-relaxed mb-3">{f.body}</p>
-                <p className="text-[11px] text-[#0075BE] leading-snug bg-white border border-sky-100 px-2 py-2">
+                <p className="text-[11px] text-[#0075BE] leading-snug bg-white border border-gray-200 px-2 py-2">
                   → {f.rule}
                 </p>
               </div>
@@ -497,7 +497,7 @@ export default function DesignStandardPage() {
           <div className="max-w-3xl space-y-10">
             <div>
               <p className="text-[10px] uppercase tracking-[0.14em] text-[#0075BE] mb-4">My contribution</p>
-              <ul className="space-y-5 border-l border-sky-100 pl-5">
+              <ul className="space-y-5 border-l border-gray-200 pl-5">
                 {[
                   { title: 'Audited historical work', desc: 'Compared many projects side by side across years of files.' },
                   { title: 'Structured the variations', desc: 'Grouped repeated differences into decision-ready categories.' },
@@ -526,7 +526,7 @@ export default function DesignStandardPage() {
       </section>
 
       {/* <section id="Outcome" className="py-1 px-6 pb-12">
-        <div className="max-w-7xl mx-auto overflow-hidden border border-sky-100 bg-white text-slate-900">
+        <div className="max-w-7xl mx-auto overflow-hidden border border-gray-200 bg-white text-slate-900">
           <div className="grid md:grid-cols-2 gap-10 p-8 md:p-12">
             <div>
               <p className="text-[10px] uppercase tracking-wider text-[#0075BE] mb-3">Outcome</p>
@@ -539,7 +539,7 @@ export default function DesignStandardPage() {
                 The result was a reusable internal documentation framework, with standards maintained separately for eForms, Letters, and eFes Lite Web.
               </p>
             </div>
-            <div className="space-y-0 divide-y divide-sky-100">
+            <div className="space-y-0 divide-y divide-gray-200">
               {[
                 { display: <>1000<span className="text-[#0075BE]">+</span></>, title: 'Projects reviewed in total', sub: 'Historical files across 3 platforms' },
                 { display: <>20<span className="text-[#0075BE]">+</span></>, title: 'Standards pages documented', sub: 'Components · patterns · standard blocks · and more' },
