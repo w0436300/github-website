@@ -360,9 +360,6 @@ export function ResumePage() {
           />
           <span className="text-[11px] font-bold uppercase tracking-[0.2em]">Back to home</span>
         </Link>
-        <h1 className="text-[44px] md:text-[72px] font-black tracking-tighter mb-10 leading-[0.95] text-black">
-          Resume<span className="text-blue-600">.</span>
-        </h1>
         <a
           href={pdfHref}
           download="ClaireWang_Resume_2026.pdf"
