@@ -197,8 +197,21 @@ export function HomePage() {
                         </span>
                       )}
                     </div>
-                    <div className="flex-1 min-w-0 px-3 py-2 sm:px-4 sm:py-2.5 md:px-5 flex flex-col justify-center overflow-hidden">
-                      <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1 mb-1">
+                    <div className="flex-1 min-w-0 px-3 py-2 sm:px-4 sm:py-2.5 md:px-5 flex flex-col justify-start overflow-hidden">
+                      <div className="flex justify-between items-start gap-2 min-w-0">
+                        <h2 className="text-sm sm:text-base md:text-lg font-medium text-gray-800 group-hover:text-black transition-colors pr-1 truncate">
+                          {p.title}
+                        </h2>
+                        <ArrowUpRight
+                          size={16}
+                          className="text-gray-300 group-hover:text-black transition-colors shrink-0 mt-0.5"
+                          aria-hidden
+                        />
+                      </div>
+                      <p className="mt-0.5 text-[11px] sm:text-xs text-gray-600 leading-snug line-clamp-1">
+                        {p.description}
+                      </p>
+                      <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1 mt-1">
                         <div className="flex flex-wrap gap-1">
                           {p.tags.slice(0, 3).map((tag) => (
                             <span
@@ -223,7 +236,7 @@ export function HomePage() {
                         )}
                       </div>
                       {Array.isArray(p.tools) && p.tools.length > 0 && (
-                        <div className="hidden sm:flex flex-wrap gap-1 mb-1 max-h-[22px] overflow-hidden">
+                        <div className="hidden sm:flex flex-wrap gap-1 mt-1 max-h-[22px] overflow-hidden">
                           {p.tools.slice(0, 5).map((tool) => (
                             <span
                               key={tool}
@@ -234,19 +247,6 @@ export function HomePage() {
                           ))}
                         </div>
                       )}
-                      <div className="flex justify-between items-start gap-2 min-w-0">
-                        <h2 className="text-sm sm:text-base md:text-lg font-medium text-gray-800 group-hover:text-black transition-colors pr-1 truncate">
-                          {p.title}
-                        </h2>
-                        <ArrowUpRight
-                          size={16}
-                          className="text-gray-300 group-hover:text-black transition-colors shrink-0 mt-0.5"
-                          aria-hidden
-                        />
-                      </div>
-                      <p className="mt-0.5 text-[11px] sm:text-xs text-gray-600 leading-snug line-clamp-1">
-                        {p.description}
-                      </p>
                     </div>
                   </div>
                 </button>
