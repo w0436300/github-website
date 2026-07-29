@@ -360,7 +360,7 @@ export function ResumePage() {
           />
           <span className="text-[11px] font-bold uppercase tracking-[0.2em]">Back to home</span>
         </Link>
-        <div>
+        <div className="flex justify-center">
           <a
             href={pdfHref}
             download="ClaireWang_Resume_2026.pdf"
