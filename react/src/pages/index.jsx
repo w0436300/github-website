@@ -1,6 +1,6 @@
 import { useMemo, useState, useCallback } from 'react';
-import { Award, Download, Lock } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Award, Download, Lock, ArrowLeft } from 'lucide-react';
+import { useNavigate, Link } from 'react-router-dom';
 import { useScrollToHash } from '../hooks/useScrollToHash.js';
 import { projects } from '../data/projects.js';
 import { isProjectUnlocked } from '../data/projectPasswords.js';
@@ -347,14 +347,22 @@ export function ResumePage() {
   const pdfHref = `${baseTrim}/resume/ClaireWang_Resume_2026.pdf`;
 
   return (
-    <div className="px-6 md:px-12 lg:px-20 py-20 md:py-32">
+    <div className="px-6 md:px-12 lg:px-20 py-12 md:py-20">
       <div className="max-w-4xl">
+        <Link
+          to="/"
+          className="group mb-8 inline-flex items-center gap-2 text-gray-700 transition-colors hover:text-black"
+        >
+          <ArrowLeft
+            size={16}
+            className="shrink-0 transition-transform group-hover:-translate-x-0.5"
+            aria-hidden
+          />
+          <span className="text-[11px] font-bold uppercase tracking-[0.2em]">Back to home</span>
+        </Link>
         <h1 className="text-[44px] md:text-[72px] font-black tracking-tighter mb-10 leading-[0.95] text-black">
           Resume<span className="text-blue-600">.</span>
         </h1>
-        <p className="text-xl text-gray-500 font-light mb-12 max-w-2xl">
-          Download or view my resume below.
-        </p>
         <a
           href={pdfHref}
           download="ClaireWang_Resume_2026.pdf"
