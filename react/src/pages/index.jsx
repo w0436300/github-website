@@ -152,7 +152,7 @@ export function HomePage() {
             })}
           </div>
 
-          <div className="flex flex-col gap-6 md:gap-8">
+          <div className="flex flex-col gap-4">
             {filteredProjects.map((p) => {
               const imgSrc = p.cover
                 ? `${BASE}${p.cover.startsWith('/') ? p.cover.slice(1) : p.cover}`
@@ -168,7 +168,7 @@ export function HomePage() {
                   onMouseLeave={hideHoverTip}
                   className="group cursor-none text-left bg-white border border-gray-200 border-solid rounded-none shadow-none transition-all hover:shadow-sm hover:bg-gray-50/40 active:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black w-full"
                 >
-                  <div className="flex flex-row items-stretch min-h-[140px] sm:min-h-[168px] md:min-h-[200px]">
+                  <div className="flex flex-row items-stretch h-[70px] sm:h-[84px] md:h-[100px]">
                     <div className="relative w-[38%] sm:w-[40%] md:w-[42%] max-w-[420px] shrink-0 bg-white overflow-hidden border-r border-gray-200 self-stretch">
                       {imgSrc ? (
                         <img
@@ -179,43 +179,43 @@ export function HomePage() {
                           }`}
                         />
                       ) : (
-                        <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 p-3 text-center">
-                          <span className="text-xs sm:text-sm font-bold text-gray-600 line-clamp-3 px-1">
+                        <div className="absolute inset-0 flex flex-col items-center justify-center gap-0.5 p-2 text-center">
+                          <span className="text-[10px] sm:text-xs font-bold text-gray-600 line-clamp-2 px-1">
                             {p.title}
                           </span>
                           {p.placeholderLabel && (
-                            <span className="text-[10px] font-bold text-amber-700 uppercase tracking-wider">
+                            <span className="text-[9px] font-bold text-amber-700 uppercase tracking-wider">
                               {p.placeholderLabel}
                             </span>
                           )}
                         </div>
                       )}
                       {isProtected && (
-                        <span className="absolute top-2 left-2 sm:top-3 sm:left-3 inline-flex items-center gap-1 border border-gray-300 bg-white/95 px-1.5 py-0.5 sm:px-2 sm:py-1 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-gray-700 shadow-sm">
-                          <Lock size={11} strokeWidth={2.5} aria-hidden />
+                        <span className="absolute top-1.5 left-1.5 inline-flex items-center gap-1 border border-gray-300 bg-white/95 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-gray-700 shadow-sm">
+                          <Lock size={10} strokeWidth={2.5} aria-hidden />
                           Password
                         </span>
                       )}
                     </div>
-                    <div className="flex-1 min-w-0 p-4 sm:p-5 md:p-6 flex flex-col justify-center">
-                      <div className="flex flex-wrap items-start justify-between gap-2 sm:gap-3 mb-3 sm:mb-4">
-                        <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                    <div className="flex-1 min-w-0 px-3 py-2 sm:px-4 sm:py-2.5 md:px-5 flex flex-col justify-center overflow-hidden">
+                      <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1 mb-1">
+                        <div className="flex flex-wrap gap-1">
                           {p.tags.slice(0, 3).map((tag) => (
                             <span
                               key={tag}
-                              className="px-2 py-0.5 sm:px-2.5 sm:py-1 text-[9px] sm:text-[10px] font-medium uppercase tracking-wide text-gray-700 border border-gray-300 bg-white"
+                              className="px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wide text-gray-700 border border-gray-300 bg-white"
                             >
                               {tag}
                             </span>
                           ))}
                           {p.tags.length > 3 && (
-                            <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 text-[9px] sm:text-[10px] font-medium uppercase tracking-wide text-gray-700 border border-gray-300 bg-white">
+                            <span className="px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wide text-gray-700 border border-gray-300 bg-white">
                               +{p.tags.length - 3}
                             </span>
                           )}
                         </div>
                         {(p.year || p.location) && (
-                          <div className="flex items-center gap-2 text-[10px] sm:text-[11px] text-gray-500 tabular-nums shrink-0">
+                          <div className="flex items-center gap-1.5 text-[10px] text-gray-500 tabular-nums shrink-0">
                             {p.year && <span>{p.year}</span>}
                             {p.year && p.location && <span className="text-gray-300">·</span>}
                             {p.location && <span>{p.location}</span>}
@@ -223,28 +223,28 @@ export function HomePage() {
                         )}
                       </div>
                       {Array.isArray(p.tools) && p.tools.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5 mb-3">
-                          {p.tools.map((tool) => (
+                        <div className="hidden sm:flex flex-wrap gap-1 mb-1 max-h-[22px] overflow-hidden">
+                          {p.tools.slice(0, 5).map((tool) => (
                             <span
                               key={tool}
-                              className="px-2 py-0.5 text-[11px] sm:text-[12px] font-medium text-gray-800 border border-gray-200/90 group-hover:bg-[#FFCC00] transition-all duration-300 group-hover:text-black"
+                              className="px-1.5 py-0.5 text-[10px] font-medium text-gray-800 border border-gray-200/90 group-hover:bg-[#FFCC00] transition-all duration-300 group-hover:text-black"
                             >
                               {tool}
                             </span>
                           ))}
                         </div>
                       )}
-                      <div className="flex justify-between items-start gap-2">
-                        <h2 className="text-base sm:text-lg md:text-xl font-medium text-gray-800 group-hover:text-black transition-colors pr-2">
+                      <div className="flex justify-between items-start gap-2 min-w-0">
+                        <h2 className="text-sm sm:text-base md:text-lg font-medium text-gray-800 group-hover:text-black transition-colors pr-1 truncate">
                           {p.title}
                         </h2>
                         <ArrowUpRight
-                          size={18}
+                          size={16}
                           className="text-gray-300 group-hover:text-black transition-colors shrink-0 mt-0.5"
                           aria-hidden
                         />
                       </div>
-                      <p className="mt-2 sm:mt-3 text-xs sm:text-sm text-gray-600 leading-relaxed line-clamp-2 sm:line-clamp-3">
+                      <p className="mt-0.5 text-[11px] sm:text-xs text-gray-600 leading-snug line-clamp-1">
                         {p.description}
                       </p>
                     </div>
