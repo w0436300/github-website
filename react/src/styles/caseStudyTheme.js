@@ -15,6 +15,28 @@ export const dsSectionHead = {
   h3Style: { ...openSans, color: `rgb(${dsAccentRgb} / 0.9)`, backgroundColor: "rgb(240, 247, 255)" },
 };
 
+/** AI Knowledge Base — orange */
+export const kbAccentRgb = '194 65 12'; // #c2410c
+export const kbSectionHead = {
+  h2: 'text-sm font-medium text-left uppercase',
+  h2Style: { ...openSans, color: `rgb(${kbAccentRgb})`, backgroundColor: 'rgb(255, 247, 237)' },
+  h3: 'text-xl font-medium text-left tracking-tight',
+  h3Style: { ...openSans, color: `rgb(${kbAccentRgb} / 0.9)`, backgroundColor: 'rgb(255, 247, 237)' },
+};
+export const kbAccent = '#c2410c';
+export const kbAccentSoft = '#ea580c';
+
+/** Project Request — green */
+export const prAccentRgb = '21 128 61'; // #15803d
+export const prSectionHead = {
+  h2: 'text-sm font-medium text-left uppercase',
+  h2Style: { ...openSans, color: `rgb(${prAccentRgb})`, backgroundColor: 'rgb(240, 253, 244)' },
+  h3: 'text-xl font-medium text-left tracking-tight',
+  h3Style: { ...openSans, color: `rgb(${prAccentRgb} / 0.9)`, backgroundColor: 'rgb(240, 253, 244)' },
+};
+export const prAccent = '#15803d';
+export const prAccentSoft = '#16a34a';
+
 /** Ami — soft blue‑green section titles (cyan, less “grass green” than old teal) */
 export const amiAccentRgb = '28 83 47';
 

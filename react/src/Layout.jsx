@@ -114,8 +114,9 @@ export default function Layout() {
     return () => window.removeEventListener('project-unlock', onUnlock);
   }, [projectIdFromPath]);
 
-  const isBlueCaseStudy =
-    isDesignStandardPage || isBankDocumentPage || isAiKnowledgePage || isProjectRequestPage;
+  const isBlueCaseStudy = isDesignStandardPage || isBankDocumentPage;
+  const isOrangeCaseStudy = isAiKnowledgePage;
+  const isGreenCaseStudy = isProjectRequestPage;
   const isProtectedCaseStudy = isAiKnowledgePage || isProjectRequestPage;
   const isCaseStudyPage =
     isAiTutorPage ||
@@ -238,31 +239,47 @@ export default function Layout() {
 
   const headerBarClass = isBlueCaseStudy
     ? 'border-sky-200 bg-sky-50/95 backdrop-blur-md supports-[backdrop-filter]:bg-sky-50/90'
-    : isAiTutorPage
-      ? 'border-cyan-200/80 bg-cyan-50/90 backdrop-blur-md supports-[backdrop-filter]:bg-cyan-50/85'
-      : 'border-gray-100 bg-white/95 backdrop-blur-md supports-[backdrop-filter]:bg-white/90';
+    : isOrangeCaseStudy
+      ? 'border-orange-200 bg-orange-50/95 backdrop-blur-md supports-[backdrop-filter]:bg-orange-50/90'
+      : isGreenCaseStudy
+        ? 'border-green-200 bg-green-50/95 backdrop-blur-md supports-[backdrop-filter]:bg-green-50/90'
+        : isAiTutorPage
+          ? 'border-cyan-200/80 bg-cyan-50/90 backdrop-blur-md supports-[backdrop-filter]:bg-cyan-50/85'
+          : 'border-gray-100 bg-white/95 backdrop-blur-md supports-[backdrop-filter]:bg-white/90';
 
   const backBtnClass = isBlueCaseStudy
     ? 'text-slate-700 hover:text-sky-900'
-    : isAiTutorPage
-      ? 'text-slate-700 hover:text-cyan-900'
-      : 'text-gray-700 hover:text-blue-600';
+    : isOrangeCaseStudy
+      ? 'text-slate-700 hover:text-orange-900'
+      : isGreenCaseStudy
+        ? 'text-slate-700 hover:text-green-900'
+        : isAiTutorPage
+          ? 'text-slate-700 hover:text-cyan-900'
+          : 'text-gray-700 hover:text-blue-600';
 
   const backIconClass = isBlueCaseStudy
     ? 'text-slate-500 group-hover:text-sky-800'
-    : isAiTutorPage
-      ? 'text-slate-500 group-hover:text-cyan-800'
-      : 'text-gray-400 group-hover:text-blue-600';
+    : isOrangeCaseStudy
+      ? 'text-slate-500 group-hover:text-orange-800'
+      : isGreenCaseStudy
+        ? 'text-slate-500 group-hover:text-green-800'
+        : isAiTutorPage
+          ? 'text-slate-500 group-hover:text-cyan-800'
+          : 'text-gray-400 group-hover:text-blue-600';
 
   const sectionLinkClass = (sectionId) => {
     const active = isCaseStudyPage && activeCaseStudySection === sectionId;
     if (active) {
       if (isBlueCaseStudy) return 'bg-sky-200/80 text-sky-900';
+      if (isOrangeCaseStudy) return 'bg-orange-200/80 text-orange-950';
+      if (isGreenCaseStudy) return 'bg-green-200/80 text-green-950';
       if (isAiTutorPage) return 'border border-cyan-200/80 bg-cyan-50/90 text-cyan-950';
       return 'bg-cyan-50 text-[rgb(52,118,128)]';
     }
     if (isCaseStudyPage) {
       if (isBlueCaseStudy) return 'border border-transparent text-slate-600 hover:bg-sky-100/90 hover:text-sky-900';
+      if (isOrangeCaseStudy) return 'border border-transparent text-slate-600 hover:bg-orange-100/90 hover:text-orange-900';
+      if (isGreenCaseStudy) return 'border border-transparent text-slate-600 hover:bg-green-100/90 hover:text-green-900';
       if (isAiTutorPage) return 'border border-transparent text-slate-600 hover:bg-slate-100/90 hover:text-slate-900';
       return 'text-gray-600 hover:bg-teal-50/50 hover:text-[rgb(52,118,128)]';
     }
