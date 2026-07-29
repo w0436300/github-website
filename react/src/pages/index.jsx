@@ -212,7 +212,7 @@ export function HomePage() {
                         {p.description}
                       </p>
                       <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1 mt-1">
-                        <div className="flex flex-wrap gap-1">
+                        <div className="flex flex-wrap items-center gap-1 min-w-0">
                           {p.tags.slice(0, 3).map((tag) => (
                             <span
                               key={tag}
@@ -226,6 +226,15 @@ export function HomePage() {
                               +{p.tags.length - 3}
                             </span>
                           )}
+                          {Array.isArray(p.tools) &&
+                            p.tools.slice(0, 5).map((tool) => (
+                              <span
+                                key={tool}
+                                className="px-1 py-0.5 text-[8px] sm:text-[9px] font-medium text-gray-800 border border-gray-200/90 group-hover:bg-[#FFCC00] transition-all duration-300 group-hover:text-black"
+                              >
+                                {tool}
+                              </span>
+                            ))}
                         </div>
                         {(p.year || p.location) && (
                           <div className="flex items-center gap-1.5 text-[10px] text-gray-500 tabular-nums shrink-0">
@@ -235,18 +244,6 @@ export function HomePage() {
                           </div>
                         )}
                       </div>
-                      {Array.isArray(p.tools) && p.tools.length > 0 && (
-                        <div className="hidden sm:flex flex-wrap gap-1 mt-1 max-h-[22px] overflow-hidden">
-                          {p.tools.slice(0, 5).map((tool) => (
-                            <span
-                              key={tool}
-                              className="px-1.5 py-0.5 text-[10px] font-medium text-gray-800 border border-gray-200/90 group-hover:bg-[#FFCC00] transition-all duration-300 group-hover:text-black"
-                            >
-                              {tool}
-                            </span>
-                          ))}
-                        </div>
-                      )}
                     </div>
                   </div>
                 </button>
