@@ -1137,15 +1137,15 @@ export default function AiTutorPage() {
                     key={step.title}
                     type="button"
                     onClick={() => setActiveStep(idx)}
-                    className={`group text-left px-4 py-3 border-r border-gray-200 last:border-r-0 transition-colors shrink-0 min-w-[140px] md:min-w-0 md:flex-1 ${
+                    className={`group text-left px-4 py-1 border-r border-gray-200 last:border-r-0 transition-colors shrink-0 min-w-[140px] md:min-w-0 md:flex-1 ${
                       isActive
                         ? 'bg-white'
                         : 'bg-slate-50 hover:bg-white'
                     }`}
                     style={
                       isActive
-                        ? { borderBottom: `3px solid rgb(${amiAccentRgb} / 0.88)`, paddingBottom: 'calc(0.75rem - 3px)' }
-                        : { borderBottom: '3px solid transparent', paddingBottom: 'calc(0.75rem - 3px)' }
+                        ? { borderBottom: `3px solid rgb(${amiAccentRgb} / 0.88)`, paddingBottom: '1px' }
+                        : { borderBottom: '3px solid transparent', paddingBottom: '1px' }
                     }
                   >
                     <p
