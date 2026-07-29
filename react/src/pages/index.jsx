@@ -162,16 +162,44 @@ export function HomePage() {
         </h1>
 
 
-        <div className="space-y-0 mb-6 max-w-4xl border-gray-200 pb-6">
-          {SKILL_ROWS.map((row) => (
-            <p key={row.label} className="text-regular leading-snug">
-              <span className="text-blue-800 font-medium uppercase tracking-wider border-l-4 border-blue-800 pl-2">
-                {row.label}
-                <span className="text-blue-800 mx-1.5">—</span>
-              </span>
-              <span className="text-gray-800 font-normal">{row.value}</span>
-            </p>
-          ))}
+        <div className="relative space-y-0 mb-6 max-w-4xl border-gray-200 pb-6">
+          <svg
+            className="pointer-events-none absolute -left-3 -right-3 -top-2 -bottom-2 sm:-left-4 sm:-right-4 sm:-top-3 sm:-bottom-3 z-0"
+            viewBox="0 0 880 120"
+            preserveAspectRatio="none"
+            aria-hidden
+          >
+            <path
+              d="M18 58
+                 C -8 18, 70 -8, 160 12
+                 C 230 -10, 340 -6, 420 18
+                 C 510 -12, 620 4, 710 22
+                 C 790 8, 870 28, 878 62
+                 C 886 96, 820 118, 730 108
+                 C 640 122, 520 116, 430 102
+                 C 320 120, 200 118, 110 100
+                 C 40 112, -6 92, 18 58 Z"
+              fill="#FFF3B0"
+            />
+            <path
+              d="M120 8
+                 C 200 -6, 290 10, 340 28
+                 C 280 18, 190 14, 120 8 Z"
+              fill="#FFE566"
+              opacity="0.55"
+            />
+          </svg>
+          <div className="relative z-10 space-y-0">
+            {SKILL_ROWS.map((row) => (
+              <p key={row.label} className="text-regular leading-snug">
+                <span className="text-blue-800 font-medium uppercase tracking-wider border-l-4 border-blue-800 pl-2">
+                  {row.label}
+                  <span className="text-blue-800 mx-1.5">—</span>
+                </span>
+                <span className="text-gray-800 font-normal">{row.value}</span>
+              </p>
+            ))}
+          </div>
         </div>
 
         <div id="project" className="scroll-mt-8">
