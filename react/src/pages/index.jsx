@@ -1,8 +1,12 @@
-import { useMemo, useState } from 'react';
-import { Award, ArrowUpRight, Download } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useMemo, useState, useCallback } from 'react';
+import { Award, Download, Lock, ArrowLeft } from 'lucide-react';
+import { useNavigate, Link } from 'react-router-dom';
 import { useScrollToHash } from '../hooks/useScrollToHash.js';
 import { projects } from '../data/projects.js';
+import { isProjectUnlocked } from '../data/projectPasswords.js';
+import { tryUnlockProject } from '../hooks/useProjectUnlock.js';
+import PasswordModal from '../components/PasswordModal.jsx';
+import { getProjectHoverTheme, OrganicHoverMask, ProjectJumpArrow } from '../components/OrganicHoverMask.jsx';
 import { sourceSansPro } from '../styles/caseStudyTheme.js';
 
 const BASE = import.meta.env.BASE_URL || '/';
@@ -12,6 +16,8 @@ const FEATURED_IDS = [
   'cognitive-adaptive-ai-tutor',
   'design-standard-wcag',
   'bank-document-system',
+  'ai-knowledge-base-engineering',
+  'project-request-collaboration',
   'medisupply-hub-ui',
 ];
 
@@ -50,6 +56,8 @@ export function HomePage() {
   useScrollToHash();
   const [activeCategory, setActiveCategory] = useState('Featured');
   const [hoverTip, setHoverTip] = useState({ show: false, x: 0, y: 0, message: 'View details' });
+  const [passwordModal, setPasswordModal] = useState({ open: false, project: null });
+  const [passwordError, setPasswordError] = useState('');
   const navigate = useNavigate();
 
   const showHoverTip = (e, message) => {
@@ -60,13 +68,57 @@ export function HomePage() {
   };
   const hideHoverTip = () => setHoverTip((prev) => ({ ...prev, show: false }));
 
-  const filteredProjects = useMemo(
-    () => projects.filter((p) => projectMatchesTab(p, activeCategory)),
-    [activeCategory]
+  const closePasswordModal = useCallback(() => {
+    setPasswordModal({ open: false, project: null });
+    setPasswordError('');
+  }, []);
+
+  const openProject = useCallback(
+    (p) => {
+      hideHoverTip();
+      if (p.passwordProtected && !isProjectUnlocked(p.id)) {
+        setPasswordError('');
+        setPasswordModal({ open: true, project: p });
+        return;
+      }
+      navigate(`/project/${p.id}`);
+    },
+    [navigate]
   );
+
+  const handlePasswordUnlock = useCallback(
+    (password) => {
+      const project = passwordModal.project;
+      if (!project) return false;
+      const ok = tryUnlockProject(project.id, password);
+      if (!ok) {
+        setPasswordError('Incorrect password. Please try again.');
+        return false;
+      }
+      setPasswordError('');
+      setPasswordModal({ open: false, project: null });
+      navigate(`/project/${project.id}`);
+      return true;
+    },
+    [navigate, passwordModal.project]
+  );
+
+  const filteredProjects = useMemo(() => {
+    const list = projects.filter((p) => projectMatchesTab(p, activeCategory));
+    if (activeCategory !== 'Featured') return list;
+    const order = new Map(FEATURED_IDS.map((id, i) => [id, i]));
+    return [...list].sort((a, b) => (order.get(a.id) ?? 999) - (order.get(b.id) ?? 999));
+  }, [activeCategory]);
 
   return (
     <section id="home" className="px-6 md:px-12 lg:px-20 pt-4 md:pt-4 pb-12 md:pb-4 bg-white">
+      <PasswordModal
+        open={passwordModal.open}
+        onUnlock={handlePasswordUnlock}
+        error={passwordError}
+        onClearError={() => setPasswordError('')}
+        onClose={closePasswordModal}
+      />
       <div className="max-w-7xl mx-auto w-full">
         {hoverTip.show && (
           <div
@@ -76,7 +128,9 @@ export function HomePage() {
           >
             <span
               className={`inline-flex items-center px-2 py-1 text-[10px] font-bold uppercase tracking-wider shadow-sm ${
-                ['View details', 'Featured', 'UX Design', 'Full Stack', 'Data', 'All'].includes(hoverTip.message)
+                ['View details', 'Enter password', 'Featured', 'UX Design', 'Full Stack', 'Data', 'All'].includes(
+                  hoverTip.message
+                )
                   ? 'border-2 border-[#FFCC00] bg-white text-black'
                   : 'border border-gray-200 bg-white text-gray-700'
               }`}
@@ -108,16 +162,44 @@ export function HomePage() {
         </h1>
 
 
-        <div className="space-y-0 mb-6 max-w-4xl border-gray-200 pb-6">
-          {SKILL_ROWS.map((row) => (
-            <p key={row.label} className="text-regular leading-snug">
-              <span className="text-blue-800 font-medium uppercase tracking-wider border-l-4 border-blue-800 pl-2">
-                {row.label}
-                <span className="text-blue-800 mx-1.5">—</span>
-              </span>
-              <span className="text-gray-800 font-normal">{row.value}</span>
-            </p>
-          ))}
+        <div className="relative space-y-0 mb-6 max-w-4xl border-gray-200 pb-6">
+          <svg
+            className="pointer-events-none absolute -left-3 -right-3 -top-2 -bottom-2 sm:-left-4 sm:-right-4 sm:-top-3 sm:-bottom-3 z-0"
+            viewBox="0 0 880 120"
+            preserveAspectRatio="none"
+            aria-hidden
+          >
+            <path
+              d="M18 58
+                 C -8 18, 70 -8, 160 12
+                 C 230 -10, 340 -6, 420 18
+                 C 510 -12, 620 4, 710 22
+                 C 790 8, 870 28, 878 62
+                 C 886 96, 820 118, 730 108
+                 C 640 122, 520 116, 430 102
+                 C 320 120, 200 118, 110 100
+                 C 40 112, -6 92, 18 58 Z"
+              fill="#FCE7F3"
+            />
+            <path
+              d="M120 8
+                 C 200 -6, 290 10, 340 28
+                 C 280 18, 190 14, 120 8 Z"
+              fill="#F9A8D4"
+              opacity="0.45"
+            />
+          </svg>
+          <div className="relative z-10 space-y-0">
+            {SKILL_ROWS.map((row) => (
+              <p key={row.label} className="text-regular leading-snug">
+                <span className="text-blue-800 font-medium uppercase tracking-wider border-l-4 border-blue-800 pl-2">
+                  {row.label}
+                  <span className="text-blue-800 mx-1.5">—</span>
+                </span>
+                <span className="text-gray-800 font-normal">{row.value}</span>
+              </p>
+            ))}
+          </div>
         </div>
 
         <div id="project" className="scroll-mt-8">
@@ -148,91 +230,107 @@ export function HomePage() {
             })}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+          <div className="flex flex-col gap-4">
             {filteredProjects.map((p) => {
               const imgSrc = p.cover
                 ? `${BASE}${p.cover.startsWith('/') ? p.cover.slice(1) : p.cover}`
                 : null;
+              const isProtected = Boolean(p.passwordProtected);
+              const hoverTheme = getProjectHoverTheme(p);
               return (
                 <button
                   key={p.id}
                   type="button"
-                  onClick={() => navigate(`/project/${p.id}`)}
-                  onMouseEnter={(e) => showHoverTip(e, 'View details')}
+                  onClick={() => openProject(p)}
+                  onMouseEnter={(e) => showHoverTip(e, isProtected ? 'Enter password' : 'View details')}
                   onMouseMove={moveHoverTip}
                   onMouseLeave={hideHoverTip}
-                  className="group cursor-none text-left bg-white border border-gray-200 border-solid rounded-none shadow-none transition-all hover:shadow-sm hover:bg-gray-50/40 active:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                  className="group cursor-none text-left bg-white border border-gray-200 border-solid rounded-[8px] overflow-hidden shadow-none transition-all hover:shadow-sm active:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black w-full"
                 >
-                  <div className="aspect-video bg-white overflow-hidden border-b border-gray-200 relative">
-                    {imgSrc ? (
-                      <img
-                        src={imgSrc}
-                        alt={p.title}
-                        className={`absolute inset-0 h-full w-full object-cover object-center ${
-                          p.cover?.endsWith('.svg') ? '' : 'scale-[1.06]'
-                        }`}
-                      />
-                    ) : (
-                      <div className="w-full h-full flex flex-col items-center justify-center gap-1 p-4 text-center">
-                        <span className="text-sm font-bold text-gray-600 line-clamp-2 px-2">{p.title}</span>
-                        {p.placeholderLabel && (
-                          <span className="text-[10px] font-bold text-amber-700 uppercase tracking-wider">
-                            {p.placeholderLabel}
+                  <div className="flex flex-row items-stretch h-[70px] sm:h-[84px] md:h-[100px]">
+                    <div className="relative w-[28%] sm:w-[30%] md:w-[32%] max-w-[280px] shrink-0 bg-white overflow-hidden border-r border-gray-200 self-stretch">
+                      {imgSrc ? (
+                        <img
+                          src={imgSrc}
+                          alt={p.title}
+                          className={`absolute inset-0 h-full w-full object-center ${
+                            p.cover?.endsWith('.svg')
+                              ? 'object-contain p-1 bg-white'
+                              : 'object-cover scale-[1.06]'
+                          }`}
+                        />
+                      ) : (
+                        <div className="absolute inset-0 flex flex-col items-center justify-center gap-0.5 p-2 text-center">
+                          <span className="text-[10px] sm:text-xs font-bold text-gray-600 line-clamp-2 px-1">
+                            {p.title}
                           </span>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-5 md:p-6">
-                    <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
-                      <div className="flex flex-wrap gap-2">
-                        {p.tags.slice(0, 3).map((tag) => (
-                          <span
-                            key={tag}
-                            className="px-2.5 py-1 text-[10px] font-medium uppercase tracking-wide text-gray-700 border border-gray-300 bg-white"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                        {p.tags.length > 3 && (
-                          <span className="px-2.5 py-1 text-[10px] font-medium uppercase tracking-wide text-gray-700 border border-gray-300 bg-white">
-                            +{p.tags.length - 3}
-                          </span>
-                        )}
-                        
-                      </div>
-                      {(p.year || p.location) && (
-                        <div className="flex items-center gap-2 text-[11px] text-gray-500 tabular-nums shrink-0 ml-auto">
-                          {p.year && <span>{p.year}</span>}
-                          {p.year && p.location && <span className="text-gray-300">·</span>}
-                          {p.location && <span>{p.location}</span>}
+                          {p.placeholderLabel && (
+                            <span className="text-[9px] font-bold text-amber-700 uppercase tracking-wider">
+                              {p.placeholderLabel}
+                            </span>
+                          )}
                         </div>
                       )}
-                      {Array.isArray(p.tools) && p.tools.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5">
-                          {p.tools.map((tool) => (
+                      {isProtected && (
+                        <span
+                          className="absolute top-1.5 left-1.5 inline-flex items-center gap-1 border border-gray-300 bg-white/95 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-gray-700 shadow-sm"
+                          title="NDA — password required"
+                        >
+                          <Lock size={10} strokeWidth={2.5} aria-hidden />
+                          NDA
+                        </span>
+                      )}
+                    </div>
+                    <div className="relative flex-1 min-w-0 self-stretch overflow-hidden">
+                      {/* Default: title + tags + tools */}
+                      <div className="relative z-0 flex h-full flex-col justify-center gap-1 px-3 py-2 sm:px-4 md:px-5 transition-opacity duration-200 group-hover:opacity-0 group-focus-within:opacity-0">
+                        <div className="flex justify-between items-start gap-2 min-w-0">
+                          <h2 className="text-sm sm:text-base md:text-lg font-medium text-gray-800 truncate min-w-0 pr-1">
+                            {p.title}
+                          </h2>
+                          {(p.year || p.location) && (
+                            <div className="flex items-center gap-1.5 text-[10px] text-gray-500 tabular-nums shrink-0 mt-0.5">
+                              {p.year && <span>{p.year}</span>}
+                              {p.year && p.location && <span className="text-gray-300">·</span>}
+                              {p.location && <span>{p.location}</span>}
+                            </div>
+                          )}
+                        </div>
+                        <div className="flex flex-wrap items-center gap-1 min-w-0">
+                          {p.tags.slice(0, 3).map((tag) => (
                             <span
-                              key={tool}
-                              className="px-2 py-0.5 text-[12px] font-medium text-gray-800  border border-gray-200/90 group-hover:bg-[#FFCC00] group-hover: text-black   transition-all duration-300 group-hover:text-black"
+                              key={tag}
+                              className="px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wide text-gray-700 border border-gray-300 bg-white"
                             >
-                              {tool}
+                              {tag}
                             </span>
                           ))}
+                          {p.tags.length > 3 && (
+                            <span className="px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wide text-gray-700 border border-gray-300 bg-white">
+                              +{p.tags.length - 3}
+                            </span>
+                          )}
+                          {Array.isArray(p.tools) && p.tools.length > 0 && (
+                            <span className="ml-1 text-[8px] sm:text-[9px] font-medium text-gray-600 truncate">
+                              {p.tools.slice(0, 5).join(' | ')}
+                            </span>
+                          )}
+                        </div>
                       </div>
-                    )}
+
+                      <OrganicHoverMask theme={hoverTheme} />
+
+                      {/* Hover: description + themed jump arrow */}
+                      <div className="absolute inset-0 z-20 flex items-center justify-between gap-3 px-3 py-2 sm:px-4 md:px-5 opacity-0 transition-opacity duration-300 delay-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        <p className="text-sm sm:text-base text-gray-900 leading-snug line-clamp-3 min-w-0 flex-1">
+                          {p.description}
+                        </p>
+                        <ProjectJumpArrow
+                          className="shrink-0 w-9 h-5 sm:w-11 sm:h-7 transition-transform duration-300 ease-out group-hover:translate-x-1.5 group-focus-within:translate-x-1.5"
+                          style={{ color: hoverTheme.ink || '#0f172a' }}
+                        />
+                      </div>
                     </div>
-                    <div className="flex justify-between items-start gap-2">
-                      <h2 className="text-lg md:text-xl font-medium text-gray-800 group-hover:text-black transition-colors pr-2">
-                        {p.title}
-                      </h2>
-                      <ArrowUpRight
-                        size={18}
-                        className="text-gray-300 group-hover:text-black transition-colors shrink-0 mt-0.5"
-                        aria-hidden
-                      />
-                    </div>
-                    <p className="mt-3 text-sm text-gray-600 leading-relaxed line-clamp-3">{p.description}</p>
-                    
                   </div>
                 </button>
               );
@@ -249,26 +347,31 @@ export function ResumePage() {
   const pdfHref = `${baseTrim}/resume/ClaireWang_Resume_2026.pdf`;
 
   return (
-    <div className="px-6 md:px-12 lg:px-20 py-20 md:py-32">
-      <div className="max-w-4xl">
-        <h1 className="text-[44px] md:text-[72px] font-black tracking-tighter mb-10 leading-[0.95] text-black">
-          Resume<span className="text-blue-600">.</span>
-        </h1>
-        <p className="text-xl text-gray-500 font-light mb-12 max-w-2xl">
-          Download or view my resume below.
-        </p>
+    <div className="px-6 md:px-12 lg:px-20 py-6 md:py-8">
+      <Link
+        to="/"
+        className="group mb-3 inline-flex items-center gap-2 text-gray-700 transition-colors hover:text-black"
+      >
+        <ArrowLeft
+          size={16}
+          className="shrink-0 transition-transform group-hover:-translate-x-0.5"
+          aria-hidden
+        />
+        <span className="text-[11px] font-bold uppercase tracking-[0.2em]">Back to home</span>
+      </Link>
+      <div className="flex justify-center">
         <a
           href={pdfHref}
           download="ClaireWang_Resume_2026.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-2 bg-black text-white rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-blue-600 transition-all h-12 px-6"
+          className="inline-flex items-center justify-center gap-2 bg-black text-white rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-blue-600 transition-all h-10 px-5"
         >
           <Download size={16} />
           Download PDF
         </a>
       </div>
-      <div className="mt-16 rounded-2xl overflow-hidden border border-gray-100 bg-gray-50/50">
+      <div className="mt-6 rounded-2xl overflow-hidden border border-gray-100 bg-gray-50/50">
         <iframe
           src={pdfHref}
           title="Resume PDF"

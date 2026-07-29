@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 280" width="800" height="280" role="img" aria-label="Before and after: Excel Word Email versus modular request collaboration cards">
+  <defs>
+    <linearGradient id="pr-g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#15803d"/>
+      <stop offset="100%" stop-color="#14532d"/>
+    </linearGradient>
+    <filter id="prShadow" x="-15%" y="-15%" width="130%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#14532d" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="280" fill="#f3f4f6"/>
+
+  <!-- LEFT: Excel + Word + Email icons (fragmented intake) -->
+  <g>
+    <rect x="36" y="28" width="300" height="224" rx="4" fill="#fff" stroke="#e5e7eb" stroke-width="1.5"/>
+
+    <g transform="translate(68 72)">
+      <rect width="56" height="56" rx="6" fill="#107c41"/>
+      <text x="28" y="36" text-anchor="middle" font-family="system-ui,sans-serif" font-size="20" font-weight="800" fill="#fff">X</text>
+      <text x="28" y="74" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="#64748b" letter-spacing="0.06em">EXCEL</text>
+    </g>
+
+    <g transform="translate(158 72)">
+      <rect width="56" height="56" rx="6" fill="#2b579a"/>
+      <text x="28" y="36" text-anchor="middle" font-family="system-ui,sans-serif" font-size="20" font-weight="800" fill="#fff">W</text>
+      <text x="28" y="74" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="#64748b" letter-spacing="0.06em">WORD</text>
+    </g>
+
+    <g transform="translate(248 72)">
+      <rect width="56" height="56" rx="6" fill="#64748b"/>
+      <rect x="12" y="16" width="32" height="24" rx="2" fill="none" stroke="#fff" stroke-width="2.5"/>
+      <path d="M12 18 L28 30 L44 18" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="28" y="74" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="#64748b" letter-spacing="0.06em">EMAIL</text>
+    </g>
+
+    <path d="M96 170 L96 190 L186 190 L186 170" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <path d="M186 170 L186 190 L276 190 L276 170" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <text x="186" y="218" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#64748b">Scattered requests</text>
+
+    <text x="186" y="268" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#64748b" letter-spacing="0.12em">BEFORE</text>
+  </g>
+
+  <!-- VS badge -->
+  <g>
+    <circle cx="400" cy="130" r="26" fill="#fff" stroke="#15803d" stroke-width="2" filter="url(#prShadow)"/>
+    <text x="400" y="135" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="800" fill="#15803d" letter-spacing="0.06em">VS</text>
+  </g>
+
+  <!-- RIGHT: modular bento inspired by request workspace (not a full page copy) -->
+  <g>
+    <rect x="464" y="28" width="300" height="224" rx="6" fill="#eef2f0"/>
+
+    <!-- Status / progress card -->
+    <rect x="480" y="44" width="268" height="72" rx="14" fill="#fff" filter="url(#prShadow)"/>
+    <text x="496" y="64" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="#6b7280">Status</text>
+    <rect x="668" y="52" width="64" height="16" rx="8" fill="#dbeafe"/>
+    <text x="700" y="63" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" font-weight="700" fill="#1d4ed8">In review</text>
+
+    <!-- timeline stages -->
+    <rect x="496" y="78" width="52" height="6" rx="3" fill="#86efac"/>
+    <rect x="556" y="78" width="72" height="8" rx="4" fill="#15803d"/>
+    <rect x="636" y="78" width="52" height="6" rx="3" fill="#e5e7eb"/>
+    <rect x="696" y="78" width="36" height="6" rx="3" fill="#e5e7eb"/>
+    <text x="522" y="102" text-anchor="middle" font-family="system-ui,sans-serif" font-size="7" font-weight="600" fill="#9ca3af">Raised</text>
+    <text x="592" y="102" text-anchor="middle" font-family="system-ui,sans-serif" font-size="7" font-weight="700" fill="#15803d">Review</text>
+    <text x="662" y="102" text-anchor="middle" font-family="system-ui,sans-serif" font-size="7" font-weight="600" fill="#9ca3af">Build</text>
+    <text x="714" y="102" text-anchor="middle" font-family="system-ui,sans-serif" font-size="7" font-weight="600" fill="#9ca3af">Done</text>
+
+    <!-- Members mini card -->
+    <rect x="480" y="128" width="128" height="72" rx="14" fill="#fff" filter="url(#prShadow)"/>
+    <text x="496" y="148" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="#6b7280">Owners</text>
+    <circle cx="508" cy="172" r="12" fill="#1e3a5f"/>
+    <text x="508" y="176" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" font-weight="700" fill="#fff">CL</text>
+    <circle cx="532" cy="172" r="12" fill="#0f766e"/>
+    <text x="532" y="176" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" font-weight="700" fill="#fff">JK</text>
+    <circle cx="556" cy="172" r="12" fill="#b45309"/>
+    <text x="556" y="176" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" font-weight="700" fill="#fff">AM</text>
+    <circle cx="580" cy="172" r="12" fill="#f3f4f6" stroke="#e5e7eb"/>
+    <text x="580" y="176" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" font-weight="700" fill="#6b7280">+</text>
+
+    <!-- Tags + date mini cards stacked -->
+    <rect x="620" y="128" width="128" height="34" rx="12" fill="#fff" filter="url(#prShadow)"/>
+    <rect x="632" y="138" width="46" height="14" rx="7" fill="#f3f4f6"/>
+    <text x="655" y="148" text-anchor="middle" font-family="system-ui,sans-serif" font-size="7" font-weight="700" fill="#374151">UX</text>
+    <rect x="684" y="138" width="52" height="14" rx="7" fill="#f3f4f6"/>
+    <text x="710" y="148" text-anchor="middle" font-family="system-ui,sans-serif" font-size="7" font-weight="700" fill="#374151">Intake</text>
+
+    <rect x="620" y="168" width="128" height="32" rx="12" fill="#fff" filter="url(#prShadow)"/>
+    <text x="634" y="188" font-family="system-ui,sans-serif" font-size="8" font-weight="600" fill="#9ca3af">Due</text>
+    <text x="730" y="188" text-anchor="end" font-family="system-ui,sans-serif" font-size="9" font-weight="700" fill="#111827">Mar 12</text>
+
+    <!-- green CTA strip -->
+    <rect x="480" y="212" width="268" height="28" rx="14" fill="url(#pr-g)" filter="url(#prShadow)"/>
+    <text x="500" y="230" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="#fff">New request</text>
+    <circle cx="724" cy="226" r="9" fill="#fff"/>
+    <path d="M721 226h6M724 223v6" stroke="#15803d" stroke-width="1.8" stroke-linecap="round"/>
+
+    <text x="614" y="268" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#15803d" letter-spacing="0.12em">AFTER</text>
+  </g>
+</svg>

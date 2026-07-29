@@ -9,6 +9,9 @@ import {
   Linkedin,
   FileText,
 } from 'lucide-react';
+import {
+  isProjectUnlocked,
+} from './data/projectPasswords.js';
 
 const HOME_NAV = [
   { name: 'Work', icon: Briefcase, href: '#home', kind: 'work' },
@@ -66,6 +69,22 @@ const BANK_DOCUMENT_NAV_LINKS = [
   { name: 'Mockup', href: '#Mockup' },
 ];
 
+/** Must match section `id`s on AiKnowledgeBasePage. */
+const AI_KNOWLEDGE_NAV_LINKS = [
+  { name: 'Overview', href: '#Overview' },
+  { name: 'Problem', href: '#Problem' },
+  { name: 'Approach', href: '#Approach' },
+  { name: 'Outcome', href: '#Outcome' },
+];
+
+/** Must match section `id`s on ProjectRequestPage. */
+const PROJECT_REQUEST_NAV_LINKS = [
+  { name: 'Overview', href: '#Overview' },
+  { name: 'Challenge', href: '#Challenge' },
+  { name: 'Process', href: '#Process' },
+  { name: 'Outcome', href: '#Outcome' },
+];
+
 export default function Layout() {
   const [activeCaseStudySection, setActiveCaseStudySection] = useState('Overview');
   const siteHeaderRef = useRef(null);
@@ -76,19 +95,50 @@ export default function Layout() {
   const isHome = location.pathname === '/' || location.pathname === '';
   const isAboutPage = location.pathname === '/blog';
   const isProjectPage = location.pathname.startsWith('/project/');
+  const projectIdFromPath = isProjectPage ? location.pathname.replace(/^\/project\//, '') : null;
   const isAiTutorPage = location.pathname === '/project/cognitive-adaptive-ai-tutor';
   const isDesignStandardPage = location.pathname === '/project/design-standard-wcag';
   const isBankDocumentPage = location.pathname === '/project/bank-document-system';
+  const isAiKnowledgePage = location.pathname === '/project/ai-knowledge-base-engineering';
+  const isProjectRequestPage = location.pathname === '/project/project-request-collaboration';
+  const [protectedUnlocked, setProtectedUnlocked] = useState(() =>
+    projectIdFromPath ? isProjectUnlocked(projectIdFromPath) : true
+  );
+
+  useEffect(() => {
+    setProtectedUnlocked(projectIdFromPath ? isProjectUnlocked(projectIdFromPath) : true);
+    const onUnlock = (e) => {
+      if (e?.detail?.projectId === projectIdFromPath) setProtectedUnlocked(true);
+    };
+    window.addEventListener('project-unlock', onUnlock);
+    return () => window.removeEventListener('project-unlock', onUnlock);
+  }, [projectIdFromPath]);
+
   const isBlueCaseStudy = isDesignStandardPage || isBankDocumentPage;
-  const isCaseStudyPage = isAiTutorPage || isDesignStandardPage || isBankDocumentPage;
+  const isOrangeCaseStudy = isAiKnowledgePage;
+  const isGreenCaseStudy = isProjectRequestPage;
+  const isProtectedCaseStudy = isAiKnowledgePage || isProjectRequestPage;
+  const isCaseStudyPage =
+    isAiTutorPage ||
+    isDesignStandardPage ||
+    isBankDocumentPage ||
+    (isProtectedCaseStudy && protectedUnlocked);
   const caseStudyNavLinks = isAiTutorPage
     ? AI_TUTOR_NAV_LINKS
     : isDesignStandardPage
       ? DESIGN_STANDARD_NAV_LINKS
       : isBankDocumentPage
         ? BANK_DOCUMENT_NAV_LINKS
-        : null;
-  const projectNavLinks = isCaseStudyPage ? caseStudyNavLinks : PROJECT_NAV_LINKS;
+        : isAiKnowledgePage
+          ? AI_KNOWLEDGE_NAV_LINKS
+          : isProjectRequestPage
+            ? PROJECT_REQUEST_NAV_LINKS
+            : null;
+  const projectNavLinks = isCaseStudyPage
+    ? caseStudyNavLinks
+    : isProtectedCaseStudy && !protectedUnlocked
+      ? []
+      : PROJECT_NAV_LINKS;
 
   // Ensure project pages always start from the top when navigated to
   useEffect(() => {
@@ -189,33 +239,51 @@ export default function Layout() {
 
   const headerBarClass = isBlueCaseStudy
     ? 'border-sky-200 bg-sky-50/95 backdrop-blur-md supports-[backdrop-filter]:bg-sky-50/90'
-    : isAiTutorPage
-      ? 'border-cyan-200/80 bg-cyan-50/90 backdrop-blur-md supports-[backdrop-filter]:bg-cyan-50/85'
-      : 'border-gray-100 bg-white/95 backdrop-blur-md supports-[backdrop-filter]:bg-white/90';
+    : isOrangeCaseStudy
+      ? 'border-orange-200 bg-orange-50/95 backdrop-blur-md supports-[backdrop-filter]:bg-orange-50/90'
+      : isGreenCaseStudy
+        ? 'border-green-200 bg-green-50/95 backdrop-blur-md supports-[backdrop-filter]:bg-green-50/90'
+        : isAiTutorPage
+          ? 'border-green-200 bg-green-50/90 backdrop-blur-md supports-[backdrop-filter]:bg-green-50/85'
+          : 'border-gray-100 bg-white/95 backdrop-blur-md supports-[backdrop-filter]:bg-white/90';
 
   const backBtnClass = isBlueCaseStudy
     ? 'text-slate-700 hover:text-sky-900'
-    : isAiTutorPage
-      ? 'text-slate-700 hover:text-cyan-900'
-      : 'text-gray-700 hover:text-blue-600';
+    : isOrangeCaseStudy
+      ? 'text-slate-700 hover:text-orange-900'
+      : isGreenCaseStudy
+        ? 'text-slate-700 hover:text-green-900'
+        : isAiTutorPage
+          ? 'text-slate-700 hover:text-[rgb(28,83,47)]'
+          : 'text-gray-700 hover:text-blue-600';
 
   const backIconClass = isBlueCaseStudy
     ? 'text-slate-500 group-hover:text-sky-800'
-    : isAiTutorPage
-      ? 'text-slate-500 group-hover:text-cyan-800'
-      : 'text-gray-400 group-hover:text-blue-600';
+    : isOrangeCaseStudy
+      ? 'text-slate-500 group-hover:text-orange-800'
+      : isGreenCaseStudy
+        ? 'text-slate-500 group-hover:text-green-800'
+        : isAiTutorPage
+          ? 'text-slate-500 group-hover:text-[rgb(28,83,47)]'
+          : 'text-gray-400 group-hover:text-blue-600';
 
   const sectionLinkClass = (sectionId) => {
     const active = isCaseStudyPage && activeCaseStudySection === sectionId;
     if (active) {
       if (isBlueCaseStudy) return 'bg-sky-200/80 text-sky-900';
-      if (isAiTutorPage) return 'border border-cyan-200/80 bg-cyan-50/90 text-cyan-950';
-      return 'bg-cyan-50 text-[rgb(52,118,128)]';
+      if (isOrangeCaseStudy) return 'bg-orange-200/80 text-orange-950';
+      if (isGreenCaseStudy) return 'bg-green-200/80 text-green-950';
+      if (isAiTutorPage) return 'border border-green-200 bg-[#f2fffb] text-[rgb(28,83,47)]';
+      return 'bg-green-50 text-[rgb(28,83,47)]';
     }
     if (isCaseStudyPage) {
       if (isBlueCaseStudy) return 'border border-transparent text-slate-600 hover:bg-sky-100/90 hover:text-sky-900';
-      if (isAiTutorPage) return 'border border-transparent text-slate-600 hover:bg-slate-100/90 hover:text-slate-900';
-      return 'text-gray-600 hover:bg-teal-50/50 hover:text-[rgb(52,118,128)]';
+      if (isOrangeCaseStudy) return 'border border-transparent text-slate-600 hover:bg-orange-100/90 hover:text-orange-900';
+      if (isGreenCaseStudy) return 'border border-transparent text-slate-600 hover:bg-green-100/90 hover:text-green-900';
+      if (isAiTutorPage) {
+        return 'border border-transparent text-slate-600 hover:bg-[#f2fffb] hover:text-[rgb(28,83,47)]';
+      }
+      return 'text-gray-600 hover:bg-green-50/50 hover:text-[rgb(28,83,47)]';
     }
     return 'text-gray-600 hover:bg-gray-100 hover:text-black';
   };
@@ -255,11 +323,7 @@ export default function Layout() {
     </>
   );
 
-  const asideShell = isBlueCaseStudy
-    ? 'border-sky-200 bg-sky-50'
-    : isAiTutorPage
-      ? 'border-cyan-100 bg-cyan-50/50'
-      : 'border-gray-100 bg-white';
+  const asideShell = 'border-gray-100 bg-white';
 
   const scrollToSection = (href) => {
     const sectionId = href.slice(1);
@@ -308,8 +372,8 @@ export default function Layout() {
         ref={siteHeaderRef}
         className={`fixed inset-x-0 top-0 z-50 border-b shadow-[0_8px_30px_-12px_rgba(0,0,0,0.12)] ${globalTopBarClass}`}
       >
-        <div className="mx-auto flex w-full max-w-[100vw] items-center justify-between gap-3 px-3 py-2 sm:px-6 sm:py-2.5">
-          <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2 sm:gap-3">
+        <div className="relative mx-auto flex w-full max-w-[100vw] items-center px-3 py-2 sm:px-6 sm:py-2.5">
+          <div className="flex min-w-0 flex-wrap items-center gap-2 sm:gap-3">
             <button
               type="button"
               onClick={goHome}
@@ -318,9 +382,11 @@ export default function Layout() {
               Claire<span className="text-blue-600 transition-all group-hover:ml-0.5">.</span>
             </button>
             <div className="flex min-w-0 flex-wrap items-center gap-0.5 sm:gap-1">{topSocialLinks}</div>
-         
           </div>
-          <nav className="flex shrink-0 items-center gap-1.5 sm:gap-2" aria-label="Primary">
+          <nav
+            className="absolute left-1/2 top-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 items-center gap-1.5 sm:gap-2"
+            aria-label="Primary"
+          >
             {HOME_NAV.map((link) => {
               const workActive = isHome && !isAboutPage;
               const aboutActive = isAboutPage;
@@ -365,9 +431,7 @@ export default function Layout() {
                 />
                 <span className="text-[11px] font-bold uppercase tracking-[0.2em]">Back</span>
               </button>
-              <div
-                className={`mb-4 h-px w-full ${isBlueCaseStudy ? 'bg-sky-200' : isAiTutorPage ? 'bg-cyan-200/70' : 'bg-gray-100'}`}
-              />
+              <div className="mb-4 h-px w-full bg-gray-100" />
               <nav className="flex flex-col gap-0.5" aria-label="Project sections">
                 {projectNavLinks.map((link) => {
                   const sectionId = link.href.slice(1);

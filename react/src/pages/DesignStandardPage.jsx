@@ -118,14 +118,14 @@ export default function DesignStandardPage() {
       <section id="Overview" className="pt-2 pb-10 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-wrap items-center gap-2 mb-3 text-[10px] uppercase tracking-widest text-slate-600">
-            <span>Design Standards · Legacy Audit · Internal Documentation</span>
+            <span>Enterprise Design Standards · Legacy Audit · Internal Documentation</span>
             <span className="hidden sm:inline-flex items-center gap-1 border border-sky-300 px-2 py-0.5 text-slate-700">
               <Lock className="w-3 h-3" aria-hidden /> NDA
             </span>
           </div>
 
           <h1 className="text-2xl md:text-4xl font-extrabold leading-tight mb-3 tracking-tight">
-            Design Standards <span className="italic font-medium text-slate-600">Documentation.</span>
+            Enterprise Design Standards <span className="italic font-medium text-slate-600">Documentation.</span>
           </h1>
 
           <p className="text-slate-700 text-sm md:text-base leading-relaxed max-w-3xl mb-8">
