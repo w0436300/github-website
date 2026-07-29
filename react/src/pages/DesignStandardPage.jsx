@@ -2,7 +2,7 @@ import { Lock } from 'lucide-react';
 import { dsSectionHead as SECTION_HEAD, openSans } from '../styles/caseStudyTheme.js';
 
 function FindingVisualAbstract({ variant }) {
-  const c = 'w-full h-auto max-h-[92px] mx-auto block text-sky-300';
+  const c = 'w-full h-auto max-h-[92px] mx-auto block text-gray-300';
   if (variant === 0) {
     return (
       <svg viewBox="0 0 320 96" className={c} fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
