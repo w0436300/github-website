@@ -12,9 +12,9 @@ const FEATURED_IDS = [
   'cognitive-adaptive-ai-tutor',
   'design-standard-wcag',
   'bank-document-system',
-  'medisupply-hub-ui',
   'ai-knowledge-base-engineering',
   'project-request-collaboration',
+  'medisupply-hub-ui',
 ];
 
 const WORK_TABS = [
@@ -62,10 +62,12 @@ export function HomePage() {
   };
   const hideHoverTip = () => setHoverTip((prev) => ({ ...prev, show: false }));
 
-  const filteredProjects = useMemo(
-    () => projects.filter((p) => projectMatchesTab(p, activeCategory)),
-    [activeCategory]
-  );
+  const filteredProjects = useMemo(() => {
+    const list = projects.filter((p) => projectMatchesTab(p, activeCategory));
+    if (activeCategory !== 'Featured') return list;
+    const order = new Map(FEATURED_IDS.map((id, i) => [id, i]));
+    return [...list].sort((a, b) => (order.get(a.id) ?? 999) - (order.get(b.id) ?? 999));
+  }, [activeCategory]);
 
   return (
     <section id="home" className="px-6 md:px-12 lg:px-20 pt-4 md:pt-4 pb-12 md:pb-4 bg-white">
