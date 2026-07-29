@@ -1124,12 +1124,12 @@ export default function AiTutorPage() {
               Step through the learner flow, one screen at a time.
             </h3>
             <p className="text-slate-600 text-sm mt-3">
-              Click any step on the left to preview the corresponding screen and design note.
+              Click any step above to preview the corresponding screen and design note.
             </p>
           </div>
 
-          <div className={`border ${amiBorder} bg-white grid md:grid-cols-[220px_1fr]`}>
-            <div className={`border-b md:border-b-0 md:border-r ${amiBorderSubtle} flex md:flex-col overflow-x-auto`}>
+          <div className={`border ${amiBorder} bg-white flex flex-col`}>
+            <div className={`border-b ${amiBorderSubtle} flex flex-row overflow-x-auto`}>
               {SOLUTION_STEPS.map((step, idx) => {
                 const isActive = activeStep === idx;
                 return (
@@ -1137,15 +1137,15 @@ export default function AiTutorPage() {
                     key={step.title}
                     type="button"
                     onClick={() => setActiveStep(idx)}
-                    className={`group text-left px-4 py-4 border-gray-200 md:border-b last:border-b-0 transition-colors shrink-0 md:shrink ${
+                    className={`group text-left px-4 py-3 border-r border-gray-200 last:border-r-0 transition-colors shrink-0 min-w-[140px] md:min-w-0 md:flex-1 ${
                       isActive
                         ? 'bg-white'
                         : 'bg-slate-50 hover:bg-white'
                     }`}
                     style={
                       isActive
-                        ? { borderLeft: `3px solid rgb(${amiAccentRgb} / 0.88)`, paddingLeft: 'calc(1rem - 3px)' }
-                        : { borderLeft: '3px solid transparent', paddingLeft: 'calc(1rem - 3px)' }
+                        ? { borderBottom: `3px solid rgb(${amiAccentRgb} / 0.88)`, paddingBottom: 'calc(0.75rem - 3px)' }
+                        : { borderBottom: '3px solid transparent', paddingBottom: 'calc(0.75rem - 3px)' }
                     }
                   >
                     <p
