@@ -94,7 +94,7 @@ export const projects = [
     title: 'Project Request & Collaboration Platform',
     category: 'design',
     tags: ['UX Design', 'Workflow', 'Collaboration'],
-    year: '2025',
+    year: '2026',
     location: 'Freelance',
     cover: '/img/project-request-cover.svg',
     placeholderLabel: null,
