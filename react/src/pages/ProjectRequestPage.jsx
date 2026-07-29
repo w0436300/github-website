@@ -51,7 +51,7 @@ function CaseStudyContent() {
           <div className="flex flex-wrap items-center gap-2 mb-3 text-[10px] uppercase tracking-widest text-slate-600">
             <span>Intake · Workflow · Cross-team Collaboration</span>
             <span className="inline-flex items-center gap-1 border border-sky-300 px-2 py-0.5 text-slate-700">
-              <Lock className="w-3 h-3" aria-hidden /> Password · NDA
+              <Lock className="w-3 h-3" aria-hidden /> NDA
             </span>
           </div>
 
@@ -65,7 +65,7 @@ function CaseStudyContent() {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-0 border border-sky-200 overflow-hidden text-[13px] bg-white mb-10">
             {[
-              ['Role', 'Product Designer'],
+              ['Role', 'Product Designer · Freelance'],
               ['Focus', 'Intake · Status model · Collaboration'],
               ['Users', 'Design · Eng · Stakeholders'],
               ['Status', '✓ Near complete'],
@@ -152,7 +152,7 @@ export default function ProjectRequestPage() {
     return (
       <PasswordGate
         title="Project Request & Collaboration Platform"
-        subtitle="This internal case study is password-protected. Enter the shared password to view the work."
+        subtitle="This freelance case study is under NDA. Enter the shared password to view the work."
         onUnlock={unlockWithPassword}
         error={error}
         onClearError={clearError}

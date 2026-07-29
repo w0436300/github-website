@@ -52,7 +52,7 @@ function CaseStudyContent() {
           <div className="flex flex-wrap items-center gap-2 mb-3 text-[10px] uppercase tracking-widest text-slate-600">
             <span>Knowledge Systems · AI Assist · Engineering Enablement</span>
             <span className="inline-flex items-center gap-1 border border-sky-300 px-2 py-0.5 text-slate-700">
-              <Lock className="w-3 h-3" aria-hidden /> Password · NDA
+              <Lock className="w-3 h-3" aria-hidden /> NDA
             </span>
           </div>
 
@@ -60,13 +60,13 @@ function CaseStudyContent() {
             AI Knowledge Base <span className="italic font-medium text-slate-600">for Engineering.</span>
           </h1>
           <p className="text-slate-700 text-sm md:text-base leading-relaxed max-w-3xl mb-8">
-            Designed an internal knowledge experience that helps engineers find standards, patterns, and answers
+            Designed a knowledge experience that helps engineers find standards, patterns, and answers
             faster — combining curated structure with AI-assisted retrieval.
           </p>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-0 border border-sky-200 overflow-hidden text-[13px] bg-white mb-10">
             {[
-              ['Role', 'Product Designer'],
+              ['Role', 'Product Designer · Freelance'],
               ['Focus', 'IA · Search UX · Content model'],
               ['Users', 'Engineering teams'],
               ['Status', '✓ In progress'],
@@ -153,7 +153,7 @@ export default function AiKnowledgeBasePage() {
     return (
       <PasswordGate
         title="AI Knowledge Base for Engineering"
-        subtitle="This internal case study is password-protected. Enter the shared password to view the work."
+        subtitle="This freelance case study is under NDA. Enter the shared password to view the work."
         onUnlock={unlockWithPassword}
         error={error}
         onClearError={clearError}

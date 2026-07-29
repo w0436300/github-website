@@ -51,7 +51,7 @@ export default function PasswordGate({
               <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-600">
                 Protected case study
               </p>
-              <p className="text-xs text-slate-500">NDA · Internal work</p>
+              <p className="text-xs text-slate-500">NDA · Freelance</p>
             </div>
           </div>
 

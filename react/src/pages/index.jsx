@@ -191,9 +191,12 @@ export function HomePage() {
                         </div>
                       )}
                       {isProtected && (
-                        <span className="absolute top-1.5 left-1.5 inline-flex items-center gap-1 border border-gray-300 bg-white/95 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-gray-700 shadow-sm">
+                        <span
+                          className="absolute top-1.5 left-1.5 inline-flex items-center gap-1 border border-gray-300 bg-white/95 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-gray-700 shadow-sm"
+                          title="NDA — password required"
+                        >
                           <Lock size={10} strokeWidth={2.5} aria-hidden />
-                          Password
+                          NDA
                         </span>
                       )}
                     </div>
