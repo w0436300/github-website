@@ -412,9 +412,7 @@ export default function Layout() {
                 />
                 <span className="text-[11px] font-bold uppercase tracking-[0.2em]">Back</span>
               </button>
-              <div
-                className={`mb-4 h-px w-full ${isBlueCaseStudy ? 'bg-sky-200' : isAiTutorPage ? 'bg-cyan-200/70' : 'bg-gray-100'}`}
-              />
+              <div className="mb-4 h-px w-full bg-gray-100" />
               <nav className="flex flex-col gap-0.5" aria-label="Project sections">
                 {projectNavLinks.map((link) => {
                   const sectionId = link.href.slice(1);
