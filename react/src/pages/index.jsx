@@ -287,15 +287,11 @@ export function HomePage() {
                             +{p.tags.length - 3}
                           </span>
                         )}
-                        {Array.isArray(p.tools) &&
-                          p.tools.slice(0, 5).map((tool) => (
-                            <span
-                              key={tool}
-                              className="px-1 py-0.5 text-[8px] sm:text-[9px] font-medium text-gray-800 border border-gray-200/90 group-hover:bg-[#FFCC00] transition-all duration-300 group-hover:text-black"
-                            >
-                              {tool}
-                            </span>
-                          ))}
+                        {Array.isArray(p.tools) && p.tools.length > 0 && (
+                          <span className="ml-1 text-[8px] sm:text-[9px] font-medium text-gray-600 truncate group-hover:text-black transition-colors">
+                            {p.tools.slice(0, 5).join(' | ')}
+                          </span>
+                        )}
                       </div>
                     </div>
                   </div>
