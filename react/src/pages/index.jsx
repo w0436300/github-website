@@ -6,7 +6,7 @@ import { projects } from '../data/projects.js';
 import { isProjectUnlocked } from '../data/projectPasswords.js';
 import { tryUnlockProject } from '../hooks/useProjectUnlock.js';
 import PasswordModal from '../components/PasswordModal.jsx';
-import { getProjectHoverTheme, OrganicHoverMask } from '../components/OrganicHoverMask.jsx';
+import { getProjectHoverTheme, OrganicHoverMask, ProjectJumpArrow } from '../components/OrganicHoverMask.jsx';
 import { sourceSansPro } from '../styles/caseStudyTheme.js';
 
 const BASE = import.meta.env.BASE_URL || '/';
@@ -290,17 +290,15 @@ export function HomePage() {
 
                       <OrganicHoverMask theme={hoverTheme} />
 
-                      {/* Hover: description + >>> jump cue */}
+                      {/* Hover: description + themed jump arrow */}
                       <div className="absolute inset-0 z-20 flex items-center justify-between gap-3 px-3 py-2 sm:px-4 md:px-5 opacity-0 transition-opacity duration-300 delay-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         <p className="text-sm sm:text-base text-gray-900 leading-snug line-clamp-3 min-w-0 flex-1">
                           {p.description}
                         </p>
-                        <span
-                          className="shrink-0 text-base sm:text-lg font-black tracking-[0.12em] text-gray-900/80"
-                          aria-hidden
-                        >
-                          {'>>>'}
-                        </span>
+                        <ProjectJumpArrow
+                          className="shrink-0 w-9 h-5 sm:w-11 sm:h-7 transition-transform duration-300 ease-out group-hover:translate-x-1.5 group-focus-within:translate-x-1.5"
+                          style={{ color: hoverTheme.ink || '#0f172a' }}
+                        />
                       </div>
                     </div>
                   </div>
