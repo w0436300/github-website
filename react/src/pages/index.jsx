@@ -199,50 +199,50 @@ export function HomePage() {
                     </div>
                     <div className="flex-1 min-w-0 px-3 py-2 sm:px-4 sm:py-2.5 md:px-5 flex flex-col justify-start overflow-hidden">
                       <div className="flex justify-between items-start gap-2 min-w-0">
-                        <h2 className="text-sm sm:text-base md:text-lg font-medium text-gray-800 group-hover:text-black transition-colors pr-1 truncate">
+                        <h2 className="text-sm sm:text-base md:text-lg font-medium text-gray-800 group-hover:text-black transition-colors pr-1 truncate min-w-0">
                           {p.title}
                         </h2>
-                        <ArrowUpRight
-                          size={16}
-                          className="text-gray-300 group-hover:text-black transition-colors shrink-0 mt-0.5"
-                          aria-hidden
-                        />
+                        <div className="flex items-center gap-2 shrink-0 mt-0.5">
+                          {(p.year || p.location) && (
+                            <div className="flex items-center gap-1.5 text-[10px] text-gray-500 tabular-nums">
+                              {p.year && <span>{p.year}</span>}
+                              {p.year && p.location && <span className="text-gray-300">·</span>}
+                              {p.location && <span>{p.location}</span>}
+                            </div>
+                          )}
+                          <ArrowUpRight
+                            size={16}
+                            className="text-gray-300 group-hover:text-black transition-colors shrink-0"
+                            aria-hidden
+                          />
+                        </div>
                       </div>
                       <p className="mt-0.5 text-[11px] sm:text-xs text-gray-600 leading-snug line-clamp-1">
                         {p.description}
                       </p>
-                      <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1 mt-1">
-                        <div className="flex flex-wrap items-center gap-1 min-w-0">
-                          {p.tags.slice(0, 3).map((tag) => (
+                      <div className="flex flex-wrap items-center gap-1 mt-1 min-w-0">
+                        {p.tags.slice(0, 3).map((tag) => (
+                          <span
+                            key={tag}
+                            className="px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wide text-gray-700 border border-gray-300 bg-white"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                        {p.tags.length > 3 && (
+                          <span className="px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wide text-gray-700 border border-gray-300 bg-white">
+                            +{p.tags.length - 3}
+                          </span>
+                        )}
+                        {Array.isArray(p.tools) &&
+                          p.tools.slice(0, 5).map((tool) => (
                             <span
-                              key={tag}
-                              className="px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wide text-gray-700 border border-gray-300 bg-white"
+                              key={tool}
+                              className="px-1 py-0.5 text-[8px] sm:text-[9px] font-medium text-gray-800 border border-gray-200/90 group-hover:bg-[#FFCC00] transition-all duration-300 group-hover:text-black"
                             >
-                              {tag}
+                              {tool}
                             </span>
                           ))}
-                          {p.tags.length > 3 && (
-                            <span className="px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wide text-gray-700 border border-gray-300 bg-white">
-                              +{p.tags.length - 3}
-                            </span>
-                          )}
-                          {Array.isArray(p.tools) &&
-                            p.tools.slice(0, 5).map((tool) => (
-                              <span
-                                key={tool}
-                                className="px-1 py-0.5 text-[8px] sm:text-[9px] font-medium text-gray-800 border border-gray-200/90 group-hover:bg-[#FFCC00] transition-all duration-300 group-hover:text-black"
-                              >
-                                {tool}
-                              </span>
-                            ))}
-                        </div>
-                        {(p.year || p.location) && (
-                          <div className="flex items-center gap-1.5 text-[10px] text-gray-500 tabular-nums shrink-0">
-                            {p.year && <span>{p.year}</span>}
-                            {p.year && p.location && <span className="text-gray-300">·</span>}
-                            {p.location && <span>{p.location}</span>}
-                          </div>
-                        )}
                       </div>
                     </div>
                   </div>
