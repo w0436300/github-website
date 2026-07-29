@@ -116,7 +116,7 @@ export default function PasswordModal({
 
             <button
               type="submit"
-              className="w-full inline-flex items-center justify-center gap-2 bg-pink-500 text-white px-5 py-2.5 text-[11px] font-bold uppercase tracking-[0.16em] hover:bg-pink-600 transition-colors"
+              className="w-full inline-flex items-center justify-center gap-2 bg-[#FCE7F3] text-[#9D174D] px-5 py-2.5 text-[11px] font-bold uppercase tracking-[0.16em] hover:bg-[#F9A8D4] transition-colors"
             >
               <Lock size={14} aria-hidden />
               Unlock case study
