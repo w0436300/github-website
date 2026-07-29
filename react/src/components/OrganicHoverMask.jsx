@@ -41,8 +41,8 @@ export const HOVER_MASK_SHAPES = {
 
 const THEME_BY_ID = {
   'cognitive-adaptive-ai-tutor': { color: '#bbf7d0', accent: '#86efac', ink: '#1c532f', shape: 'leaf' },
-  'design-standard-wcag': { color: '#bae6fd', accent: '#7dd3fc', ink: '#0369a1', shape: 'petal' },
-  'bank-document-system': { color: '#bfdbfe', accent: '#93c5fd', ink: '#1d4ed8', shape: 'brush' },
+  'design-standard-wcag': { color: '#bae6fd', accent: '#7dd3fc', ink: '#0075BE', shape: 'petal' },
+  'bank-document-system': { color: '#bae6fd', accent: '#7dd3fc', ink: '#0075BE', shape: 'brush' },
   'ai-knowledge-base-engineering': { color: '#fed7aa', accent: '#fdba74', ink: '#c2410c', shape: 'flower' },
   'project-request-collaboration': { color: '#bbf7d0', accent: '#4ade80', ink: '#15803d', shape: 'scribble' },
   'medisupply-hub-ui': { color: '#fbcfe8', accent: '#f9a8d4', ink: '#be185d', shape: 'blot' },
