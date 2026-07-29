@@ -304,11 +304,7 @@ export default function Layout() {
     </>
   );
 
-  const asideShell = isBlueCaseStudy
-    ? 'border-sky-200 bg-sky-50'
-    : isAiTutorPage
-      ? 'border-cyan-100 bg-cyan-50/50'
-      : 'border-gray-100 bg-white';
+  const asideShell = 'border-gray-100 bg-white';
 
   const scrollToSection = (href) => {
     const sectionId = href.slice(1);
