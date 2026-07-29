@@ -244,7 +244,7 @@ export default function Layout() {
       : isGreenCaseStudy
         ? 'border-green-200 bg-green-50/95 backdrop-blur-md supports-[backdrop-filter]:bg-green-50/90'
         : isAiTutorPage
-          ? 'border-cyan-200/80 bg-cyan-50/90 backdrop-blur-md supports-[backdrop-filter]:bg-cyan-50/85'
+          ? 'border-green-200 bg-green-50/90 backdrop-blur-md supports-[backdrop-filter]:bg-green-50/85'
           : 'border-gray-100 bg-white/95 backdrop-blur-md supports-[backdrop-filter]:bg-white/90';
 
   const backBtnClass = isBlueCaseStudy
@@ -254,7 +254,7 @@ export default function Layout() {
       : isGreenCaseStudy
         ? 'text-slate-700 hover:text-green-900'
         : isAiTutorPage
-          ? 'text-slate-700 hover:text-cyan-900'
+          ? 'text-slate-700 hover:text-[rgb(28,83,47)]'
           : 'text-gray-700 hover:text-blue-600';
 
   const backIconClass = isBlueCaseStudy
@@ -264,7 +264,7 @@ export default function Layout() {
       : isGreenCaseStudy
         ? 'text-slate-500 group-hover:text-green-800'
         : isAiTutorPage
-          ? 'text-slate-500 group-hover:text-cyan-800'
+          ? 'text-slate-500 group-hover:text-[rgb(28,83,47)]'
           : 'text-gray-400 group-hover:text-blue-600';
 
   const sectionLinkClass = (sectionId) => {
@@ -273,15 +273,17 @@ export default function Layout() {
       if (isBlueCaseStudy) return 'bg-sky-200/80 text-sky-900';
       if (isOrangeCaseStudy) return 'bg-orange-200/80 text-orange-950';
       if (isGreenCaseStudy) return 'bg-green-200/80 text-green-950';
-      if (isAiTutorPage) return 'border border-cyan-200/80 bg-cyan-50/90 text-cyan-950';
-      return 'bg-cyan-50 text-[rgb(52,118,128)]';
+      if (isAiTutorPage) return 'border border-green-200 bg-[#f2fffb] text-[rgb(28,83,47)]';
+      return 'bg-green-50 text-[rgb(28,83,47)]';
     }
     if (isCaseStudyPage) {
       if (isBlueCaseStudy) return 'border border-transparent text-slate-600 hover:bg-sky-100/90 hover:text-sky-900';
       if (isOrangeCaseStudy) return 'border border-transparent text-slate-600 hover:bg-orange-100/90 hover:text-orange-900';
       if (isGreenCaseStudy) return 'border border-transparent text-slate-600 hover:bg-green-100/90 hover:text-green-900';
-      if (isAiTutorPage) return 'border border-transparent text-slate-600 hover:bg-slate-100/90 hover:text-slate-900';
-      return 'text-gray-600 hover:bg-teal-50/50 hover:text-[rgb(52,118,128)]';
+      if (isAiTutorPage) {
+        return 'border border-transparent text-slate-600 hover:bg-[#f2fffb] hover:text-[rgb(28,83,47)]';
+      }
+      return 'text-gray-600 hover:bg-green-50/50 hover:text-[rgb(28,83,47)]';
     }
     return 'text-gray-600 hover:bg-gray-100 hover:text-black';
   };
