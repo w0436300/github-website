@@ -169,7 +169,7 @@ export function HomePage() {
                   className="group cursor-none text-left bg-white border border-gray-200 border-solid rounded-none shadow-none transition-all hover:shadow-sm hover:bg-gray-50/40 active:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black w-full"
                 >
                   <div className="flex flex-row items-stretch h-[70px] sm:h-[84px] md:h-[100px]">
-                    <div className="relative w-[38%] sm:w-[40%] md:w-[42%] max-w-[420px] shrink-0 bg-white overflow-hidden border-r border-gray-200 self-stretch">
+                    <div className="relative w-[28%] sm:w-[30%] md:w-[32%] max-w-[280px] shrink-0 bg-white overflow-hidden border-r border-gray-200 self-stretch">
                       {imgSrc ? (
                         <img
                           src={imgSrc}
