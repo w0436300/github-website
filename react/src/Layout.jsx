@@ -237,53 +237,29 @@ export default function Layout() {
   const globalTopBarClass =
     'border-gray-100 bg-white/95 backdrop-blur-md supports-[backdrop-filter]:bg-white/90';
 
-  const headerBarClass = isBlueCaseStudy
-    ? 'border-sky-200 bg-sky-50/95 backdrop-blur-md supports-[backdrop-filter]:bg-sky-50/90'
-    : isOrangeCaseStudy
-      ? 'border-orange-200 bg-orange-50/95 backdrop-blur-md supports-[backdrop-filter]:bg-orange-50/90'
-      : isGreenCaseStudy
-        ? 'border-green-200 bg-green-50/95 backdrop-blur-md supports-[backdrop-filter]:bg-green-50/90'
-        : isAiTutorPage
-          ? 'border-green-200 bg-green-50/90 backdrop-blur-md supports-[backdrop-filter]:bg-green-50/85'
-          : 'border-gray-100 bg-white/95 backdrop-blur-md supports-[backdrop-filter]:bg-white/90';
+  /** Case study mobile section bar — white chrome; theme only on active label */
+  const headerBarClass =
+    'border-gray-100 bg-white/95 backdrop-blur-md supports-[backdrop-filter]:bg-white/90';
 
-  const backBtnClass = isBlueCaseStudy
-    ? 'text-slate-700 hover:text-sky-900'
-    : isOrangeCaseStudy
-      ? 'text-slate-700 hover:text-orange-900'
-      : isGreenCaseStudy
-        ? 'text-slate-700 hover:text-green-900'
-        : isAiTutorPage
-          ? 'text-slate-700 hover:text-[rgb(28,83,47)]'
-          : 'text-gray-700 hover:text-blue-600';
+  const backBtnClass = isCaseStudyPage
+    ? 'text-slate-700 hover:text-slate-900'
+    : 'text-gray-700 hover:text-blue-600';
 
-  const backIconClass = isBlueCaseStudy
-    ? 'text-slate-500 group-hover:text-sky-800'
-    : isOrangeCaseStudy
-      ? 'text-slate-500 group-hover:text-orange-800'
-      : isGreenCaseStudy
-        ? 'text-slate-500 group-hover:text-green-800'
-        : isAiTutorPage
-          ? 'text-slate-500 group-hover:text-[rgb(28,83,47)]'
-          : 'text-gray-400 group-hover:text-blue-600';
+  const backIconClass = isCaseStudyPage
+    ? 'text-slate-500 group-hover:text-slate-800'
+    : 'text-gray-400 group-hover:text-blue-600';
 
   const sectionLinkClass = (sectionId) => {
     const active = isCaseStudyPage && activeCaseStudySection === sectionId;
     if (active) {
-      if (isBlueCaseStudy) return 'bg-sky-200/80 text-sky-900';
-      if (isOrangeCaseStudy) return 'bg-orange-200/80 text-orange-950';
-      if (isGreenCaseStudy) return 'bg-green-200/80 text-green-950';
-      if (isAiTutorPage) return 'border border-green-200 bg-[#f2fffb] text-[rgb(28,83,47)]';
-      return 'bg-green-50 text-[rgb(28,83,47)]';
+      if (isBlueCaseStudy) return 'bg-gray-100 text-[#0075BE]';
+      if (isOrangeCaseStudy) return 'bg-gray-100 text-[#c2410c]';
+      if (isGreenCaseStudy) return 'bg-gray-100 text-[#15803d]';
+      if (isAiTutorPage) return 'bg-gray-100 text-[rgb(45,98,105)]';
+      return 'bg-gray-100 text-slate-900';
     }
     if (isCaseStudyPage) {
-      if (isBlueCaseStudy) return 'border border-transparent text-slate-600 hover:bg-sky-100/90 hover:text-sky-900';
-      if (isOrangeCaseStudy) return 'border border-transparent text-slate-600 hover:bg-orange-100/90 hover:text-orange-900';
-      if (isGreenCaseStudy) return 'border border-transparent text-slate-600 hover:bg-green-100/90 hover:text-green-900';
-      if (isAiTutorPage) {
-        return 'border border-transparent text-slate-600 hover:bg-[#f2fffb] hover:text-[rgb(28,83,47)]';
-      }
-      return 'text-gray-600 hover:bg-green-50/50 hover:text-[rgb(28,83,47)]';
+      return 'border border-transparent text-slate-600 hover:bg-gray-50 hover:text-slate-900';
     }
     return 'text-gray-600 hover:bg-gray-100 hover:text-black';
   };

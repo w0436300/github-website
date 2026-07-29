@@ -90,7 +90,7 @@ function SectionIntro({ eyebrow, title, subtitle }) {
 export default function BankDocumentPage() {
   return (
     <div
-      className="bank-document-page min-h-screen bg-white text-slate-900 selection:bg-sky-200 selection:text-slate-900 scroll-smooth pb-20"
+      className="case-study-page bank-document-page min-h-screen bg-white text-slate-900 selection:bg-gray-200 selection:text-slate-900 scroll-smooth pb-20"
       style={openSans}
     >
       {/* Overview / Hero */}
@@ -125,7 +125,7 @@ export default function BankDocumentPage() {
                 ['Output', 'Digital mockups · Reusable patterns'],
                 ['Tools', 'InDesign · Mapping documents · Specification notes'],
               ].map(([k, v]) => (
-                <div key={k} className="md:pr-6 md:border-r md:border-gray-600 last:border-0 last:pr-0">
+                <div key={k} className="md:pr-6 md:border-r md:border-gray-200 last:border-0 last:pr-0">
                   <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-black/85 mb-1.5">{k}</p>
                   <p className="text-xs text-black/85 leading-snug font-regular">{v}</p>
                 </div>
@@ -170,7 +170,7 @@ export default function BankDocumentPage() {
             Legacy templates were static InDesign files designed for physical printing — no field logic, no data mapping. The new version
             needed to be auto-populated by backend systems and aligned to an updated brand direction.
           </p>
-          <div className="grid md:grid-cols-2 gap-px bg-gray-200 border border-gray-200">
+          <div className="grid md:grid-cols-2 gap-px bg-gray-100 border border-gray-200">
             <div className="bg-white p-5 md:p-6">
               <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-gray-400 mb-4">Legacy — print-era</p>
               <ul className="text-sm text-slate-600 space-y-2.5 list-none">
@@ -223,7 +223,7 @@ export default function BankDocumentPage() {
           <p className="text-sm text-slate-600 max-w-3xl mb-8 leading-relaxed">
             The difficulty was not aesthetics — it was establishing consistent rules across multiple competing constraints.
           </p>
-          <div className="grid md:grid-cols-2 gap-px bg-gray-200 border border-gray-200">
+          <div className="grid md:grid-cols-2 gap-px bg-gray-100 border border-gray-200">
             {CHALLENGE.map((c) => (
               <div key={c.no} className="bg-white p-5 md:p-6">
                 <p className="text-3xl font-light leading-none mb-3" style={{ color: ACCENT_FAINT }}>
@@ -278,7 +278,7 @@ export default function BankDocumentPage() {
               Four core questions, in order.
             </h3>
           </div>
-          <div className="flex flex-col gap-px bg-gray-200 border border-gray-200">
+          <div className="flex flex-col gap-px bg-gray-100 border border-gray-200">
             {PROCESS.map((step) => (
               <div key={step.n} className="grid grid-cols-[52px_1fr] md:grid-cols-[56px_1fr] bg-white">
                 <div
@@ -348,7 +348,7 @@ export default function BankDocumentPage() {
               <div className="flex flex-col md:flex-row md:justify-between gap-4 mb-2">
                 <div>
                   <p className="text-[8.5px] font-bold text-slate-600 mb-1">Account Title and Mailing Address</p>
-                  <div className="border border-gray-300 min-h-[48px] w-full max-w-[270px] p-2 text-[8.5px] text-gray-400 leading-relaxed">
+                  <div className="border border-slate-200 min-h-[48px] w-full max-w-[270px] p-2 text-[8.5px] text-gray-400 leading-relaxed">
                     [Full Name]
                     <br />
                     [Street Address]
@@ -424,14 +424,14 @@ export default function BankDocumentPage() {
                 </tbody>
               </table>
             </div>
-            <div className="flex justify-between px-4 md:px-6 py-1.5 text-[8px] text-gray-500 border-t border-gray-300">
+            <div className="flex justify-between px-4 md:px-6 py-1.5 text-[8px] text-gray-500 border-t border-slate-200">
               <span className="font-bold" style={{ color: ACCENT }}>
                 [form#]
               </span>
               <span>[DD/MM/YYYY]</span>
               <span>Page 1 of 2</span>
             </div>
-            <div className="bg-gray-100 border-t border-gray-300 text-[7.5px] text-gray-500 px-4 md:px-6 py-1 flex flex-wrap gap-3">
+            <div className="bg-gray-100 border-t border-slate-200 text-[7.5px] text-gray-500 px-4 md:px-6 py-1 flex flex-wrap gap-3">
               <span>ID#:[ ]</span>
               <span>By:[ ]</span>
               <span>Date:[DD/MM/YYYY HH:MM]</span>

@@ -40,7 +40,8 @@ export const HOVER_MASK_SHAPES = {
 };
 
 const THEME_BY_ID = {
-  'cognitive-adaptive-ai-tutor': { color: '#bbf7d0', accent: '#86efac', ink: '#1c532f', shape: 'leaf' },
+  /** Ami only — soft cool wash (less glare than saturated green) */
+  'cognitive-adaptive-ai-tutor': { color: '#eef5f5', accent: '#dce9ea', ink: '#2d6269', shape: 'leaf' },
   'design-standard-wcag': { color: '#bae6fd', accent: '#7dd3fc', ink: '#0075BE', shape: 'petal' },
   'bank-document-system': { color: '#bae6fd', accent: '#7dd3fc', ink: '#0075BE', shape: 'brush' },
   'ai-knowledge-base-engineering': { color: '#fed7aa', accent: '#fdba74', ink: '#c2410c', shape: 'flower' },

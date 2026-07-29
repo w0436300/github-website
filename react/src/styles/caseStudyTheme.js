@@ -37,16 +37,23 @@ export const prSectionHead = {
 export const prAccent = '#15803d';
 export const prAccentSoft = '#16a34a';
 
-/** Ami — soft blue‑green section titles (cyan, less “grass green” than old teal) */
-export const amiAccentRgb = '28 83 47';
+/** Ami — muted teal accent (WCAG AA on white; avoids neon mint glare) */
+export const amiAccentRgb = '45 98 105'; // #2d6269 ≈ 5.5:1 on #fff
+export const amiAccentSoftBg = '245 248 248'; // cool neutral wash
 
 export const amiSectionHead = {
   h2: 'text-sm font-medium text-left uppercase',
-  h2Style: { ...openSans, color: `rgb(${amiAccentRgb})`, backgroundColor: "rgb(242, 255, 251)" },
+  h2Style: { ...openSans, color: `rgb(${amiAccentRgb})`, backgroundColor: `rgb(${amiAccentSoftBg})` },
   h3: 'text-xl font-medium text-left tracking-tight',
-  h3Style: { ...openSans, color: `rgb(${amiAccentRgb} / 0.88)`, backgroundColor: "rgb(242, 255, 251)"},
+  h3Style: { ...openSans, color: `rgb(${amiAccentRgb} / 0.92)`, backgroundColor: `rgb(${amiAccentSoftBg})` },
 };
 
-/** Ami content borders (Design Standard uses border-sky-200) */
-export const amiBorder = 'border-gray-300';
-export const amiBorderSubtle = 'border-gray-300';
+/** Structural borders — neutral gray; theme color reserved for key accents */
+export const amiBorder = 'border-gray-200';
+export const amiBorderSubtle = 'border-gray-200';
+export const dsBorder = 'border-gray-200';
+export const dsBorderStrong = 'border-gray-200';
+export const kbBorder = 'border-gray-200';
+export const kbBorderStrong = 'border-gray-200';
+export const prBorder = 'border-gray-200';
+export const prBorderStrong = 'border-gray-200';
