@@ -273,7 +273,7 @@ export default function AiTutorPage() {
   return (
     <div
       className={`ai-tutor-page min-h-screen bg-white text-slate-900 selection:bg-slate-200 selection:text-slate-900 scroll-smooth pb-2 ${isSlideMode ? 'slide-mode' : ''}`}
-      style={openSans}
+      style={{ ...openSans, ['--ami-accent']: amiAccentRgb }}
     >
       <div className="fixed bottom-4 right-4 z-50 flex items-center gap-2">
         {!isSlideMode ? (
@@ -384,18 +384,18 @@ export default function AiTutorPage() {
             className=" mb-0 rounded-[2px] p-2 text-xs"
             style={{ borderWidth: "0px", borderColor: "rgba(0, 0, 0, 0)", borderStyle: "none", borderImage: "none" }}
           >
-            <p className="text-sm md:text-base text-[rgba(52,118,128,1)] leading-relaxed font-medium">
+            <p className="text-sm md:text-base text-[rgb(var(--ami-accent))] leading-relaxed font-medium">
               Over a 12-week end-to-end process, I translated a technically strong tutoring model into a
               learner-facing experience through UX research, product design, and front-end prototyping.
             </p>
             <div className="mt-1 flex flex-wrap items-center gap-1 text-xs md:text-sm">
               {OVERVIEW_WORKFLOW_STEPS.map((step, idx) => (
                 <div key={step} className="inline-flex items-center gap-1">
-                  <span className="inline-flex rounded-1 border border-[rgba(52,118,128,0.55)] bg-green-50 px-3 py-1 text-slate-700">
+                  <span className="inline-flex rounded-1 border border-[rgb(var(--ami-accent)/0.45)] bg-[rgb(245,248,248)] px-3 py-1 text-slate-700">
                     {step}
                   </span>
                   {idx < OVERVIEW_WORKFLOW_STEPS.length - 1 && (
-                    <span className="text-[rgba(52,118,128,0.9)]" aria-hidden="true">→</span>
+                    <span className="text-[rgb(var(--ami-accent)/0.9)]" aria-hidden="true">→</span>
                   )}
                 </div>
               ))}
@@ -575,7 +575,7 @@ export default function AiTutorPage() {
               <button
                 type="button"
                 onClick={() => setUxLensExpanded(true)}
-                className="w-full text-left rounded-sm border border-transparent hover:border-gray-300 hover:bg-white/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[rgb(52_118_128/0.5)] transition-colors p-0"
+                className="w-full text-left rounded-sm border border-transparent hover:border-gray-300 hover:bg-white/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[rgb(var(--ami-accent)/0.5)] transition-colors p-0"
               >
                 <p className="text-sm text-slate-600 max-w-4xl leading-relaxed line-clamp-2 mb-3">
                   Research findings were triangulated against Nielsen Norman usability heuristics; those same
@@ -595,7 +595,7 @@ export default function AiTutorPage() {
                 </div>
                 <span
                   className="text-[10px] font-bold uppercase tracking-[0.18em]"
-                  style={{ color: 'rgb(52 118 128 / 0.88)' }}
+                  style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}
                 >
                   Expand full lens →
                 </span>
@@ -629,8 +629,8 @@ export default function AiTutorPage() {
                   onClick={() => setExpandedDecision(isOpen ? null : idx)}
                   className={`group text-left border bg-white p-4 flex flex-col gap-2 transition-all ${
                     isOpen
-                      ? 'border-[rgba(52,118,128,0.88)] shadow-sm'
-                      : 'border-gray-300 hover:border-[rgba(52,118,128,0.55)]'
+                      ? 'border-[rgb(var(--ami-accent)/0.88)] shadow-sm'
+                      : 'border-gray-300 hover:border-[rgb(var(--ami-accent)/0.45)]'
                   }`}
                 >
                   <div className="flex items-center justify-between">
@@ -639,15 +639,15 @@ export default function AiTutorPage() {
                         isOpen ? 'text-white' : ''
                       }`}
                       style={{
-                        color: isOpen ? '#fff' : 'rgb(52 118 128 / 0.88)',
-                        backgroundColor: isOpen ? 'rgb(52 118 128 / 0.88)' : '#fff',
+                        color: isOpen ? '#fff' : `rgb(${amiAccentRgb} / 0.88)`,
+                        backgroundColor: isOpen ? `rgb(${amiAccentRgb} / 0.88)` : '#fff',
                       }}
                     >
                       {d.no}
                     </span>
                     <span
                       className="text-lg leading-none select-none"
-                      style={{ color: 'rgb(52 118 128 / 0.88)' }}
+                      style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}
                       aria-hidden
                     >
                       {isOpen ? '−' : '+'}
@@ -668,7 +668,7 @@ export default function AiTutorPage() {
             {expandedDecision === 0 && (
             <article className={`border ${amiBorderSubtle} bg-white p-5 md:p-6`}>
               <div className="flex items-start gap-4 mb-4">
-                <span className="w-9 h-9 bg-white border border-gray-300 text-xs font-bold flex items-center justify-center" style={{ color: 'rgb(52 118 128 / 0.88)' }}>01</span>
+                <span className="w-9 h-9 bg-white border border-gray-300 text-xs font-bold flex items-center justify-center" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>01</span>
                 <div>
                   <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Learning Style Translation</p>
                   <h4 className="text-lg font-semibold text-slate-900">
@@ -706,7 +706,7 @@ export default function AiTutorPage() {
                         </p>
                       </div>
                       <div>
-                        <p className="font-semibold mb-1" style={{ color: 'rgb(52 118 128 / 0.88)' }}>✓ Stage 4 — Behavioral style labels mapping to FSLSM</p>
+                        <p className="font-semibold mb-1" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>✓ Stage 4 — Behavioral style labels mapping to FSLSM</p>
                         <p>
                           Five plain-language options map to FSLSM internally. The model stays; the language becomes human.
                         </p>
@@ -719,7 +719,7 @@ export default function AiTutorPage() {
                     <div className="flex flex-wrap gap-2 mb-2">
                       <span className={`inline-flex border ${amiBorderSubtle} px-2 py-1 text-xs text-slate-700`}>Interactive</span>
                       <span className={`inline-flex border ${amiBorderSubtle} px-2 py-1 text-xs text-slate-700`}>Textual</span>
-                      <span className={`inline-flex border ${amiBorderSubtle} px-2 py-1 text-xs`} style={{ color: 'rgb(52 118 128 / 0.88)' }}>Visual ✓</span>
+                      <span className={`inline-flex border ${amiBorderSubtle} px-2 py-1 text-xs`} style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>Visual ✓</span>
                       <span className={`inline-flex border ${amiBorderSubtle} px-2 py-1 text-xs text-slate-700`}>Concise</span>
                       <span className={`inline-flex border ${amiBorderSubtle} px-2 py-1 text-xs text-slate-700`}>Balanced</span>
                     </div>
@@ -757,7 +757,7 @@ export default function AiTutorPage() {
             {expandedDecision === 1 && (
             <article className={`border ${amiBorderSubtle} bg-white p-5 md:p-6`}>
               <div className="flex items-start gap-4 mb-4">
-                <span className="w-9 h-9 bg-white border border-gray-300 text-xs font-bold flex items-center justify-center" style={{ color: 'rgb(52 118 128 / 0.88)' }}>02</span>
+                <span className="w-9 h-9 bg-white border border-gray-300 text-xs font-bold flex items-center justify-center" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>02</span>
                 <div>
                   <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Skill Gap Review</p>
                   <h4 className="text-lg font-semibold text-slate-900">
@@ -776,7 +776,7 @@ export default function AiTutorPage() {
                   <p className="text-sm text-slate-600">
                       After onboarding, Ami infers skills and levels. Show it, or skip straight to path generation?
                   </p>
-                  <p className="text-sm bg-white border border-gray-300 p-3 italic" style={{ color: 'rgb(52 118 128 / 0.88)' }}>
+                  <p className="text-sm bg-white border border-gray-300 p-3 italic" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>
                     "If the path feels wrong and users have no recourse, they have no reason to trust it — or return."
                   </p>
                   <div className={`grid md:grid-cols-2 border ${amiBorderSubtle}`}>
@@ -785,8 +785,8 @@ export default function AiTutorPage() {
                       <p className="text-sm text-slate-600">Fewer steps, but no visibility and no way to challenge AI assumptions.</p>
                     </div>
                     <div className="p-3 bg-white border border-gray-300">
-                      <p className="text-[11px] font-bold uppercase tracking-[0.16em] mb-1" style={{ color: 'rgb(52 118 128 / 0.88)' }}>✓ Option B — Show it, let them adjust</p>
-                      <p className="text-sm" style={{ color: 'rgb(52 118 128 / 0.88)' }}>One extra step: see reasoning, adjust levels, then confirm path.</p>
+                      <p className="text-[11px] font-bold uppercase tracking-[0.16em] mb-1" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>✓ Option B — Show it, let them adjust</p>
+                      <p className="text-sm" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>One extra step: see reasoning, adjust levels, then confirm path.</p>
                     </div>
                   </div>
                   <div className={`border ${amiBorderSubtle} bg-white p-4`}>
@@ -794,7 +794,7 @@ export default function AiTutorPage() {
                     <p className="text-sm text-slate-600 mb-2">
                       ✕ MVP: one long page of sliders felt like a form and overloaded users.
                     </p>
-                    <p className="text-sm" style={{ color: 'rgb(52 118 128 / 0.88)' }}>
+                    <p className="text-sm" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>
                       ✓ Final: split panel. Left = scan list. Right = reasoning, dual sliders, confidence, include/ignore.
                     </p>
                   </div>
@@ -826,7 +826,7 @@ export default function AiTutorPage() {
             {expandedDecision === 2 && (
             <article className={`border ${amiBorderSubtle} bg-white p-5 md:p-6`}>
               <div className="flex items-start gap-4 mb-4">
-                <span className="w-9 h-9 bg-white border border-gray-300 text-xs font-bold flex items-center justify-center" style={{ color: 'rgb(52 118 128 / 0.88)' }}>03</span>
+                <span className="w-9 h-9 bg-white border border-gray-300 text-xs font-bold flex items-center justify-center" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>03</span>
                 <div>
                   <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Chatbot Scope</p>
                   <h4 className="text-lg font-semibold text-slate-900">
@@ -845,7 +845,7 @@ export default function AiTutorPage() {
                   <p className="text-sm text-slate-600">
                     The chatbot could be global, or limited to sessions with learning context.
                   </p>
-                  <p className="text-sm bg-white border border-gray-300 p-3 italic" style={{ color: 'rgb(52 118 128 / 0.88)' }}>
+                  <p className="text-sm bg-white border border-gray-300 p-3 italic" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>
                     "This wasn't a feature decision. It was an information architecture decision."
                   </p>
                   <div className={`grid md:grid-cols-2 border ${amiBorderSubtle}`}>
@@ -854,8 +854,8 @@ export default function AiTutorPage() {
                       <p className="text-sm text-slate-600">Always available, but distracts users during setup and review.</p>
                     </div>
                     <div className="p-3 bg-white border border-gray-300">
-                      <p className="text-[11px] font-bold uppercase tracking-[0.16em] mb-1" style={{ color: 'rgb(52 118 128 / 0.88)' }}>✓ Option B — Session-only</p>
-                      <p className="text-sm" style={{ color: 'rgb(52 118 128 / 0.88)' }}>Protects focus and keeps chatbot pedagogical, not generic support.</p>
+                      <p className="text-[11px] font-bold uppercase tracking-[0.16em] mb-1" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>✓ Option B — Session-only</p>
+                      <p className="text-sm" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>Protects focus and keeps chatbot pedagogical, not generic support.</p>
                     </div>
                   </div>
                   <div className={`border ${amiBorderSubtle} bg-white p-4`}>
@@ -888,8 +888,8 @@ export default function AiTutorPage() {
                       <p className="text-sm text-red-600">🚫 Not available — review requires focused decisions.</p>
                     </div>
                     <div className="p-3 bg-white border border-gray-300">
-                      <p className="text-[10px] uppercase tracking-[0.16em] font-bold mb-1" style={{ color: 'rgb(52 118 128 / 0.88)' }}>Learning session</p>
-                      <p className="text-sm" style={{ color: 'rgb(52 118 128 / 0.88)' }}>✓ Available — persistent sidebar with full session context.</p>
+                      <p className="text-[10px] uppercase tracking-[0.16em] font-bold mb-1" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>Learning session</p>
+                      <p className="text-sm" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>✓ Available — persistent sidebar with full session context.</p>
                     </div>
                     <div className="p-3 text-sm text-slate-600">
                       Chatbot appears after learning starts, with full session context.
@@ -903,7 +903,7 @@ export default function AiTutorPage() {
             {expandedDecision === 3 && (
             <article className={`border ${amiBorderSubtle} bg-white p-5 md:p-6`}>
               <div className="flex items-start gap-4 mb-4">
-                <span className="w-9 h-9 bg-white border border-gray-300 text-xs font-bold flex items-center justify-center" style={{ color: 'rgb(52 118 128 / 0.88)' }}>04</span>
+                <span className="w-9 h-9 bg-white border border-gray-300 text-xs font-bold flex items-center justify-center" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>04</span>
                 <div>
                   <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Content Citations</p>
                   <h4 className="text-lg font-semibold text-slate-900">
@@ -922,7 +922,7 @@ export default function AiTutorPage() {
                   <p className="text-sm text-slate-600">
                     Hallucination is the main trust risk in AI tutoring, so we designed for verification from day one.
                   </p>
-                  <p className="text-sm bg-white border border-gray-300 p-3 italic" style={{ color: 'rgb(52 118 128 / 0.88)' }}>
+                  <p className="text-sm bg-white border border-gray-300 p-3 italic" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>
                     "If a learner can't verify where the AI's explanation came from, they have no way to calibrate trust."
                   </p>
                   <div className={`border ${amiBorderSubtle} bg-white p-4`}>
@@ -932,13 +932,13 @@ export default function AiTutorPage() {
                     </p>
                   </div>
                   <div className={`border ${amiBorderSubtle} bg-white p-4`}>
-                    <p className="text-sm font-semibold mb-1" style={{ color: 'rgb(52 118 128 / 0.88)' }}>✓ Verified Course Content</p>
+                    <p className="text-sm font-semibold mb-1" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>✓ Verified Course Content</p>
                     <p className="text-sm text-slate-600">
                       AI is bounded to instructor materials, reducing off-scope generation.
                     </p>
                   </div>
                   <div className={`border ${amiBorderSubtle} bg-white p-4`}>
-                    <p className="text-sm font-semibold mb-1" style={{ color: 'rgb(52 118 128 / 0.88)' }}>✓ Citations with page numbers — checkable, not decorative</p>
+                    <p className="text-sm font-semibold mb-1" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>✓ Citations with page numbers — checkable, not decorative</p>
                     <p className="text-sm text-slate-600">
                       Citations are meant to be checked, not just displayed.
                     </p>
@@ -973,8 +973,8 @@ export default function AiTutorPage() {
                     <p className="text-sm text-slate-600">How is my data used? Behavioral commitments are explicit.</p>
                   </div>
                   <div className="p-3 border-b border-gray-300 bg-white">
-                    <p className="text-[10px] uppercase tracking-[0.16em] font-bold" style={{ color: 'rgb(52 118 128 / 0.88)' }}>Session citations</p>
-                    <p className="text-sm" style={{ color: 'rgb(52 118 128 / 0.88)' }}>Where did this explanation come from? Source + page number.</p>
+                    <p className="text-[10px] uppercase tracking-[0.16em] font-bold" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>Session citations</p>
+                    <p className="text-sm" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>Where did this explanation come from? Source + page number.</p>
                   </div>
                   <div className="p-3">
                     <p className="text-[10px] uppercase tracking-[0.16em] font-bold text-slate-500">AI transparency page</p>
@@ -992,7 +992,7 @@ export default function AiTutorPage() {
             {expandedDecision === 4 && (
             <article className={`border ${amiBorderSubtle} bg-white p-5 md:p-6`}>
               <div className="flex items-start gap-4 mb-4">
-                <span className="w-9 h-9 bg-white border border-gray-300 text-xs font-bold flex items-center justify-center" style={{ color: 'rgb(52 118 128 / 0.88)' }}>05</span>
+                <span className="w-9 h-9 bg-white border border-gray-300 text-xs font-bold flex items-center justify-center" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>05</span>
                 <div>
                   <p className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Guided Onboarding Flow</p>
                   <h4 className="text-lg font-semibold text-slate-900">
@@ -1033,7 +1033,7 @@ export default function AiTutorPage() {
                     <p className="text-sm text-slate-600 mb-2">
                       ✕ MVP put goal + style + resume on one screen. Drop-off came from unclear context, not length.
                     </p>
-                    <p className="text-sm italic" style={{ color: 'rgb(52 118 128 / 0.88)' }}>
+                    <p className="text-sm italic" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>
                       "A good design principle should support user behavior. When they conflict, reinterpret the principle."
                     </p>
                   </div>
@@ -1051,7 +1051,7 @@ export default function AiTutorPage() {
                       The order mirrors learner mental models: start with intention, then preference, then optional depth.
                     </p>
                     <div className={`border ${amiBorderSubtle} bg-slate-50 p-3`}>
-                      <p className="text-sm italic" style={{ color: 'rgb(52 118 128 / 0.88)' }}>
+                      <p className="text-sm italic" style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}>
                         "Progressive disclosure works when each step answers one clear learner question."
                       </p>
                     </div>
@@ -1082,7 +1082,7 @@ export default function AiTutorPage() {
               <div key={h.title} className={`border ${amiBorderSubtle} bg-white p-5`}>
                 <p
                   className="text-[10px] font-bold uppercase tracking-[0.18em] mb-2"
-                  style={{ color: 'rgb(52 118 128 / 0.88)' }}
+                  style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}
                 >
                   {h.eyebrow}
                 </p>
@@ -1144,13 +1144,13 @@ export default function AiTutorPage() {
                     }`}
                     style={
                       isActive
-                        ? { borderLeft: '3px solid rgb(52 118 128 / 0.88)', paddingLeft: 'calc(1rem - 3px)' }
+                        ? { borderLeft: `3px solid rgb(${amiAccentRgb} / 0.88)`, paddingLeft: 'calc(1rem - 3px)' }
                         : { borderLeft: '3px solid transparent', paddingLeft: 'calc(1rem - 3px)' }
                     }
                   >
                     <p
                       className="text-[10px] font-bold uppercase tracking-[0.18em] mb-1"
-                      style={{ color: isActive ? 'rgb(52 118 128 / 0.88)' : '#64748b' }}
+                      style={{ color: isActive ? `rgb(${amiAccentRgb} / 0.88)` : '#64748b' }}
                     >
                       {step.badge}
                     </p>
@@ -1178,7 +1178,7 @@ export default function AiTutorPage() {
                     </div>
                     <span
                       className="inline-flex bg-white border border-gray-300 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] mb-3"
-                      style={{ color: 'rgb(52 118 128 / 0.88)' }}
+                      style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}
                     >
                       {step.badge}
                     </span>
@@ -1238,7 +1238,7 @@ export default function AiTutorPage() {
             <div className={`border ${amiBorder} bg-white p-4 md:p-6`}>
             <p
                 className="text-[10px] font-bold uppercase tracking-[0.2em] mb-3"
-                style={{ color: 'rgb(52 118 128 / 0.88)' }}
+                style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}
               >
                 DEMO
               </p>
@@ -1254,7 +1254,7 @@ export default function AiTutorPage() {
             <div className={`border ${amiBorder} bg-white p-4 md:p-6`}>
               <p
                 className="text-[10px] font-bold uppercase tracking-[0.2em] mb-3"
-                style={{ color: 'rgb(52 118 128 / 0.88)' }}
+                style={{ color: `rgb(${amiAccentRgb} / 0.88)` }}
               >
                 Full presentation
               </p>

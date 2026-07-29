@@ -40,7 +40,7 @@ export const HOVER_MASK_SHAPES = {
 };
 
 const THEME_BY_ID = {
-  'cognitive-adaptive-ai-tutor': { color: '#ecfdf5', accent: '#d1fae5', ink: '#1c532f', shape: 'leaf' },
+  'cognitive-adaptive-ai-tutor': { color: '#f4f7f7', accent: '#e8efef', ink: '#2d6269', shape: 'leaf' },
   'design-standard-wcag': { color: '#f0f9ff', accent: '#e0f2fe', ink: '#0075BE', shape: 'petal' },
   'bank-document-system': { color: '#f0f9ff', accent: '#e0f2fe', ink: '#0075BE', shape: 'brush' },
   'ai-knowledge-base-engineering': { color: '#fff7ed', accent: '#ffedd5', ink: '#c2410c', shape: 'flower' },
