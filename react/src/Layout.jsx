@@ -367,7 +367,7 @@ export default function Layout() {
         ref={siteHeaderRef}
         className={`fixed inset-x-0 top-0 z-50 border-b shadow-[0_8px_30px_-12px_rgba(0,0,0,0.12)] ${globalTopBarClass}`}
       >
-        <div className="mx-auto flex w-full max-w-[100vw] items-center justify-between gap-3 px-3 py-2 sm:px-6 sm:py-2.5">
+        <div className="relative mx-auto flex w-full max-w-[100vw] items-center justify-between gap-3 px-3 py-2 sm:px-6 sm:py-2.5">
           <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2 sm:gap-3">
             <button
               type="button"
@@ -377,9 +377,11 @@ export default function Layout() {
               Claire<span className="text-blue-600 transition-all group-hover:ml-0.5">.</span>
             </button>
             <div className="flex min-w-0 flex-wrap items-center gap-0.5 sm:gap-1">{topSocialLinks}</div>
-         
           </div>
-          <nav className="flex shrink-0 items-center gap-1.5 sm:gap-2" aria-label="Primary">
+          <nav
+            className="absolute left-1/2 top-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 items-center gap-1.5 sm:gap-2"
+            aria-label="Primary"
+          >
             {HOME_NAV.map((link) => {
               const workActive = isHome && !isAboutPage;
               const aboutActive = isAboutPage;
@@ -398,6 +400,10 @@ export default function Layout() {
               );
             })}
           </nav>
+          {/* Balances the left cluster so the bar keeps consistent height/spacing */}
+          <div className="pointer-events-none invisible flex flex-1 select-none justify-end" aria-hidden>
+            <span className="text-lg font-black tracking-tighter sm:text-xl">Claire.</span>
+          </div>
         </div>
       </header>
       {/* Reserve space for fixed header (height synced with measured header) */}
