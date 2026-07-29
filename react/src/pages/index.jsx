@@ -347,10 +347,10 @@ export function ResumePage() {
   const pdfHref = `${baseTrim}/resume/ClaireWang_Resume_2026.pdf`;
 
   return (
-    <div className="px-6 md:px-12 lg:px-20 py-12 md:py-20">
+    <div className="px-6 md:px-12 lg:px-20 py-6 md:py-8">
       <Link
         to="/"
-        className="group mb-6 inline-flex items-center gap-2 text-gray-700 transition-colors hover:text-black"
+        className="group mb-3 inline-flex items-center gap-2 text-gray-700 transition-colors hover:text-black"
       >
         <ArrowLeft
           size={16}
@@ -365,13 +365,13 @@ export function ResumePage() {
           download="ClaireWang_Resume_2026.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-2 bg-black text-white rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-blue-600 transition-all h-12 px-6"
+          className="inline-flex items-center justify-center gap-2 bg-black text-white rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-blue-600 transition-all h-10 px-5"
         >
           <Download size={16} />
           Download PDF
         </a>
       </div>
-      <div className="mt-16 rounded-2xl overflow-hidden border border-gray-100 bg-gray-50/50">
+      <div className="mt-6 rounded-2xl overflow-hidden border border-gray-100 bg-gray-50/50">
         <iframe
           src={pdfHref}
           title="Resume PDF"
