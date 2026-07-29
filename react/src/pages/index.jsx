@@ -249,12 +249,13 @@ export function HomePage() {
                         </span>
                       )}
                     </div>
-                    <div className="flex-1 min-w-0 px-3 py-2 sm:px-4 sm:py-2.5 md:px-5 flex flex-col justify-start overflow-hidden">
-                      <div className="flex justify-between items-start gap-2 min-w-0">
-                        <h2 className="text-sm sm:text-base md:text-lg font-medium text-gray-800 group-hover:text-black transition-colors pr-1 truncate min-w-0">
+                    <div className="relative flex-1 min-w-0 self-stretch overflow-hidden">
+                      {/* Default: title row only */}
+                      <div className="relative z-0 flex h-full items-center justify-between gap-2 px-3 py-2 sm:px-4 md:px-5 transition-opacity duration-200 group-hover:opacity-0 group-focus-within:opacity-0">
+                        <h2 className="text-sm sm:text-base md:text-lg font-medium text-gray-800 truncate min-w-0 pr-2">
                           {p.title}
                         </h2>
-                        <div className="flex items-center gap-2 shrink-0 mt-0.5">
+                        <div className="flex items-center gap-2 shrink-0">
                           {(p.year || p.location) && (
                             <div className="flex items-center gap-1.5 text-[10px] text-gray-500 tabular-nums">
                               {p.year && <span>{p.year}</span>}
@@ -262,35 +263,56 @@ export function HomePage() {
                               {p.location && <span>{p.location}</span>}
                             </div>
                           )}
-                          <ArrowUpRight
-                            size={16}
-                            className="text-gray-300 group-hover:text-black transition-colors shrink-0"
-                            aria-hidden
-                          />
+                          <ArrowUpRight size={16} className="text-gray-300 shrink-0" aria-hidden />
                         </div>
                       </div>
-                      <p className="mt-0.5 text-[11px] sm:text-xs text-gray-600 leading-snug line-clamp-1">
-                        {p.description}
-                      </p>
-                      <div className="flex flex-wrap items-center gap-1 mt-1 min-w-0">
-                        {p.tags.slice(0, 3).map((tag) => (
-                          <span
-                            key={tag}
-                            className="px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wide text-gray-700 border border-gray-300 bg-white"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                        {p.tags.length > 3 && (
-                          <span className="px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wide text-gray-700 border border-gray-300 bg-white">
-                            +{p.tags.length - 3}
-                          </span>
-                        )}
-                        {Array.isArray(p.tools) && p.tools.length > 0 && (
-                          <span className="ml-1 text-[8px] sm:text-[9px] font-medium text-gray-600 truncate group-hover:text-black transition-colors">
-                            {p.tools.slice(0, 5).join(' | ')}
-                          </span>
-                        )}
+
+                      {/* Light green mask expands from left */}
+                      <div
+                        className="pointer-events-none absolute inset-0 z-10 origin-left scale-x-0 bg-emerald-50 transition-transform duration-300 ease-out group-hover:scale-x-100 group-focus-within:scale-x-100"
+                        aria-hidden
+                      />
+
+                      {/* Detail content fades in over the mask */}
+                      <div className="absolute inset-0 z-20 flex flex-col justify-center gap-1 px-3 py-2 sm:px-4 md:px-5 opacity-0 transition-opacity duration-300 delay-75 group-hover:opacity-100 group-focus-within:opacity-100">
+                        <div className="flex justify-between items-start gap-2 min-w-0">
+                          <h2 className="text-sm sm:text-base md:text-lg font-medium text-gray-900 truncate min-w-0 pr-1">
+                            {p.title}
+                          </h2>
+                          <div className="flex items-center gap-2 shrink-0 mt-0.5">
+                            {(p.year || p.location) && (
+                              <div className="flex items-center gap-1.5 text-[10px] text-gray-600 tabular-nums">
+                                {p.year && <span>{p.year}</span>}
+                                {p.year && p.location && <span className="text-gray-400">·</span>}
+                                {p.location && <span>{p.location}</span>}
+                              </div>
+                            )}
+                            <ArrowUpRight size={16} className="text-gray-700 shrink-0" aria-hidden />
+                          </div>
+                        </div>
+                        <p className="text-[11px] sm:text-xs text-gray-700 leading-snug line-clamp-1">
+                          {p.description}
+                        </p>
+                        <div className="flex flex-wrap items-center gap-1 min-w-0">
+                          {p.tags.slice(0, 3).map((tag) => (
+                            <span
+                              key={tag}
+                              className="px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wide text-gray-700 border border-emerald-200/80 bg-white/70"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                          {p.tags.length > 3 && (
+                            <span className="px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wide text-gray-700 border border-emerald-200/80 bg-white/70">
+                              +{p.tags.length - 3}
+                            </span>
+                          )}
+                          {Array.isArray(p.tools) && p.tools.length > 0 && (
+                            <span className="ml-1 text-[8px] sm:text-[9px] font-medium text-gray-700 truncate">
+                              {p.tools.slice(0, 5).join(' | ')}
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
