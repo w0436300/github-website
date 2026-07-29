@@ -113,7 +113,6 @@ export function HomePage() {
     <section id="home" className="px-6 md:px-12 lg:px-20 pt-4 md:pt-4 pb-12 md:pb-4 bg-white">
       <PasswordModal
         open={passwordModal.open}
-        title={passwordModal.project?.title || ''}
         onUnlock={handlePasswordUnlock}
         error={passwordError}
         onClearError={() => setPasswordError('')}
