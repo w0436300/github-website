@@ -6,6 +6,7 @@ import { projects } from '../data/projects.js';
 import { isProjectUnlocked } from '../data/projectPasswords.js';
 import { tryUnlockProject } from '../hooks/useProjectUnlock.js';
 import PasswordModal from '../components/PasswordModal.jsx';
+import { getProjectHoverTheme, OrganicHoverMask } from '../components/OrganicHoverMask.jsx';
 import { sourceSansPro } from '../styles/caseStudyTheme.js';
 
 const BASE = import.meta.env.BASE_URL || '/';
@@ -207,6 +208,7 @@ export function HomePage() {
                 ? `${BASE}${p.cover.startsWith('/') ? p.cover.slice(1) : p.cover}`
                 : null;
               const isProtected = Boolean(p.passwordProtected);
+              const hoverTheme = getProjectHoverTheme(p);
               return (
                 <button
                   key={p.id}
@@ -215,7 +217,7 @@ export function HomePage() {
                   onMouseEnter={(e) => showHoverTip(e, isProtected ? 'Enter password' : 'View details')}
                   onMouseMove={moveHoverTip}
                   onMouseLeave={hideHoverTip}
-                  className="group cursor-none text-left bg-white border border-gray-200 border-solid rounded-none shadow-none transition-all hover:shadow-sm hover:bg-gray-50/40 active:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black w-full"
+                  className="group cursor-none text-left bg-white border border-gray-200 border-solid rounded-none shadow-none transition-all hover:shadow-sm active:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black w-full"
                 >
                   <div className="flex flex-row items-stretch h-[70px] sm:h-[84px] md:h-[100px]">
                     <div className="relative w-[28%] sm:w-[30%] md:w-[32%] max-w-[280px] shrink-0 bg-white overflow-hidden border-r border-gray-200 self-stretch">
@@ -267,48 +269,44 @@ export function HomePage() {
                         </div>
                       </div>
 
-                      {/* Light green mask expands from left */}
-                      <div
-                        className="pointer-events-none absolute inset-0 z-10 origin-left scale-x-0 bg-emerald-50 transition-transform duration-300 ease-out group-hover:scale-x-100 group-focus-within:scale-x-100"
-                        aria-hidden
-                      />
+                      <OrganicHoverMask theme={hoverTheme} />
 
                       {/* Detail content fades in over the mask */}
-                      <div className="absolute inset-0 z-20 flex flex-col justify-center gap-1 px-3 py-2 sm:px-4 md:px-5 opacity-0 transition-opacity duration-300 delay-75 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div className="absolute inset-0 z-20 flex flex-col justify-center gap-1 px-3 py-2 sm:px-4 md:px-5 opacity-0 transition-opacity duration-300 delay-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         <div className="flex justify-between items-start gap-2 min-w-0">
                           <h2 className="text-sm sm:text-base md:text-lg font-medium text-gray-900 truncate min-w-0 pr-1">
                             {p.title}
                           </h2>
                           <div className="flex items-center gap-2 shrink-0 mt-0.5">
                             {(p.year || p.location) && (
-                              <div className="flex items-center gap-1.5 text-[10px] text-gray-600 tabular-nums">
+                              <div className="flex items-center gap-1.5 text-[10px] text-gray-700 tabular-nums">
                                 {p.year && <span>{p.year}</span>}
                                 {p.year && p.location && <span className="text-gray-400">·</span>}
                                 {p.location && <span>{p.location}</span>}
                               </div>
                             )}
-                            <ArrowUpRight size={16} className="text-gray-700 shrink-0" aria-hidden />
+                            <ArrowUpRight size={16} className="text-gray-800 shrink-0" aria-hidden />
                           </div>
                         </div>
-                        <p className="text-[11px] sm:text-xs text-gray-700 leading-snug line-clamp-1">
+                        <p className="text-[11px] sm:text-xs text-gray-800 leading-snug line-clamp-1">
                           {p.description}
                         </p>
                         <div className="flex flex-wrap items-center gap-1 min-w-0">
                           {p.tags.slice(0, 3).map((tag) => (
                             <span
                               key={tag}
-                              className="px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wide text-gray-700 border border-emerald-200/80 bg-white/70"
+                              className="px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wide text-gray-800 border border-black/10 bg-white/75"
                             >
                               {tag}
                             </span>
                           ))}
                           {p.tags.length > 3 && (
-                            <span className="px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wide text-gray-700 border border-emerald-200/80 bg-white/70">
+                            <span className="px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wide text-gray-800 border border-black/10 bg-white/75">
                               +{p.tags.length - 3}
                             </span>
                           )}
                           {Array.isArray(p.tools) && p.tools.length > 0 && (
-                            <span className="ml-1 text-[8px] sm:text-[9px] font-medium text-gray-700 truncate">
+                            <span className="ml-1 text-[8px] sm:text-[9px] font-medium text-gray-800 truncate">
                               {p.tools.slice(0, 5).join(' | ')}
                             </span>
                           )}
