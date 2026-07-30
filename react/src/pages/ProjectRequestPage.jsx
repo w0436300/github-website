@@ -59,15 +59,16 @@ function CaseStudyContent() {
             Project Request &amp; <span className="italic font-medium text-slate-600">Collaboration Platform.</span>
           </h1>
           <p className="text-slate-700 text-sm md:text-base leading-relaxed max-w-3xl mb-8">
-            Designed a request-to-delivery experience that clarifies intake, ownership, and handoffs between
-            requesters, design, and engineering.
+            Redesigned an internal request-to-delivery system for a mid-size commercial fit-out / civil company
+            mid digital transformation — replacing a confusing engineering-built tool with a clearer intake,
+            status, and collaboration experience.
           </p>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-0 border border-gray-200 overflow-hidden text-[13px] bg-white mb-10">
             {[
-              ['Role', 'Product Designer · Freelance'],
-              ['Focus', 'Intake · Status model · Collaboration'],
-              ['Users', 'Design · Eng · Stakeholders'],
+              ['Role', 'UX · Product Designer'],
+              ['Partners', 'PM · IT department lead'],
+              ['Company', 'Fit-out / civil · 11–50'],
               ['Status', '✓ Near complete'],
             ].map(([k, v]) => (
               <div key={k} className="border-r border-b border-gray-200 p-3 last:border-r-0 md:[&:nth-child(4n)]:border-r-0">
@@ -81,19 +82,54 @@ function CaseStudyContent() {
         </div>
       </section>
 
+      <section id="Background" className="py-12 px-6 border-t border-gray-200">
+        <div className="max-w-7xl mx-auto">
+          <SectionIntro
+            eyebrow="Background"
+            title="A traditional delivery company trying to digitize how work gets requested."
+            subtitle="An 11–50 person commercial fit-out / interior design and civil engineering firm. Teams already delivered projects — collaboration tooling had not caught up."
+          />
+          <div className="grid md:grid-cols-3 gap-0 border border-gray-200 mb-8">
+            {[
+              [
+                'Fragmented tooling',
+                'Excel, Jira, Monday, and more — each group ran its own collaboration stack, so there was no shared request record across the company.',
+              ],
+              [
+                'Digital transformation push',
+                'Leadership wanted one internal system for submitting and tracking project requests as part of a broader digitization effort.',
+              ],
+              [
+                'Engineering-first build',
+                'Programmers shipped a request submission system without UX involvement. Feedback was poor: hard to understand, confusing to use, and costly in wasted work time.',
+              ],
+            ].map(([t, b]) => (
+              <div key={t} className="border-r border-b border-gray-200 p-5 last:border-r-0 md:[&:nth-child(3n)]:border-r-0">
+                <h4 className="text-sm font-semibold text-slate-900 mb-2">{t}</h4>
+                <p className="text-xs text-slate-600 leading-relaxed">{b}</p>
+              </div>
+            ))}
+          </div>
+          <p className="text-sm text-slate-700 leading-relaxed max-w-3xl">
+            I joined as UX / Product Designer at this inflection point — partnering primarily with the PM and
+            the IT department lead to rethink intake, ownership, and how people actually move requests forward.
+          </p>
+        </div>
+      </section>
+
       <section id="Challenge" className="py-12 px-6 border-t border-gray-200">
         <div className="max-w-7xl mx-auto">
           <SectionIntro
             eyebrow="Challenge"
-            title="Requests arrived — ownership and next steps did not."
-            subtitle="Teams needed a shared language for priority, readiness, and who moves the work forward."
+            title="The system existed — but people could not use it with confidence."
+            subtitle="Adoption failed because the product did not match how teams request, hand off, and track work across disciplines."
           />
           <div className="grid md:grid-cols-2 gap-0 border border-gray-200">
             {[
-              ['Ambiguous intake', 'Requests arrived incomplete, so discovery restarted on every thread.'],
-              ['Invisible status', 'Stakeholders could not tell what was blocked, waiting, or in progress.'],
-              ['Scattered conversation', 'Decisions lived in email and chat, disconnected from the request record.'],
-              ['Uneven handoffs', 'Design and engineering lacked a clear ready-for-handoff checklist.'],
+              ['Unclear mental model', 'Users did not understand how the tool worked or what to do next after submitting a request.'],
+              ['Chaotic usage', 'Without shared conventions, each team improvised — creating inconsistent records and follow-ups.'],
+              ['Time wasted', 'Finding status, owners, and missing information cost more time than the previous messy spreadsheets.'],
+              ['Tool sprawl persisted', 'Excel, Jira, and Monday still held pieces of truth, so the new system never became the source of record.'],
             ].map(([t, b]) => (
               <div key={t} className="border-r border-b border-gray-200 p-5 md:[&:nth-child(2n)]:border-r-0">
                 <h4 className="text-sm font-semibold text-slate-900 mb-2">{t}</h4>
@@ -108,14 +144,15 @@ function CaseStudyContent() {
         <div className="max-w-7xl mx-auto">
           <SectionIntro
             eyebrow="Process"
-            title="Make the lifecycle legible before optimizing the UI."
+            title="Rebuild understanding with PM and IT before redesigning screens."
+            subtitle="The brief was not a visual refresh — it was to make the request lifecycle understandable for people used to Excel, Jira, and Monday."
           />
           <ol className="space-y-4">
             {[
-              ['Map the real request journey', 'Interviewed requesters and delivery partners to capture where work stalled.'],
+              ['Map the real request journey', 'Worked with PM and IT to interview requesters and delivery partners — where work stalled across tools and teams.'],
               ['Define status with meaning', 'Each stage answers: who owns it, what is needed, and what unlocks the next step.'],
-              ['Design progressive intake', 'Collect only what is needed up front; deepen detail as the request advances.'],
-              ['Anchor collaboration to the record', 'Comments, decisions, and artifacts stay attached to the request — not lost in side channels.'],
+              ['Design progressive intake', 'Collect only what is needed up front; deepen detail as the request advances — so the form feels usable, not bureaucratic.'],
+              ['Anchor collaboration to the record', 'Comments, decisions, and artifacts stay attached to the request — reducing reliance on side-channel tools.'],
             ].map(([t, b], i) => (
               <li key={t} className="flex gap-4 border border-gray-200 p-4 bg-white">
                 <span className="text-[11px] font-bold tabular-nums shrink-0" style={{ color: prAccent }}>
@@ -138,8 +175,9 @@ function CaseStudyContent() {
             title="A shared operating picture for request-to-delivery work."
           />
           <p className="text-sm text-slate-700 leading-relaxed max-w-3xl">
-            Detailed screens remain confidential under NDA. This summary covers the problem framing, status model,
-            and collaboration principles that shaped the platform.
+            Detailed screens remain confidential under NDA. This summary covers the company context, why the
+            first engineering-built system failed, and the intake / status / collaboration principles that
+            shaped the redesign with PM and IT.
           </p>
         </div>
       </section>
