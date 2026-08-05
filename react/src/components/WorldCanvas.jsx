@@ -1,5 +1,5 @@
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Float, Html, Sky, useGLTF } from '@react-three/drei';
+import { Float, Html, Sky, useGLTF, useTexture } from '@react-three/drei';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as THREE from 'three';
@@ -33,6 +33,20 @@ function Model({ file, scale = 1, position = [0, 0, 0], rotation = [0, 0, 0] }) 
 
 function Water() {
   const materialRef = useRef();
+  const waterTexture = useTexture(`${import.meta.env.BASE_URL || '/'}textures/cartoon-water-base.png`);
+  useMemo(() => {
+    waterTexture.wrapS = THREE.RepeatWrapping;
+    waterTexture.wrapT = THREE.RepeatWrapping;
+    waterTexture.colorSpace = THREE.SRGBColorSpace;
+    waterTexture.anisotropy = 4;
+    waterTexture.needsUpdate = true;
+  }, [waterTexture]);
+  const uniforms = useMemo(() => ({
+    uTime: { value: 0 },
+    uMap: { value: waterTexture },
+    uDeep: { value: new THREE.Color('#267fac') },
+    uShallow: { value: new THREE.Color('#bcecf0') },
+  }), [waterTexture]);
   useFrame((state) => {
     if (materialRef.current) materialRef.current.uniforms.uTime.value = state.clock.elapsedTime;
   });
@@ -41,14 +55,7 @@ function Water() {
       <planeGeometry args={[42, 30, 128, 96]} />
       <shaderMaterial
         ref={materialRef}
-        transparent
-        depthWrite={false}
-        uniforms={{
-          uTime: { value: 0 },
-          uDeep: { value: new THREE.Color('#318fb9') },
-          uMid: { value: new THREE.Color('#70c4df') },
-          uShallow: { value: new THREE.Color('#c8eff6') },
-        }}
+        uniforms={uniforms}
         vertexShader={`
           uniform float uTime;
           varying vec2 vUv;
@@ -72,31 +79,38 @@ function Water() {
         fragmentShader={`
           uniform float uTime;
           uniform vec3 uDeep;
-          uniform vec3 uMid;
           uniform vec3 uShallow;
+          uniform sampler2D uMap;
           varying vec2 vUv;
           varying float vWave;
           varying vec3 vWorldPosition;
 
           void main() {
-            float horizon = smoothstep(0.05, 0.95, vUv.y);
-            vec3 water = mix(uDeep, uMid, horizon);
-            water = mix(water, uShallow, horizon * horizon * 0.45);
-
-            float rippleA = sin(vWorldPosition.x * 1.8 + vWorldPosition.z * 0.72 + uTime * 0.9);
-            float rippleB = sin(vWorldPosition.z * 2.25 - vWorldPosition.x * 0.28 - uTime * 0.65);
-            float caustic = smoothstep(0.86, 1.0, rippleA * rippleB);
-            float reflectionBand = pow(max(0.0, sin(vWorldPosition.x * 3.1 + uTime * 0.8)), 18.0)
-                                 * (0.35 + 0.65 * pow(max(0.0, cos(vWorldPosition.z * 1.2)), 8.0));
-            water += vec3(0.65, 0.88, 0.96) * caustic * 0.12;
-            water += vec3(0.96, 1.0, 1.0) * reflectionBand * 0.28;
-
-            float edgeFade = smoothstep(0.0, 0.08, vUv.x) * smoothstep(0.0, 0.08, 1.0 - vUv.x)
-                           * smoothstep(0.0, 0.08, vUv.y) * smoothstep(0.0, 0.08, 1.0 - vUv.y);
-            gl_FragColor = vec4(water, 0.9 * edgeFade);
+            vec2 driftA = vec2(uTime * 0.006, uTime * -0.003);
+            vec2 driftB = vec2(uTime * -0.004, uTime * 0.005);
+            vec3 layerA = texture2D(uMap, vUv * vec2(3.6, 2.7) + driftA).rgb;
+            vec3 layerB = texture2D(uMap, vec2(vUv.y, 1.0 - vUv.x) * vec2(2.4, 3.1) + driftB).rgb;
+            vec3 textureWater = mix(layerA, layerB, 0.28);
+            float luminance = dot(textureWater, vec3(0.299, 0.587, 0.114));
+            float horizon = smoothstep(0.05, 0.98, vUv.y);
+            vec3 water = mix(uDeep, textureWater, 0.72);
+            water = mix(water, uShallow, horizon * 0.13);
+            float sparkle = smoothstep(0.76, 0.94, luminance) * (0.55 + 0.45 * sin(uTime * 0.7 + vWorldPosition.x));
+            water += vec3(0.72, 0.92, 0.96) * sparkle * 0.09;
+            water += vWave * 0.16;
+            gl_FragColor = vec4(water, 1.0);
           }
         `}
       />
+    </mesh>
+  );
+}
+
+function ShallowWaterHalo({ position, size = 1 }) {
+  return (
+    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[position[0], -0.355, position[2]]}>
+      <ringGeometry args={[size * 1.45, size * 2.25, 64]} />
+      <meshBasicMaterial color="#bdeff0" transparent opacity={0.17} depthWrite={false} />
     </mesh>
   );
 }
@@ -300,6 +314,10 @@ function Scene() {
       <directionalLight position={[6, 12, 7]} intensity={2.15} castShadow shadow-mapSize={[1024, 1024]} />
       <Water />
       <DistantMountains />
+      <ShallowWaterHalo position={about.position} size={0.9} />
+      {islands.map((island) => (
+        <ShallowWaterHalo key={`water-${island.id}`} position={island.position} size={island.id === 'featured' ? 1.25 : 0.95} />
+      ))}
       <Html position={[about.position[0], 4.25, about.position[2]]} center transform distanceFactor={9}>
         <div className="world-intro-card">
           <p className="eyebrow">HELLO TO</p>
