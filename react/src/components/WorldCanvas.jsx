@@ -133,7 +133,7 @@ function DistantMountains() {
   );
 }
 
-function Label({ title, accent, position = [0, 2.55, 0] }) {
+function Label({ title, accent, position = [0, 2.2, 0] }) {
   return <Html center position={position} transform distanceFactor={10}><div className="island-label" style={{ background: accent }}>{title}</div></Html>;
 }
 
@@ -166,7 +166,7 @@ function Island({ island }) {
         onPointerOver={(event) => { event.stopPropagation(); setHovered(true); document.body.style.cursor = 'pointer'; }}
         onPointerOut={() => { setHovered(false); document.body.style.cursor = 'default'; }}
       >
-        <Model file={islandModels[island.id]} scale={4.5} />
+        <Model file={islandModels[island.id]} scale={3.7} />
         <Label title={island.title} accent={island.accent} />
         {selectedIsland?.id === island.id && <pointLight position={[0, 2.5, 0]} color={island.accent} intensity={2.2} distance={6} />}
       </group>
@@ -184,8 +184,8 @@ function AboutIsland() {
         onPointerOver={() => { document.body.style.cursor = 'pointer'; }}
         onPointerOut={() => { document.body.style.cursor = 'default'; }}
       >
-        <Model file="aboutme_island.glb" scale={4.5} />
-        <Label title="About Me" accent="#e53935" position={[0, 2.75, 0]} />
+        <Model file="aboutme_island.glb" scale={3.7} />
+        <Label title="About Me" accent="#e53935" position={[0, 2.3, 0]} />
       </group>
     </Float>
   );
@@ -242,7 +242,7 @@ function AutoTraveler() {
 
 function CameraRig() {
   const { camera } = useThree();
-  const overviewPosition = useMemo(() => new THREE.Vector3(0, 6.8, 19.5), []);
+  const overviewPosition = useMemo(() => new THREE.Vector3(0, 7.2, 20.8), []);
   const overviewTarget = useMemo(() => new THREE.Vector3(0, 1.05, -0.6), []);
   const focusPosition = useMemo(() => new THREE.Vector3(), []);
   const focusTarget = useMemo(() => new THREE.Vector3(), []);
@@ -314,9 +314,9 @@ function Scene() {
       <directionalLight position={[6, 12, 7]} intensity={2.15} castShadow shadow-mapSize={[1024, 1024]} />
       <Water />
       <DistantMountains />
-      <ShallowWaterHalo position={about.position} size={0.9} />
+      <ShallowWaterHalo position={about.position} size={0.74} />
       {islands.map((island) => (
-        <ShallowWaterHalo key={`water-${island.id}`} position={island.position} size={island.id === 'featured' ? 1.25 : 0.95} />
+        <ShallowWaterHalo key={`water-${island.id}`} position={island.position} size={island.id === 'featured' ? 1.02 : 0.78} />
       ))}
       <Html position={[about.position[0], 4.25, about.position[2]]} center transform distanceFactor={9}>
         <div className="world-intro-card">
@@ -352,7 +352,7 @@ export default function WorldCanvas() {
 
   return (
     <div className="canvas-wrap">
-      <Canvas key={rendererKey} onCreated={handleCreated} shadows camera={{ position: [0, 6.8, 19.5], fov: 47 }} dpr={[1, 1.2]} tabIndex={0}>
+      <Canvas key={rendererKey} onCreated={handleCreated} shadows camera={{ position: [0, 7.2, 20.8], fov: 48 }} dpr={[1, 1.2]} tabIndex={0}>
         <Scene />
       </Canvas>
       <div className="world-map"><strong>YOU ARE HERE</strong><span className="map-dot red"/><span className="map-dot purple"/><span className="map-dot green"/><span className="map-dot pink"/><span className="map-dot orange"/></div>
