@@ -1,5 +1,5 @@
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Float, Html, Sky, useGLTF, useTexture } from '@react-three/drei';
+import { Float, Html, useGLTF, useTexture } from '@react-three/drei';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as THREE from 'three';
@@ -44,8 +44,8 @@ function Water() {
   const uniforms = useMemo(() => ({
     uTime: { value: 0 },
     uMap: { value: waterTexture },
-    uDeep: { value: new THREE.Color('#267fac') },
-    uShallow: { value: new THREE.Color('#bcecf0') },
+    uDeep: { value: new THREE.Color('#4ca8c9') },
+    uShallow: { value: new THREE.Color('#d2f1f2') },
   }), [waterTexture]);
   useFrame((state) => {
     if (materialRef.current) materialRef.current.uniforms.uTime.value = state.clock.elapsedTime;
@@ -93,7 +93,7 @@ function Water() {
             vec3 textureWater = mix(layerA, layerB, 0.28);
             float luminance = dot(textureWater, vec3(0.299, 0.587, 0.114));
             float horizon = smoothstep(0.05, 0.98, vUv.y);
-            vec3 water = mix(uDeep, textureWater, 0.72);
+            vec3 water = mix(uDeep, textureWater, 0.58);
             water = mix(water, uShallow, horizon * 0.13);
             float sparkle = smoothstep(0.76, 0.94, luminance) * (0.55 + 0.45 * sin(uTime * 0.7 + vWorldPosition.x));
             water += vec3(0.72, 0.92, 0.96) * sparkle * 0.09;
@@ -115,21 +115,18 @@ function ShallowWaterHalo({ position, size = 1 }) {
   );
 }
 
-function DistantMountains() {
-  const peaks = [
-    [-11, 0.8, -13.5, 3.8, '#9bcbd4'], [-7.5, 0.45, -14, 2.8, '#aad7dc'],
-    [-3.8, 0.7, -13.8, 3.3, '#91c4cf'], [1.2, 0.35, -14.2, 2.4, '#aed9dd'],
-    [5.3, 0.72, -13.7, 3.5, '#93c6d0'], [9.8, 0.5, -14, 3.0, '#a8d5da'],
-  ];
+function HorizonBackdrop() {
+  const texture = useTexture(`${import.meta.env.BASE_URL || '/'}textures/sky-mountain-panorama.png`);
+  useMemo(() => {
+    texture.colorSpace = THREE.SRGBColorSpace;
+    texture.anisotropy = 4;
+    texture.needsUpdate = true;
+  }, [texture]);
   return (
-    <group>
-      {peaks.map(([x, y, z, scale, color], index) => (
-        <mesh key={index} position={[x, y, z]} scale={[scale * 1.5, scale, scale * 0.35]}>
-          <coneGeometry args={[1, 1.7, 5]} />
-          <meshStandardMaterial color={color} roughness={1} fog />
-        </mesh>
-      ))}
-    </group>
+    <mesh position={[0, 5.2, -14.2]} renderOrder={-10}>
+      <planeGeometry args={[80, 31]} />
+      <meshBasicMaterial map={texture} fog={false} toneMapped={false} depthWrite={false} />
+    </mesh>
   );
 }
 
@@ -184,7 +181,7 @@ function AboutIsland() {
         onPointerOver={() => { document.body.style.cursor = 'pointer'; }}
         onPointerOut={() => { document.body.style.cursor = 'default'; }}
       >
-        <Model file="aboutme_island.glb" scale={3.7} />
+        <Model file="aboutme_island.glb" scale={4.25} rotation={[0, Math.PI, 0]} />
         <Label title="About Me" accent="#e53935" position={[0, 2.3, 0]} />
       </group>
     </Float>
@@ -193,10 +190,10 @@ function AboutIsland() {
 
 function Visitor({ positionRef }) {
   return (
-    <group ref={positionRef} position={[0, 0.02, 0]}>
-      <Model file="paddleboard.glb" scale={2.3} position={[0, 0, -1.32]} rotation={[Math.PI / 2, 0, 0]} />
-      <Model file="visitor_beavor.glb" scale={2.3} position={[-0.08, 0.08, 0]} rotation={[0, Math.PI, 0]} />
-      <Html center position={[0, 1.45, 0]}><div className="you-badge">YOU <span>♥</span></div></Html>
+    <group ref={positionRef} position={[0, 0.02, 2.65]}>
+      <Model file="paddleboard.glb" scale={3.15} position={[0, 0, -1.32]} rotation={[Math.PI / 2, 0, 0]} />
+      <Model file="visitor_beavor.glb" scale={5.6} position={[-0.08, 0.1, 0]} rotation={[0, Math.PI, 0]} />
+      <Html center position={[0, 2.55, 0]}><div className="you-badge">YOU <span>♥</span></div></Html>
     </group>
   );
 }
@@ -308,23 +305,15 @@ function Scene() {
     <>
       <color attach="background" args={['#bfe9f7']} />
       <fog attach="fog" args={['#bfe9f7', 20, 39]} />
-      <Sky distance={450000} sunPosition={[8, 5, 8]} inclination={0.52} azimuth={0.18} turbidity={5} rayleigh={0.7} mieCoefficient={0.004} mieDirectionalG={0.82} />
       <ambientLight intensity={1.8} />
       <hemisphereLight color="#f5fbff" groundColor="#5898a8" intensity={1.25} />
       <directionalLight position={[6, 12, 7]} intensity={2.15} castShadow shadow-mapSize={[1024, 1024]} />
       <Water />
-      <DistantMountains />
+      <HorizonBackdrop />
       <ShallowWaterHalo position={about.position} size={0.74} />
       {islands.map((island) => (
         <ShallowWaterHalo key={`water-${island.id}`} position={island.position} size={island.id === 'featured' ? 1.02 : 0.78} />
       ))}
-      <Html position={[about.position[0], 4.25, about.position[2]]} center transform distanceFactor={9}>
-        <div className="world-intro-card">
-          <p className="eyebrow">HELLO TO</p>
-          <h1>my world<span>✦</span></h1>
-          <p>I design thoughtful digital experiences across UX, code, visual design and data.</p>
-        </div>
-      </Html>
       {islands.map((island) => <Island key={island.id} island={island} />)}
       <AboutIsland />
       <AutoTraveler />
@@ -355,6 +344,12 @@ export default function WorldCanvas() {
       <Canvas key={rendererKey} onCreated={handleCreated} shadows camera={{ position: [0, 7.2, 20.8], fov: 48 }} dpr={[1, 1.2]} tabIndex={0}>
         <Scene />
       </Canvas>
+      <div className="world-overview-copy">
+        <p>WELCOME TO</p>
+        <h1>my world<span>✦</span></h1>
+        <div>I design thoughtful digital experiences across UX, code, visual design and 3D.</div>
+        <b>♥</b>
+      </div>
       <div className="world-map"><strong>YOU ARE HERE</strong><span className="map-dot red"/><span className="map-dot purple"/><span className="map-dot green"/><span className="map-dot pink"/><span className="map-dot orange"/></div>
     </div>
   );
