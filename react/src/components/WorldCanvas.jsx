@@ -165,6 +165,12 @@ function Island({ island }) {
       >
         <Model file={islandModels[island.id]} scale={3.7} />
         <Label title={island.title} accent={island.accent} />
+        {selectedIsland?.id === island.id && (
+          <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.22, 0]}>
+            <ringGeometry args={[1.45, 1.72, 48]} />
+            <meshBasicMaterial color={island.accent} transparent opacity={0.7} depthWrite={false} />
+          </mesh>
+        )}
         {selectedIsland?.id === island.id && <pointLight position={[0, 2.5, 0]} color={island.accent} intensity={2.2} distance={6} />}
       </group>
     </Float>
@@ -173,16 +179,25 @@ function Island({ island }) {
 
 function AboutIsland() {
   const startJourney = usePortfolioStore((state) => state.startJourney);
+  const selectedIsland = usePortfolioStore((state) => state.selectedIsland);
+  const [hovered, setHovered] = useState(false);
   return (
     <Float speed={0.85} floatIntensity={0.07} rotationIntensity={0.015}>
       <group
         position={about.position}
+        scale={hovered ? 1.04 : 1}
         onClick={(event) => { event.stopPropagation(); startJourney(about); }}
-        onPointerOver={() => { document.body.style.cursor = 'pointer'; }}
-        onPointerOut={() => { document.body.style.cursor = 'default'; }}
+        onPointerOver={() => { setHovered(true); document.body.style.cursor = 'pointer'; }}
+        onPointerOut={() => { setHovered(false); document.body.style.cursor = 'default'; }}
       >
-        <Model file="aboutme_island.glb" scale={4.25} rotation={[0, Math.PI, 0]} />
+        <Model file="aboutme_island.glb" scale={4.25} rotation={[0, Math.PI * 0.72, 0]} />
         <Label title="About Me" accent="#e53935" position={[0, 2.3, 0]} />
+        {selectedIsland?.id === 'about' && (
+          <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.22, 0]}>
+            <ringGeometry args={[1.45, 1.72, 48]} />
+            <meshBasicMaterial color="#e53935" transparent opacity={0.7} depthWrite={false} />
+          </mesh>
+        )}
       </group>
     </Float>
   );
@@ -273,7 +288,22 @@ function IslandConfirmation() {
   const setMode = usePortfolioStore((state) => state.setMode);
   const setActiveCategory = usePortfolioStore((state) => state.setActiveCategory);
   const setIslandOnly = usePortfolioStore((state) => state.setIslandOnly);
-  if (!dialog) return null;
+  const [typedText, setTypedText] = useState('');
+  const dialogueText = dialog
+    ? `We made it to ${dialog.title}! Would you like to look around?`
+    : '';
+
+  useEffect(() => {
+    setTypedText('');
+    if (!dialogueText) return undefined;
+    let index = 0;
+    const timer = window.setInterval(() => {
+      index += 1;
+      setTypedText(dialogueText.slice(0, index));
+      if (index >= dialogueText.length) window.clearInterval(timer);
+    }, 18);
+    return () => window.clearInterval(timer);
+  }, [dialogueText]);
 
   const enterIsland = () => {
     if (dialog.id === 'about') {
@@ -288,13 +318,20 @@ function IslandConfirmation() {
     setTimeout(() => document.getElementById('project')?.scrollIntoView({ behavior: 'smooth' }), 50);
   };
 
+  if (!dialog) return null;
+
   return (
-    <Html center position={[dialog.position[0], 3.8, dialog.position[2]]} zIndexRange={[40, 20]}>
-      <div className="island-confirmation" onPointerDown={(event) => event.stopPropagation()}>
-        <span>Destination reached</span>
-        <strong>{dialog.id === 'about' ? 'Visit About Me?' : `Enter ${dialog.title}?`}</strong>
-        <p>{dialog.subtitle}</p>
-        <div><button className="secondary" onClick={closeDialog}>Not now</button><button className="primary" onClick={enterIsland}>Enter</button></div>
+    <Html fullscreen zIndexRange={[60, 30]}>
+      <div className="game-dialogue-layer" onPointerDown={(event) => event.stopPropagation()}>
+        <div className="game-dialogue-avatar" aria-hidden="true">🦫</div>
+        <div className="game-dialogue-box">
+          <span className="game-speaker">Claire</span>
+          <p>{typedText}<i className="typing-caret" /></p>
+          <div className="game-dialogue-actions">
+            <button className="game-choice secondary-choice" onClick={closeDialog}>Maybe later</button>
+            <button className="game-choice primary-choice" onClick={enterIsland}>Let’s go! <span>➜</span></button>
+          </div>
+        </div>
       </div>
     </Html>
   );

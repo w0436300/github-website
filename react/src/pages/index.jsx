@@ -189,8 +189,8 @@ export function HomePage({ projectsOnly = false }) {
                   onMouseLeave={hideHoverTip}
                   className="group cursor-none text-left bg-white border border-gray-200 border-solid rounded-[8px] overflow-hidden shadow-none transition-all hover:shadow-sm active:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black w-full"
                 >
-                  <div className="flex flex-row items-stretch h-[70px] sm:h-[84px] md:h-[100px]">
-                    <div className="relative w-[28%] sm:w-[30%] md:w-[32%] max-w-[280px] shrink-0 bg-white overflow-hidden border-r border-gray-200 self-stretch">
+                  <div className="flex flex-row items-stretch h-[88px] sm:h-[104px] md:h-[124px]">
+                    <div className="relative w-[30%] sm:w-[32%] md:w-[35%] max-w-[340px] shrink-0 bg-white overflow-hidden border-r border-gray-200 self-stretch">
                       {imgSrc ? (
                         <img
                           src={imgSrc}
