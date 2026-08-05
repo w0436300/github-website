@@ -13,6 +13,11 @@ const BASE = import.meta.env.BASE_URL || '/';
 const PERSONAL_PHOTO = `${BASE}img/photo.png`;
 const CERTIFICATE_IMAGES = [`${BASE}img/certificate.png`];
 
+const ABOUT_SKILL_ROWS = [
+  { label: 'UX Design', value: 'Figma | Adobe Creative Suite (InDesign, Illustrator, Photoshop) | Miro | User Research | Wireframing | Prototyping' },
+  { label: 'Engineering', value: 'React | JavaScript/TypeScript | HTML/CSS/Tailwind | Claude | Cursor | Git | Power BI | SQL | Python' },
+];
+
 /** Filenames in `public/img/gallery/` (keep in sync with files on disk). */
 const GALLERY_FILES = ['photo5.jpg', 'photo6.jpg', 'photo7.jpg', 'photo8.jpg', 'photo9.jpg'];
 
@@ -264,7 +269,29 @@ export default function BlogPage() {
         </Link>
       </header>
 
-      <div className={`flex w-full min-w-0 flex-1 flex-col py-2 ${pageX} space-y-7 md:space-y-8 lg:space-y-9`}>
+      <div className={`w-full min-w-0 flex-1 py-2 ${pageX}`}>
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1.45fr)_minmax(320px,.75fr)] lg:gap-12 xl:gap-16">
+          <div className="min-w-0 space-y-7 md:space-y-8 lg:space-y-9">
+        <section className="max-w-5xl space-y-2 pb-3">
+          <span className="inline-flex items-center gap-1 px-4 py-1 text-[10px] font-black uppercase tracking-[0.2em] bg-[#FFCC00] text-black rounded-lg">
+            <Award size={14} className="shrink-0" strokeWidth={2.5} />
+            Google UX Design Certified
+          </span>
+          <h2 className="text-3xl leading-[1.1] tracking-tighter text-black max-w-4xl">
+            I&apos;m Xinping (Claire), a product designer bridging <span className="text-gray-700 font-medium">design</span> and <span className="text-gray-700 font-medium">engineering</span>.
+          </h2>
+          <div className="space-y-1 pt-1">
+            {ABOUT_SKILL_ROWS.map((row) => (
+              <p key={row.label} className="text-base leading-snug">
+                <span className="text-blue-800 font-medium uppercase tracking-wider border-l-4 border-blue-800 pl-2">
+                  {row.label}<span className="mx-1.5">—</span>
+                </span>
+                <span className="text-gray-800 font-normal">{row.value}</span>
+              </p>
+            ))}
+          </div>
+        </section>
+
         {/* Intro — plain copy at top, no card */}
         <section className={`${textColumn} space-y-1`}>
           <h2 className="text-base md:text-lg text-black/85 leading-relaxed">
@@ -301,16 +328,19 @@ export default function BlogPage() {
           </div>
         </section>
 
-        {/* Photos — flex wrap, full main width */}
+          </div>
+          <aside className="min-w-0 space-y-8 lg:sticky lg:top-20 lg:self-start">
+
+        {/* Photos — right column */}
         <section className="w-full min-w-0 pb-2">
           <h2 className={sectionTitleClass}>Photos</h2>
-          <div className="flex flex-wrap gap-2 md:gap-3">
+          <div className="grid grid-cols-2 gap-2 md:gap-3">
             {PHOTO_GRID_ITEMS.map((item) => (
               <figure
                 key={item.src}
-                className="min-w-0 flex-1 basis-36 sm:basis-40 md:basis-44 max-w-[220px]"
+                className="min-w-0"
               >
-                <div className="h-44 md:h-52 rounded-2xl overflow-hidden border border-gray-200 bg-gray-100 shadow-sm">
+                <div className="aspect-[4/5] rounded-2xl overflow-hidden border border-gray-200 bg-gray-100 shadow-sm">
                   <img
                     src={item.src}
                     alt={item.alt}
@@ -327,7 +357,7 @@ export default function BlogPage() {
           </div>
         </section>
 
-        {/* Recognition — below photos */}
+        {/* Recognition — right column below photos */}
         <section>
           <h2 className={sectionTitleClass}>Certificate</h2>
           <div className="max-w-md">
@@ -381,6 +411,8 @@ export default function BlogPage() {
             </div>
           </div>
         </section>
+          </aside>
+        </div>
       </div>
 
     </div>

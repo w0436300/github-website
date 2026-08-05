@@ -1,5 +1,5 @@
 import { useMemo, useState, useCallback } from 'react';
-import { Award, Download, Lock, ArrowLeft } from 'lucide-react';
+import { Download, Lock, ArrowLeft } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useScrollToHash } from '../hooks/useScrollToHash.js';
 import { projects } from '../data/projects.js';
@@ -7,7 +7,7 @@ import { isProjectUnlocked } from '../data/projectPasswords.js';
 import { tryUnlockProject } from '../hooks/useProjectUnlock.js';
 import PasswordModal from '../components/PasswordModal.jsx';
 import { getProjectHoverTheme, OrganicHoverMask, ProjectJumpArrow } from '../components/OrganicHoverMask.jsx';
-import { sourceSansPro } from '../styles/caseStudyTheme.js';
+import { usePortfolioStore } from '../store.js';
 
 const BASE = import.meta.env.BASE_URL || '/';
 
@@ -40,21 +40,17 @@ function projectMatchesTab(p, tab) {
   return false;
 }
 
-const SKILL_ROWS = [
-  {
-    label: 'UX Design',
-    value: 'Figma | Adobe Creative Suite (InDesign, Illustrator, Photoshop) | Miro |User Research | Wireframing | Prototyping',
-  },
-  {
-    label: 'Engineering',
-    value: 'React | JavaScript/TypeScript | HTML/CSS/Tailwind | Claude |  Cursor | Git | Power BI | SQL | Python',
-  },
- 
-];
-
-export function HomePage() {
+export function HomePage({ projectsOnly = false }) {
   useScrollToHash();
-  const [activeCategory, setActiveCategory] = useState('Featured');
+  const islandCategory = usePortfolioStore((state) => state.activeCategory);
+  const initialCategory = {
+    featured: 'Featured',
+    ux: 'design',
+    development: 'fullstack',
+    data: 'Data Visualization',
+    all: 'All',
+  }[islandCategory] || 'Featured';
+  const [activeCategory, setActiveCategory] = useState(initialCategory);
   const [hoverTip, setHoverTip] = useState({ show: false, x: 0, y: 0, message: 'View details' });
   const [passwordModal, setPasswordModal] = useState({ open: false, project: null });
   const [passwordError, setPasswordError] = useState('');
@@ -148,60 +144,6 @@ export function HomePage() {
             <span className="block w-[14px] h-[14px] rounded-full bg-[#FFCC00] shadow-[0_0_0_3px_rgba(255,204,0,0.25)]" />
           </div>
         )}
-      <div className="mb-2">
-          <span className="inline-flex items-center px-4 py-1 text-[10px] font-black uppercase tracking-[0.2em] bg-[#FFCC00] text-black rounded-lg">
-            <Award size={14} className="shrink-0" strokeWidth={2.5} /> 
-            Google UX Design Certified
-          </span>
-        </div>
-        <h1
-          className="text-3xl font-slate-700 leading-[1.1] tracking-tighter text-black max-w-4xl mb-2"
-          style={sourceSansPro}
-        >
-          I&apos;m Xinping (Claire), a product designer bridging <span className="text-gray-700 font-medium">design</span> and <span className="text-gray-700 font-medium">engineering</span>.
-        </h1>
-
-
-        <div className="relative space-y-0 mb-6 max-w-4xl border-gray-200 pb-6">
-          <svg
-            className="pointer-events-none absolute -left-3 -right-3 -top-2 -bottom-2 sm:-left-4 sm:-right-4 sm:-top-3 sm:-bottom-3 z-0"
-            viewBox="0 0 880 120"
-            preserveAspectRatio="none"
-            aria-hidden
-          >
-            <path
-              d="M18 58
-                 C -8 18, 70 -8, 160 12
-                 C 230 -10, 340 -6, 420 18
-                 C 510 -12, 620 4, 710 22
-                 C 790 8, 870 28, 878 62
-                 C 886 96, 820 118, 730 108
-                 C 640 122, 520 116, 430 102
-                 C 320 120, 200 118, 110 100
-                 C 40 112, -6 92, 18 58 Z"
-              fill="#FCE7F3"
-            />
-            <path
-              d="M120 8
-                 C 200 -6, 290 10, 340 28
-                 C 280 18, 190 14, 120 8 Z"
-              fill="#F9A8D4"
-              opacity="0.45"
-            />
-          </svg>
-          <div className="relative z-10 space-y-0">
-            {SKILL_ROWS.map((row) => (
-              <p key={row.label} className="text-regular leading-snug">
-                <span className="text-blue-800 font-medium uppercase tracking-wider border-l-4 border-blue-800 pl-2">
-                  {row.label}
-                  <span className="text-blue-800 mx-1.5">—</span>
-                </span>
-                <span className="text-gray-800 font-normal">{row.value}</span>
-              </p>
-            ))}
-          </div>
-        </div>
-
         <div id="project" className="scroll-mt-8">
           <div className="flex flex-wrap gap-x-8 gap-y-1 mb-10 md:mb-12 border-b border-gray-200">
             {WORK_TABS.map((tab) => {

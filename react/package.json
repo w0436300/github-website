@@ -10,18 +10,24 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@gltf-transform/cli": "^4.4.2",
     "cross-env": "^7.0.3",
     "typescript": "~5.9.3",
     "vite": "^7.3.1"
   },
   "dependencies": {
+    "@react-three/drei": "^10.7.8",
+    "@react-three/fiber": "^9.7.0",
     "@tailwindcss/vite": "^4.1.18",
     "@vitejs/plugin-react": "^5.1.4",
+    "framer-motion": "^12.43.0",
     "lucide-react": "^0.564.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-router-dom": "^7.13.0",
     "tailwindcss": "^4.1.18",
-    "typed.js": "^3.0.0"
+    "three": "^0.180.0",
+    "typed.js": "^3.0.0",
+    "zustand": "^5.0.14"
   }
 }

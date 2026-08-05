@@ -12,6 +12,7 @@ import {
 import {
   isProjectUnlocked,
 } from './data/projectPasswords.js';
+import { usePortfolioStore } from './store.js';
 
 const HOME_NAV = [
   { name: 'Work', icon: Briefcase, href: '#home', kind: 'work' },
@@ -86,6 +87,7 @@ const PROJECT_REQUEST_NAV_LINKS = [
 ];
 
 export default function Layout() {
+  const homepageMode = usePortfolioStore((state) => state.mode);
   const [activeCaseStudySection, setActiveCaseStudySection] = useState('Overview');
   const siteHeaderRef = useRef(null);
   const [siteHeaderHeight, setSiteHeaderHeight] = useState(56);
@@ -93,6 +95,7 @@ export default function Layout() {
   const navigate = useNavigate();
   const location = useLocation();
   const isHome = location.pathname === '/' || location.pathname === '';
+  const hideHomeNav = isHome && homepageMode === 'world';
   const isAboutPage = location.pathname === '/blog';
   const isProjectPage = location.pathname.startsWith('/project/');
   const projectIdFromPath = isProjectPage ? location.pathname.replace(/^\/project\//, '') : null;
@@ -359,7 +362,7 @@ export default function Layout() {
             </button>
             <div className="flex min-w-0 flex-wrap items-center gap-0.5 sm:gap-1">{topSocialLinks}</div>
           </div>
-          <nav
+          {!hideHomeNav && <nav
             className="absolute left-1/2 top-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 items-center gap-1.5 sm:gap-2"
             aria-label="Primary"
           >
@@ -380,7 +383,7 @@ export default function Layout() {
                 </button>
               );
             })}
-          </nav>
+          </nav>}
         </div>
       </header>
       {/* Reserve space for fixed header (height synced with measured header) */}
@@ -438,11 +441,11 @@ export default function Layout() {
       <main className={`min-h-screen min-w-0 ${isProjectPage && !isAiTutorSlideMode ? 'md:pl-56' : ''}`}>
         <Outlet />
       </main>
-      <footer className={`w-full min-w-0 shrink-0 border-t border-gray-200 bg-white py-8 text-center md:py-10 ${isProjectPage && !isAiTutorSlideMode ? 'md:pl-56' : ''}`}>
+      {!hideHomeNav && <footer className={`w-full min-w-0 shrink-0 border-t border-gray-200 bg-white py-8 text-center md:py-10 ${isProjectPage && !isAiTutorSlideMode ? 'md:pl-56' : ''}`}>
         <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-gray-800">
           Designed + Engineered by Xinping(Claire) - 2026
         </p>
-      </footer>
+      </footer>}
 
       <style>{`
         html { scroll-behavior: smooth; }
