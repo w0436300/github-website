@@ -8,7 +8,7 @@ import { usePortfolioStore } from '../store.js';
 import ThreeInARowGame from './ThreeInARowGame.jsx';
 
 const MODEL_ROOT = `${import.meta.env.BASE_URL || '/'}models/`;
-const modelUrl = (file) => `${MODEL_ROOT}${file}?v=520`;
+const modelUrl = (file) => `${MODEL_ROOT}${file}?v=521`;
 
 const islandModels = {
   ux: 'ux_island.glb',
@@ -175,7 +175,7 @@ function AmbientWildlife() {
       <Model file="lily_pad.glb" scale={0.84} position={[4.9, -0.3, 0.65]} rotation={[0, 0.8, 0]} />
       <Model file="lily_pad.glb" scale={1.18} position={[3.7, -0.27, 5.3]} rotation={[0, -0.35, 0]} />
       <Float speed={0.75} floatIntensity={0.08} rotationIntensity={0.035}>
-        <Model file="lifebuoy.glb" scale={1.3} position={[-5.8, -0.18, 4.35]} rotation={[0.18, 0.45, -0.1]} />
+        <Model file="lifebuoy.glb" scale={1.3} position={[-3.9, -0.18, -6.8]} rotation={[0.18, 0.45, -0.1]} />
       </Float>
     </group>
   );
@@ -383,15 +383,33 @@ function AutoTraveler() {
     }
   });
   useEffect(() => {
+    const movementKeys = {
+      w: 'w',
+      arrowup: 'w',
+      s: 's',
+      arrowdown: 's',
+      a: 'a',
+      arrowleft: 'a',
+      d: 'd',
+      arrowright: 'd',
+    };
     const onKeyDown = (event) => {
       const key = event.key.toLowerCase();
-      if (['w', 'a', 's', 'd'].includes(key)) {
+      const movementKey = movementKeys[key];
+      if (movementKey) {
+        event.preventDefault();
         cancelJourney();
-        keys.current.add(key);
+        keys.current.add(movementKey);
       }
       if (key === 'r') resetTraveler();
     };
-    const onKeyUp = (event) => keys.current.delete(event.key.toLowerCase());
+    const onKeyUp = (event) => {
+      const movementKey = movementKeys[event.key.toLowerCase()];
+      if (movementKey) {
+        event.preventDefault();
+        keys.current.delete(movementKey);
+      }
+    };
     const clearKeys = () => keys.current.clear();
     window.addEventListener('keydown', onKeyDown);
     window.addEventListener('keyup', onKeyUp);

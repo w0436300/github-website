@@ -28,6 +28,7 @@ export default function PortfolioHome() {
   const [canvasPainted, setCanvasPainted] = useState(false);
   const [sceneReady, setSceneReady] = useState(false);
   const [showLoading, setShowLoading] = useState(true);
+  const settleTimer = useRef();
   const revealTimer = useRef();
   const { active: assetsLoading, progress: assetProgress } = useProgress();
   const resetTraveler = usePortfolioStore((state) => state.resetTraveler);
@@ -38,10 +39,16 @@ export default function PortfolioHome() {
 
   useEffect(() => {
     if (!canvasPainted || assetsLoading || assetProgress < 99) return undefined;
-    setSceneReady(true);
+    window.clearTimeout(settleTimer.current);
     window.clearTimeout(revealTimer.current);
-    revealTimer.current = window.setTimeout(() => setShowLoading(false), 500);
-    return () => window.clearTimeout(revealTimer.current);
+    settleTimer.current = window.setTimeout(() => {
+      setSceneReady(true);
+      revealTimer.current = window.setTimeout(() => setShowLoading(false), 700);
+    }, 450);
+    return () => {
+      window.clearTimeout(settleTimer.current);
+      window.clearTimeout(revealTimer.current);
+    };
   }, [assetProgress, assetsLoading, canvasPainted]);
 
   useEffect(() => {
@@ -52,6 +59,7 @@ export default function PortfolioHome() {
     return () => {
       cancelAnimationFrame(firstFrame);
       if (secondFrame) cancelAnimationFrame(secondFrame);
+      window.clearTimeout(settleTimer.current);
       window.clearTimeout(revealTimer.current);
     };
   }, []);
