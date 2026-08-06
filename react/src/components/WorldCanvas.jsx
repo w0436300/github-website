@@ -17,6 +17,28 @@ const islandModels = {
   featured: 'featured_island.glb',
 };
 
+const worldModelFiles = [
+  ...Object.values(islandModels),
+  'aboutme_island.glb',
+  'beaver_paddleboard.glb',
+  'seagull.glb',
+  'lily_pad.glb',
+  'lifebuoy.glb',
+  'take_a_break.glb',
+];
+const worldTextureFiles = [
+  `${import.meta.env.BASE_URL || '/'}textures/cartoon-water-base.png`,
+  `${import.meta.env.BASE_URL || '/'}textures/sky-mountain-panorama.png`,
+];
+let worldPreloadStarted = false;
+
+export function preloadWorldAssets() {
+  if (worldPreloadStarted) return;
+  worldPreloadStarted = true;
+  worldModelFiles.forEach((file) => useGLTF.preload(modelUrl(file)));
+  worldTextureFiles.forEach((file) => useTexture.preload(file));
+}
+
 function Model({ file, scale = 1, position = [0, 0, 0], rotation = [0, 0, 0] }) {
   const { scene } = useGLTF(modelUrl(file));
   const clone = useMemo(() => {
@@ -611,6 +633,3 @@ export default function WorldCanvas({ onReady }) {
     </div>
   );
 }
-
-Object.values(islandModels).forEach((file) => useGLTF.preload(modelUrl(file)));
-['aboutme_island.glb', 'beaver_paddleboard.glb', 'seagull.glb', 'lily_pad.glb', 'lifebuoy.glb', 'take_a_break.glb'].forEach((file) => useGLTF.preload(modelUrl(file)));

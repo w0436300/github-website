@@ -2,6 +2,7 @@ import { Box, FileText } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import PortfolioHome from './PortfolioHome.jsx';
+import { preloadWorldAssets } from './components/WorldCanvas.jsx';
 import { HomePage } from './pages/index.jsx';
 import { usePortfolioStore } from './store.js';
 
@@ -17,9 +18,27 @@ export default function HomeExperience() {
     setModeSwitchSlot(document.getElementById('home-mode-switch-slot'));
   }, []);
 
+  useEffect(() => {
+    const startPreloading = () => preloadWorldAssets();
+    if ('requestIdleCallback' in window) {
+      const idleId = window.requestIdleCallback(startPreloading, { timeout: 1200 });
+      return () => window.cancelIdleCallback(idleId);
+    }
+    const timer = window.setTimeout(startPreloading, 400);
+    return () => window.clearTimeout(timer);
+  }, []);
+
   const modeSwitch = (
     <div className="home-mode-switch" role="group" aria-label="Homepage view mode">
-      <button className={mode === 'world' ? 'active' : ''} onClick={() => mode !== 'world' && setShowWorldNotice(true)}><Box size={16}/>3D World</button>
+      <button
+        className={mode === 'world' ? 'active' : ''}
+        onPointerEnter={preloadWorldAssets}
+        onFocus={preloadWorldAssets}
+        onClick={() => {
+          preloadWorldAssets();
+          if (mode !== 'world') setShowWorldNotice(true);
+        }}
+      ><Box size={16}/>3D World</button>
       <button className={mode === 'page' ? 'active' : ''} onClick={() => { setIslandOnly(false); setMode('page'); }}><FileText size={16}/>Page</button>
     </div>
   );
