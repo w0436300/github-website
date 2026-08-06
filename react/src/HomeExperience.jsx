@@ -2,7 +2,7 @@ import { Box, FileText } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import PortfolioHome from './PortfolioHome.jsx';
-import { preloadWorldAssets } from './components/WorldCanvas.jsx';
+import { canPreloadWorldAssets, preloadWorldAssets } from './components/WorldCanvas.jsx';
 import { HomePage } from './pages/index.jsx';
 import { usePortfolioStore } from './store.js';
 
@@ -19,6 +19,7 @@ export default function HomeExperience() {
   }, []);
 
   useEffect(() => {
+    if (!canPreloadWorldAssets()) return undefined;
     const startPreloading = () => preloadWorldAssets();
     if ('requestIdleCallback' in window) {
       const idleId = window.requestIdleCallback(startPreloading, { timeout: 1200 });

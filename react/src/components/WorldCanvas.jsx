@@ -32,11 +32,21 @@ const worldTextureFiles = [
 ];
 let worldPreloadStarted = false;
 
+export function canPreloadWorldAssets() {
+  if (typeof window === 'undefined' || typeof navigator === 'undefined') return false;
+  const narrowScreen = window.matchMedia('(max-width: 767px)').matches;
+  const touchPrimary = window.matchMedia('(pointer: coarse)').matches;
+  const limitedMemory = typeof navigator.deviceMemory === 'number' && navigator.deviceMemory <= 4;
+  return !narrowScreen && !touchPrimary && !limitedMemory;
+}
+
 export function preloadWorldAssets() {
+  if (!canPreloadWorldAssets()) return false;
   if (worldPreloadStarted) return;
   worldPreloadStarted = true;
   worldModelFiles.forEach((file) => useGLTF.preload(modelUrl(file)));
   worldTextureFiles.forEach((file) => useTexture.preload(file));
+  return true;
 }
 
 function Model({ file, scale = 1, position = [0, 0, 0], rotation = [0, 0, 0] }) {
