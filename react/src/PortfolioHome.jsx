@@ -3,9 +3,10 @@ import { useProgress } from '@react-three/drei';
 import WorldCanvas from './components/WorldCanvas.jsx';
 import { usePortfolioStore } from './store.js';
 
-function WorldLoading({ leaving = false }) {
+function WorldLoading({ leaving = false, sceneRendered = false }) {
   const { progress, loaded, total, item } = useProgress();
-  const percent = Math.min(100, Math.max(0, Math.round(progress || 0)));
+  const assetPercent = Math.min(100, Math.max(0, Math.round(progress || 0)));
+  const percent = sceneRendered ? 100 : Math.min(99, assetPercent);
   const assetName = item ? decodeURIComponent(item.split('/').pop()?.split('?')[0] || '') : '';
   const startedAt = useRef(performance.now());
   const [secondsRemaining, setSecondsRemaining] = useState(120);
@@ -33,8 +34,8 @@ function WorldLoading({ leaving = false }) {
   }, [progress]);
 
   const formattedTime = `${String(Math.floor(secondsRemaining / 60)).padStart(2, '0')}:${String(secondsRemaining % 60).padStart(2, '0')}`;
-  const timeRemaining = progress >= 99
-    ? 'Finishing the scene…'
+  const timeRemaining = assetPercent >= 99
+    ? 'Rendering the scene…'
     : formattedTime;
 
   return (
@@ -46,7 +47,7 @@ function WorldLoading({ leaving = false }) {
           <span style={{ width: `${percent}%` }} />
         </div>
         <div className="world-loading-time">
-          <small>{progress >= 99 ? 'ALMOST READY' : 'ESTIMATED TIME LEFT'}</small>
+          <small>{sceneRendered ? 'READY' : assetPercent >= 99 ? 'BUILDING THE WORLD' : 'ESTIMATED TIME LEFT'}</small>
           <strong>{timeRemaining}</strong>
         </div>
         <p>{total > 0 ? `Loading assets ${loaded} / ${total}` : 'Discovering islands and ocean…'}</p>
@@ -111,7 +112,7 @@ export default function PortfolioHome() {
         <Suspense fallback={null}>
           {canvasReady && <WorldCanvas onReady={handleWorldReady} />}
         </Suspense>
-        {showLoading && <WorldLoading leaving={sceneReady} />}
+        {showLoading && <WorldLoading leaving={sceneReady} sceneRendered={canvasPainted} />}
         <p className="world-footer-copy">Designed + Engineered by Xinping(Claire) - 2026</p>
       </section>
     </main>

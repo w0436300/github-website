@@ -1,11 +1,12 @@
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Float, Html, useGLTF, useTexture } from '@react-three/drei';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as THREE from 'three';
 import { islands, about, breakIsland } from '../data.js';
 import { usePortfolioStore } from '../store.js';
-import ThreeInARowGame from './ThreeInARowGame.jsx';
+
+const TakeBreakGames = lazy(() => import('./ThreeInARowGame.jsx'));
 
 const MODEL_ROOT = `${import.meta.env.BASE_URL || '/'}models/`;
 const modelUrl = (file) => `${MODEL_ROOT}${file}?v=521`;
@@ -310,12 +311,12 @@ function islandEdgeRadius(island) {
   return 2.05;
 }
 
-function AutoTraveler() {
-  const ref = useRef();
+function AutoTraveler({ positionRef: ref }) {
   const keys = useRef(new Set());
   const nearbyIsland = useRef(null);
   const target = usePortfolioStore((state) => state.journeyTarget);
   const dialog = usePortfolioStore((state) => state.dialog);
+  const worldGame = usePortfolioStore((state) => state.worldGame);
   const finishJourney = usePortfolioStore((state) => state.finishJourney);
   const cancelJourney = usePortfolioStore((state) => state.cancelJourney);
   const resetTraveler = usePortfolioStore((state) => state.resetTraveler);
@@ -332,7 +333,7 @@ function AutoTraveler() {
   }, [resetToken]);
   useFrame((_, delta) => {
     if (!ref.current) return;
-    if (dialog) return;
+    if (dialog && !worldGame) return;
     if (target) {
       const isFreeTravel = target.type === 'point';
       const centerX = target.position[0];
@@ -392,7 +393,7 @@ function AutoTraveler() {
 
       if (reachedIsland) {
         keys.current.clear();
-        if (nearbyIsland.current !== reachedIsland.id) {
+        if (!worldGame && nearbyIsland.current !== reachedIsland.id) {
           nearbyIsland.current = reachedIsland.id;
           finishJourney(reachedIsland);
         }
@@ -498,7 +499,7 @@ function IslandConfirmation() {
       : dialog.id === 'about'
         ? `Okay! Let’s learn more about Claire and her creative journey.`
         : dialog.id === 'break'
-          ? `Okay! Let’s take a break and play Three in a Row.`
+          ? `Okay! Let’s take a break and choose a quick game.`
           : `Okay! Let’s explore Claire’s projects!`
     : '';
   useEffect(() => {
@@ -583,7 +584,113 @@ function IslandConfirmation() {
   );
 }
 
-function Scene() {
+const obstacleLayout = [
+  { type: 'log', x: -4.6, z: -6.5 },
+  { type: 'rock', x: -1.8, z: -10 },
+  { type: 'buoy', x: 2.1, z: -13.5 },
+  { type: 'log', x: 4.8, z: -17 },
+  { type: 'rock', x: 0.4, z: -20.5 },
+  { type: 'buoy', x: -3.3, z: -24 },
+];
+
+function CourseObstacle({ obstacle, index, obstacleRefs }) {
+  const common = { ref: (node) => { obstacleRefs.current[index] = node; }, position: [obstacle.x, -0.12, obstacle.z] };
+  if (obstacle.type === 'log') {
+    return <group {...common} rotation={[0, 0.35, 0]}><mesh rotation={[0, 0, Math.PI / 2]}><cylinderGeometry args={[0.22, 0.28, 1.7, 8]} /><meshStandardMaterial color="#9a5d2e" roughness={0.9} /></mesh><mesh position={[-0.5, 0.18, 0]} rotation={[0, 0, 0.8]}><cylinderGeometry args={[0.08, 0.1, 0.65, 7]} /><meshStandardMaterial color="#74431f" /></mesh></group>;
+  }
+  if (obstacle.type === 'rock') {
+    return <mesh {...common} scale={[0.75, 0.45, 0.7]}><dodecahedronGeometry args={[0.7, 0]} /><meshStandardMaterial color="#71808b" roughness={1} /></mesh>;
+  }
+  return <group {...common} rotation={[Math.PI / 2, 0, 0]}><mesh><torusGeometry args={[0.48, 0.16, 10, 24]} /><meshStandardMaterial color="#ef554a" roughness={0.65} /></mesh><mesh rotation={[0, 0, Math.PI / 2]}><boxGeometry args={[0.25, 0.9, 0.08]} /><meshStandardMaterial color="#fff5df" /></mesh></group>;
+}
+
+function ObstacleCourse({ visitorRef }) {
+  const obstacleRefs = useRef([]);
+  const elapsed = useRef(0);
+  const hitCooldown = useRef(0);
+  const worldGame = usePortfolioStore((state) => state.worldGame);
+  const addScore = usePortfolioStore((state) => state.addWorldGameScore);
+  const registerHit = usePortfolioStore((state) => state.hitWorldGame);
+
+  useEffect(() => {
+    if (worldGame !== 'obstacle') return;
+    elapsed.current = 0;
+    hitCooldown.current = 0;
+    obstacleRefs.current.forEach((node, index) => {
+      if (!node) return;
+      node.position.set(obstacleLayout[index].x, -0.12, obstacleLayout[index].z);
+    });
+  }, [worldGame]);
+
+  useFrame((_, delta) => {
+    if (worldGame !== 'obstacle' || !visitorRef.current) return;
+    elapsed.current += delta;
+    hitCooldown.current = Math.max(0, hitCooldown.current - delta);
+    if (elapsed.current >= 1) {
+      elapsed.current -= 1;
+      addScore();
+    }
+    obstacleRefs.current.forEach((node) => {
+      if (!node) return;
+      node.position.z += delta * 3.35;
+      node.rotation.y += delta * 0.28;
+      if (node.position.z > 10.5) {
+        node.position.z = -12 - Math.random() * 10;
+        node.position.x = -5.4 + Math.random() * 10.8;
+      }
+      const distance = Math.hypot(node.position.x - visitorRef.current.position.x, node.position.z - visitorRef.current.position.z);
+      if (distance < 0.85 && hitCooldown.current <= 0) {
+        hitCooldown.current = 1.15;
+        node.position.z = -12 - Math.random() * 8;
+        node.position.x = -5.4 + Math.random() * 10.8;
+        registerHit();
+      }
+    });
+  });
+
+  if (worldGame !== 'obstacle') return null;
+  return <group>{obstacleLayout.map((obstacle, index) => <CourseObstacle key={`${obstacle.type}-${index}`} obstacle={obstacle} index={index} obstacleRefs={obstacleRefs} />)}</group>;
+}
+
+function WorldGameHud() {
+  const worldGame = usePortfolioStore((state) => state.worldGame);
+  const score = usePortfolioStore((state) => state.worldGameScore);
+  const lives = usePortfolioStore((state) => state.worldGameLives);
+  const startWorldGame = usePortfolioStore((state) => state.startWorldGame);
+  const stopWorldGame = usePortfolioStore((state) => state.stopWorldGame);
+  if (!worldGame) return null;
+  const ended = worldGame === 'obstacle-ended';
+  return (
+    <div className={`world-game-hud ${ended ? 'is-ended' : ''}`}>
+      <span>PADDLEBOARD DODGE</span>
+      <strong>{ended ? 'Course complete!' : `${score}s`}</strong>
+      <div className="world-game-lives" aria-label={`${lives} lives remaining`}>{'♥'.repeat(lives)}{'♡'.repeat(3 - lives)}</div>
+      {ended ? <p>You stayed afloat for {score} seconds.</p> : <small>WASD / ARROWS · Dodge the obstacles</small>}
+      <div>
+        {ended && <button type="button" onClick={startWorldGame}>Play again</button>}
+        <button type="button" onClick={stopWorldGame}>{ended ? 'Back to world' : 'Exit'}</button>
+      </div>
+    </div>
+  );
+}
+
+function SceneReadySignal({ onReady }) {
+  const completedFrames = useRef(0);
+  const reported = useRef(false);
+
+  useFrame(() => {
+    if (reported.current) return;
+    completedFrames.current += 1;
+    if (completedFrames.current < 4) return;
+    reported.current = true;
+    onReady?.();
+  });
+
+  return null;
+}
+
+function Scene({ onReady }) {
+  const visitorRef = useRef();
   return (
     <>
       <color attach="background" args={['#bfe9f7']} />
@@ -602,9 +709,11 @@ function Scene() {
       {islands.map((island) => <Island key={island.id} island={island} />)}
       <AboutIsland />
       <BreakIsland />
-      <AutoTraveler />
+      <AutoTraveler positionRef={visitorRef} />
+      <ObstacleCourse visitorRef={visitorRef} />
       <CameraRig />
       <IslandConfirmation />
+      <SceneReadySignal onReady={onReady} />
     </>
   );
 }
@@ -612,6 +721,7 @@ function Scene() {
 export default function WorldCanvas({ onReady }) {
   const [rendererKey, setRendererKey] = useState(0);
   const recoveryTimer = useRef();
+  const miniGameOpen = usePortfolioStore((state) => state.miniGameOpen);
 
   useEffect(() => () => clearTimeout(recoveryTimer.current), []);
 
@@ -623,17 +733,15 @@ export default function WorldCanvas({ onReady }) {
       recoveryTimer.current = setTimeout(() => setRendererKey((key) => key + 1), 180);
     };
     canvas.addEventListener('webglcontextlost', recover, { once: true });
-    window.requestAnimationFrame(() => {
-      window.requestAnimationFrame(() => onReady?.());
-    });
   };
 
   return (
     <div className="canvas-wrap">
       <Canvas key={rendererKey} onCreated={handleCreated} shadows camera={{ position: [0, 4.85, 15.8], fov: 42 }} dpr={[1, 1.2]} tabIndex={0}>
-        <Scene />
+        <Scene onReady={onReady} />
       </Canvas>
-      <ThreeInARowGame />
+      {miniGameOpen && <Suspense fallback={null}><TakeBreakGames /></Suspense>}
+      <WorldGameHud />
       <div className="world-overview-copy">
         <p>WELCOME TO</p>
         <h1>my world<span>✦</span></h1>
