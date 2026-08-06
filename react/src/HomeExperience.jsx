@@ -19,6 +19,13 @@ export default function HomeExperience() {
   }, []);
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('open3d') !== '1') return;
+    setShowWorldNotice(true);
+    window.history.replaceState(null, '', '/');
+  }, []);
+
+  useEffect(() => {
     if (!canPreloadWorldAssets()) return undefined;
     const startPreloading = () => preloadWorldAssets();
     if ('requestIdleCallback' in window) {

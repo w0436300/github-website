@@ -114,7 +114,7 @@ function StarCatchGame({ onBack }) {
         <span className="star-catch-hint">← A · drag · D →</span>
         {stars.map((star) => <i key={star.id} className="falling-star" style={{ left: `${star.x}%`, top: `${star.y}%` }}>★</i>)}
         <div className="star-catch-player" style={{ left: `${playerX}%` }} aria-label="Beaver catcher">🦫<small>▰</small></div>
-        {!running && <div className={`star-catch-result ${score >= 10 ? 'is-win' : 'is-encourage'}`}><strong>{score >= 10 ? 'YOU WIN!!! ✦' : 'Great try — go again! ♥'}</strong><span>You caught {score} stars</span></div>}
+        {!running && <div className={`star-catch-result ${score >= 10 ? 'is-win' : 'is-encourage'}`}><strong>{score >= 10 ? 'YOU WIN!!! ✦' : 'Great try — go again! ♥'}</strong><span>You caught {score} stars</span><em>{score >= 10 ? 'Amazing—you lit up the whole ocean!' : 'Every star makes the world brighter. You have got this!'}</em></div>}
       </div>
       <div className="mini-game-actions">
         <button type="button" className="game-choice secondary-choice" onClick={onBack}>Choose another game</button>
@@ -163,7 +163,7 @@ function LilyPadMatch({ onBack }) {
   const complete = matched.length === cards.length;
   return (
     <>
-      <p className={`mini-game-status ${complete ? 'is-win' : 'is-playing'}`} aria-live="polite">{complete ? `YOU WIN!!! All pairs matched in ${moves} moves ✦` : `Find all four pairs · ${moves} moves`}</p>
+      <p className={`mini-game-status ${complete ? 'is-win' : 'is-playing'}`} aria-live="polite">{complete ? `YOU WIN!!! All pairs matched in ${moves} moves ✦ Wonderful memory—every pair found!` : `Find all four pairs · ${moves} moves`}</p>
       <div className="lily-match-board" role="grid" aria-label="Lily Pad Match board">
         {cards.map((card, index) => {
           const visible = flipped.includes(index) || matched.includes(card.id);
@@ -243,7 +243,8 @@ export default function ThreeInARowGame() {
         {!gameMode && (
           <div className="mini-game-picker">
             <button type="button" onClick={() => setGameMode('stars')}><b>★</b><span><strong>Beaver Star Catch</strong><small>Catch stars · 30 seconds</small></span></button>
-            <button type="button" onClick={startWorldGame}><b>≈</b><span><strong>Paddleboard Dodge</strong><small>Return to the ocean · dodge obstacles</small></span></button>
+            <button type="button" onClick={() => startWorldGame('obstacle')}><b>≈</b><span><strong>Paddleboard Dodge</strong><small>Return to the ocean · dodge obstacles</small></span></button>
+            <button type="button" onClick={() => startWorldGame('treasure')}><b>◉</b><span><strong>Treasure Tide</strong><small>Return to the ocean · collect coins and stars</small></span></button>
             <button type="button" onClick={() => setGameMode('three')}><b>×○</b><span><strong>Three in a Row</strong><small>A quick strategy round</small></span></button>
             <button type="button" onClick={() => setGameMode('match')}><b>●</b><span><strong>Lily Pad Match</strong><small>Find four matching pairs</small></span></button>
             <button type="button" className="game-choice secondary-choice" onClick={() => setOpen(false)}>Back to the water</button>

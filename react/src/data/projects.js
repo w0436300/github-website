@@ -1,5 +1,5 @@
 /** Paths in data use leading slash; components prepend import.meta.env.BASE_URL */
-export const projects = [
+const allProjects = [
   {
     id: 'cognitive-adaptive-ai-tutor',
     title: 'Cognitive-style Adaptive AI Tutor',
@@ -181,6 +181,7 @@ export const projects = [
   {
     id: 'react-native-app',
     title: 'React Native Application',
+    hidden: true,
     category: 'fullstack',
     tags: ['React Native'],
     cover: '/img/reactNative.png',
@@ -223,6 +224,7 @@ export const projects = [
   {
     id: 'chatroom',
     title: 'Chatroom',
+    hidden: true,
     category: 'fullstack',
     tags: ['SocketIO'],
     cover: '/img/chatroom.png',
@@ -237,6 +239,7 @@ export const projects = [
   {
     id: 'three-in-a-row',
     title: 'Three in a Row Game',
+    hidden: true,
     category: 'fullstack',
     tags: ['HTML', 'CSS', 'JavaScript', 'Fetch API'],
     cover: '/img/3inarow.png',
@@ -251,6 +254,7 @@ export const projects = [
   {
     id: 'mern-camera',
     title: 'MERN stack web application',
+    hidden: true,
     category: 'fullstack',
     tags: ['Node.js', 'Express.js', 'MongoDB', 'Mongoose', 'React.js'],
     cover: '/img/cameraMaster.png',
@@ -405,6 +409,8 @@ export const projects = [
     tools: ['Illustrator', 'Tableau'],
   },
 ];
+
+export const projects = allProjects.filter((project) => !project.hidden);
 
 export const CATEGORIES = [
   { value: 'All', label: 'All' },

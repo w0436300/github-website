@@ -609,7 +609,7 @@ function ObstacleCourse({ visitorRef }) {
   const elapsed = useRef(0);
   const hitCooldown = useRef(0);
   const worldGame = usePortfolioStore((state) => state.worldGame);
-  const addScore = usePortfolioStore((state) => state.addWorldGameScore);
+  const tickGame = usePortfolioStore((state) => state.tickWorldGame);
   const registerHit = usePortfolioStore((state) => state.hitWorldGame);
 
   useEffect(() => {
@@ -628,7 +628,7 @@ function ObstacleCourse({ visitorRef }) {
     hitCooldown.current = Math.max(0, hitCooldown.current - delta);
     if (elapsed.current >= 1) {
       elapsed.current -= 1;
-      addScore();
+      tickGame();
     }
     obstacleRefs.current.forEach((node) => {
       if (!node) return;
@@ -652,22 +652,82 @@ function ObstacleCourse({ visitorRef }) {
   return <group>{obstacleLayout.map((obstacle, index) => <CourseObstacle key={`${obstacle.type}-${index}`} obstacle={obstacle} index={index} obstacleRefs={obstacleRefs} />)}</group>;
 }
 
+const treasureLayout = [
+  { type: 'coin', x: -4.8, z: -6 }, { type: 'coin', x: -2.2, z: -9 },
+  { type: 'star', x: 1.1, z: -12 }, { type: 'coin', x: 4.5, z: -15 },
+  { type: 'coin', x: 2.8, z: -18 }, { type: 'star', x: -1.2, z: -21 },
+  { type: 'coin', x: -4, z: -24 },
+];
+
+function TreasureItem({ item, index, itemRefs }) {
+  if (item.type === 'star') {
+    return <mesh ref={(node) => { itemRefs.current[index] = node; }} position={[item.x, 0.22, item.z]}><octahedronGeometry args={[0.5, 0]} /><meshStandardMaterial color="#ffe15a" emissive="#d99018" emissiveIntensity={0.32} metalness={0.25} roughness={0.35} /></mesh>;
+  }
+  return <mesh ref={(node) => { itemRefs.current[index] = node; }} position={[item.x, 0.18, item.z]} rotation={[Math.PI / 2, 0, 0]}><cylinderGeometry args={[0.38, 0.38, 0.12, 20]} /><meshStandardMaterial color="#ffc83d" emissive="#bd7915" emissiveIntensity={0.22} metalness={0.55} roughness={0.28} /></mesh>;
+}
+
+function TreasureCourse({ visitorRef }) {
+  const itemRefs = useRef([]);
+  const elapsed = useRef(0);
+  const worldGame = usePortfolioStore((state) => state.worldGame);
+  const tickGame = usePortfolioStore((state) => state.tickWorldGame);
+  const addScore = usePortfolioStore((state) => state.addWorldGameScore);
+
+  useEffect(() => {
+    if (worldGame !== 'treasure') return;
+    elapsed.current = 0;
+    itemRefs.current.forEach((node, index) => {
+      if (!node) return;
+      node.position.set(treasureLayout[index].x, treasureLayout[index].type === 'star' ? 0.22 : 0.18, treasureLayout[index].z);
+    });
+  }, [worldGame]);
+
+  useFrame((_, delta) => {
+    if (worldGame !== 'treasure' || !visitorRef.current) return;
+    elapsed.current += delta;
+    if (elapsed.current >= 1) {
+      elapsed.current -= 1;
+      tickGame();
+    }
+    itemRefs.current.forEach((node, index) => {
+      if (!node) return;
+      node.position.z += delta * 3.15;
+      node.rotation.y += delta * 2.2;
+      const resetItem = () => {
+        node.position.z = -12 - Math.random() * 12;
+        node.position.x = -5.4 + Math.random() * 10.8;
+      };
+      if (node.position.z > 10.5) resetItem();
+      const distance = Math.hypot(node.position.x - visitorRef.current.position.x, node.position.z - visitorRef.current.position.z);
+      if (distance < 0.9) {
+        addScore(treasureLayout[index].type === 'star' ? 3 : 1);
+        resetItem();
+      }
+    });
+  });
+
+  if (worldGame !== 'treasure') return null;
+  return <group>{treasureLayout.map((item, index) => <TreasureItem key={`${item.type}-${index}`} item={item} index={index} itemRefs={itemRefs} />)}</group>;
+}
+
 function WorldGameHud() {
   const worldGame = usePortfolioStore((state) => state.worldGame);
   const score = usePortfolioStore((state) => state.worldGameScore);
+  const timeLeft = usePortfolioStore((state) => state.worldGameTimeLeft);
   const lives = usePortfolioStore((state) => state.worldGameLives);
   const startWorldGame = usePortfolioStore((state) => state.startWorldGame);
   const stopWorldGame = usePortfolioStore((state) => state.stopWorldGame);
   if (!worldGame) return null;
-  const ended = worldGame === 'obstacle-ended';
+  const ended = worldGame.endsWith('-ended');
+  const gameType = worldGame.startsWith('treasure') ? 'treasure' : 'obstacle';
   return (
     <div className={`world-game-hud ${ended ? 'is-ended' : ''}`}>
-      <span>PADDLEBOARD DODGE</span>
-      <strong>{ended ? 'Course complete!' : `${score}s`}</strong>
-      <div className="world-game-lives" aria-label={`${lives} lives remaining`}>{'♥'.repeat(lives)}{'♡'.repeat(3 - lives)}</div>
-      {ended ? <p>You stayed afloat for {score} seconds.</p> : <small>WASD / ARROWS · Dodge the obstacles</small>}
+      <span>{gameType === 'treasure' ? 'TREASURE TIDE' : 'PADDLEBOARD DODGE'}</span>
+      <strong>{ended ? (gameType === 'treasure' ? `${score} points!` : timeLeft === 0 ? 'Course complete!' : 'Course over') : `${timeLeft}s`}</strong>
+      {gameType === 'treasure' ? <div className="world-game-lives">◉ {score}</div> : <div className="world-game-lives" aria-label={`${lives} lives remaining`}>{'♥'.repeat(lives)}{'♡'.repeat(3 - lives)}</div>}
+      {ended ? <p>{gameType === 'treasure' ? `You collected ${score} treasure points. ${score >= 15 ? 'What a haul—your curiosity found the treasure! ✦' : 'Great exploring—there is always more treasure ahead!'}` : timeLeft === 0 ? 'You survived the full 30 seconds! Steady, brave, unstoppable! ✦' : `You stayed afloat for ${30 - timeLeft} seconds. Great effort—you are getting stronger with every run!`}</p> : <small>WASD / ARROWS · {gameType === 'treasure' ? 'Coins +1 · Stars +3' : 'Survive until the timer reaches zero'}</small>}
       <div>
-        {ended && <button type="button" onClick={startWorldGame}>Play again</button>}
+        {ended && <button type="button" onClick={() => startWorldGame(gameType)}>Play again</button>}
         <button type="button" onClick={stopWorldGame}>{ended ? 'Back to world' : 'Exit'}</button>
       </div>
     </div>
@@ -711,6 +771,7 @@ function Scene({ onReady }) {
       <BreakIsland />
       <AutoTraveler positionRef={visitorRef} />
       <ObstacleCourse visitorRef={visitorRef} />
+      <TreasureCourse visitorRef={visitorRef} />
       <CameraRig />
       <IslandConfirmation />
       <SceneReadySignal onReady={onReady} />
