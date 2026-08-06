@@ -18,7 +18,6 @@ const FEATURED_IDS = [
   'bank-document-system',
   'ai-knowledge-base-engineering',
   'project-request-collaboration',
-  'medisupply-hub-ui',
 ];
 
 const WORK_TABS = [
@@ -189,10 +188,10 @@ export function HomePage({ projectsOnly = false }) {
                   onMouseEnter={(e) => showHoverTip(e, isProtected ? 'Enter password' : 'View details')}
                   onMouseMove={moveHoverTip}
                   onMouseLeave={hideHoverTip}
-                  className="group cursor-none text-left bg-white border border-gray-200 border-solid rounded-[8px] overflow-hidden shadow-none transition-all hover:shadow-sm active:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black w-full"
+                  className="group cursor-none text-left bg-white rounded-[8px] overflow-hidden shadow-none transition-all hover:shadow-sm active:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black w-full"
                 >
                   <div className="flex flex-row items-stretch h-[88px] sm:h-[104px] md:h-[124px]">
-                    <div className="relative w-[34%] sm:w-[38%] md:w-[42%] max-w-[430px] shrink-0 bg-white overflow-hidden border-r border-gray-200 self-stretch">
+                    <div className="relative w-[34%] sm:w-[38%] md:w-[42%] max-w-[430px] shrink-0 bg-white overflow-hidden self-stretch">
                       {imgSrc ? (
                         <img
                           src={imgSrc}
@@ -223,7 +222,7 @@ export function HomePage({ projectsOnly = false }) {
                     </div>
                     <div className="relative flex-1 min-w-0 self-stretch overflow-hidden">
                       {/* Default: title + tags + tools */}
-                      <div className="relative z-0 flex h-full flex-col justify-center gap-1 px-3 py-2 sm:px-4 md:px-5 transition-opacity duration-200 group-hover:opacity-0 group-focus-within:opacity-0">
+                      <div className="relative z-0 flex h-full flex-col justify-start gap-1 px-3 py-2 sm:px-4 md:px-5 transition-opacity duration-200 group-hover:opacity-0 group-focus-within:opacity-0">
                         <div className="flex justify-between items-start gap-2 min-w-0">
                           <h2 className="text-sm sm:text-base md:text-lg font-medium text-gray-800 truncate min-w-0 pr-1">
                             {p.title}
@@ -276,6 +275,29 @@ export function HomePage({ projectsOnly = false }) {
               );
             })}
           </div>
+          {!projectsOnly && (
+            <aside className="mt-14 border-t border-gray-200 pt-8 pb-4 md:mt-20 md:pt-10" aria-label="About this website">
+              <div className="max-w-4xl space-y-5 text-base leading-relaxed text-gray-700 md:text-lg">
+                <p>
+                  I&apos;m constantly shaping and reshaping this website. The portfolio itself has become an ongoing project
+                  and a place where I can explore ideas without always knowing where they will lead. Some parts work, some
+                  change, and others are rebuilt entirely. <em>My World</em> continues to evolve as I do, and I enjoy
+                  creating something that can keep growing with me.
+                </p>
+                <p>
+                  If my work resonates with you, or you simply want to connect, I&apos;d love to hear from you.
+                </p>
+              </div>
+              <a
+                href="https://www.linkedin.com/in/xinping-w/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 inline-flex items-center border-b-2 border-[#FFCC00] pb-1 text-xs font-bold uppercase tracking-[0.18em] text-gray-800 transition-colors hover:text-blue-700"
+              >
+                Connect on LinkedIn →
+              </a>
+            </aside>
+          )}
         </div>
       </div>
     </section>

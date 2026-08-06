@@ -8,6 +8,7 @@ import {
   Github,
   Linkedin,
   FileText,
+  Box,
 } from 'lucide-react';
 import {
   isProjectUnlocked,
@@ -88,6 +89,7 @@ const PROJECT_REQUEST_NAV_LINKS = [
 
 export default function Layout() {
   const homepageMode = usePortfolioStore((state) => state.mode);
+  const setHomepageMode = usePortfolioStore((state) => state.setMode);
   const [activeCaseStudySection, setActiveCaseStudySection] = useState('Overview');
   const siteHeaderRef = useRef(null);
   const [siteHeaderHeight, setSiteHeaderHeight] = useState(56);
@@ -225,6 +227,11 @@ export default function Layout() {
 
   const goHome = () => {
     navigate('/');
+  };
+
+  const openHomeModeFromAbout = (mode) => {
+    setHomepageMode('page');
+    navigate(mode === 'world' ? '/?open3d=1' : '/');
   };
 
   const goHomeProjectSection = () => {
@@ -384,7 +391,14 @@ export default function Layout() {
               );
             })}
           </nav>}
-          <div id="home-mode-switch-slot" className="ml-auto flex shrink-0 items-center" />
+          <div id="home-mode-switch-slot" className="ml-auto flex shrink-0 items-center">
+            {isAboutPage && (
+              <div className="home-mode-switch" role="group" aria-label="Homepage view mode">
+                <button type="button" onClick={() => openHomeModeFromAbout('world')}><Box size={16}/>3D World</button>
+                <button type="button" className="active" onClick={() => openHomeModeFromAbout('page')}><FileText size={16}/>Page</button>
+              </div>
+            )}
+          </div>
         </div>
       </header>
       {/* Reserve space for fixed header (height synced with measured header) */}

@@ -13,8 +13,16 @@ const byCategory = (category) => mainProjects
 
 export const projects = mainProjects;
 
+const featuredProjectIds = new Set([
+  'cognitive-adaptive-ai-tutor',
+  'design-standard-wcag',
+  'bank-document-system',
+  'ai-knowledge-base-engineering',
+  'project-request-collaboration',
+]);
+
 export const islands = [
-  { id: 'featured', title: 'Featured Work', subtitle: 'A selection of recent multidisciplinary portfolio work.', accent: '#ff8a2b', type: 'workshop', position: [-3, 0, -1.5], rotation: [0, Math.PI * 0.06, 0], projects: mainProjects.slice(0, 6).map(toWorldProject) },
+  { id: 'featured', title: 'Featured Work', subtitle: 'A selection of recent multidisciplinary portfolio work.', accent: '#ff8a2b', type: 'workshop', position: [-3, 0, -1.5], rotation: [0, Math.PI * 0.06, 0], projects: mainProjects.filter((project) => featuredProjectIds.has(project.id)).map(toWorldProject) },
   { id: 'ux', title: 'UX Design', subtitle: 'Research-led product experiences, accessibility and design systems.', accent: '#7257ff', type: 'glasshouse', position: [-6.6, 0, -4.4], rotation: [0, Math.PI * 0.12, 0], projects: byCategory('design') },
   { id: 'development', title: 'Development', subtitle: 'Full-stack applications and thoughtful interactive prototypes.', accent: '#19b979', type: 'techpod', position: [3, 0, -1.5], rotation: [0, -Math.PI * 0.06, 0], projects: byCategory('fullstack') },
   { id: 'data', title: 'Data Visualization', subtitle: 'Dashboards, analytics, mapping and visual data stories.', accent: '#ef5479', type: 'gallery', position: [6.6, 0, -4.4], rotation: [0, -Math.PI * 0.12, 0], projects: byCategory('Data Visualization') },

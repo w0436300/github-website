@@ -11,27 +11,36 @@ export const usePortfolioStore = create((set) => ({
   miniGameOpen: false,
   worldGame: null,
   worldGameScore: 0,
+  worldGameTimeLeft: 30,
   worldGameLives: 3,
   setMode: (mode) => set({ mode }),
   setActiveCategory: (activeCategory) => set({ activeCategory }),
   setIslandOnly: (islandOnly) => set({ islandOnly }),
   setMiniGameOpen: (miniGameOpen) => set({ miniGameOpen }),
-  startWorldGame: () => set((state) => ({
+  startWorldGame: (game = 'obstacle') => set((state) => ({
     miniGameOpen: false,
     dialog: null,
     selectedIsland: null,
     journeyTarget: null,
-    worldGame: 'obstacle',
+    worldGame: game,
     worldGameScore: 0,
+    worldGameTimeLeft: 30,
     worldGameLives: 3,
     travelerResetToken: state.travelerResetToken + 1,
   })),
-  addWorldGameScore: () => set((state) => ({ worldGameScore: state.worldGameScore + 1 })),
+  addWorldGameScore: (points = 1) => set((state) => ({ worldGameScore: state.worldGameScore + points })),
+  tickWorldGame: () => set((state) => {
+    const timeLeft = Math.max(0, state.worldGameTimeLeft - 1);
+    return {
+      worldGameTimeLeft: timeLeft,
+      worldGame: timeLeft === 0 ? `${state.worldGame}-ended` : state.worldGame,
+    };
+  }),
   hitWorldGame: () => set((state) => {
     const lives = Math.max(0, state.worldGameLives - 1);
     return { worldGameLives: lives, worldGame: lives === 0 ? 'obstacle-ended' : state.worldGame };
   }),
-  stopWorldGame: () => set({ worldGame: null, worldGameScore: 0, worldGameLives: 3 }),
+  stopWorldGame: () => set({ worldGame: null, worldGameScore: 0, worldGameTimeLeft: 30, worldGameLives: 3 }),
   startJourney: (island) => set({ selectedIsland: island, journeyTarget: island, dialog: null }),
   travelToPoint: (position) => set({ selectedIsland: null, journeyTarget: { id: 'free-travel', type: 'point', position }, dialog: null }),
   cancelJourney: () => set({ journeyTarget: null }),
@@ -42,6 +51,7 @@ export const usePortfolioStore = create((set) => ({
     miniGameOpen: false,
     worldGame: null,
     worldGameScore: 0,
+    worldGameTimeLeft: 30,
     worldGameLives: 3,
     travelerResetToken: state.travelerResetToken + 1,
   })),
