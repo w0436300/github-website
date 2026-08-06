@@ -175,7 +175,7 @@ function AmbientWildlife() {
       <Model file="lily_pad.glb" scale={0.84} position={[4.9, -0.3, 0.65]} rotation={[0, 0.8, 0]} />
       <Model file="lily_pad.glb" scale={1.18} position={[3.7, -0.27, 5.3]} rotation={[0, -0.35, 0]} />
       <Float speed={0.75} floatIntensity={0.08} rotationIntensity={0.035}>
-        <Model file="lifebuoy.glb" scale={1.3} position={[-3.9, -0.18, -6.8]} rotation={[0.18, 0.45, -0.1]} />
+        <Model file="lifebuoy.glb" scale={1.3} position={[-8.7, -0.18, -1.4]} rotation={[0.18, 0.45, -0.1]} />
       </Float>
     </group>
   );
