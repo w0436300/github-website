@@ -7,6 +7,36 @@ function WorldLoading({ leaving = false }) {
   const { progress, loaded, total, item } = useProgress();
   const percent = Math.min(100, Math.max(0, Math.round(progress || 0)));
   const assetName = item ? decodeURIComponent(item.split('/').pop()?.split('?')[0] || '') : '';
+  const startedAt = useRef(performance.now());
+  const [secondsRemaining, setSecondsRemaining] = useState(120);
+
+  useEffect(() => {
+    if (progress >= 99) {
+      setSecondsRemaining(0);
+      return;
+    }
+    if (progress < 2) return;
+    const elapsedSeconds = Math.max((performance.now() - startedAt.current) / 1000, 0.5);
+    const estimate = elapsedSeconds * ((100 - progress) / progress);
+    setSecondsRemaining((previous) => {
+      const smoothed = previous * 0.65 + estimate * 0.35;
+      return Math.max(1, Math.min(600, Math.round(smoothed)));
+    });
+  }, [progress]);
+
+  useEffect(() => {
+    if (progress >= 99) return undefined;
+    const timer = window.setInterval(() => {
+      setSecondsRemaining((previous) => Math.max(1, previous - 1));
+    }, 1000);
+    return () => window.clearInterval(timer);
+  }, [progress]);
+
+  const formattedTime = `${String(Math.floor(secondsRemaining / 60)).padStart(2, '0')}:${String(secondsRemaining % 60).padStart(2, '0')}`;
+  const timeRemaining = progress >= 99
+    ? 'Finishing the scene…'
+    : formattedTime;
+
   return (
     <div className={`world-loading-screen ${leaving ? 'is-leaving' : ''}`} role="status" aria-live="polite">
       <div className="world-loading-card">
@@ -14,6 +44,10 @@ function WorldLoading({ leaving = false }) {
         <div className="world-loading-value">{percent}<small>%</small></div>
         <div className="world-loading-track" aria-label={`3D world loading ${percent}%`}>
           <span style={{ width: `${percent}%` }} />
+        </div>
+        <div className="world-loading-time">
+          <small>{progress >= 99 ? 'ALMOST READY' : 'ESTIMATED TIME LEFT'}</small>
+          <strong>{timeRemaining}</strong>
         </div>
         <p>{total > 0 ? `Loading assets ${loaded} / ${total}` : 'Discovering islands and ocean…'}</p>
         {assetName && <small className="world-loading-asset">{assetName}</small>}
