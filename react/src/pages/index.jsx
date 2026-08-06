@@ -190,16 +190,12 @@ export function HomePage({ projectsOnly = false }) {
                   className="group cursor-none text-left bg-white border border-gray-200 border-solid rounded-[8px] overflow-hidden shadow-none transition-all hover:shadow-sm active:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black w-full"
                 >
                   <div className="flex flex-row items-stretch h-[88px] sm:h-[104px] md:h-[124px]">
-                    <div className="relative w-[30%] sm:w-[32%] md:w-[35%] max-w-[340px] shrink-0 bg-white overflow-hidden border-r border-gray-200 self-stretch">
+                    <div className="relative w-[34%] sm:w-[38%] md:w-[42%] max-w-[430px] shrink-0 bg-white overflow-hidden border-r border-gray-200 self-stretch">
                       {imgSrc ? (
                         <img
                           src={imgSrc}
                           alt={p.title}
-                          className={`absolute inset-0 h-full w-full object-center ${
-                            p.cover?.endsWith('.svg')
-                              ? 'object-contain p-1 bg-white'
-                              : 'object-cover scale-[1.06]'
-                          }`}
+                          className="absolute inset-0 h-full w-full object-cover object-center scale-[1.03]"
                         />
                       ) : (
                         <div className="absolute inset-0 flex flex-col items-center justify-center gap-0.5 p-2 text-center">

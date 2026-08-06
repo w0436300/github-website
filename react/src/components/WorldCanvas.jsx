@@ -7,13 +7,13 @@ import { islands, about } from '../data.js';
 import { usePortfolioStore } from '../store.js';
 
 const MODEL_ROOT = `${import.meta.env.BASE_URL || '/'}models/`;
-const modelUrl = (file) => `${MODEL_ROOT}${file}?v=512`;
+const modelUrl = (file) => `${MODEL_ROOT}${file}?v=515`;
 
 const islandModels = {
   ux: 'ux_island.glb',
   development: 'fullstack_island.glb',
-  data: 'graphic_design_island.glb',
-  featured: 'island_base.glb',
+  data: 'data_island.glb',
+  featured: 'featured_island.glb',
 };
 
 function Model({ file, scale = 1, position = [0, 0, 0], rotation = [0, 0, 0] }) {
@@ -130,10 +130,6 @@ function HorizonBackdrop() {
   );
 }
 
-function Label({ title, accent, position = [0, 2.2, 0] }) {
-  return <Html center position={position} transform distanceFactor={10}><div className="island-label" style={{ background: accent }}>{title}</div></Html>;
-}
-
 function FeaturedDecor() {
   return (
     <group>
@@ -163,8 +159,7 @@ function Island({ island }) {
         onPointerOver={(event) => { event.stopPropagation(); setHovered(true); document.body.style.cursor = 'pointer'; }}
         onPointerOut={() => { setHovered(false); document.body.style.cursor = 'default'; }}
       >
-        <Model file={islandModels[island.id]} scale={3.7} />
-        <Label title={island.title} accent={island.accent} />
+        <Model file={islandModels[island.id]} scale={3.7} rotation={island.rotation || [0, 0, 0]} />
         {selectedIsland?.id === island.id && (
           <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.22, 0]}>
             <ringGeometry args={[1.45, 1.72, 48]} />
@@ -190,8 +185,7 @@ function AboutIsland() {
         onPointerOver={() => { setHovered(true); document.body.style.cursor = 'pointer'; }}
         onPointerOut={() => { setHovered(false); document.body.style.cursor = 'default'; }}
       >
-        <Model file="aboutme_island.glb" scale={4.25} rotation={[0, Math.PI * 0.72, 0]} />
-        <Label title="About Me" accent="#e53935" position={[0, 2.3, 0]} />
+        <Model file="aboutme_island.glb" scale={4.25} rotation={[0, Math.PI * 0.14, 0]} />
         {selectedIsland?.id === 'about' && (
           <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.22, 0]}>
             <ringGeometry args={[1.45, 1.72, 48]} />
@@ -206,26 +200,37 @@ function AboutIsland() {
 function Visitor({ positionRef }) {
   return (
     <group ref={positionRef} position={[0, 0.02, 2.65]}>
-      <Model file="paddleboard.glb" scale={3.15} position={[0, 0, -1.32]} rotation={[Math.PI / 2, 0, 0]} />
-      <Model file="visitor_beavor.glb" scale={5.6} position={[-0.08, 0.1, 0]} rotation={[0, Math.PI, 0]} />
+      <Model file="beaver_paddleboard.glb" scale={3.2} />
       <Html center position={[0, 2.55, 0]}><div className="you-badge">YOU <span>♥</span></div></Html>
     </group>
   );
 }
 
+function smoothHeading(current, target, speed, delta) {
+  const shortestTurn = Math.atan2(Math.sin(target - current), Math.cos(target - current));
+  return current + shortestTurn * (1 - Math.exp(-speed * delta));
+}
+
 function AutoTraveler() {
   const ref = useRef();
   const keys = useRef(new Set());
+  const nearbyIsland = useRef(null);
   const target = usePortfolioStore((state) => state.journeyTarget);
+  const dialog = usePortfolioStore((state) => state.dialog);
   const finishJourney = usePortfolioStore((state) => state.finishJourney);
   const targetVector = useMemo(() => new THREE.Vector3(), []);
+  const destinations = useMemo(() => [about, ...islands], []);
   useFrame((_, delta) => {
     if (!ref.current) return;
+    if (dialog) return;
     if (target) {
       targetVector.set(target.position[0], 0.02, target.position[2] + 1.7);
       if (ref.current.position.distanceTo(targetVector) > 0.14) {
+        const directionX = targetVector.x - ref.current.position.x;
+        const directionZ = targetVector.z - ref.current.position.z;
+        const targetHeading = Math.atan2(directionX, directionZ);
+        ref.current.rotation.y = smoothHeading(ref.current.rotation.y, targetHeading, 8, delta);
         ref.current.position.lerp(targetVector, 1 - Math.pow(0.015, delta));
-        ref.current.lookAt(targetVector.x, 0.1, targetVector.z);
       } else finishJourney(target);
     } else {
       const speed = 2.8 * delta;
@@ -235,13 +240,43 @@ function AutoTraveler() {
       if (keys.current.has('s')) dz += speed;
       if (keys.current.has('a')) dx -= speed;
       if (keys.current.has('d')) dx += speed;
-      ref.current.position.x = THREE.MathUtils.clamp(ref.current.position.x + dx, -12, 12);
-      ref.current.position.z = THREE.MathUtils.clamp(ref.current.position.z + dz, -9, 11);
-      if (dx || dz) ref.current.rotation.y = Math.atan2(dx, dz);
+      const nextX = THREE.MathUtils.clamp(ref.current.position.x + dx, -12, 12);
+      const nextZ = THREE.MathUtils.clamp(ref.current.position.z + dz, -9, 11);
+
+      const reachedIsland = destinations.find((island) => {
+        const edgeRadius = island.id === 'about' ? 2.65 : island.id === 'featured' ? 2.55 : 2.4;
+        return Math.hypot(nextX - island.position[0], nextZ - island.position[2]) <= edgeRadius;
+      });
+
+      if (reachedIsland) {
+        keys.current.clear();
+        if (nearbyIsland.current !== reachedIsland.id) {
+          nearbyIsland.current = reachedIsland.id;
+          finishJourney(reachedIsland);
+        }
+        return;
+      }
+
+      if (nearbyIsland.current) {
+        const previousIsland = destinations.find((island) => island.id === nearbyIsland.current);
+        if (!previousIsland || Math.hypot(nextX - previousIsland.position[0], nextZ - previousIsland.position[2]) > 3.25) {
+          nearbyIsland.current = null;
+        }
+      }
+
+      ref.current.position.x = nextX;
+      ref.current.position.z = nextZ;
+      if (dx || dz) {
+        const targetHeading = Math.atan2(dx, dz);
+        ref.current.rotation.y = smoothHeading(ref.current.rotation.y, targetHeading, 11, delta);
+      }
     }
   });
   useEffect(() => {
-    const onKeyDown = (event) => keys.current.add(event.key.toLowerCase());
+    const onKeyDown = (event) => {
+      const key = event.key.toLowerCase();
+      if (['w', 'a', 's', 'd'].includes(key)) keys.current.add(key);
+    };
     const onKeyUp = (event) => keys.current.delete(event.key.toLowerCase());
     const clearKeys = () => keys.current.clear();
     window.addEventListener('keydown', onKeyDown);
@@ -254,8 +289,8 @@ function AutoTraveler() {
 
 function CameraRig() {
   const { camera } = useThree();
-  const overviewPosition = useMemo(() => new THREE.Vector3(0, 7.2, 20.8), []);
-  const overviewTarget = useMemo(() => new THREE.Vector3(0, 1.05, -0.6), []);
+  const overviewPosition = useMemo(() => new THREE.Vector3(0, 4.85, 15.8), []);
+  const overviewTarget = useMemo(() => new THREE.Vector3(0, 1.45, -1.15), []);
   const focusPosition = useMemo(() => new THREE.Vector3(), []);
   const focusTarget = useMemo(() => new THREE.Vector3(), []);
   const mouse = useRef(new THREE.Vector2());
@@ -272,9 +307,9 @@ function CameraRig() {
   useFrame((_, delta) => {
     const smoothing = 1 - Math.pow(0.025, delta);
     const orbitAngle = mouse.current.x * 0.18;
-    const orbitRadius = 19.5;
-    focusPosition.set(Math.sin(orbitAngle) * orbitRadius, overviewPosition.y + mouse.current.y * 1.55, Math.cos(orbitAngle) * orbitRadius);
-    focusTarget.set(overviewTarget.x + mouse.current.x * 1.1, overviewTarget.y + mouse.current.y * 0.5, overviewTarget.z);
+    const orbitRadius = 15.8;
+    focusPosition.set(Math.sin(orbitAngle) * orbitRadius, overviewPosition.y + mouse.current.y * 0.8, Math.cos(orbitAngle) * orbitRadius);
+    focusTarget.set(overviewTarget.x + mouse.current.x * 1.1, overviewTarget.y + mouse.current.y * 0.24, overviewTarget.z);
     camera.position.lerp(focusPosition, smoothing * 0.55);
     camera.lookAt(focusTarget);
   });
@@ -289,9 +324,19 @@ function IslandConfirmation() {
   const setActiveCategory = usePortfolioStore((state) => state.setActiveCategory);
   const setIslandOnly = usePortfolioStore((state) => state.setIslandOnly);
   const [typedText, setTypedText] = useState('');
+  const [dialogueStep, setDialogueStep] = useState(0);
   const dialogueText = dialog
-    ? `We made it to ${dialog.title}! Would you like to look around?`
+    ? dialogueStep === 0
+      ? `We made it to ${dialog.title}! Would you like to look around?`
+      : dialog.id === 'about'
+        ? `Okay! Let’s learn more about Claire and her creative journey.`
+        : `Okay! Let’s explore Claire’s projects!`
     : '';
+  const isTyping = typedText.length < dialogueText.length;
+
+  useEffect(() => {
+    setDialogueStep(0);
+  }, [dialog?.id]);
 
   useEffect(() => {
     setTypedText('');
@@ -318,6 +363,16 @@ function IslandConfirmation() {
     setTimeout(() => document.getElementById('project')?.scrollIntoView({ behavior: 'smooth' }), 50);
   };
 
+  const advanceDialogue = () => {
+    setDialogueStep(1);
+  };
+
+  useEffect(() => {
+    if (!dialog || dialogueStep !== 1 || isTyping) return undefined;
+    const timer = window.setTimeout(enterIsland, 1000);
+    return () => window.clearTimeout(timer);
+  }, [dialog?.id, dialogueStep, isTyping]);
+
   if (!dialog) return null;
 
   return (
@@ -328,8 +383,14 @@ function IslandConfirmation() {
           <span className="game-speaker">Claire</span>
           <p>{typedText}<i className="typing-caret" /></p>
           <div className="game-dialogue-actions">
-            <button className="game-choice secondary-choice" onClick={closeDialog}>Maybe later</button>
-            <button className="game-choice primary-choice" onClick={enterIsland}>Let’s go! <span>➜</span></button>
+            {dialogueStep === 0 ? (
+              <>
+                <button className="game-choice secondary-choice" onClick={closeDialog}>Maybe later</button>
+                <button className="game-choice primary-choice" onClick={advanceDialogue}>Let’s go! <span>➜</span></button>
+              </>
+            ) : (
+              <span className="game-dialogue-loading" aria-label="Entering island"><i/><i/><i/></span>
+            )}
           </div>
         </div>
       </div>
@@ -378,7 +439,7 @@ export default function WorldCanvas() {
 
   return (
     <div className="canvas-wrap">
-      <Canvas key={rendererKey} onCreated={handleCreated} shadows camera={{ position: [0, 7.2, 20.8], fov: 48 }} dpr={[1, 1.2]} tabIndex={0}>
+      <Canvas key={rendererKey} onCreated={handleCreated} shadows camera={{ position: [0, 4.85, 15.8], fov: 42 }} dpr={[1, 1.2]} tabIndex={0}>
         <Scene />
       </Canvas>
       <div className="world-overview-copy">
@@ -393,4 +454,4 @@ export default function WorldCanvas() {
 }
 
 Object.values(islandModels).forEach((file) => useGLTF.preload(modelUrl(file)));
-['aboutme_island.glb', 'visitor_beavor.glb', 'paddleboard.glb'].forEach((file) => useGLTF.preload(modelUrl(file)));
+['aboutme_island.glb', 'beaver_paddleboard.glb'].forEach((file) => useGLTF.preload(modelUrl(file)));

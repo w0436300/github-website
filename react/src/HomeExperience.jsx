@@ -21,13 +21,14 @@ export default function HomeExperience() {
       {showWorldNotice && (
         <div className="world-notice-backdrop" role="presentation" onMouseDown={() => setShowWorldNotice(false)}>
           <section className="world-notice-card" role="dialog" aria-modal="true" aria-labelledby="world-notice-title" onMouseDown={(event) => event.stopPropagation()}>
-            <span className="world-notice-icon"><Box size={24} /></span>
+            <span className="world-notice-character" aria-hidden="true">🦫</span>
+            <span className="world-notice-speaker">Claire</span>
             <p className="world-notice-kicker">3D WORLD PREVIEW</p>
-            <h2 id="world-notice-title">This world is still under construction.</h2>
-            <p>The 3D experience may load slowly on some devices. You can browse every project normally in Page mode.</p>
+            <h2 id="world-notice-title">Welcome to my little world!</h2>
+            <p>It’s still under construction, so it may take a moment to load. You can always explore every project normally in Page mode.</p>
             <div className="world-notice-actions">
-              <button type="button" className="world-notice-secondary" onClick={() => setShowWorldNotice(false)}>Stay in Page</button>
-              <button type="button" className="world-notice-primary" onClick={() => { setShowWorldNotice(false); setMode('world'); }}>Enter 3D World</button>
+              <button type="button" className="game-choice secondary-choice" onClick={() => setShowWorldNotice(false)}>Stay in Page</button>
+              <button type="button" className="game-choice primary-choice" onClick={() => { setShowWorldNotice(false); setMode('world'); }}>Enter 3D World <span>➜</span></button>
             </div>
           </section>
         </div>
