@@ -1,27 +1,39 @@
 import { Box, FileText } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import PortfolioHome from './PortfolioHome.jsx';
 import { HomePage } from './pages/index.jsx';
 import { usePortfolioStore } from './store.js';
 
 export default function HomeExperience() {
   const [showWorldNotice, setShowWorldNotice] = useState(false);
+  const [modeSwitchSlot, setModeSwitchSlot] = useState(null);
   const mode = usePortfolioStore((state) => state.mode);
   const islandOnly = usePortfolioStore((state) => state.islandOnly);
   const setMode = usePortfolioStore((state) => state.setMode);
   const setIslandOnly = usePortfolioStore((state) => state.setIslandOnly);
 
+  useEffect(() => {
+    setModeSwitchSlot(document.getElementById('home-mode-switch-slot'));
+  }, []);
+
+  const modeSwitch = (
+    <div className="home-mode-switch" role="group" aria-label="Homepage view mode">
+      <button className={mode === 'world' ? 'active' : ''} onClick={() => mode !== 'world' && setShowWorldNotice(true)}><Box size={16}/>3D World</button>
+      <button className={mode === 'page' ? 'active' : ''} onClick={() => { setIslandOnly(false); setMode('page'); }}><FileText size={16}/>Page</button>
+    </div>
+  );
+
   return (
     <div className="home-experience">
-      <div className="home-mode-switch" role="group" aria-label="Homepage view mode">
-        <button className={mode === 'world' ? 'active' : ''} onClick={() => mode !== 'world' && setShowWorldNotice(true)}><Box size={16}/>3D World</button>
-        <button className={mode === 'page' ? 'active' : ''} onClick={() => { setIslandOnly(false); setMode('page'); }}><FileText size={16}/>Page</button>
-      </div>
+      {modeSwitchSlot && createPortal(modeSwitch, modeSwitchSlot)}
       {mode === 'world' ? <PortfolioHome /> : <HomePage projectsOnly={islandOnly} />}
       {showWorldNotice && (
         <div className="world-notice-backdrop" role="presentation" onMouseDown={() => setShowWorldNotice(false)}>
           <section className="world-notice-card" role="dialog" aria-modal="true" aria-labelledby="world-notice-title" onMouseDown={(event) => event.stopPropagation()}>
-            <span className="world-notice-character" aria-hidden="true">🦫</span>
+            <span className="world-notice-character" aria-hidden="true">
+              <img src={`${import.meta.env.BASE_URL || '/'}img/claire-dialogue.png`} alt="" />
+            </span>
             <span className="world-notice-speaker">Claire</span>
             <p className="world-notice-kicker">3D WORLD PREVIEW</p>
             <h2 id="world-notice-title">Welcome to my little world!</h2>

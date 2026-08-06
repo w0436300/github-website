@@ -7,6 +7,7 @@ import { usePortfolioStore } from '../store.js';
 const tabs = [
   { id: 'featured', label: 'Featured' },
   { id: 'ux', label: 'UX Design' },
+  { id: 'visual-design', label: 'Visual Design' },
   { id: 'development', label: 'Full Stack' },
   { id: 'data', label: 'Data' },
   { id: 'all', label: 'All' },
@@ -19,11 +20,14 @@ function matchesTab(project, tab) {
   if (tab === 'featured') return featuredIds.has(project.id);
   if (tab === 'ux') return project.category === 'design' || project.categories?.includes('design');
   if (tab === 'development') return project.category === 'fullstack' || project.categories?.includes('fullstack');
-  return project.category === 'Data Visualization';
+  if (tab === 'data') return project.category === 'Data Visualization';
+  if (tab === 'visual-design') return project.category === 'visual-design';
+  return false;
 }
 
 function accentFor(project) {
   if (project.category === 'Data Visualization') return '#ef5479';
+  if (project.category === 'visual-design') return '#f58a35';
   if (project.category === 'fullstack') return '#19b979';
   return '#7257ff';
 }

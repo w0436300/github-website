@@ -24,6 +24,7 @@ const FEATURED_IDS = [
 const WORK_TABS = [
   { value: 'Featured', label: 'Featured' },
   { value: 'design', label: 'UX Design' },
+  { value: 'visual-design', label: 'Visual Design' },
   { value: 'fullstack', label: 'Full Stack' },
   { value: 'Data Visualization', label: 'Data' },
   { value: 'All', label: 'All' },
@@ -37,6 +38,7 @@ function projectMatchesTab(p, tab) {
   if (tab === 'design') return cat === 'design' || cats.includes('design');
   if (tab === 'fullstack') return cat === 'fullstack' || cats.includes('fullstack');
   if (tab === 'Data Visualization') return cat === 'Data Visualization';
+  if (tab === 'visual-design') return cat === 'visual-design';
   return false;
 }
 

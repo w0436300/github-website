@@ -384,6 +384,7 @@ export default function Layout() {
               );
             })}
           </nav>}
+          <div id="home-mode-switch-slot" className="ml-auto flex shrink-0 items-center" />
         </div>
       </header>
       {/* Reserve space for fixed header (height synced with measured header) */}
@@ -438,7 +439,10 @@ export default function Layout() {
         </>
       )}
 
-      <main className={`min-h-screen min-w-0 ${isProjectPage && !isAiTutorSlideMode ? 'md:pl-56' : ''}`}>
+      <main
+        className={`${isHome && homepageMode === 'world' ? 'min-h-0' : 'min-h-screen'} min-w-0 ${isProjectPage && !isAiTutorSlideMode ? 'md:pl-56' : ''}`}
+        style={isHome && homepageMode === 'world' ? { height: `calc(100dvh - ${siteHeaderHeight}px)` } : undefined}
+      >
         <Outlet />
       </main>
       {!hideHomeNav && <footer className={`w-full min-w-0 shrink-0 border-t border-gray-200 bg-white py-8 text-center md:py-10 ${isProjectPage && !isAiTutorSlideMode ? 'md:pl-56' : ''}`}>

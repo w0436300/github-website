@@ -3,11 +3,12 @@ import { Float, Html, useGLTF, useTexture } from '@react-three/drei';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as THREE from 'three';
-import { islands, about } from '../data.js';
+import { islands, about, breakIsland } from '../data.js';
 import { usePortfolioStore } from '../store.js';
+import ThreeInARowGame from './ThreeInARowGame.jsx';
 
 const MODEL_ROOT = `${import.meta.env.BASE_URL || '/'}models/`;
-const modelUrl = (file) => `${MODEL_ROOT}${file}?v=515`;
+const modelUrl = (file) => `${MODEL_ROOT}${file}?v=520`;
 
 const islandModels = {
   ux: 'ux_island.glb',
@@ -33,6 +34,7 @@ function Model({ file, scale = 1, position = [0, 0, 0], rotation = [0, 0, 0] }) 
 
 function Water() {
   const materialRef = useRef();
+  const travelToPoint = usePortfolioStore((state) => state.travelToPoint);
   const waterTexture = useTexture(`${import.meta.env.BASE_URL || '/'}textures/cartoon-water-base.png`);
   useMemo(() => {
     waterTexture.wrapS = THREE.RepeatWrapping;
@@ -51,8 +53,20 @@ function Water() {
     if (materialRef.current) materialRef.current.uniforms.uTime.value = state.clock.elapsedTime;
   });
   return (
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.38, 0]} receiveShadow>
-      <planeGeometry args={[42, 30, 128, 96]} />
+    <mesh
+      rotation={[-Math.PI / 2, 0, 0]}
+      position={[0, -0.38, 0]}
+      receiveShadow
+      onClick={(event) => {
+        event.stopPropagation();
+        travelToPoint([
+          THREE.MathUtils.clamp(event.point.x, -12, 12),
+          0.02,
+          THREE.MathUtils.clamp(event.point.z, -9, 11),
+        ]);
+      }}
+    >
+      <planeGeometry args={[100, 60, 160, 112]} />
       <shaderMaterial
         ref={materialRef}
         uniforms={uniforms}
@@ -88,8 +102,9 @@ function Water() {
           void main() {
             vec2 driftA = vec2(uTime * 0.006, uTime * -0.003);
             vec2 driftB = vec2(uTime * -0.004, uTime * 0.005);
-            vec3 layerA = texture2D(uMap, vUv * vec2(3.6, 2.7) + driftA).rgb;
-            vec3 layerB = texture2D(uMap, vec2(vUv.y, 1.0 - vUv.x) * vec2(2.4, 3.1) + driftB).rgb;
+            vec2 worldUv = vWorldPosition.xz * 0.085;
+            vec3 layerA = texture2D(uMap, worldUv + driftA).rgb;
+            vec3 layerB = texture2D(uMap, vec2(worldUv.y, -worldUv.x) * 0.86 + driftB).rgb;
             vec3 textureWater = mix(layerA, layerB, 0.28);
             float luminance = dot(textureWater, vec3(0.299, 0.587, 0.114));
             float horizon = smoothstep(0.05, 0.98, vUv.y);
@@ -146,6 +161,26 @@ function FeaturedDecor() {
   );
 }
 
+function AmbientWildlife() {
+  return (
+    <group>
+      <Float speed={1.2} floatIntensity={0.45} rotationIntensity={0.08}>
+        <Model file="seagull.glb" scale={0.72} position={[-5.4, 3.8, -6.8]} rotation={[0, 0.75, 0]} />
+      </Float>
+      <Float speed={1.05} floatIntensity={0.35} rotationIntensity={0.06}>
+        <Model file="seagull.glb" scale={0.58} position={[5.9, 3.15, -7.2]} rotation={[0, -0.9, 0]} />
+      </Float>
+      <Model file="lily_pad.glb" scale={0.92} position={[-5.1, -0.3, 0.3]} rotation={[0, 0.25, 0]} />
+      <Model file="lily_pad.glb" scale={0.76} position={[-1.8, -0.31, 1.15]} rotation={[0, -0.55, 0]} />
+      <Model file="lily_pad.glb" scale={0.84} position={[4.9, -0.3, 0.65]} rotation={[0, 0.8, 0]} />
+      <Model file="lily_pad.glb" scale={1.18} position={[3.7, -0.27, 5.3]} rotation={[0, -0.35, 0]} />
+      <Float speed={0.75} floatIntensity={0.08} rotationIntensity={0.035}>
+        <Model file="lifebuoy.glb" scale={1.3} position={[-5.8, -0.18, 4.35]} rotation={[0.18, 0.45, -0.1]} />
+      </Float>
+    </group>
+  );
+}
+
 function Island({ island }) {
   const startJourney = usePortfolioStore((state) => state.startJourney);
   const selectedIsland = usePortfolioStore((state) => state.selectedIsland);
@@ -159,7 +194,7 @@ function Island({ island }) {
         onPointerOver={(event) => { event.stopPropagation(); setHovered(true); document.body.style.cursor = 'pointer'; }}
         onPointerOut={() => { setHovered(false); document.body.style.cursor = 'default'; }}
       >
-        <Model file={islandModels[island.id]} scale={3.7} rotation={island.rotation || [0, 0, 0]} />
+        <Model file={islandModels[island.id]} scale={3.5} rotation={island.rotation || [0, 0, 0]} />
         {selectedIsland?.id === island.id && (
           <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.22, 0]}>
             <ringGeometry args={[1.45, 1.72, 48]} />
@@ -185,7 +220,7 @@ function AboutIsland() {
         onPointerOver={() => { setHovered(true); document.body.style.cursor = 'pointer'; }}
         onPointerOut={() => { setHovered(false); document.body.style.cursor = 'default'; }}
       >
-        <Model file="aboutme_island.glb" scale={4.25} rotation={[0, Math.PI * 0.14, 0]} />
+        <Model file="aboutme_island.glb" scale={4.7} rotation={[0, Math.PI * 0.08, 0]} />
         {selectedIsland?.id === 'about' && (
           <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.22, 0]}>
             <ringGeometry args={[1.45, 1.72, 48]} />
@@ -197,11 +232,36 @@ function AboutIsland() {
   );
 }
 
+function BreakIsland() {
+  const startJourney = usePortfolioStore((state) => state.startJourney);
+  const selectedIsland = usePortfolioStore((state) => state.selectedIsland);
+  const [hovered, setHovered] = useState(false);
+  return (
+    <Float speed={0.9} floatIntensity={0.12} rotationIntensity={0.025}>
+      <group
+        position={breakIsland.position}
+        scale={hovered ? 1.04 : 1}
+        onClick={(event) => { event.stopPropagation(); startJourney(breakIsland); }}
+        onPointerOver={(event) => { event.stopPropagation(); setHovered(true); document.body.style.cursor = 'pointer'; }}
+        onPointerOut={() => { setHovered(false); document.body.style.cursor = 'default'; }}
+      >
+        <Model file="take_a_break.glb" scale={1.65} rotation={[0, -Math.PI * 0.12, 0]} />
+        {selectedIsland?.id === 'break' && (
+          <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.22, 0]}>
+            <ringGeometry args={[1.45, 1.72, 48]} />
+            <meshBasicMaterial color="#f2aa45" transparent opacity={0.7} depthWrite={false} />
+          </mesh>
+        )}
+      </group>
+    </Float>
+  );
+}
+
 function Visitor({ positionRef }) {
   return (
     <group ref={positionRef} position={[0, 0.02, 2.65]}>
-      <Model file="beaver_paddleboard.glb" scale={3.2} />
-      <Html center position={[0, 2.55, 0]}><div className="you-badge">YOU <span>♥</span></div></Html>
+      <Model file="beaver_paddleboard.glb" scale={2.9} />
+      <Html center position={[0, 2.35, 0]}><div className="you-badge">YOU <span>♥</span></div></Html>
     </group>
   );
 }
@@ -211,6 +271,13 @@ function smoothHeading(current, target, speed, delta) {
   return current + shortestTurn * (1 - Math.exp(-speed * delta));
 }
 
+function islandEdgeRadius(island) {
+  if (island.id === 'about') return 2.6;
+  if (island.id === 'break') return 1.2;
+  if (island.id === 'featured') return 2.2;
+  return 2.05;
+}
+
 function AutoTraveler() {
   const ref = useRef();
   const keys = useRef(new Set());
@@ -218,20 +285,59 @@ function AutoTraveler() {
   const target = usePortfolioStore((state) => state.journeyTarget);
   const dialog = usePortfolioStore((state) => state.dialog);
   const finishJourney = usePortfolioStore((state) => state.finishJourney);
+  const cancelJourney = usePortfolioStore((state) => state.cancelJourney);
+  const resetTraveler = usePortfolioStore((state) => state.resetTraveler);
+  const resetToken = usePortfolioStore((state) => state.travelerResetToken);
   const targetVector = useMemo(() => new THREE.Vector3(), []);
-  const destinations = useMemo(() => [about, ...islands], []);
+  const nextTravelPosition = useMemo(() => new THREE.Vector3(), []);
+  const destinations = useMemo(() => [about, breakIsland, ...islands], []);
+  useEffect(() => {
+    if (!ref.current) return;
+    keys.current.clear();
+    nearbyIsland.current = null;
+    ref.current.position.set(0, 0.02, 2.65);
+    ref.current.rotation.set(0, 0, 0);
+  }, [resetToken]);
   useFrame((_, delta) => {
     if (!ref.current) return;
     if (dialog) return;
     if (target) {
-      targetVector.set(target.position[0], 0.02, target.position[2] + 1.7);
+      const isFreeTravel = target.type === 'point';
+      const centerX = target.position[0];
+      const centerZ = target.position[2];
+      const approachX = ref.current.position.x - centerX;
+      const approachZ = ref.current.position.z - centerZ;
+      const approachLength = Math.hypot(approachX, approachZ) || 1;
+      const stopRadius = isFreeTravel ? 0 : islandEdgeRadius(target) + 0.12;
+      targetVector.set(
+        centerX + (approachX / approachLength) * stopRadius,
+        0.02,
+        centerZ + (approachZ / approachLength) * stopRadius,
+      );
       if (ref.current.position.distanceTo(targetVector) > 0.14) {
         const directionX = targetVector.x - ref.current.position.x;
         const directionZ = targetVector.z - ref.current.position.z;
         const targetHeading = Math.atan2(directionX, directionZ);
         ref.current.rotation.y = smoothHeading(ref.current.rotation.y, targetHeading, 8, delta);
-        ref.current.position.lerp(targetVector, 1 - Math.pow(0.015, delta));
-      } else finishJourney(target);
+        nextTravelPosition.copy(ref.current.position).lerp(targetVector, 1 - Math.pow(0.015, delta));
+        const blockingIsland = destinations.find((island) => (
+          island.id !== target.id
+          && Math.hypot(
+            nextTravelPosition.x - island.position[0],
+            nextTravelPosition.z - island.position[2],
+          ) <= islandEdgeRadius(island)
+        ));
+
+        if (blockingIsland) {
+          nearbyIsland.current = blockingIsland.id;
+          cancelJourney();
+          finishJourney(blockingIsland);
+          return;
+        }
+
+        ref.current.position.copy(nextTravelPosition);
+      } else if (isFreeTravel) cancelJourney();
+      else finishJourney(target);
     } else {
       const speed = 2.8 * delta;
       let dx = 0;
@@ -244,8 +350,12 @@ function AutoTraveler() {
       const nextZ = THREE.MathUtils.clamp(ref.current.position.z + dz, -9, 11);
 
       const reachedIsland = destinations.find((island) => {
-        const edgeRadius = island.id === 'about' ? 2.65 : island.id === 'featured' ? 2.55 : 2.4;
-        return Math.hypot(nextX - island.position[0], nextZ - island.position[2]) <= edgeRadius;
+        const currentDistance = Math.hypot(
+          ref.current.position.x - island.position[0],
+          ref.current.position.z - island.position[2],
+        );
+        const nextDistance = Math.hypot(nextX - island.position[0], nextZ - island.position[2]);
+        return nextDistance <= islandEdgeRadius(island) && nextDistance <= currentDistance + 0.001;
       });
 
       if (reachedIsland) {
@@ -259,7 +369,7 @@ function AutoTraveler() {
 
       if (nearbyIsland.current) {
         const previousIsland = destinations.find((island) => island.id === nearbyIsland.current);
-        if (!previousIsland || Math.hypot(nextX - previousIsland.position[0], nextZ - previousIsland.position[2]) > 3.25) {
+        if (!previousIsland || Math.hypot(nextX - previousIsland.position[0], nextZ - previousIsland.position[2]) > islandEdgeRadius(previousIsland) + 0.7) {
           nearbyIsland.current = null;
         }
       }
@@ -275,7 +385,11 @@ function AutoTraveler() {
   useEffect(() => {
     const onKeyDown = (event) => {
       const key = event.key.toLowerCase();
-      if (['w', 'a', 's', 'd'].includes(key)) keys.current.add(key);
+      if (['w', 'a', 's', 'd'].includes(key)) {
+        cancelJourney();
+        keys.current.add(key);
+      }
+      if (key === 'r') resetTraveler();
     };
     const onKeyUp = (event) => keys.current.delete(event.key.toLowerCase());
     const clearKeys = () => keys.current.clear();
@@ -283,14 +397,13 @@ function AutoTraveler() {
     window.addEventListener('keyup', onKeyUp);
     window.addEventListener('blur', clearKeys);
     return () => { window.removeEventListener('keydown', onKeyDown); window.removeEventListener('keyup', onKeyUp); window.removeEventListener('blur', clearKeys); };
-  }, []);
+  }, [cancelJourney, resetTraveler]);
   return <Visitor positionRef={ref} />;
 }
 
 function CameraRig() {
-  const { camera } = useThree();
-  const overviewPosition = useMemo(() => new THREE.Vector3(0, 4.85, 15.8), []);
-  const overviewTarget = useMemo(() => new THREE.Vector3(0, 1.45, -1.15), []);
+  const { camera, size } = useThree();
+  const overviewTarget = useMemo(() => new THREE.Vector3(0, 1.5, -1.15), []);
   const focusPosition = useMemo(() => new THREE.Vector3(), []);
   const focusTarget = useMemo(() => new THREE.Vector3(), []);
   const mouse = useRef(new THREE.Vector2());
@@ -307,9 +420,12 @@ function CameraRig() {
   useFrame((_, delta) => {
     const smoothing = 1 - Math.pow(0.025, delta);
     const orbitAngle = mouse.current.x * 0.18;
-    const orbitRadius = 15.8;
-    focusPosition.set(Math.sin(orbitAngle) * orbitRadius, overviewPosition.y + mouse.current.y * 0.8, Math.cos(orbitAngle) * orbitRadius);
-    focusTarget.set(overviewTarget.x + mouse.current.x * 1.1, overviewTarget.y + mouse.current.y * 0.24, overviewTarget.z);
+    const aspect = size.width / Math.max(size.height, 1);
+    const wideScreen = THREE.MathUtils.clamp((aspect - 1.65) / 1.5, 0, 1);
+    const orbitRadius = THREE.MathUtils.lerp(14.4, 11.8, wideScreen);
+    const cameraHeight = THREE.MathUtils.lerp(3.65, 3.35, wideScreen);
+    focusPosition.set(Math.sin(orbitAngle) * orbitRadius, cameraHeight + mouse.current.y * 0.45, Math.cos(orbitAngle) * orbitRadius);
+    focusTarget.set(overviewTarget.x + mouse.current.x * 1.1, overviewTarget.y + mouse.current.y * 0.16, overviewTarget.z);
     camera.position.lerp(focusPosition, smoothing * 0.55);
     camera.lookAt(focusTarget);
   });
@@ -323,6 +439,7 @@ function IslandConfirmation() {
   const setMode = usePortfolioStore((state) => state.setMode);
   const setActiveCategory = usePortfolioStore((state) => state.setActiveCategory);
   const setIslandOnly = usePortfolioStore((state) => state.setIslandOnly);
+  const setMiniGameOpen = usePortfolioStore((state) => state.setMiniGameOpen);
   const [typedText, setTypedText] = useState('');
   const [dialogueStep, setDialogueStep] = useState(0);
   const dialogueText = dialog
@@ -330,12 +447,13 @@ function IslandConfirmation() {
       ? `We made it to ${dialog.title}! Would you like to look around?`
       : dialog.id === 'about'
         ? `Okay! Let’s learn more about Claire and her creative journey.`
-        : `Okay! Let’s explore Claire’s projects!`
+        : dialog.id === 'break'
+          ? `Okay! Let’s take a break and play Three in a Row.`
+          : `Okay! Let’s explore Claire’s projects!`
     : '';
-  const isTyping = typedText.length < dialogueText.length;
-
   useEffect(() => {
     setDialogueStep(0);
+    setTypedText('');
   }, [dialog?.id]);
 
   useEffect(() => {
@@ -351,42 +469,59 @@ function IslandConfirmation() {
   }, [dialogueText]);
 
   const enterIsland = () => {
-    if (dialog.id === 'about') {
+    const changeScene = () => {
+      if (dialog.id === 'about') {
+        closeDialog();
+        navigate('/blog');
+        return;
+      }
+      if (dialog.id === 'break') {
+        closeDialog();
+        setMiniGameOpen(true);
+        return;
+      }
+      setActiveCategory(dialog.id);
+      setIslandOnly(true);
       closeDialog();
-      navigate('/blog');
-      return;
+      setMode('page');
+      setTimeout(() => document.getElementById('project')?.scrollIntoView({ behavior: 'smooth' }), 80);
+    };
+
+    if (document.startViewTransition) {
+      document.startViewTransition(changeScene);
+    } else {
+      changeScene();
     }
-    setActiveCategory(dialog.id);
-    setIslandOnly(true);
-    closeDialog();
-    setMode('page');
-    setTimeout(() => document.getElementById('project')?.scrollIntoView({ behavior: 'smooth' }), 50);
   };
 
   const advanceDialogue = () => {
-    setDialogueStep(1);
+    setTypedText('');
+    setDialogueStep((currentStep) => currentStep === 0 ? 1 : currentStep);
   };
 
   useEffect(() => {
-    if (!dialog || dialogueStep !== 1 || isTyping) return undefined;
-    const timer = window.setTimeout(enterIsland, 1000);
+    if (!dialog || dialogueStep !== 1) return undefined;
+    const typingDuration = dialogueText.length * 18;
+    const timer = window.setTimeout(enterIsland, typingDuration + 1100);
     return () => window.clearTimeout(timer);
-  }, [dialog?.id, dialogueStep, isTyping]);
+  }, [dialog?.id, dialogueStep, dialogueText]);
 
   if (!dialog) return null;
 
   return (
     <Html fullscreen zIndexRange={[60, 30]}>
       <div className="game-dialogue-layer" onPointerDown={(event) => event.stopPropagation()}>
-        <div className="game-dialogue-avatar" aria-hidden="true">🦫</div>
+        <div className="game-dialogue-avatar" aria-hidden="true">
+          <img src={`${import.meta.env.BASE_URL || '/'}img/claire-dialogue.png`} alt="" />
+        </div>
         <div className="game-dialogue-box">
           <span className="game-speaker">Claire</span>
-          <p>{typedText}<i className="typing-caret" /></p>
+          <p key={`${dialog.id}-${dialogueStep}`}>{typedText}<i className="typing-caret" /></p>
           <div className="game-dialogue-actions">
             {dialogueStep === 0 ? (
               <>
-                <button className="game-choice secondary-choice" onClick={closeDialog}>Maybe later</button>
-                <button className="game-choice primary-choice" onClick={advanceDialogue}>Let’s go! <span>➜</span></button>
+                <button type="button" className="game-choice secondary-choice" onClick={closeDialog}>Maybe later</button>
+                <button type="button" className="game-choice primary-choice" onClick={advanceDialogue}>Let’s go! <span>➜</span></button>
               </>
             ) : (
               <span className="game-dialogue-loading" aria-label="Entering island"><i/><i/><i/></span>
@@ -408,12 +543,15 @@ function Scene() {
       <directionalLight position={[6, 12, 7]} intensity={2.15} castShadow shadow-mapSize={[1024, 1024]} />
       <Water />
       <HorizonBackdrop />
+      <AmbientWildlife />
       <ShallowWaterHalo position={about.position} size={0.74} />
+      <ShallowWaterHalo position={breakIsland.position} size={0.45} />
       {islands.map((island) => (
         <ShallowWaterHalo key={`water-${island.id}`} position={island.position} size={island.id === 'featured' ? 1.02 : 0.78} />
       ))}
       {islands.map((island) => <Island key={island.id} island={island} />)}
       <AboutIsland />
+      <BreakIsland />
       <AutoTraveler />
       <CameraRig />
       <IslandConfirmation />
@@ -421,7 +559,7 @@ function Scene() {
   );
 }
 
-export default function WorldCanvas() {
+export default function WorldCanvas({ onReady }) {
   const [rendererKey, setRendererKey] = useState(0);
   const recoveryTimer = useRef();
 
@@ -435,6 +573,9 @@ export default function WorldCanvas() {
       recoveryTimer.current = setTimeout(() => setRendererKey((key) => key + 1), 180);
     };
     canvas.addEventListener('webglcontextlost', recover, { once: true });
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => onReady?.());
+    });
   };
 
   return (
@@ -442,16 +583,16 @@ export default function WorldCanvas() {
       <Canvas key={rendererKey} onCreated={handleCreated} shadows camera={{ position: [0, 4.85, 15.8], fov: 42 }} dpr={[1, 1.2]} tabIndex={0}>
         <Scene />
       </Canvas>
+      <ThreeInARowGame />
       <div className="world-overview-copy">
         <p>WELCOME TO</p>
         <h1>my world<span>✦</span></h1>
-        <div>I design thoughtful digital experiences across UX, code, visual design and 3D.</div>
+        <div>I design thoughtful digital experiences with a lifelong curiosity for learning and exploring.</div>
         <b>♥</b>
       </div>
-      <div className="world-map"><strong>YOU ARE HERE</strong><span className="map-dot red"/><span className="map-dot purple"/><span className="map-dot green"/><span className="map-dot pink"/><span className="map-dot orange"/></div>
     </div>
   );
 }
 
 Object.values(islandModels).forEach((file) => useGLTF.preload(modelUrl(file)));
-['aboutme_island.glb', 'beaver_paddleboard.glb'].forEach((file) => useGLTF.preload(modelUrl(file)));
+['aboutme_island.glb', 'beaver_paddleboard.glb', 'seagull.glb', 'lily_pad.glb', 'lifebuoy.glb', 'take_a_break.glb'].forEach((file) => useGLTF.preload(modelUrl(file)));

@@ -266,7 +266,7 @@ export const projects = [
   {
     id: 'data-viz-design',
     title: 'Data information visualization',
-    category: 'design',
+    category: 'Data Visualization',
     tags: ['Illustrator', 'Tableau'],
     cover: '/img/ai_visual.png',
     description: 'Data information visualization.',
@@ -280,7 +280,7 @@ export const projects = [
   {
     id: 'analytics-dashboard-design',
     title: 'Analytics Dashboard',
-    category: 'design',
+    category: 'Data Visualization',
     tags: ['Figma', 'React', 'Express', 'MongoDB'],
     cover: '/img/dashboard2.png',
     description: 'Figma, React, Backend: Express, Database: MongoDB.',
@@ -308,7 +308,7 @@ export const projects = [
   {
     id: 'bbc-style-guide',
     title: 'BBC Learning English Visual Style Guide',
-    category: 'design',
+    category: 'visual-design',
     tags: ['Figma'],
     cover: '/img/bbc_home.png',
     description: 'dashboard',
@@ -322,7 +322,7 @@ export const projects = [
   {
     id: 'sign-design',
     title: 'The concept of Sign Design',
-    category: 'design',
+    category: 'visual-design',
     tags: ['Adobe cc'],
     cover: '/img/hospital.png',
     description: 'Hospital.',
@@ -393,7 +393,7 @@ export const projects = [
   {
     id: 'data-info-viz',
     title: 'Data information visualization',
-    category: 'Data Visualization',
+    category: 'visual-design',
     tags: ['Illustrator', 'Tableau'],
     cover: '/img/ai_visual.png',
     description: 'Illustrator/Tableau.',
@@ -408,7 +408,8 @@ export const projects = [
 
 export const CATEGORIES = [
   { value: 'All', label: 'All' },
+  { value: 'design', label: 'Design' },
+  { value: 'visual-design', label: 'Visual Design' },
   { value: 'fullstack', label: 'Full Stack' },
   { value: 'Data Visualization', label: 'Data Visualization' },
-  { value: 'design', label: 'Design' },
 ];
