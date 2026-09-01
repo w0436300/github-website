@@ -99,7 +99,7 @@ const allProjects = [
     cover: '/img/project-request-cover.svg',
     placeholderLabel: null,
     description:
-      'A request-to-delivery platform that clarifies intake, ownership, and collaboration across design and engineering stakeholders.',
+      'UX redesign of an internal request system for a mid-size fit-out / civil company — clarifying intake, ownership, and collaboration after an engineering-first build failed adoption.',
     demoUrl: null,
     repoUrl: null,
     externalUrl: null,

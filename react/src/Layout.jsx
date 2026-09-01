@@ -82,6 +82,7 @@ const AI_KNOWLEDGE_NAV_LINKS = [
 /** Must match section `id`s on ProjectRequestPage. */
 const PROJECT_REQUEST_NAV_LINKS = [
   { name: 'Overview', href: '#Overview' },
+  { name: 'Background', href: '#Background' },
   { name: 'Challenge', href: '#Challenge' },
   { name: 'Process', href: '#Process' },
   { name: 'Outcome', href: '#Outcome' },
