@@ -82,6 +82,7 @@ const PROJECT_REQUEST_NAV_LINKS = [
   { name: 'Overview', href: '#Overview' },
   { name: 'Problem', href: '#Problem' },
   { name: 'Research', href: '#Research' },
+  { name: 'Architecture', href: '#InformationArchitecture' },
   { name: 'Flow', href: '#Flow' },
   { name: 'Decisions', href: '#Decisions' },
   { name: 'Final Experience', href: '#Solution' },

@@ -13,6 +13,51 @@ function ProductImage({ src, alt, caption, className = '' }) {
   return <figure className={className}><div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-[0_18px_60px_rgba(15,23,42,.08)]"><img src={src} alt={alt} className="block w-full h-auto" loading="lazy" /></div>{caption && <figcaption className="mt-3 text-xs leading-5 text-slate-500">{caption}</figcaption>}</figure>;
 }
 
+function KnowledgeArchitecture() {
+  const branches = [
+    { title: 'Home', gate: 'Choose a starting point', pages: [
+      ['Ask the hub', 'Begin with a natural-language question'],
+      ['My pins', 'Return to controlled, frequently used sources'],
+      ['Recent chats', 'Resume context and follow-up questions'],
+    ] },
+    { title: 'Projects', gate: 'Select project scope', pages: [
+      ['All projects', 'Owner, document count, source health'],
+      ['Project sources', 'Drawings, reports, specifications'],
+      ['Scoped chat', 'Ask across one or several projects'],
+    ] },
+    { title: 'Search library', gate: 'Search & filter', pages: [
+      ['Results', 'Project, type, keyword and relevance'],
+      ['Multi-select', 'Choose exact documents as context'],
+      ['Source preview', 'Version, owner, date and status'],
+    ] },
+    { title: 'Knowledge workspace', gate: 'Define answer scope', pages: [
+      ['Conversation', 'Questions and contextual follow-ups'],
+      ['Sources in use', 'Visible and editable retrieval boundary'],
+      ['Document viewer', 'Citations, annotations and actions'],
+    ] },
+  ];
+  const sharedLayer = ['Firm standards', 'Project documents', 'Drawings', 'Annotations', 'Version & owner', 'Permissions'];
+
+  return <div className="mb-10 overflow-x-auto rounded-2xl border border-slate-200 bg-[#fafafa] p-5 md:p-8">
+    <div className="mx-auto min-w-[1020px] max-w-[1200px] pb-3">
+      <div className="flex justify-center"><div className="rounded-md border border-slate-400 bg-white px-5 py-3 text-center shadow-sm"><p className="text-[10px] font-semibold uppercase tracking-[.16em] text-violet-600">Product root</p><p className="mt-1 text-base font-bold text-slate-950">AI Knowledge Hub</p></div></div>
+      <div className="mx-auto h-8 w-px bg-slate-400" />
+      <div className="mx-[11%] border-t border-slate-400" />
+      <div className="grid grid-cols-4 gap-7">
+        {branches.map((branch) => <div key={branch.title} className="relative pt-7 before:absolute before:left-1/2 before:top-0 before:h-7 before:w-px before:bg-slate-400">
+          <div className="mx-auto w-fit rounded border border-violet-300 bg-violet-50 px-3 py-2 text-center text-xs font-bold text-violet-800">{branch.title}</div>
+          <div className="mx-auto h-5 w-px bg-slate-300" />
+          <div className="mx-auto flex h-12 w-12 rotate-45 items-center justify-center border border-sky-300 bg-sky-50"><span className="-rotate-45 text-center text-[8px] font-semibold leading-3 text-sky-900">{branch.gate}</span></div>
+          <div className="mx-auto h-5 w-px bg-slate-300" />
+          <div className="rounded-lg border border-slate-200 bg-white p-3 shadow-[0_8px_22px_rgba(15,23,42,.05)]"><p className="mb-3 text-sm font-bold text-slate-900">{branch.title}</p><div className="space-y-2">{branch.pages.map(([page, detail], index) => <div key={page} className={`rounded px-3 py-2 ${index === 0 ? 'bg-violet-100' : 'bg-emerald-100'}`}><p className={`text-[10px] font-bold ${index === 0 ? 'text-violet-800' : 'text-emerald-800'}`}>{page}</p><p className="mt-1 text-[8px] leading-3 text-slate-500">{detail}</p></div>)}</div></div>
+        </div>)}
+      </div>
+      <div className="mt-7 grid grid-cols-[1fr_auto_1fr] items-center gap-4 text-[9px] uppercase tracking-[.14em] text-slate-400"><span className="border-t border-dashed border-slate-300" /><span>Browse and ask resolve through the same governed retrieval layer</span><span className="border-t border-dashed border-slate-300" /></div>
+      <div className="mt-5 rounded-lg border border-dashed border-violet-300 bg-white/80 p-4"><div className="flex items-center gap-4"><p className="w-32 shrink-0 text-[9px] font-bold uppercase tracking-[.14em] text-violet-600">Shared knowledge layer</p><div className="grid flex-1 grid-cols-6 gap-2">{sharedLayer.map(item => <div key={item} className="rounded bg-slate-100 px-2 py-2 text-center text-[9px] font-medium text-slate-600">{item}</div>)}</div></div></div>
+    </div>
+  </div>;
+}
+
 function CaseStudyContent() {
   const img = (name) => `${import.meta.env.BASE_URL}img/knowledge-hub/${name}`;
   const journey = [
@@ -92,6 +137,7 @@ function CaseStudyContent() {
 
     <section id="InformationArchitecture" className="bg-white px-6 py-16 md:py-24"><div className="mx-auto max-w-7xl">
       <SectionHeading label="04 · Information architecture" title="Two entry points, one knowledge model." body="Browse and ask are not competing features. They are two ways into the same indexed system of projects, controlled standards, drawings, reports, and annotations." />
+      <KnowledgeArchitecture />
       <div className="grid gap-8 lg:grid-cols-2"><ProductImage src={img('project-index.png')} alt="All projects screen with owners, document counts, and conflict status" caption="Projects provide the organizational map and surface document health at a glance." /><ProductImage src={img('library.png')} alt="Search library screen with project and type filters" caption="The library supports precise retrieval through project, type, keyword, and selection tools." /></div>
     </div></section>
 

@@ -12,7 +12,7 @@ export const dsSectionHead = {
   h2: 'text-sm font-medium text-left uppercase',
   h2Style: { ...openSans, color: `rgb(${dsAccentRgb})`, backgroundColor: "rgb(240, 247, 255)" },
   h3: 'text-xl font-medium text-left tracking-tight',
-  h3Style: { ...openSans, color: `rgb(${dsAccentRgb} / 0.9)`, backgroundColor: "rgb(240, 247, 255)" },
+  h3Style: { ...openSans, color: `rgb(${dsAccentRgb} / 0.9)`, backgroundColor: "rgb(248, 252, 255)" },
 };
 
 /** AI Knowledge Base — product violet */
@@ -21,10 +21,10 @@ export const kbSectionHead = {
   h2: 'text-sm font-medium text-left uppercase',
   h2Style: { ...openSans, color: `rgb(${kbAccentRgb})`, backgroundColor: 'rgb(245, 243, 255)' },
   h3: 'text-xl font-medium text-left tracking-tight',
-  h3Style: { ...openSans, color: `rgb(${kbAccentRgb} / 0.9)`, backgroundColor: 'rgb(255, 247, 237)' },
+  h3Style: { ...openSans, color: `rgb(${kbAccentRgb} / 0.9)`, backgroundColor: 'rgb(250, 249, 255)' },
 };
-export const kbAccent = '#c2410c';
-export const kbAccentSoft = '#ea580c';
+export const kbAccent = '#5b53c4';
+export const kbAccentSoft = '#7c73dc';
 
 /** Project Request — product indigo */
 export const prAccentRgb = '88 112 230'; // #5870e6
@@ -32,7 +32,7 @@ export const prSectionHead = {
   h2: 'text-sm font-medium text-left uppercase',
   h2Style: { ...openSans, color: `rgb(${prAccentRgb})`, backgroundColor: 'rgb(241, 243, 255)' },
   h3: 'text-xl font-medium text-left tracking-tight',
-  h3Style: { ...openSans, color: `rgb(${prAccentRgb} / 0.9)`, backgroundColor: 'rgb(241, 243, 255)' },
+  h3Style: { ...openSans, color: `rgb(${prAccentRgb} / 0.9)`, backgroundColor: 'rgb(249, 250, 255)' },
 };
 export const prAccent = '#5870e6';
 export const prAccentSoft = '#6b80ea';
@@ -45,7 +45,7 @@ export const amiSectionHead = {
   h2: 'text-sm font-medium text-left uppercase',
   h2Style: { ...openSans, color: `rgb(${amiAccentRgb})`, backgroundColor: `rgb(${amiAccentSoftBg})` },
   h3: 'text-xl font-medium text-left tracking-tight',
-  h3Style: { ...openSans, color: `rgb(${amiAccentRgb} / 0.92)`, backgroundColor: `rgb(${amiAccentSoftBg})` },
+  h3Style: { ...openSans, color: `rgb(${amiAccentRgb} / 0.92)`, backgroundColor: 'rgb(250, 252, 252)' },
 };
 
 /** Structural borders — neutral gray; theme color reserved for key accents */
