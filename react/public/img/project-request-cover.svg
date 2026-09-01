@@ -9,7 +9,7 @@
     </filter>
   </defs>
 
-  <rect width="800" height="280" fill="#f3f4f6"/>
+  <rect width="800" height="280" fill="#fff"/>
 
   <!-- LEFT: Excel + Word + Email icons (fragmented intake) -->
   <g>
@@ -49,7 +49,7 @@
 
   <!-- RIGHT: modular bento inspired by request workspace (not a full page copy) -->
   <g>
-    <rect x="464" y="28" width="300" height="224" rx="6" fill="#eef2f0"/>
+    <rect x="464" y="28" width="300" height="224" rx="6" fill="#fff"/>
 
     <!-- Status / progress card -->
     <rect x="480" y="44" width="268" height="72" rx="14" fill="#fff" filter="url(#prShadow)"/>

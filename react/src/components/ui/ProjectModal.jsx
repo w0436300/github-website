@@ -26,7 +26,7 @@ export default function ProjectModal({ open, project, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center w-full h-full bg-black/50 z-[1050]"
+      className="fixed inset-0 flex items-center justify-center w-full h-full bg-slate-500/40 z-[1050]"
       onClick={onClose}
       role="dialog"
       aria-modal="true"

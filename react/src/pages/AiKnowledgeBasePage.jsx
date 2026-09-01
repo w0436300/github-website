@@ -1,167 +1,124 @@
-import { Lock } from 'lucide-react';
+import { ArrowRight, Check, FileSearch, FolderKanban, Lock, MessageSquareText, ShieldCheck } from 'lucide-react';
 import PasswordGate from '../components/PasswordGate.jsx';
 import { useProjectUnlock } from '../hooks/useProjectUnlock.js';
-import { kbSectionHead as SECTION, kbAccent, openSans } from '../styles/caseStudyTheme.js';
+import { kbSectionHead as SECTION, openSans } from '../styles/caseStudyTheme.js';
 
 const PROJECT_ID = 'ai-knowledge-base-engineering';
 
-function SectionIntro({ eyebrow, title, subtitle }) {
-  return (
-    <div className="mb-8">
-      <h2 className={SECTION.h2} style={SECTION.h2Style}>
-        {eyebrow}
-      </h2>
-      <h3 className={`${SECTION.h3} mt-1`} style={SECTION.h3Style}>
-        {title}
-      </h3>
-      {subtitle && <p className="mt-3 text-sm text-slate-600 leading-relaxed max-w-3xl">{subtitle}</p>}
-    </div>
-  );
+function SectionHeading({ label, title, body }) {
+  return <div className="mb-6"><h2 className={SECTION.h2} style={SECTION.h2Style}>{label}</h2><h3 className={SECTION.h3} style={SECTION.h3Style}>{title}</h3>{body && <p className="mt-3 max-w-4xl text-sm leading-relaxed text-slate-600 md:text-base">{body}</p>}</div>;
 }
 
-function AbstractSearchUi() {
-  return (
-    <svg viewBox="0 0 640 280" className="w-full h-auto border border-gray-200 bg-white" fill="none" aria-hidden>
-      <rect x="16" y="16" width="140" height="248" fill="#f9fafb" stroke="#e5e7eb" />
-      <rect x="32" y="36" width="88" height="8" rx="1" fill="#c2410c" />
-      <rect x="32" y="60" width="100" height="6" rx="1" fill="#94a3b8" />
-      <rect x="32" y="76" width="84" height="6" rx="1" fill="#cbd5e1" />
-      <rect x="32" y="92" width="92" height="6" rx="1" fill="#cbd5e1" />
-      <rect x="32" y="124" width="100" height="6" rx="1" fill="#94a3b8" />
-      <rect x="32" y="140" width="72" height="6" rx="1" fill="#cbd5e1" />
-      <rect x="176" y="28" width="280" height="14" rx="1" fill="#9a3412" />
-      <rect x="176" y="58" width="432" height="36" rx="2" fill="#f9fafb" stroke="#e5e7eb" />
-      <rect x="188" y="70" width="200" height="8" rx="1" fill="#94a3b8" />
-      <rect x="176" y="112" width="210" height="88" rx="2" fill="#fff" stroke="#e5e7eb" />
-      <rect x="190" y="128" width="120" height="8" rx="1" fill="#c2410c" />
-      <rect x="190" y="148" width="160" height="6" rx="1" fill="#cbd5e1" />
-      <rect x="190" y="164" width="140" height="6" rx="1" fill="#e2e8f0" />
-      <rect x="400" y="112" width="208" height="88" rx="2" fill="#fff" stroke="#e5e7eb" />
-      <rect x="414" y="128" width="100" height="8" rx="1" fill="#c2410c" />
-      <rect x="414" y="148" width="160" height="6" rx="1" fill="#cbd5e1" />
-      <rect x="414" y="164" width="130" height="6" rx="1" fill="#e2e8f0" />
-    </svg>
-  );
+function ProductImage({ src, alt, caption, className = '' }) {
+  return <figure className={className}><div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-[0_18px_60px_rgba(15,23,42,.08)]"><img src={src} alt={alt} className="block w-full h-auto" loading="lazy" /></div>{caption && <figcaption className="mt-3 text-xs leading-5 text-slate-500">{caption}</figcaption>}</figure>;
 }
 
 function CaseStudyContent() {
-  return (
-    <div className="case-study-page min-h-screen bg-white text-slate-900 selection:bg-gray-200 scroll-smooth pb-20" style={openSans}>
-      <section id="Overview" className="pt-2 pb-10 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-wrap items-center gap-2 mb-3 text-[10px] uppercase tracking-widest text-slate-600">
-            <span>Knowledge Systems · AI Assist · Engineering Enablement</span>
-            <span className="inline-flex items-center gap-1 border border-gray-200 px-2 py-0.5 text-slate-700">
-              <Lock className="w-3 h-3" aria-hidden /> NDA
-            </span>
+  const img = (name) => `${import.meta.env.BASE_URL}img/knowledge-hub/${name}`;
+  const journey = [
+    ['01', 'Discover', 'Start from a pinned source, project, or keyword.'],
+    ['02', 'Scope', 'Choose firm standards, projects, or specific documents.'],
+    ['03', 'Ask', 'Use natural language without learning a query syntax.'],
+    ['04', 'Verify', 'Inspect citations, versions, owners, and source status.'],
+    ['05', 'Reuse', 'Pin, annotate, download, or continue the conversation.'],
+  ];
+
+  return <main className="case-study-page min-h-screen bg-white text-slate-900 pb-24" style={openSans}>
+    <section id="Overview" className="px-6 pt-6 pb-16 md:pt-12"><div className="mx-auto max-w-7xl">
+      <div className="mb-6 flex flex-wrap items-center gap-3 text-[11px] font-semibold uppercase tracking-[.16em] text-slate-500"><span>Enterprise knowledge · Search · GenAI</span><span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700"><Lock className="h-3 w-3" /> NDA case study</span></div>
+      <div><p className="mb-3 text-sm font-semibold text-violet-700">AI Knowledge Hub</p><h1 className="max-w-3xl text-2xl font-extrabold leading-tight tracking-tight text-slate-950 md:text-4xl">Turning scattered project files into <span className="font-medium italic text-slate-500">trusted answers.</span></h1><p className="mt-4 max-w-3xl text-sm leading-7 text-slate-600 md:text-base">I designed an AI-assisted knowledge experience for an interior design practice—helping teams find standards, trace decisions, and ask questions without losing source context.</p><a href="https://w0436300.github.io/request/knowledge-hub/" target="_blank" rel="noreferrer" className="mt-5 inline-flex items-center rounded-full border border-violet-200 bg-violet-50 px-4 py-2 text-sm font-semibold text-violet-700 transition hover:border-violet-300 hover:bg-violet-100">View live demo ↗</a></div>
+      <div className="mt-10 grid grid-cols-2 overflow-hidden rounded-2xl border border-slate-200 bg-white md:grid-cols-4">{[['Role','Lead Product Designer'],['Scope','Research · IA · UX/UI'],['Team','PM · Engineers · Domain experts'],['Delivery','Responsive web product']].map(([key,value]) => <div key={key} className="border-b border-r border-slate-200 p-4 md:p-5"><p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">{key}</p><p className="mt-2 text-xs font-semibold text-slate-800 md:text-sm">{value}</p></div>)}</div>
+      <ProductImage className="mt-8" src={img('home.png')} alt="Knowledge Hub home screen with an AI question field and pinned documents" caption="The home experience balances a fast AI entry point with familiar, retrievable source material." />
+    </div></section>
+
+    <section id="Background" className="border-t border-slate-200 bg-white px-6 py-16 md:py-24"><div className="mx-auto max-w-7xl">
+      <SectionHeading label="Background" title="A knowledge assistant for a 50-person engineering consultancy." />
+      <div className="grid gap-10 lg:grid-cols-[1.05fr_.95fr] lg:items-start">
+        <div className="max-w-3xl space-y-7 text-base leading-8 text-slate-700 md:text-lg md:leading-9">
+          <p>The internal AI knowledge tool was created to replace <strong className="font-semibold text-slate-950">ad-hoc colleague-to-colleague knowledge transfer</strong> with instant search across the firm’s project files and standards. Because engineers need to trust an answer before acting on it, every response needed a reliable, inspectable source.</p>
+          <p>I joined after the engineering team had already shipped Version 2 without design input. The tool had organically expanded into a broad project-management workspace—combining project trackers, task tickets, issue logs, content generation, and AI document annotation—even though internal feedback showed that users had not asked for those workflows.</p>
+          <p>My role was to bring the product back to its actual job: <strong className="font-semibold text-slate-950">define real requirements, re-scope the feature set, and rebuild the information architecture and design system from the ground up.</strong></p>
+        </div>
+        <aside className="rounded-2xl border border-violet-200 bg-violet-50 p-6 md:p-8">
+          <p className="text-[11px] font-bold uppercase tracking-[.18em] text-violet-700">The product’s real job</p>
+          <p className="mt-5 text-2xl font-semibold leading-snug text-slate-950">Help an engineer find, understand, and verify internal knowledge before making a decision.</p>
+          <div className="mt-8 space-y-4">
+            {['File and source search', 'Document summarization', 'Source-verified questions and answers'].map((item, index) => <div key={item} className="flex items-center gap-4 rounded-xl border border-violet-200 bg-white px-4 py-3"><span className="text-xs font-bold text-violet-700">0{index + 1}</span><span className="text-sm font-semibold text-slate-800">{item}</span></div>)}
           </div>
+        </aside>
+      </div>
 
-          <h1 className="text-2xl md:text-4xl font-extrabold leading-tight mb-3 tracking-tight">
-            AI Knowledge Base <span className="italic font-medium text-slate-600">for Engineering.</span>
-          </h1>
-          <p className="text-slate-700 text-sm md:text-base leading-relaxed max-w-3xl mb-8">
-            Designed a knowledge experience that helps engineers find standards, patterns, and answers
-            faster — combining curated structure with AI-assisted retrieval.
-          </p>
+      <div className="mt-16">
+        <div className="mb-6"><h2 className={SECTION.h2} style={SECTION.h2Style}>When I joined · V2</h2><h3 className={SECTION.h3} style={SECTION.h3Style}>Feature breadth had overtaken user value.</h3><p className="mt-3 max-w-4xl text-sm leading-relaxed text-slate-600 md:text-base">The existing dashboard looked capable, but placed six different AI jobs, project utilities, prompts, conversations, and sources on one screen. The issue was not visual polish—it was an undefined product boundary.</p></div>
+        <ProductImage src={img('engineering-v2.png')} alt="Engineering team Version 2 dashboard with many AI and project-management features" caption="Version 2, created before design joined: a broad AI workspace that had grown beyond the validated needs of its internal users." />
+      </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-0 border border-gray-200 overflow-hidden text-[13px] bg-white mb-10">
-            {[
-              ['Role', 'Product Designer · Freelance'],
-              ['Focus', 'IA · Search UX · Content model'],
-              ['Users', 'Engineering teams'],
-              ['Status', '✓ In progress'],
-            ].map(([k, v]) => (
-              <div key={k} className="border-r border-b border-gray-200 p-3 last:border-r-0 md:[&:nth-child(4n)]:border-r-0">
-                <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-600 mb-1">{k}</p>
-                <p className={k === 'Status' ? 'text-orange-800 font-medium' : 'text-slate-800'}>{v}</p>
-              </div>
-            ))}
-          </div>
+      <div className="mt-14 grid overflow-hidden rounded-2xl border border-slate-200 md:grid-cols-3">
+        {[['V2 · Expansion','Engineering-led growth added project tracking, tickets, issue logs, drafting, brainstorming, comparison, and action items.'],['V3 · Reset','User feedback and team alignment returned the product to a focused, chat-based knowledge assistant.'],['V3+ · Refinement','Multiple discussion and feedback rounds improved search, scope control, source verification, and overall usability.']].map(([title, body], index) => <article key={title} className="border-b border-r border-slate-200 p-6 md:p-7"><span className="text-xs font-bold text-violet-700">0{index + 1}</span><h3 className="mt-6 text-lg font-bold text-slate-950">{title}</h3><p className="mt-3 text-sm leading-6 text-slate-600">{body}</p></article>)}
+      </div>
+    </div></section>
 
-          <AbstractSearchUi />
-        </div>
-      </section>
+    <section id="Challenge" className="border-t border-slate-200 bg-white px-6 py-16 md:py-24"><div className="mx-auto max-w-7xl">
+      <SectionHeading label="01 · Challenge" title="The real problem was not a lack of knowledge. It was a lack of confidence in finding the right version." body="Project knowledge lived across drawings, reports, standards, email threads, and individual memory. Search alone could return a file; it could not tell someone whether that file was current, relevant, or safe to act on." />
+      <div className="grid overflow-hidden rounded-2xl border border-slate-200 md:grid-cols-3">{[['Fragmented context','A decision might exist in a drawing note, a report, or a teammate’s memory—with no shared path between them.'],['High cost of a wrong answer','Outdated dimensions or specifications can create rework, procurement delays, and coordination conflicts.'],['Low trust in black-box AI','A fluent answer is not enough. Teams need to see the source, version, owner, and exact evidence.']].map(([title,body],index) => <article key={title} className="border-b border-r border-slate-200 p-6 md:p-8"><span className="text-xs font-bold text-violet-700">0{index+1}</span><h3 className="mt-8 text-lg font-bold text-slate-950">{title}</h3><p className="mt-3 text-sm leading-6 text-slate-600">{body}</p></article>)}</div>
+    </div></section>
 
-      <section id="Problem" className="py-12 px-6 border-t border-gray-200">
-        <div className="max-w-7xl mx-auto">
-          <SectionIntro
-            eyebrow="Problem"
-            title="Knowledge existed — but finding it was the product problem."
-            subtitle="Standards, runbooks, and decisions lived across tools. Engineers spent time hunting instead of applying."
-          />
-          <div className="grid md:grid-cols-3 gap-0 border border-gray-200">
-            {[
-              ['Fragmented sources', 'Docs, tickets, chats, and wikis held pieces of truth with no shared map.'],
-              ['Weak entry points', 'People needed the right question before they could find the right answer.'],
-              ['Trust gaps', 'AI answers without provenance risked shortcuts that ignored standards.'],
-            ].map(([t, b]) => (
-              <div key={t} className="border-r border-b border-gray-200 p-5 last:border-r-0 md:[&:nth-child(3n)]:border-r-0">
-                <h4 className="text-sm font-semibold text-slate-900 mb-2">{t}</h4>
-                <p className="text-xs text-slate-600 leading-relaxed">{b}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="Approach" className="py-12 px-6 border-t border-gray-200">
-        <div className="max-w-7xl mx-auto">
-          <SectionIntro
-            eyebrow="Approach"
-            title="Structure first, then amplify with AI."
-            subtitle="The system treats AI as an assistant over a curated knowledge model — not a replacement for ownership."
-          />
-          <ol className="space-y-4">
-            {[
-              ['Map the knowledge domains', 'Define the taxonomy engineers actually search: standards, patterns, ownership, decisions.'],
-              ['Design dual entry', 'Support browse (nav + facets) and ask (AI search with citations and source links).'],
-              ['Make trust visible', 'Surface provenance, freshness, and owner so answers can be verified quickly.'],
-              ['Close the loop', 'Allow teams to flag gaps and route missing knowledge back into the curated corpus.'],
-            ].map(([t, b], i) => (
-              <li key={t} className="flex gap-4 border border-gray-200 p-4 bg-white">
-                <span className="text-[11px] font-bold tabular-nums shrink-0" style={{ color: kbAccent }}>
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <div>
-                  <h4 className="text-sm font-semibold text-slate-900">{t}</h4>
-                  <p className="mt-1 text-xs text-slate-600 leading-relaxed">{b}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      <section id="Outcome" className="py-12 px-6 border-t border-gray-200">
-        <div className="max-w-7xl mx-auto">
-          <SectionIntro
-            eyebrow="Outcome"
-            title="A calmer path from question to trusted answer."
-          />
-          <p className="text-sm text-slate-700 leading-relaxed max-w-3xl">
-            Screens and detailed flows remain confidential. This page summarizes the problem framing, information
-            architecture direction, and interaction principles used to guide the knowledge base experience.
-          </p>
-        </div>
-      </section>
+    <section id="Research" className="border-t border-slate-200 px-6 py-16 md:py-24"><div className="mx-auto max-w-7xl">
+  <SectionHeading label="02 · Research" title="I reframed search as a trust journey." body="Search needed to move users from uncertainty to a decision they could defend." />
+  <div className="grid gap-8 lg:grid-cols-[.8fr_1.2fr] lg:items-start">
+    <div className="border-l-2 border-violet-300 py-1 pl-5">
+      <p className="text-[10px] font-semibold uppercase tracking-[.16em] text-violet-700">Core insight</p>
+      <blockquote className="mt-3 max-w-md text-lg font-medium leading-7 text-slate-800">“People trust an answer when they can trace it back to evidence.”</blockquote>
     </div>
-  );
+    <div className="grid gap-5 sm:grid-cols-3">
+      {[
+        ['Mental model', 'Knowledge is organized by project and document type.'],
+        ['Verification', 'Version, owner, and citations support decisions.'],
+        ['Continuity', 'Visible scope carries context into follow-up questions.'],
+      ].map(([title, body]) => (
+        <article key={title} className="border-t border-slate-200 pt-4">
+          <h3 className="text-sm font-semibold text-slate-900">{title}</h3>
+          <p className="mt-2 text-xs leading-5 text-slate-500">{body}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+    </div></section>
+
+    <section id="Journey" className="border-y border-slate-200 bg-violet-50/60 px-6 py-16 md:py-24"><div className="mx-auto max-w-7xl">
+      <SectionHeading label="03 · Experience strategy" title="One continuous path from question to verifiable action." body="The experience supports both retrieval and conversation while keeping users oriented to what the AI is allowed to use." />
+      <div className="grid overflow-hidden rounded-2xl border border-violet-200 bg-white md:grid-cols-5">{journey.map(([no,title,body],index) => <div key={title} className="border-b border-r border-violet-200 p-5 md:min-h-52 md:p-6"><div className="flex items-center justify-between"><span className="text-xs font-bold text-violet-700">{no}</span>{index < journey.length-1 && <ArrowRight className="h-4 w-4 text-violet-300" />}</div><h3 className="mt-9 text-lg font-bold text-slate-950">{title}</h3><p className="mt-3 text-xs leading-5 text-slate-600">{body}</p></div>)}</div>
+    </div></section>
+
+    <section id="InformationArchitecture" className="bg-white px-6 py-16 md:py-24"><div className="mx-auto max-w-7xl">
+      <SectionHeading label="04 · Information architecture" title="Two entry points, one knowledge model." body="Browse and ask are not competing features. They are two ways into the same indexed system of projects, controlled standards, drawings, reports, and annotations." />
+      <div className="grid gap-8 lg:grid-cols-2"><ProductImage src={img('project-index.png')} alt="All projects screen with owners, document counts, and conflict status" caption="Projects provide the organizational map and surface document health at a glance." /><ProductImage src={img('library.png')} alt="Search library screen with project and type filters" caption="The library supports precise retrieval through project, type, keyword, and selection tools." /></div>
+    </div></section>
+
+    <section id="Decisions" className="border-y border-slate-200 px-6 py-16 md:py-24"><div className="mx-auto max-w-7xl">
+      <SectionHeading label="05 · Key decisions" title="Designing AI as a transparent layer over controlled knowledge." />
+      <div className="space-y-20">
+        <div className="grid gap-9 lg:grid-cols-[.72fr_1.28fr] lg:items-center"><article><span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-violet-100 text-violet-700"><FolderKanban className="h-5 w-5" /></span><h3 className="mt-5 text-2xl font-bold">Let users define the answer boundary.</h3><p className="mt-4 text-sm leading-7 text-slate-600">Users can scope a conversation to firm-wide standards, selected projects, or exact documents. A persistent source rail makes that boundary visible and editable.</p><p className="mt-4 border-l-2 border-violet-400 pl-4 text-sm font-semibold text-slate-800">Why it matters: scope turns an invisible retrieval rule into a user-controlled product decision.</p></article><ProductImage src={img('scoped-chat.png')} alt="Chat screen scoped to three selected documents" caption="Selected documents remain visible beside the conversation, so context never disappears after selection." /></div>
+        <div className="grid gap-9 lg:grid-cols-[1.28fr_.72fr] lg:items-center"><ProductImage src={img('cited-answer.png')} alt="AI answer with inline citations and a sources panel" caption="Inline evidence connects each claim to a specific standard or project note." /><article><span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-violet-100 text-violet-700"><ShieldCheck className="h-5 w-5" /></span><h3 className="mt-5 text-2xl font-bold">Make trust inspectable, not decorative.</h3><p className="mt-4 text-sm leading-7 text-slate-600">Citations sit inside the response where a claim is made. The source panel exposes document type, project, revision, and update date, while a detail card adds ownership and controlled-document status.</p><div className="mt-6 flex flex-wrap gap-2">{['Inline citation','Version','Owner','Freshness','Source status'].map(tag => <span key={tag} className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs text-slate-600">{tag}</span>)}</div></article></div>
+        <div className="grid gap-9 lg:grid-cols-[.72fr_1.28fr] lg:items-center"><article><span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-violet-100 text-violet-700"><FileSearch className="h-5 w-5" /></span><h3 className="mt-5 text-2xl font-bold">Connect answers back to working documents.</h3><p className="mt-4 text-sm leading-7 text-slate-600">The source viewer keeps decisions, cautions, and resolved questions attached to the drawing itself. Teams can pin, annotate, download, or ask about that exact artifact.</p></article><ProductImage src={img('annotations.png')} alt="Drawing viewer with decision, caution, and question annotations" caption="Structured annotations preserve the why behind a project decision—not only the final file." /></div>
+      </div>
+    </div></section>
+
+    <section id="FinalExperience" className="bg-white px-6 py-16 md:py-24"><div className="mx-auto max-w-7xl">
+      <SectionHeading label="06 · Final experience" title="The final product behaves like a knowledge workspace—not a chatbot with a file picker." body="Search, project navigation, conversational retrieval, source inspection, and annotation form a connected system that supports different levels of user certainty." />
+      <ProductImage src={img('multi-select.png')} alt="Search results with three documents selected for a scoped chat" caption="Users can move directly from search results into a focused conversation without rebuilding context." />
+      <div className="mt-8 grid gap-4 md:grid-cols-4">{[[MessageSquareText,'Ask naturally','Questions can begin from the home screen, a project, selected files, or a source viewer.'],[FolderKanban,'Keep context','Scope stays visible and persists across follow-up questions.'],[ShieldCheck,'Verify quickly','Every answer is grounded in inspectable source metadata.'],[FileSearch,'Act on knowledge','People can pin, annotate, download, and reuse what they find.']].map(([Icon,title,body]) => <article key={title} className="rounded-2xl border border-slate-200 p-5"><Icon className="h-5 w-5 text-violet-700" /><h3 className="mt-5 font-bold">{title}</h3><p className="mt-2 text-xs leading-5 text-slate-600">{body}</p></article>)}</div>
+    </div></section>
+
+    <section id="Outcome" className="border-t border-slate-200 bg-white px-6 py-16 text-slate-900 md:py-24"><div className="mx-auto max-w-7xl">
+      <SectionHeading label="07 · Outcome & reflection" title="A clearer relationship between AI speed and professional accountability." body="The concept established a scalable interaction model for combining firm standards and live project knowledge. Because the work remains under NDA, outcome statements focus on design value rather than confidential business metrics." />
+      <div className="grid gap-8 md:grid-cols-2"><div className="rounded-2xl border border-slate-200 bg-violet-50 p-7"><p className="text-xs font-bold uppercase tracking-widest text-violet-700">What the design enabled</p><ul className="mt-6 space-y-4">{['Faster movement from an open question to relevant evidence','Clearer boundaries around what the AI is using','A shared source of truth for project decisions and annotations','A reusable pattern for search, chat, and document workflows'].map(item => <li key={item} className="flex gap-3 text-sm leading-6 text-slate-700"><Check className="mt-1 h-4 w-4 shrink-0 text-violet-600" />{item}</li>)}</ul></div><div className="rounded-2xl border border-violet-200 bg-violet-50/50 p-7 text-slate-900"><p className="text-xs font-semibold uppercase tracking-widest text-violet-700">Reflection</p><p className="mt-5 text-xl font-medium leading-8 text-slate-800">In high-stakes knowledge work, good AI makes the right complexity easy to inspect.</p><p className="mt-5 text-sm leading-6 text-slate-600">Provenance, scope, and ownership became core interaction elements—not details revealed only when something goes wrong.</p></div></div>
+    </div></section>
+  </main>;
 }
 
 export default function AiKnowledgeBasePage() {
   const { unlocked, unlockWithPassword, error, clearError } = useProjectUnlock(PROJECT_ID);
-
-  if (!unlocked) {
-    return (
-      <PasswordGate
-        title="AI Knowledge Base for Engineering"
-        subtitle="This freelance case study is under NDA. Enter the shared password to view the work."
-        onUnlock={unlockWithPassword}
-        error={error}
-        onClearError={clearError}
-      />
-    );
-  }
-
+  if (!unlocked) return <PasswordGate title="AI Knowledge Hub" subtitle="This freelance case study is under NDA. Enter the shared password to view the work." onUnlock={unlockWithPassword} error={error} onClearError={clearError} />;
   return <CaseStudyContent />;
 }

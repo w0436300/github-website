@@ -145,7 +145,66 @@ export function HomePage({ projectsOnly = false }) {
             <span className="block w-[14px] h-[14px] rounded-full bg-[#FFCC00] shadow-[0_0_0_3px_rgba(255,204,0,0.25)]" />
           </div>
         )}
+        {!projectsOnly && (
+          <section
+            className="pb-12 pt-8 sm:pb-14 sm:pt-10 md:pb-16 md:pt-12"
+            aria-labelledby="home-intro-title"
+          >
+            <div>
+              <h1
+                id="home-intro-title"
+                className="max-w-[1080px] text-[clamp(2.1rem,3.4vw,3.5rem)] font-medium leading-[1.1] tracking-[-0.045em] text-black"
+              >
+                Hi, I&apos;m Claire, a UX and product designer interested in the space where design, technology, and people come together.
+              </h1>
+              <div className="mt-8 grid gap-8 border-t border-gray-100 pt-7 sm:mt-10 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end sm:gap-10 sm:pt-8">
+                <div>
+                  <div className="inline-flex items-center gap-3" aria-label="Currently available for selected opportunities">
+                    <span className="h-3 w-3 rounded-full bg-[#3faa48] shadow-[0_0_0_5px_rgba(63,170,72,0.10)]" aria-hidden="true" />
+                    <span className="text-base font-semibold tracking-[-0.03em] text-black sm:text-lg">Available</span>
+                  </div>
+                  <p className="mt-3 max-w-lg text-sm leading-relaxed tracking-[-0.02em] text-gray-400 sm:text-base">
+                    I&apos;m open to new opportunities and thoughtful collaborations. Have an interesting project or idea? Let&apos;s talk.
+                  </p>
+                </div>
+                <div className="flex flex-wrap items-center gap-3 sm:justify-end">
+                  <a
+                    href="mailto:xinpingxh@gmail.com"
+                    className="inline-flex min-h-12 items-center justify-center rounded-full border border-gray-300 px-7 text-sm font-semibold tracking-[-0.02em] text-slate-950 transition-colors hover:border-slate-300 hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-slate-500 sm:px-8"
+                  >
+                    Get in touch
+                  </a>
+                  <Link
+                    to="/resume"
+                    className="inline-flex min-h-12 items-center justify-center rounded-full px-3 text-sm font-semibold text-gray-500 transition-colors hover:text-black"
+                  >
+                    View résumé →
+                  </Link>
+                </div>
+              </div>
+              <div className="mt-8 grid gap-3 border-t border-gray-100 pt-6 sm:grid-cols-[auto_minmax(0,1fr)] sm:items-center sm:gap-5" aria-label="Core skills">
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">Skills</span>
+                <div className="flex flex-wrap gap-2 2xl:flex-nowrap 2xl:gap-1.5">
+                  {['Product Design', 'UX Research', 'Interaction Design', 'Information Architecture', 'Design Systems', 'Prototyping', 'Usability Testing', 'Accessibility', 'AI Product Design', 'Frontend'].map((skill) => (
+                    <span key={skill} className="whitespace-nowrap rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 text-[11px] font-medium text-gray-700 xl:px-2.5 2xl:text-[10px]">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
         <div id="project" className="scroll-mt-8">
+          {!projectsOnly && (
+            <div className="mb-8 flex items-end justify-between gap-6 border-t border-gray-200 pt-12 md:mb-10 md:pt-16">
+              <div>
+                <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.22em] text-gray-400">Selected work</p>
+                <h2 className="text-3xl font-medium tracking-[-0.04em] text-black sm:text-4xl">Projects and case studies</h2>
+              </div>
+              <span className="hidden text-sm text-gray-400 sm:block">2023—2026</span>
+            </div>
+          )}
           <div className="flex flex-wrap gap-x-8 gap-y-1 mb-10 md:mb-12 border-b border-gray-200">
             {WORK_TABS.map((tab) => {
               const isActive = activeCategory === tab.value;
@@ -180,6 +239,7 @@ export function HomePage({ projectsOnly = false }) {
                 : null;
               const isProtected = Boolean(p.passwordProtected);
               const hoverTheme = getProjectHoverTheme(p);
+              const usesSolidCaseStudyCover = ['design-standard-wcag', 'bank-document-system', 'ai-knowledge-base-engineering', 'project-request-collaboration'].includes(p.id);
               return (
                 <button
                   key={p.id}
@@ -188,15 +248,15 @@ export function HomePage({ projectsOnly = false }) {
                   onMouseEnter={(e) => showHoverTip(e, isProtected ? 'Enter password' : 'View details')}
                   onMouseMove={moveHoverTip}
                   onMouseLeave={hideHoverTip}
-                  className="group cursor-none text-left bg-white rounded-[8px] overflow-hidden shadow-none transition-all hover:shadow-sm active:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black w-full"
+                  className="group cursor-none w-full overflow-hidden rounded-2xl border border-gray-100 bg-white text-left shadow-none transition-all hover:border-gray-200 hover:shadow-sm active:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500"
                 >
-                  <div className="flex flex-row items-stretch h-[88px] sm:h-[104px] md:h-[124px]">
-                    <div className="relative w-[34%] sm:w-[38%] md:w-[42%] max-w-[430px] shrink-0 bg-white overflow-hidden self-stretch">
+                  <div className="flex h-[104px] flex-row items-stretch sm:h-[128px] md:h-[148px]">
+                    <div className={`relative w-[34%] max-w-[430px] shrink-0 self-stretch overflow-hidden border-r border-gray-100 sm:w-[38%] md:w-[42%] ${usesSolidCaseStudyCover ? 'bg-white' : 'bg-slate-50'}`}>
                       {imgSrc ? (
                         <img
                           src={imgSrc}
                           alt={p.title}
-                          className="absolute inset-0 h-full w-full object-cover object-center scale-[1.03]"
+                          className={`h-full w-full object-contain object-center ${usesSolidCaseStudyCover ? 'p-0' : 'p-3 sm:p-4'}`}
                         />
                       ) : (
                         <div className="absolute inset-0 flex flex-col items-center justify-center gap-0.5 p-2 text-center">
@@ -327,7 +387,7 @@ export function ResumePage() {
           download="ClaireWang_Resume_2026.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-2 bg-black text-white rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-blue-600 transition-all h-10 px-5"
+          className="inline-flex items-center justify-center gap-2 bg-blue-600 text-white rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-blue-700 transition-all h-10 px-5"
         >
           <Download size={16} />
           Download PDF

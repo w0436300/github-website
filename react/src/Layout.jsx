@@ -48,42 +48,43 @@ const AI_TUTOR_NAV_LINKS = [
 /** Must match section `id`s on DesignStandardPage (design-standard-wcag). */
 const DESIGN_STANDARD_NAV_LINKS = [
   { name: 'Overview', href: '#Overview' },
-  { name: 'Reflection', href: '#Reflection' },
   { name: 'Challenge', href: '#Challenge' },
   { name: 'Approach', href: '#Approach' },
-  { name: 'Documentation', href: '#Documentation' },
-  { name: 'Structure', href: '#Structure' },
-  { name: 'Library', href: '#LibraryExamples' },
-  { name: 'Examples', href: '#Examples' },
-  { name: 'Collaboration', href: '#Collaboration' },
+  { name: 'Solution', href: '#Solution' },
   { name: 'Outcome', href: '#Outcome' },
 ];
 
 /** Must match section `id`s on BankDocumentPage (bank-document-system). */
 const BANK_DOCUMENT_NAV_LINKS = [
   { name: 'Overview', href: '#Overview' },
-  { name: 'Reflection', href: '#Reflection' },
-  { name: 'Context', href: '#Context' },
   { name: 'Challenge', href: '#Challenge' },
-  { name: 'Role', href: '#Role' },
   { name: 'Process', href: '#Process' },
   { name: 'Decisions', href: '#Decisions' },
-  { name: 'Mockup', href: '#Mockup' },
+  { name: 'Final', href: '#Final' },
+  { name: 'Outcome', href: '#Outcome' },
 ];
 
 /** Must match section `id`s on AiKnowledgeBasePage. */
 const AI_KNOWLEDGE_NAV_LINKS = [
   { name: 'Overview', href: '#Overview' },
-  { name: 'Problem', href: '#Problem' },
-  { name: 'Approach', href: '#Approach' },
+  { name: 'Background', href: '#Background' },
+  { name: 'Challenge', href: '#Challenge' },
+  { name: 'Research', href: '#Research' },
+  { name: 'Journey', href: '#Journey' },
+  { name: 'Architecture', href: '#InformationArchitecture' },
+  { name: 'Decisions', href: '#Decisions' },
+  { name: 'Final Experience', href: '#FinalExperience' },
   { name: 'Outcome', href: '#Outcome' },
 ];
 
 /** Must match section `id`s on ProjectRequestPage. */
 const PROJECT_REQUEST_NAV_LINKS = [
   { name: 'Overview', href: '#Overview' },
-  { name: 'Challenge', href: '#Challenge' },
-  { name: 'Process', href: '#Process' },
+  { name: 'Problem', href: '#Problem' },
+  { name: 'Research', href: '#Research' },
+  { name: 'Flow', href: '#Flow' },
+  { name: 'Decisions', href: '#Decisions' },
+  { name: 'Final Experience', href: '#Solution' },
   { name: 'Outcome', href: '#Outcome' },
 ];
 
@@ -264,7 +265,7 @@ export default function Layout() {
     if (active) {
       if (isBlueCaseStudy) return 'bg-gray-100 text-[#0075BE]';
       if (isOrangeCaseStudy) return 'bg-gray-100 text-[#c2410c]';
-      if (isGreenCaseStudy) return 'bg-gray-100 text-[#15803d]';
+      if (isGreenCaseStudy) return 'bg-gray-100 text-[#5870e6]';
       if (isAiTutorPage) return 'bg-gray-100 text-[rgb(45,98,105)]';
       return 'bg-gray-100 text-slate-900';
     }
@@ -275,7 +276,7 @@ export default function Layout() {
   };
 
   const topSocialIconClass =
-    'top-social-link relative inline-flex rounded-md p-1.5 text-gray-500 transition-colors hover:bg-black/5 hover:text-black';
+    'top-social-link relative inline-flex rounded-md p-1.5 text-gray-500 transition-colors hover:bg-slate-100 hover:text-slate-900';
 
   const topSocialTooltipClass =
     'pointer-events-none absolute left-1/2 top-full z-[60] mt-2 -translate-x-1/2 whitespace-nowrap rounded-md border-2 border-[#FFCC00] bg-white px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-black opacity-0 shadow-md transition-opacity duration-150 group-hover:opacity-100';
@@ -352,7 +353,7 @@ export default function Layout() {
   );
 
   return (
-    <div className="bg-white text-black font-sans selection:bg-black selection:text-white overflow-x-hidden">
+    <div className="bg-white text-slate-950 font-sans selection:bg-orange-100 selection:text-slate-950 overflow-x-hidden">
       {/* Global site header — fixed to viewport so it stays on top while scrolling */}
       <header
         ref={siteHeaderRef}

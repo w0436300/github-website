@@ -12,11 +12,11 @@
     </filter>
   </defs>
 
-  <rect width="800" height="280" fill="#f5f5f4"/>
+  <rect width="800" height="280" fill="#fff"/>
 
   <!-- LEFT: Email + OneDrive + Ask people -->
   <g>
-    <rect x="36" y="28" width="300" height="224" fill="#fff" stroke="#d6d3d1" stroke-width="1.5"/>
+    <rect x="36" y="28" width="300" height="224" fill="#fff" stroke="#e7e5e4" stroke-width="1.5"/>
 
     <g transform="translate(52 70)">
       <rect width="56" height="56" rx="7" fill="#64748b"/>
@@ -57,7 +57,7 @@
   <!-- RIGHT: modular overlapping cards (feature collage, not a full page) -->
   <g>
     <!-- soft ambient panel -->
-    <rect x="464" y="28" width="300" height="224" rx="4" fill="#fff7ed"/>
+    <rect x="464" y="28" width="300" height="224" rx="4" fill="#fff"/>
 
     <!-- back card -->
     <rect x="500" y="52" width="220" height="150" rx="18" fill="#ffedd5" filter="url(#softShadow)"/>

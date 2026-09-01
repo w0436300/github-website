@@ -15,27 +15,27 @@ export const dsSectionHead = {
   h3Style: { ...openSans, color: `rgb(${dsAccentRgb} / 0.9)`, backgroundColor: "rgb(240, 247, 255)" },
 };
 
-/** AI Knowledge Base — orange */
-export const kbAccentRgb = '194 65 12'; // #c2410c
+/** AI Knowledge Base — product violet */
+export const kbAccentRgb = '91 83 196'; // #5b53c4
 export const kbSectionHead = {
   h2: 'text-sm font-medium text-left uppercase',
-  h2Style: { ...openSans, color: `rgb(${kbAccentRgb})`, backgroundColor: 'rgb(255, 247, 237)' },
+  h2Style: { ...openSans, color: `rgb(${kbAccentRgb})`, backgroundColor: 'rgb(245, 243, 255)' },
   h3: 'text-xl font-medium text-left tracking-tight',
   h3Style: { ...openSans, color: `rgb(${kbAccentRgb} / 0.9)`, backgroundColor: 'rgb(255, 247, 237)' },
 };
 export const kbAccent = '#c2410c';
 export const kbAccentSoft = '#ea580c';
 
-/** Project Request — green */
-export const prAccentRgb = '21 128 61'; // #15803d
+/** Project Request — product indigo */
+export const prAccentRgb = '88 112 230'; // #5870e6
 export const prSectionHead = {
   h2: 'text-sm font-medium text-left uppercase',
-  h2Style: { ...openSans, color: `rgb(${prAccentRgb})`, backgroundColor: 'rgb(240, 253, 244)' },
+  h2Style: { ...openSans, color: `rgb(${prAccentRgb})`, backgroundColor: 'rgb(241, 243, 255)' },
   h3: 'text-xl font-medium text-left tracking-tight',
-  h3Style: { ...openSans, color: `rgb(${prAccentRgb} / 0.9)`, backgroundColor: 'rgb(240, 253, 244)' },
+  h3Style: { ...openSans, color: `rgb(${prAccentRgb} / 0.9)`, backgroundColor: 'rgb(241, 243, 255)' },
 };
-export const prAccent = '#15803d';
-export const prAccentSoft = '#16a34a';
+export const prAccent = '#5870e6';
+export const prAccentSoft = '#6b80ea';
 
 /** Ami — muted teal accent (WCAG AA on white; avoids neon mint glare) */
 export const amiAccentRgb = '45 98 105'; // #2d6269 ≈ 5.5:1 on #fff

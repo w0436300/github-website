@@ -25,11 +25,11 @@ const allProjects = [
     category: 'design',
     tags: ['WCAG', 'Accessibility', 'Design Systems'],
     year: '2025',
-    location: 'BMO',
+    location: 'Confidential enterprise client',
     cover: '/img/design-standard-cover.svg',
     placeholderLabel: null,
     description:
-      'A standards-focused system improving accessibility consistency and UI decision-making across products.',
+      'An enterprise standards library connecting foundations, components, patterns, and accessibility guidance.',
     demoUrl: null,
     repoUrl: null,
     externalUrl: null,

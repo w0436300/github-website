@@ -48,7 +48,7 @@ export default function PasswordModal({
 
   return (
     <div
-      className="fixed inset-0 z-[1100] flex items-center justify-center bg-black/45 px-4"
+      className="fixed inset-0 z-[1100] flex items-center justify-center bg-slate-500/35 px-4"
       onClick={onClose}
       role="dialog"
       aria-modal="true"

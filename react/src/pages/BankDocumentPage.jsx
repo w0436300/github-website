@@ -1,445 +1,100 @@
-import { dsSectionHead as SECTION, openSans } from '../styles/caseStudyTheme.js';
+import { openSans, dsSectionHead as SECTION } from '../styles/caseStudyTheme.js';
 
 const ACCENT = '#0075BE';
-const ACCENT_SOFT = '#c8dff0';
-const ACCENT_FAINT = 'rgba(0, 117, 190, 0.14)';
 
-const CHALLENGE = [
-  {
-    no: '01',
-    title: 'No field logic in the original',
-    body: 'Legacy InDesign templates had no clear data field structure — everything was static text.',
-  },
-  {
-    no: '02',
-    title: 'System fills, not users',
-    body: 'The form is not filled by customers. Account number, rate, maturity date — all pre-populated by backend systems.',
-  },
-  {
-    no: '03',
-    title: 'Legal copy must stay complete',
-    body: 'Regulatory text cannot be removed or shortened — but critical data still needs to be easy to find.',
-  },
-  {
-    no: '04',
-    title: 'Must scale to future forms',
-    body: 'The same template logic needs to apply to subsequent disclosure forms — not just this one.',
-  },
-];
-
-const PROCESS = [
-  {
-    n: '1',
-    title: 'Understand the data before touching the layout',
-    body: 'I started with the mapping document — not the old form. The real structure is defined by field relationships, format requirements, and conditional logic, not by how things looked before.',
-  },
-  {
-    n: '2',
-    title: 'Separate three content types',
-    body: (
-      <>
-        Every element falls into one of three buckets: <strong className="text-slate-800">system pre-filled data</strong>,{' '}
-        <strong className="text-slate-800">static legal copy</strong>, or <strong className="text-slate-800">conditional sections</strong>. This
-        determines what gets highlighted, what stays as-is, and what only appears when data exists.
-      </>
-    ),
-  },
-  {
-    n: '3',
-    title: 'Match display pattern to content type',
-    body: 'Dense legal copy → paragraph with highlighted fields. Key-value data → structured list. Comparative data → two-column table. Not every section needs the same treatment.',
-  },
-  {
-    n: '4',
-    title: 'Abstract into reusable rules',
-    body: 'The goal was not to finish one form. I codified the header, section, content area, footer, field labels, and conditional block into a shared system — so future forms could follow the same logic.',
-  },
-];
-
-const ROLE_LEFT = [
-  'Read and interpret legacy forms and business mapping docs',
-  'Identify field types, format rules, and conditional logic',
-  'Explore and evaluate information display patterns',
-];
-
-const ROLE_RIGHT = [
-  'Unify visual template and content hierarchy',
-  'Define reusable field label conventions',
-  'Design conditional section rendering rules',
-];
-
-/** Same heading stack as Context: SECTION h2 (label) + SECTION h3 (title), optional body line. */
-function SectionIntro({ eyebrow, title, subtitle }) {
+function Heading({ label, title, body }) {
   return (
-    <div className="mb-8">
-      <div className="text-center md:text-left mb-2">
-        <h2 className={SECTION.h2} style={SECTION.h2Style}>
-          {eyebrow}
-        </h2>
-        <h3 className={`${SECTION.h3} mt-1`} style={SECTION.h3Style}>
-          {title}
-        </h3>
-      </div>
-      {subtitle && (
-        <p className="text-sm text-slate-600 max-w-3xl leading-relaxed">{subtitle}</p>
-      )}
-    </div>
+    <header className="mb-7 max-w-3xl">
+      <h2 className={SECTION.h2} style={SECTION.h2Style}>{label}</h2>
+      <h3 className={SECTION.h3} style={SECTION.h3Style}>{title}</h3>
+      {body && <p className="mt-3 text-sm leading-relaxed text-slate-600">{body}</p>}
+    </header>
   );
 }
 
 export default function BankDocumentPage() {
   return (
-    <div
-      className="case-study-page bank-document-page min-h-screen bg-white text-slate-900 selection:bg-gray-200 selection:text-slate-900 scroll-smooth pb-20"
-      style={openSans}
-    >
-      {/* Overview / Hero */}
-      <section id="Overview" className="pt-2 pb-0 px-0">
-        <div className="px-6 py-10 md:py-14 md:px-12 bg-white text-black/85 relative ">
-          <div className="max-w-7xl mx-auto relative">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-black/85 mb-4">
-              UI Design · Document System · Banking · 2026
-            </p>
-            <h1 className="text-2xl md:text-4xl font-extrabold leading-[1.08] tracking-tight mb-4 max-w-3xl text-black/85">
-              From print template to{' '}
-              <span className="italic font-medium text-black/85">digital document system.</span>
-            </h1>
-            <p className="text-sm md:text-base text-black/85 max-w-2xl leading-relaxed mb-6">
-              Rebuilding static InDesign bank forms into a system-ready digital template — with field logic, conditional rendering,
-              and a reusable visual pattern.
-            </p>
-            <div className="flex flex-wrap gap-2 mb-10">
-              {['UI Design', 'Document Systems', 'Print → Digital', 'Banking', 'Template Design'].map((t) => (
-                <span
-                  key={t}
-                  className="text-[11px] px-2.5 py-1 border border-gray-200 bg-gray-50 text-black/85 rounded-sm"
-                >
-                  {t}
-                </span>
-              ))}
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 ">
-              {[
-                ['Role', 'UI Designer'],
-                ['Forms', 'Disclosure forms · Authorization forms'],
-                ['Output', 'Digital mockups · Reusable patterns'],
-                ['Tools', 'InDesign · Mapping documents · Specification notes'],
-              ].map(([k, v]) => (
-                <div key={k} className="md:pr-6 md:border-r md:border-gray-200 last:border-0 last:pr-0">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-black/85 mb-1.5">{k}</p>
-                  <p className="text-xs text-black/85 leading-snug font-regular">{v}</p>
-                </div>
-              ))}
-            </div>
+    <div className="case-study-page min-h-screen bg-white pb-20 text-slate-900" style={openSans}>
+      <section id="Overview" className="px-6 pb-12 pt-8 md:px-12 md:pt-12">
+        <div className="mx-auto max-w-7xl">
+          <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">UI Design · Document Systems · Banking · 2026</p>
+          <h1 className="max-w-4xl text-3xl font-extrabold leading-tight tracking-tight md:text-5xl">From static bank forms to a system-ready digital template.</h1>
+          <p className="mt-5 max-w-3xl text-base leading-relaxed text-slate-600 md:text-lg">I translated print-era disclosure forms into reusable digital documents with mapped data, conditional sections, and clearer information hierarchy.</p>
+          <div className="mt-9 grid grid-cols-2 border border-gray-200 md:grid-cols-4">
+            {[
+              ['Role', 'UI Designer'],
+              ['Input', 'Legacy forms · mapping docs'],
+              ['Output', 'Digital templates'],
+              ['Focus', 'Logic · hierarchy · reuse'],
+            ].map(([key, value]) => (
+              <div key={key} className="border-b border-r border-gray-200 p-4 last:border-r-0 md:border-b-0"><p className="text-[9px] font-bold uppercase tracking-wider text-slate-400">{key}</p><p className="mt-1 text-sm font-semibold text-slate-800">{value}</p></div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Same horizontal frame as Overview: outer padding, then max-width (avoids flush-to-sidebar on narrow main). */}
-      <div className="px-6 md:px-12">
-        <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 md:gap-14 pt-6 md:pt-10">
-        <section id="Reflection" className="scroll-mt-20 md:scroll-mt-24">
-          <div className="text-center md:text-left mb-1">
-            <h2 className={SECTION.h2} style={SECTION.h2Style}>
-              Reflection
-            </h2>
-            <h3 className={`${SECTION.h3}`} style={SECTION.h3Style}>
-              What I learned.
-            </h3>
-          </div>
-          <div className="border border-gray-200 bg-white p-5 md:p-6 space-y-4 text-sm text-slate-700 leading-relaxed">
-            <p>
-            This project taught me that product design is not just about making things look better. In enterprise products, a big part of the work is translating business requirements, system logic, and legal constraints into something clear and usable.
-
-            </p>
-          
+      <div className="mx-auto flex max-w-7xl flex-col gap-14 px-6 md:gap-20 md:px-12">
+        <section id="Challenge" className="scroll-mt-24 border-t border-gray-200 pt-10">
+          <Heading label="Challenge" title="This was a structural rebuild, not a visual refresh." body="The new documents had to preserve legal content while working with backend data and scaling across multiple form types." />
+          <div className="grid gap-px border border-gray-200 bg-gray-200 md:grid-cols-3">
+            {[
+              ['System-generated data', 'Values are populated automatically, so every field needs a clear mapping and format.'],
+              ['Legal continuity', 'Required copy must remain complete without burying the information customers scan for.'],
+              ['Reusable logic', 'The solution must support new forms and conditional sections, not only one document.'],
+            ].map(([title, body]) => <article key={title} className="bg-white p-5"><h4 className="font-semibold">{title}</h4><p className="mt-2 text-sm leading-relaxed text-slate-600">{body}</p></article>)}
           </div>
         </section>
 
-        {/* Context */}
-        <section id="Context" className="scroll-mt-20 md:scroll-mt-24">
-          <div className="text-center md:text-left mb-2">
-            <h2 className={SECTION.h2} style={SECTION.h2Style}>
-              Context
-            </h2>
-            <h3 className={`${SECTION.h3}`} style={SECTION.h3Style}>
-              Old forms built for print. New forms need to work digitally.
-            </h3>
+        <section id="Process" className="scroll-mt-24 border-t border-gray-200 pt-10">
+          <Heading label="Process" title="Understand the data before designing the page." />
+          <div className="grid gap-4 md:grid-cols-3">
+            {[
+              ['01', 'Map', 'Read legacy forms and mapping documents to identify values, formats, and conditions.'],
+              ['02', 'Structure', 'Separated legal copy, system data, and conditional content into distinct patterns.'],
+              ['03', 'Standardize', 'Defined reusable headers, sections, labels, tables, and conditional blocks.'],
+            ].map(([number, title, body]) => <article key={number} className="border border-gray-200 p-5"><span className="text-2xl font-light" style={{ color: ACCENT }}>{number}</span><h4 className="mt-5 font-semibold">{title}</h4><p className="mt-2 text-sm leading-relaxed text-slate-600">{body}</p></article>)}
           </div>
-          <p className="text-sm text-slate-600 max-w-3xl mb-8 leading-relaxed">
-            Legacy templates were static InDesign files designed for physical printing — no field logic, no data mapping. The new version
-            needed to be auto-populated by backend systems and aligned to an updated brand direction.
-          </p>
-          <div className="grid md:grid-cols-2 gap-px bg-gray-100 border border-gray-200">
-            <div className="bg-white p-5 md:p-6">
-              <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-gray-400 mb-4">Legacy — print-era</p>
-              <ul className="text-sm text-slate-600 space-y-2.5 list-none">
-                {[
-                  'Static layout, no field logic',
-                  'Placeholder text mixed with body copy',
-                  'No connection to system data fields',
-                  'Inconsistent visual language across forms',
-                  'Secondary holder section always visible',
-                ].map((line) => (
-                  <li key={line} className="flex gap-2 items-baseline">
-                    <span className="text-gray-300 shrink-0">—</span>
-                    {line}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="bg-white p-5 md:p-6">
-              <p className="text-[10px] font-bold uppercase tracking-[0.12em] mb-4" style={{ color: ACCENT }}>
-                Digital — system-ready
-              </p>
-              <ul className="text-sm text-slate-600 space-y-2.5 list-none">
-                {[
-                  'Every field mapped to a named system variable',
-                  'Auto-populated by backend — no manual entry',
-                  'Unified visual system across all form types',
-                  'Legal copy intact, key data scannable',
-                  'Conditional sections render only when needed',
-                ].map((line) => (
-                  <li key={line} className="flex gap-2 items-baseline">
-                    <span className="shrink-0" style={{ color: ACCENT }}>
-                      ✓
-                    </span>
-                    {line}
-                  </li>
-                ))}
-              </ul>
+        </section>
+
+        <section id="Decisions" className="scroll-mt-24 border-t border-gray-200 pt-10">
+          <Heading label="Key decisions" title="Match the presentation to the content." body="The underlying data stayed the same; the display pattern changed only when it improved comprehension." />
+          <div className="grid gap-4 sm:grid-cols-2">
+            {[
+              ['Legal paragraphs', 'Kept continuous copy where wording and reading order were legally important.'],
+              ['Highlighted values', 'Made account numbers, rates, dates, and amounts easier to locate.'],
+              ['Tables', 'Used only when customers needed to compare related values side by side.'],
+              ['Conditional blocks', 'Rendered secondary sections only when the mapped data required them.'],
+            ].map(([title, body]) => <article key={title} className="border border-gray-200 bg-slate-50/40 p-5"><h4 className="font-semibold" style={{ color: ACCENT }}>{title}</h4><p className="mt-2 text-sm leading-relaxed text-slate-600">{body}</p></article>)}
+          </div>
+        </section>
+
+        <section id="Final" className="scroll-mt-24 border-t border-gray-200 pt-10">
+          <Heading label="Final design" title="A flexible disclosure template." body="The final structure makes system values visible, preserves legal text, and gives future forms a consistent framework." />
+          <div className="overflow-hidden border border-gray-200 bg-white shadow-sm">
+            <div className="flex min-h-12 items-center text-white" style={{ background: ACCENT }}><strong className="bg-white px-5 py-4 tracking-widest" style={{ color: ACCENT }}>BANK</strong><span className="flex-1 text-center text-xs font-bold">Financial Account Disclosure</span><span className="pr-5 text-[9px] text-white/70">SYSTEM GENERATED</span></div>
+            <div className="grid gap-6 p-6 md:grid-cols-[1.4fr_.6fr] md:p-8">
+              <div>
+                <p className="text-[9px] font-bold uppercase tracking-wider text-slate-400">Account details</p>
+                <div className="mt-3 grid grid-cols-[120px_1fr] border border-sky-100 text-xs"><span className="bg-slate-50 p-3 text-slate-500">Account</span><strong className="p-3" style={{ color: ACCENT }}>•••• •••• 4821</strong><span className="bg-slate-50 p-3 text-slate-500">Interest rate</span><strong className="p-3" style={{ color: ACCENT }}>4.25%</strong></div>
+                <p className="mt-5 text-xs leading-6 text-slate-600">Your account terms apply until the mapped maturity date. Important system values remain visible inside the required disclosure text.</p>
+                <div className="mt-5 border border-dashed border-sky-300 bg-sky-50 p-3 text-xs font-semibold" style={{ color: ACCENT }}>Conditional schedule appears when a maturity date is present.</div>
+              </div>
+              <aside className="border border-gray-200 bg-slate-50 p-4"><p className="text-[9px] font-bold uppercase tracking-wider text-slate-400">Mapped fields</p>{['account_number','interest_rate','maturity_date?'].map((field) => <div key={field} className="mt-3 flex items-center gap-2 border-b border-gray-200 pb-3 text-xs"><span className="h-2 w-2 rounded-sm" style={{ background: ACCENT }}/>{field}</div>)}</aside>
             </div>
           </div>
         </section>
 
-        {/* Challenge */}
-        <section id="Challenge" className="scroll-mt-20 md:scroll-mt-24">
-          <div className="text-center md:text-left mb-2">
-            <h2 className={SECTION.h2} style={SECTION.h2Style}>Challenge</h2>
-            <h3 className={`${SECTION.h3}`} style={SECTION.h3Style}>
-            Not a visual refresh. A structural rebuild.
-            </h3>
-            </div>
-          <p className="text-sm text-slate-600 max-w-3xl mb-8 leading-relaxed">
-            The difficulty was not aesthetics — it was establishing consistent rules across multiple competing constraints.
-          </p>
-          <div className="grid md:grid-cols-2 gap-px bg-gray-100 border border-gray-200">
-            {CHALLENGE.map((c) => (
-              <div key={c.no} className="bg-white p-5 md:p-6">
-                <p className="text-3xl font-light leading-none mb-3" style={{ color: ACCENT_FAINT }}>
-                  
-                </p>
-                <h4 className="text-sm font-semibold text-slate-900">{c.title}</h4>
-                <p className="text-sm text-slate-600 leading-relaxed">{c.body}</p>
-              </div>
-            ))}
+        <section id="Outcome" className="scroll-mt-24 border-t border-gray-200 pt-10">
+          <Heading label="Outcome" title="A clearer template and a reusable set of rules." />
+          <div className="grid gap-4 md:grid-cols-3">
+            {[
+              ['Clearer', 'Key customer information is easier to scan without weakening legal content.'],
+              ['System-ready', 'Named fields and conditions connect the layout to backend logic.'],
+              ['Reusable', 'Shared patterns support disclosure and authorization forms beyond the first template.'],
+            ].map(([title, body]) => <article key={title} className="border border-gray-200 p-5"><h4 className="font-semibold">{title}</h4><p className="mt-2 text-sm leading-relaxed text-slate-600">{body}</p></article>)}
           </div>
+          <p className="mt-6 max-w-3xl text-sm leading-relaxed text-slate-600"><strong className="text-slate-800">Reflection:</strong> Enterprise design often means translating business rules and technical constraints into an experience people can understand—not simply making an existing page look newer.</p>
         </section>
-
-        {/* Role */}
-        <section id="Role" className="scroll-mt-20 md:scroll-mt-24">
-          <div className="text-center md:text-left mb-2">
-            <h2 className={SECTION.h2} style={SECTION.h2Style}>My Role</h2>
-            <h3 className={`${SECTION.h3}`} style={SECTION.h3Style}>
-              What I was responsible for.
-            </h3>
-          </div>
-          <div className="grid md:grid-cols-2 gap-8">
-            <ul className="space-y-0 list-none">
-              {ROLE_LEFT.map((item) => (
-                <li
-                  key={item}
-                  className="text-sm text-slate-600 py-2 border-b border-gray-200 flex gap-2.5 items-baseline last:border-0"
-                >
-                 
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <ul className="space-y-0 list-none">
-              {ROLE_RIGHT.map((item) => (
-                <li
-                  key={item}
-                  className="text-sm text-slate-600 py-2 border-b border-gray-200 flex gap-2.5 items-baseline last:border-0"
-                >
-                  
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        {/* Process */}
-        <section id="Process" className="scroll-mt-20 md:scroll-mt-24">
-          <div className="text-center md:text-left mb-2">
-            <h2 className={SECTION.h2} style={SECTION.h2Style}>Process</h2>
-            <h3 className={`${SECTION.h3}`} style={SECTION.h3Style}>
-              Four core questions, in order.
-            </h3>
-          </div>
-          <div className="flex flex-col gap-px bg-gray-100 border border-gray-200">
-            {PROCESS.map((step) => (
-              <div key={step.n} className="grid grid-cols-[52px_1fr] md:grid-cols-[56px_1fr] bg-white">
-                <div
-                  className="flex items-center justify-center bg-white text-lg font-light"
-                  style={{ fontFamily: 'Georgia, "Times New Roman", serif', color: ACCENT }}
-                >
-                  {step.n}
-                </div>
-                <div className="p-4 md:p-5 border-l border-gray-200">
-                  <p className="text-sm font-semibold text-slate-900 mb-1">{step.title}</p>
-                  <p className="text-sm text-slate-600 leading-relaxed">{step.body}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Decisions */}
-        <section id="Decisions" className="scroll-mt-20 md:scroll-mt-24">
-          <div className="text-center md:text-left mb-2">
-            <h2 className={SECTION.h2} style={SECTION.h2Style}>Decisions</h2>
-            <h3 className={`${SECTION.h3}`} style={SECTION.h3Style}>
-              Format exploration and sign-off
-            </h3>
-          </div>
-          <div className="border border-gray-200 bg-white p-5 md:p-6 max-w-3xl">
-            <p className="text-sm text-slate-700 leading-relaxed mb-4">
-              For many sections we started from plain body copy, then tried clearer structures: key values called out in the paragraph,
-              short lists where steps or options read better as lines, or tables where comparing fields side by side helped. Some blocks
-              stayed <strong className="text-slate-900">paragraph</strong> for legal continuity; others moved to <strong className="text-slate-900">table</strong> after we
-              agreed the data justified it. A few tables needed a second pass—column alignment, header rhythm, and spacing—so the digital
-              template matched how stakeholders expected to scan it.
-            </p>
-            <ul className="text-sm text-slate-700 space-y-2 list-disc pl-5 mb-4">
-              <li>Same underlying field mapping; only presentation (paragraph, emphasis, list, or table) changed where we iterated.</li>
-              <li>Where layout shifted to a grid, we refined table styling when alignment or density felt off in the final frame.</li>
-            </ul>
-            <p className="text-sm text-slate-700 leading-relaxed">
-              The <strong className="text-slate-900">design leader</strong> and <strong className="text-slate-900">BA</strong> were in the loop for
-              review; we aligned on the shipped styles together so legal copy, data fields, and brand expectations stayed consistent.
-            </p>
-          </div>
-        </section>
-
-        {/* Mockup */}
-        <section id="Mockup" className="scroll-mt-20 md:scroll-mt-24 pb-4 md:pb-6">
-          <div className="text-center md:text-left mb-4">
-            <h2 className={SECTION.h2} style={SECTION.h2Style}>Final Mockup</h2>
-            <h3 className={`${SECTION.h3}`} style={SECTION.h3Style}>
-              The redesigned template — Page 1 of 2.
-            </h3>
-          </div>
-          <div className="border border-gray-200 bg-white text-[10px] text-slate-800 shadow-sm overflow-hidden">
-            <div className="flex items-stretch min-h-[44px]" style={{ backgroundColor: ACCENT }}>
-              <div className="flex items-center px-3 bg-white text-sm font-black tracking-widest shrink-0" style={{ color: ACCENT }}>
-                BANK
-              </div>
-              <div className="flex-1 flex items-center justify-center text-white text-[11px] font-bold px-2">
-                Financial Account Disclosure Document
-              </div>
-              <div className="w-[100px] md:w-[120px] shrink-0 flex items-center justify-end pr-2 text-white/70 text-[8px]">
-                Bank Name N.A.
-              </div>
-            </div>
-            <div className="h-4" style={{ background: 'linear-gradient(90deg,#b8cfe8,#d0e4f5,#dde9f5)' }} aria-hidden />
-            <div className="px-4 md:px-6 py-4">
-              <div className="flex flex-col md:flex-row md:justify-between gap-4 mb-2">
-                <div>
-                  <p className="text-[8.5px] font-bold text-slate-600 mb-1">Account Title and Mailing Address</p>
-                  <div className="border border-slate-200 min-h-[48px] w-full max-w-[270px] p-2 text-[8.5px] text-gray-400 leading-relaxed">
-                    [Full Name]
-                    <br />
-                    [Street Address]
-                    <br />
-                    [City, State, ZIP]
-                    <br />
-                    [Country]
-                  </div>
-                </div>
-                <div className="text-right text-[9px] space-y-2 shrink-0">
-                  <div>
-                    <span className="text-slate-500">Date: </span>
-                    <span className="font-bold" style={{ color: ACCENT }}>
-                      [DD/MM/YYYY]
-                    </span>
-                  </div>
-                  <div>
-                    <span className="text-slate-500">Total Amount: </span>
-                    <span className="font-bold">[Amount]</span>
-                  </div>
-                </div>
-              </div>
-              <div className="mt-2 px-2 py-1 font-bold text-[9px]" style={{ backgroundColor: ACCENT_SOFT, color: ACCENT }}>
-                Section A — Account Rate Details
-              </div>
-              <p className="text-[9px] leading-relaxed text-slate-700 py-2 px-0.5">
-                Lorem ipsum dolor sit amet for account number <strong style={{ color: ACCENT }}>[XXXX-XXXX]</strong> at a rate of{' '}
-                <strong style={{ color: ACCENT }}>[X.XXX%]</strong>, with an annual yield of <strong style={{ color: ACCENT }}>[X.XX%]</strong>,
-                consectetur adipiscing elit until maturity date of <strong style={{ color: ACCENT }}>[DD/MM/YYYY]</strong>. Ut enim ad minim
-                veniam, quis nostrud exercitation ullamco laboris.
-              </p>
-              <div className="mt-1 px-2 py-1 font-bold text-[9px]" style={{ backgroundColor: ACCENT_SOFT, color: ACCENT }}>
-                Section B — Balance Requirements
-              </div>
-              <div className="py-1 px-0.5 space-y-0">
-                <div className="flex text-[9px] border-b border-slate-100 py-1">
-                  <span className="flex-1 text-slate-600">Minimum threshold to initiate this account</span>
-                  <span className="font-bold shrink-0" style={{ color: ACCENT }}>
-                    [$X,XXX.XX]
-                  </span>
-                </div>
-                <div className="flex text-[9px] py-1">
-                  <span className="flex-1 text-slate-600">Minimum daily threshold to obtain listed yield</span>
-                  <span className="font-bold shrink-0" style={{ color: ACCENT }}>
-                    [$X,XXX.XX]
-                  </span>
-                </div>
-              </div>
-              <div className="mt-2 px-2 py-1 font-bold text-[9px]" style={{ backgroundColor: ACCENT_SOFT, color: ACCENT }}>
-                Section F — Early Penalty Schedule
-              </div>
-              <table className="w-full border-collapse text-[9px] mt-1">
-                <thead>
-                  <tr>
-                    <th className="text-left text-white font-bold p-1.5" style={{ backgroundColor: ACCENT }}>
-                      Term length
-                    </th>
-                    <th className="text-left text-white font-bold p-1.5" style={{ backgroundColor: ACCENT }}>
-                      Penalty applied
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {[
-                    ['Lorem ipsum (X to XX days)', 'Loss of [X] days interest'],
-                    ['Dolor sit amet (XX–XXX days)', 'Loss of [XX] days interest'],
-                  ].map(([a, b]) => (
-                    <tr key={a} className="border-b border-slate-100">
-                      <td className="p-1.5 bg-slate-50/80">{a}</td>
-                      <td className="p-1.5">{b}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <div className="flex justify-between px-4 md:px-6 py-1.5 text-[8px] text-gray-500 border-t border-slate-200">
-              <span className="font-bold" style={{ color: ACCENT }}>
-                [form#]
-              </span>
-              <span>[DD/MM/YYYY]</span>
-              <span>Page 1 of 2</span>
-            </div>
-            <div className="bg-gray-100 border-t border-slate-200 text-[7.5px] text-gray-500 px-4 md:px-6 py-1 flex flex-wrap gap-3">
-              <span>ID#:[ ]</span>
-              <span>By:[ ]</span>
-              <span>Date:[DD/MM/YYYY HH:MM]</span>
-              <span>Form:[FORM-CODE-XXXX]</span>
-            </div>
-          </div>
-        </section>
-        </div>
       </div>
     </div>
   );

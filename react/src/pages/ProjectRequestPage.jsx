@@ -1,166 +1,60 @@
-import { Lock } from 'lucide-react';
+import { ArrowRight, Check, Lock, Search, Users } from 'lucide-react';
 import PasswordGate from '../components/PasswordGate.jsx';
 import { useProjectUnlock } from '../hooks/useProjectUnlock.js';
-import { prSectionHead as SECTION, prAccent, openSans } from '../styles/caseStudyTheme.js';
+import { prSectionHead as SECTION, openSans } from '../styles/caseStudyTheme.js';
 
 const PROJECT_ID = 'project-request-collaboration';
+const ACCENT = '#5870e6';
+const SOFT = '#f1f3ff';
+const img = (name) => `${import.meta.env.BASE_URL || '/'}img/intake-tracker/${name}`;
 
-function SectionIntro({ eyebrow, title, subtitle }) {
-  return (
-    <div className="mb-8">
-      <h2 className={SECTION.h2} style={SECTION.h2Style}>
-        {eyebrow}
-      </h2>
-      <h3 className={`${SECTION.h3} mt-1`} style={SECTION.h3Style}>
-        {title}
-      </h3>
-      {subtitle && <p className="mt-3 text-sm text-slate-600 leading-relaxed max-w-3xl">{subtitle}</p>}
-    </div>
-  );
+function SectionTitle({ label, title, body }) {
+  return <div className="mb-6"><h2 className={SECTION.h2} style={SECTION.h2Style}>{label}</h2><h3 className={SECTION.h3} style={SECTION.h3Style}>{title}</h3>{body && <p className="mt-3 max-w-4xl text-sm leading-relaxed text-slate-600 md:text-base">{body}</p>}</div>;
 }
 
-function AbstractBoardUi() {
-  return (
-    <svg viewBox="0 0 640 260" className="w-full h-auto border border-gray-200 bg-white" fill="none" aria-hidden>
-      <rect x="0" y="0" width="640" height="44" fill="#15803d" />
-      <rect x="16" y="14" width="120" height="16" rx="2" fill="#fff" opacity="0.9" />
-      <rect x="24" y="64" width="180" height="10" rx="1" fill="#94a3b8" />
-      <rect x="24" y="88" width="180" height="56" rx="2" fill="#f9fafb" stroke="#e5e7eb" />
-      <rect x="36" y="102" width="100" height="8" rx="1" fill="#15803d" />
-      <rect x="36" y="118" width="140" height="6" rx="1" fill="#94a3b8" />
-      <rect x="24" y="156" width="180" height="56" rx="2" fill="#fff" stroke="#e8eef0" />
-      <rect x="230" y="64" width="180" height="10" rx="1" fill="#94a3b8" />
-      <rect x="230" y="88" width="180" height="72" rx="2" fill="#f3f4f6" stroke="#e5e7eb" />
-      <rect x="242" y="104" width="110" height="8" rx="1" fill="#15803d" />
-      <rect x="242" y="122" width="140" height="6" rx="1" fill="#64748b" />
-      <rect x="242" y="138" width="64" height="12" rx="2" fill="#fff" stroke="#e5e7eb" />
-      <rect x="436" y="64" width="180" height="10" rx="1" fill="#94a3b8" />
-      <rect x="436" y="88" width="180" height="56" rx="2" fill="#fff" stroke="#e8eef0" />
-      <rect x="436" y="156" width="180" height="72" rx="2" fill="#f9fafb" stroke="#e5e7eb" />
-      <rect x="448" y="172" width="120" height="8" rx="1" fill="#15803d" />
-      <rect x="448" y="192" width="64" height="16" rx="2" fill="#15803d" />
-    </svg>
-  );
+function ProductImage({ src, alt, caption, className = '' }) {
+  return <figure className={className}><div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-[0_18px_60px_rgba(15,23,42,.08)]"><img src={img(src)} alt={alt} className="block w-full h-auto" loading="lazy" /></div>{caption && <figcaption className="mt-3 text-xs leading-5 text-slate-500">{caption}</figcaption>}</figure>;
+}
+
+function StatusFlow() {
+  const steps = [['Raised', 'Request submitted'], ['In review', 'Scope confirmed'], ['In progress', 'Work produced'], ['Completed', 'Deliverable issued']];
+  return <div className="grid md:grid-cols-4 border border-slate-200 rounded-xl overflow-hidden bg-white">{steps.map(([title, note], index) => <div key={title} className="relative p-5 border-b md:border-b-0 md:border-r border-slate-200 last:border-0"><div className="flex items-center justify-between gap-3"><span className="grid place-items-center w-7 h-7 rounded-full text-xs font-bold text-white" style={{ background: ACCENT }}>{index + 1}</span>{index < steps.length - 1 && <ArrowRight className="hidden md:block w-4 h-4 text-slate-300" />}</div><p className="mt-5 text-sm font-bold text-slate-900">{title}</p><p className="mt-1 text-xs text-slate-500">{note}</p></div>)}</div>;
+}
+
+function JourneyMap() {
+  const rows = [['Requester', 'Explain the need', 'Wait for clarity', 'Track progress', 'Receive output'], ['Project lead', 'Triage scope', 'Assign owner', 'Remove blockers', 'Close request'], ['System', 'Capture context', 'Make ownership visible', 'Keep one record', 'Preserve history']];
+  return <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white"><div className="min-w-[720px]"><div className="grid grid-cols-[140px_repeat(4,1fr)] bg-indigo-50 text-indigo-900 text-[10px] font-bold uppercase tracking-wider"><div className="p-4">Journey</div>{['Submit', 'Review', 'Produce', 'Deliver'].map((stage) => <div key={stage} className="p-4 border-l border-indigo-200">{stage}</div>)}</div>{rows.map((row, rowIndex) => <div key={row[0]} className="grid grid-cols-[140px_repeat(4,1fr)] text-xs border-t border-slate-200 first:border-t-0">{row.map((cell, index) => <div key={cell} className={`p-4 border-l border-slate-200 first:border-l-0 ${index === 0 ? 'font-bold text-slate-900' : 'text-slate-600'} ${rowIndex === 2 && index > 0 ? 'bg-indigo-50/60' : ''}`}>{cell}</div>)}</div>)}</div></div>;
 }
 
 function CaseStudyContent() {
-  return (
-    <div className="case-study-page min-h-screen bg-white text-slate-900 selection:bg-gray-200 scroll-smooth pb-20" style={openSans}>
-      <section id="Overview" className="pt-2 pb-10 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-wrap items-center gap-2 mb-3 text-[10px] uppercase tracking-widest text-slate-600">
-            <span>Intake · Workflow · Cross-team Collaboration</span>
-            <span className="inline-flex items-center gap-1 border border-gray-200 px-2 py-0.5 text-slate-700">
-              <Lock className="w-3 h-3" aria-hidden /> NDA
-            </span>
-          </div>
+  return <article className="case-study-page bg-[#fffdf9] text-slate-900 pb-24" style={openSans}>
+    <section id="Overview" className="px-6 pt-6 pb-16 md:pt-12"><div className="max-w-7xl mx-auto">
+      <div className="mb-6 flex flex-wrap items-center gap-3 text-[11px] font-semibold uppercase tracking-[.16em] text-slate-500"><span>Enterprise workflow · 2026</span><span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700"><Lock className="h-3 w-3" /> NDA case study</span></div>
+      <div><p className="mb-3 text-sm font-semibold" style={{ color: ACCENT }}>Intake Tracker</p><h1 className="max-w-3xl text-2xl font-extrabold leading-tight tracking-tight text-slate-950 md:text-4xl">Turning scattered project requests into <span className="font-medium italic text-slate-500">an accountable delivery path.</span></h1><p className="mt-4 max-w-3xl text-sm leading-7 text-slate-600 md:text-base">I designed the end-to-end experience for requesters, project leads, and contributors—bringing structured intake, status, ownership, files, and decisions into one shared workspace.</p><a href="https://w0436300.github.io/request/app.html" target="_blank" rel="noreferrer" className="mt-5 inline-flex items-center rounded-full border border-indigo-200 bg-indigo-50 px-4 py-2 text-sm font-semibold text-indigo-700 transition hover:border-indigo-300 hover:bg-indigo-100">View live demo ↗</a></div>
+      <div className="mt-10 grid grid-cols-2 overflow-hidden rounded-2xl border border-slate-200 bg-white md:grid-cols-4">{[['Role', 'Product designer'], ['Scope', '0 → 1 product'], ['Team', 'Design + Engineering'], ['Delivery', 'Responsive web app']].map(([key, value]) => <div key={key} className="border-b border-r border-slate-200 p-4 md:p-5"><p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">{key}</p><p className="mt-2 text-xs font-semibold text-slate-800 md:text-sm">{value}</p></div>)}</div>
+      <ProductImage className="mt-8" src="dashboard.png" alt="Intake Tracker dashboard showing request status summaries and assigned work" caption="The dashboard gives project leads an immediate view of workload, status, ownership, and recency." />
+    </div></section>
 
-          <h1 className="text-2xl md:text-4xl font-extrabold leading-tight mb-3 tracking-tight">
-            Project Request &amp; <span className="italic font-medium text-slate-600">Collaboration Platform.</span>
-          </h1>
-          <p className="text-slate-700 text-sm md:text-base leading-relaxed max-w-3xl mb-8">
-            Designed a request-to-delivery experience that clarifies intake, ownership, and handoffs between
-            requesters, design, and engineering.
-          </p>
+    <section id="Problem" className="px-6 py-14 md:py-20 border-t border-slate-200 bg-slate-50/60"><div className="max-w-6xl mx-auto"><SectionTitle label="01 · Problem" title="The work was trackable. The request lifecycle was not." body="Requests entered through inconsistent channels. The delivery team repeatedly reconstructed context, while requesters lacked a reliable answer to a simple question: what is happening now?" /><div className="grid md:grid-cols-3 gap-px bg-slate-200 border border-slate-200 rounded-xl overflow-hidden">{[['Fragmented intake', 'Critical project and scope information arrived across forms, email, chat, and attachments.'], ['Unclear ownership', 'A requester could not see who was accountable—or whether anyone had accepted the work.'], ['Invisible decisions', 'Comments, revisions, and status changes were separated from the request they affected.']].map(([title, body], index) => <div key={title} className="bg-white p-6"><p className="text-xs font-bold" style={{ color: ACCENT }}>0{index + 1}</p><h3 className="mt-5 font-bold text-slate-950">{title}</h3><p className="mt-2 text-sm text-slate-600 leading-6">{body}</p></div>)}</div></div></section>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-0 border border-gray-200 overflow-hidden text-[13px] bg-white mb-10">
-            {[
-              ['Role', 'Product Designer · Freelance'],
-              ['Focus', 'Intake · Status model · Collaboration'],
-              ['Users', 'Design · Eng · Stakeholders'],
-              ['Status', '✓ Near complete'],
-            ].map(([k, v]) => (
-              <div key={k} className="border-r border-b border-gray-200 p-3 last:border-r-0 md:[&:nth-child(4n)]:border-r-0">
-                <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-600 mb-1">{k}</p>
-                <p className={k === 'Status' ? 'text-green-800 font-medium' : 'text-slate-800'}>{v}</p>
-              </div>
-            ))}
-          </div>
+    <section id="Research" className="px-6 py-14 md:py-20 border-t border-slate-200"><div className="max-w-6xl mx-auto"><SectionTitle label="02 · Research & framing" title="Design the handoffs, not just the form." body="I reframed the product as a shared service journey. Each stage needed a clear owner, a visible system response, and an explicit condition for moving forward." /><JourneyMap /><div className="grid md:grid-cols-3 gap-6 mt-8">{[[Search, 'Findability', 'Project, site, request number, tag, status, or member must all lead back to the same record.'], [Users, 'Shared awareness', 'Requesters and delivery teams need different detail, but they must see the same source of truth.'], [Check, 'Closure', 'Every status needs meaning: who owns the next action and what makes the request ready to advance.']].map(([Icon, title, body]) => <div key={title} className="flex gap-4"><div className="shrink-0 grid place-items-center w-10 h-10 rounded-lg" style={{ background: SOFT, color: ACCENT }}><Icon className="w-5 h-5" /></div><div><h3 className="text-sm font-bold">{title}</h3><p className="mt-1 text-xs text-slate-600 leading-5">{body}</p></div></div>)}</div></div></section>
 
-          <AbstractBoardUi />
-        </div>
-      </section>
+    <section id="Flow" className="px-6 py-14 md:py-20 border-t border-slate-200 bg-slate-50/60"><div className="max-w-6xl mx-auto"><SectionTitle label="03 · Product model" title="One lifecycle, understood by every role." body="The status model became the product’s backbone. It connects the intake form, work queues, request detail, notifications, and completion history." /><StatusFlow /><div className="mt-10 grid lg:grid-cols-2 gap-8 items-start"><ProductImage src="all-requests.png" alt="All requests page with search and filters" caption="A filterable operational queue makes volume and ownership manageable across the whole team." /><div className="lg:pt-8"><p className="text-[11px] font-bold uppercase tracking-[0.2em]" style={{ color: ACCENT }}>Key decision</p><h3 className="mt-3 text-2xl font-bold tracking-tight">Make status useful, not decorative.</h3><p className="mt-4 text-sm text-slate-600 leading-7">Status appears consistently in summary cards, list rows, and the request record. Color supports scanning, while text and icons retain meaning without relying on color alone.</p><ul className="mt-6 space-y-3 text-sm text-slate-700">{['Counts reveal workload before users enter the queue.', 'Owner avatars connect work state to a responsible person.', 'Updated timestamps help leads prioritize stale requests.', 'Search and filters reduce the cost of returning to an existing request.'].map((item) => <li key={item} className="flex gap-3"><Check className="w-4 h-4 mt-0.5 shrink-0" style={{ color: ACCENT }} />{item}</li>)}</ul></div></div></div></section>
 
-      <section id="Challenge" className="py-12 px-6 border-t border-gray-200">
-        <div className="max-w-7xl mx-auto">
-          <SectionIntro
-            eyebrow="Challenge"
-            title="Requests arrived — ownership and next steps did not."
-            subtitle="Teams needed a shared language for priority, readiness, and who moves the work forward."
-          />
-          <div className="grid md:grid-cols-2 gap-0 border border-gray-200">
-            {[
-              ['Ambiguous intake', 'Requests arrived incomplete, so discovery restarted on every thread.'],
-              ['Invisible status', 'Stakeholders could not tell what was blocked, waiting, or in progress.'],
-              ['Scattered conversation', 'Decisions lived in email and chat, disconnected from the request record.'],
-              ['Uneven handoffs', 'Design and engineering lacked a clear ready-for-handoff checklist.'],
-            ].map(([t, b]) => (
-              <div key={t} className="border-r border-b border-gray-200 p-5 md:[&:nth-child(2n)]:border-r-0">
-                <h4 className="text-sm font-semibold text-slate-900 mb-2">{t}</h4>
-                <p className="text-xs text-slate-600 leading-relaxed">{b}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+    <section id="Decisions" className="px-6 py-14 md:py-20 border-t border-slate-200"><div className="max-w-6xl mx-auto"><SectionTitle label="04 · Key decisions" title="Progressive detail without losing context." body="The experience separates overview, structured request data, and activity—so a lead can scan quickly, then move deeper without leaving the record." /><div className="space-y-14">
+      <div className="grid lg:grid-cols-[.72fr_1.28fr] gap-8 items-center"><div><p className="text-xs font-bold" style={{ color: ACCENT }}>01 · AT-A-GLANCE CONTROL</p><h3 className="mt-3 text-xl font-bold">Put the current state before the archive.</h3><p className="mt-3 text-sm text-slate-600 leading-7">The overview leads with progress, relationships, members, and release dates—the information required to act now.</p></div><ProductImage src="request-overview.png" alt="Request overview with progress, members, relationships and dates" /></div>
+      <div className="grid lg:grid-cols-[1.28fr_.72fr] gap-8 items-center"><ProductImage src="request-details-clean.png" alt="Structured request details grouped into request, project, scope, commercial and files sections" /><div><p className="text-xs font-bold" style={{ color: ACCENT }}>02 · STRUCTURED SOURCE OF TRUTH</p><h3 className="mt-3 text-xl font-bold">Group detail by the questions people ask.</h3><p className="mt-3 text-sm text-slate-600 leading-7">Request, project, scope, commercial, and files mirror the delivery team’s mental model, making long records scannable.</p></div></div>
+      <div className="grid lg:grid-cols-[.72fr_1.28fr] gap-8 items-center"><div><p className="text-xs font-bold" style={{ color: ACCENT }}>03 · TRACEABLE COLLABORATION</p><h3 className="mt-3 text-xl font-bold">Keep conversation attached to the work.</h3><p className="mt-3 text-sm text-slate-600 leading-7">Comments and changes share one chronological stream. Filters let people isolate human discussion or system activity without losing the full audit trail.</p></div><ProductImage src="activity.png" alt="Request activity and comments timeline" /></div>
+    </div></div></section>
 
-      <section id="Process" className="py-12 px-6 border-t border-gray-200">
-        <div className="max-w-7xl mx-auto">
-          <SectionIntro
-            eyebrow="Process"
-            title="Make the lifecycle legible before optimizing the UI."
-          />
-          <ol className="space-y-4">
-            {[
-              ['Map the real request journey', 'Interviewed requesters and delivery partners to capture where work stalled.'],
-              ['Define status with meaning', 'Each stage answers: who owns it, what is needed, and what unlocks the next step.'],
-              ['Design progressive intake', 'Collect only what is needed up front; deepen detail as the request advances.'],
-              ['Anchor collaboration to the record', 'Comments, decisions, and artifacts stay attached to the request — not lost in side channels.'],
-            ].map(([t, b], i) => (
-              <li key={t} className="flex gap-4 border border-gray-200 p-4 bg-white">
-                <span className="text-[11px] font-bold tabular-nums shrink-0" style={{ color: prAccent }}>
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <div>
-                  <h4 className="text-sm font-semibold text-slate-900">{t}</h4>
-                  <p className="mt-1 text-xs text-slate-600 leading-relaxed">{b}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
+    <section id="Solution" className="px-6 py-14 md:py-20 border-t border-slate-200 bg-indigo-50/60 text-slate-900"><div className="max-w-6xl mx-auto"><SectionTitle label="05 · Final experience" title="An intake flow that earns complexity step by step." body="Instead of presenting one intimidating form, the product divides submission into Request, Project, and Team & review. Users can save a draft, understand the submission state, and confirm ownership before committing." /><div className="grid lg:grid-cols-2 gap-6"><ProductImage src="new-request-project-en.png" alt="Project step in the new request flow" caption="Project context and attachments are collected together, with draft recovery available throughout." /><ProductImage src="new-request-review.png" alt="Team and review step in the new request flow" caption="The final step makes ownership and the initial In review state explicit before submission." /></div></div></section>
 
-      <section id="Outcome" className="py-12 px-6 border-t border-gray-200">
-        <div className="max-w-7xl mx-auto">
-          <SectionIntro
-            eyebrow="Outcome"
-            title="A shared operating picture for request-to-delivery work."
-          />
-          <p className="text-sm text-slate-700 leading-relaxed max-w-3xl">
-            Detailed screens remain confidential under NDA. This summary covers the problem framing, status model,
-            and collaboration principles that shaped the platform.
-          </p>
-        </div>
-      </section>
-    </div>
-  );
+    <section id="Outcome" className="px-6 py-14 md:py-20 border-t border-slate-200"><div className="max-w-6xl mx-auto"><SectionTitle label="06 · Outcome & reflection" title="A shared operating picture for request-to-delivery work." /><div className="grid md:grid-cols-2 gap-8"><div className="rounded-xl p-6 md:p-8" style={{ background: SOFT }}><p className="text-xs font-bold uppercase tracking-wider" style={{ color: ACCENT }}>What changed</p><p className="mt-4 text-lg font-semibold leading-8 text-slate-900">The final design turns intake from a one-time submission into a durable collaboration record—searchable, accountable, and legible throughout delivery.</p></div><div className="border-t md:border-t-0 md:border-l border-slate-200 pt-6 md:pt-0 md:pl-8"><h3 className="font-bold">What I would validate next</h3><ul className="mt-4 space-y-3 text-sm text-slate-600 leading-6">{['Time to submit and completeness of new requests.', 'Time from submission to an assigned owner.', 'Whether status language matches requester expectations.', 'Where notification preferences are needed to prevent overload.'].map((item) => <li key={item} className="flex gap-3"><span className="font-bold" style={{ color: ACCENT }}>→</span>{item}</li>)}</ul></div></div><p className="mt-10 text-xs text-slate-400">Project details and identifying information have been adapted for confidentiality.</p></div></section>
+  </article>;
 }
 
 export default function ProjectRequestPage() {
   const { unlocked, unlockWithPassword, error, clearError } = useProjectUnlock(PROJECT_ID);
-
-  if (!unlocked) {
-    return (
-      <PasswordGate
-        title="Project Request & Collaboration Platform"
-        subtitle="This freelance case study is under NDA. Enter the shared password to view the work."
-        onUnlock={unlockWithPassword}
-        error={error}
-        onClearError={clearError}
-      />
-    );
-  }
-
+  if (!unlocked) return <PasswordGate title="Intake Tracker" subtitle="This freelance case study is under NDA. Enter the shared password to view the work." onUnlock={unlockWithPassword} error={error} onClearError={clearError} />;
   return <CaseStudyContent />;
 }
