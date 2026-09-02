@@ -205,11 +205,37 @@ function CaseStudyContent() {
       </div></section>
 
       <section id="Decisions" className="px-6 py-14 md:py-20 border-t border-slate-200"><div className="max-w-6xl mx-auto">
-        <SectionTitle label="05 · Key decisions" title="Progressive detail across delivery, brief, and activity." body="The project record separates what is happening now (delivery), what was agreed (brief), and what changed over time (activity)—so each role can scan at the right altitude." />
+        <SectionTitle label="05 · Key decisions" title="Progressive detail across list, preview, and full record." body="The experience separates portfolio scanning, quick triage, and deep delivery work—so leads can compare projects at a glance without losing context every time they check a status." />
         <div className="space-y-14">
+          <div className="grid lg:grid-cols-[1.28fr_.72fr] gap-8 items-center">
+            <ProductImage src="project-peek.png" alt="Project row selected with side peek preview showing phase stepper, next milestone, people, and scope summary" caption="Selecting a row opens a peek panel beside the table—the list stays in view for side-by-side comparison." />
+            <div>
+              <p className="text-xs font-bold" style={{ color: ACCENT }}>01 · UX DECISION · PEEK PREVIEW</p>
+              <h3 className="mt-3 text-xl font-bold">Open a preview, not a new page.</h3>
+              <p className="mt-3 text-sm text-slate-600 leading-7">Clicking a project row opens a side peek with phase position, next milestone, people, and scope summary—instead of navigating away to the full project workspace. Leads scanning dozens of active jobs can compare rows, dismiss, and move on without back-and-forth routing.</p>
+              <ul className="mt-5 space-y-2.5 text-sm text-slate-700">
+                {['The table remains visible so context is never lost.', '“Open full project” is explicit—deep work is a deliberate choice.', 'Peek content mirrors the highest-signal fields from the full record.'].map((item) => (
+                  <li key={item} className="flex gap-3"><Check className="w-4 h-4 mt-0.5 shrink-0" style={{ color: ACCENT }} />{item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
           <div className="grid lg:grid-cols-[.72fr_1.28fr] gap-8 items-center">
             <div>
-              <p className="text-xs font-bold" style={{ color: ACCENT }}>01 · DELIVERY CONTROL</p>
+              <p className="text-xs font-bold" style={{ color: ACCENT }}>02 · UX DECISION · ACTION-FIRST PREVIEW</p>
+              <h3 className="mt-3 text-xl font-bold">Lead with what is due next.</h3>
+              <p className="mt-3 text-sm text-slate-600 leading-7">Inside the peek, the phase stepper and next milestone appear before scope metadata. A lead triaging the portfolio sees “Client sign-off · Due today” immediately—not after opening tabs or scrolling through the brief. Urgency drives the hierarchy; reference detail stays one click away.</p>
+              <ul className="mt-5 space-y-2.5 text-sm text-slate-700">
+                {['Phase progress is visual—Acceptance reads faster than a text label.', 'Milestone due dates surface risk before a record is fully opened.', 'People and scope follow, supporting assignment decisions.'].map((item) => (
+                  <li key={item} className="flex gap-3"><Check className="w-4 h-4 mt-0.5 shrink-0" style={{ color: ACCENT }} />{item}</li>
+                ))}
+              </ul>
+            </div>
+            <ProductImage src="milestones.png" alt="Milestones view surfacing due dates across projects" caption="Cross-project milestones reinforce the same urgency signal—what is due, and when." />
+          </div>
+          <div className="grid lg:grid-cols-[.72fr_1.28fr] gap-8 items-center">
+            <div>
+              <p className="text-xs font-bold" style={{ color: ACCENT }}>03 · DELIVERY CONTROL</p>
               <h3 className="mt-3 text-xl font-bold">Show phase progress and sector milestones together.</h3>
               <p className="mt-3 text-sm text-slate-600 leading-7">The delivery tab connects lifecycle position to template-driven gates—site survey, design package, equipment install—so contributors know which checkpoint is next.</p>
             </div>
@@ -218,14 +244,14 @@ function CaseStudyContent() {
           <div className="grid lg:grid-cols-[1.28fr_.72fr] gap-8 items-center">
             <ProductImage src="project-brief.png" alt="Structured project brief with scope, commercial, and file sections" />
             <div>
-              <p className="text-xs font-bold" style={{ color: ACCENT }}>02 · STRUCTURED BRIEF</p>
+              <p className="text-xs font-bold" style={{ color: ACCENT }}>04 · STRUCTURED BRIEF</p>
               <h3 className="mt-3 text-xl font-bold">Keep the agreed scope adjacent to delivery work.</h3>
               <p className="mt-3 text-sm text-slate-600 leading-7">Project brief groups client, site, scope, commercial, and files—the questions people ask when validating whether delivery is still aligned.</p>
             </div>
           </div>
           <div className="grid lg:grid-cols-[.72fr_1.28fr] gap-8 items-center">
             <div>
-              <p className="text-xs font-bold" style={{ color: ACCENT }}>03 · TRACEABLE COLLABORATION</p>
+              <p className="text-xs font-bold" style={{ color: ACCENT }}>05 · TRACEABLE COLLABORATION</p>
               <h3 className="mt-3 text-xl font-bold">Attach decisions to the project they affect.</h3>
               <p className="mt-3 text-sm text-slate-600 leading-7">Activity keeps comments, assignments, and system events in one stream—preserving context when leads change or a project moves phase.</p>
             </div>
