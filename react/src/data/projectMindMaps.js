@@ -1,42 +1,55 @@
 /**
- * Mind-map content for case study pages (XMind-style radial layout).
- * Fieldwork — Banshan Design Engineering studio delivery platform.
+ * Product blueprint mind maps (XMind-style radial layout).
+ * Fieldwork — studio delivery platform for Banshan Design Engineering.
+ *
+ * Reading order: 01 → 06 mirrors a product design narrative:
+ * problem → journeys → capabilities → structure → flow → governance.
  */
 
 export const fieldworkMindMap = {
   title: 'Fieldwork',
-  centerLabel: 'Banshan Design Engineering',
+  centerLabel: 'Product blueprint',
+  centerSubtitle: 'Governed delivery for interior design–engineering studios',
+  legend: [
+    { index: '01', label: 'Problem', color: '#ef4444' },
+    { index: '02', label: 'Journeys', color: '#f97316' },
+    { index: '03', label: 'Capabilities', color: '#ca8a04' },
+    { index: '04', label: 'Structure', color: '#22c55e' },
+    { index: '05', label: 'Flow', color: '#3b82f6' },
+    { index: '06', label: 'Governance', color: '#8b5cf6' },
+  ],
   branches: [
     {
       id: 'problem',
       index: '01',
-      title: 'Problem & context',
-      subtitle: 'Why the studio needed a system',
+      lens: 'Strategic frame',
+      title: 'Problem framing',
+      subtitle: 'Why delivery needed a system—not just a tracker',
       color: '#ef4444',
       side: 'left',
       blocks: [
         {
-          title: 'Unstructured intake',
+          title: 'Studio context',
           items: [
-            'Enquiries arrived with uneven briefs and attachments',
-            'Commercial context scattered across chat and spreadsheets',
-            'Scoping slow and inconsistent before a lead was appointed',
+            'Banshan Design Engineering: interior fit-out across sectors',
+            'Cinema, pet hospital, and medical imaging share a lifecycle—not the same gates',
+            'Leads need portfolio visibility before they open any single record',
           ],
         },
         {
-          title: 'Implicit delivery rules',
+          title: 'Three design gaps',
           items: [
-            'Cinema fit-out vs. medical imaging: different gates, same confusion',
-            'Sector sequences lived in senior memory—not in the product',
-            'No shared answer for what “done” means at each phase',
+            'Intake: uneven briefs, attachments, and commercial context',
+            'Rules: sector gate sequences lived in memory, not in software',
+            'Reporting: weekly status detached from milestones and project work',
           ],
         },
         {
-          title: 'Siloed reporting',
+          title: 'Product intent',
           items: [
-            'Weekly status lived outside the project record',
-            'Directors could not connect progress to portfolio risk',
-            'Reporting detached from milestones and delivery work',
+            'Connect enquiries, phased delivery, templates, milestones, and reporting',
+            'Make “what done means” inspectable at every phase',
+            'Give directors portfolio risk without re-entering data',
           ],
         },
       ],
@@ -44,33 +57,34 @@ export const fieldworkMindMap = {
     {
       id: 'architecture',
       index: '04',
-      title: 'Information architecture',
-      subtitle: 'Navigation & shared model',
+      lens: 'Information design',
+      title: 'Product structure',
+      subtitle: 'Navigation, objects, and shared vocabulary',
       color: '#22c55e',
       side: 'left',
       blocks: [
         {
-          title: 'Projects',
+          title: 'Operational surfaces',
           items: [
-            'Phase summary counts on the dashboard',
-            'Filterable table: client, lead, issues, due dates',
-            'Project record: Delivery · Brief · Activity',
+            'Projects — portfolio dashboard, filterable table, project record',
+            'Enquiries — triage queue separate from in-flight work',
+            'Milestones — cross-project timeline and due-this-week view',
           ],
         },
         {
-          title: 'Enquiries · Milestones',
+          title: 'Studio standards',
           items: [
-            'Enquiry queue with triage status and wait time',
-            'Convert to project without re-entering context',
-            'Cross-project timeline: due this week, sector gates, owner & phase',
+            'Company — weekly reports and delivery standards',
+            'Delivery standards encode lifecycle and sector gate templates',
+            'Role authority: owner, contributor, director',
           ],
         },
         {
-          title: 'Company · prototype',
+          title: 'Core record model',
           items: [
-            'Weekly reports and delivery standards',
-            'Responsive HTML/CSS/JS high-fidelity prototype',
-            'Workspace switcher: Fieldwork ↔ Knowledge Hub',
+            'One durable project record: Delivery · Brief · Activity',
+            'Enquiry converts into the same record—no duplicate entry',
+            'Shared systems: phase model, sector templates, ownership, audit',
           ],
         },
       ],
@@ -78,53 +92,51 @@ export const fieldworkMindMap = {
     {
       id: 'dataflow',
       index: '05',
-      title: 'Data flow',
-      subtitle: 'Enquiry to Closed',
+      lens: 'End-to-end flow',
+      title: 'Value stream',
+      subtitle: 'How work moves from enquiry to archive',
       color: '#3b82f6',
       side: 'left',
       listStyle: 'alpha',
       blocks: [
         {
           marker: 'A',
-          title: 'Brief capture',
-          items: ['Service type and scope narrative', 'File drop and parent-project link', 'New enquiry wizard · Step 1'],
+          title: 'Capture',
+          items: ['Brief, attachments, and service scope', 'Wizard step 1 — narrative before complexity'],
         },
         {
           marker: 'B',
-          title: 'Client & site',
-          items: ['Client identity and site context', 'Structured capture on one enquiry record', 'New enquiry wizard · Step 2'],
+          title: 'Context',
+          items: ['Client identity and site information', 'Wizard step 2 — one enquiry record'],
         },
         {
           marker: 'C',
-          title: 'Qualification',
-          items: ['Commercial fit assessment', 'Sector assignment (cinema, pet hospital, imaging, etc.)', 'New enquiry wizard · Step 3'],
+          title: 'Qualify',
+          items: ['Commercial fit and sector assignment', 'Wizard step 3 — appoint before pipeline entry'],
         },
         {
           marker: 'D',
-          title: 'Project record',
-          items: ['Enquiry converts to project in one action', 'Project lead appointed', 'Sector template applied · milestones initialized'],
+          title: 'Activate',
+          items: ['Enquiry → project conversion', 'Lead appointed · sector template · milestones seeded'],
         },
         {
           marker: 'E',
-          title: 'Delivery loop',
-          items: [
-            'Delivery tab: phase position + sector gates',
-            'Structured brief stays visible beside delivery work',
-            'Peek preview ↔ full record for deep work',
-          ],
+          title: 'Execute',
+          items: ['Phase position and sector gates on Delivery tab', 'Peek for triage · full record for deep work'],
         },
         {
           marker: 'F',
-          title: 'Portfolio output',
-          items: ['Weekly reports attached to the work', 'Cross-project milestone timeline', 'Handover → Closed archive'],
+          title: 'Close',
+          items: ['Weekly report stays on the work', 'Handover → Closed · portfolio learns forward'],
         },
       ],
     },
     {
       id: 'journey',
       index: '02',
-      title: 'User journey',
-      subtitle: 'How roles complete delivery',
+      lens: 'Experience model',
+      title: 'User journeys',
+      subtitle: 'Roles across Discover → Scope → Deliver → Assure → Close',
       color: '#f97316',
       side: 'right',
       listStyle: 'number',
@@ -133,36 +145,36 @@ export const fieldworkMindMap = {
           marker: '1',
           title: 'Project lead',
           items: [
-            'Review pipeline · filter portfolio by phase',
-            'Scope enquiry · qualify and convert',
-            'Assign team · track milestones · close and report',
+            'Discover: review pipeline · filter by phase, client, sector',
+            'Scope: qualify enquiry · convert · assign delivery team',
+            'Deliver & assure: track gates · peek or open full record',
+            'Close: weekly report · move to Handover / Closed',
           ],
         },
         {
           marker: '2',
           title: 'Contributor',
           items: [
-            'See assigned work · accept brief',
-            'Update progress · flag blockers',
-            'Follow sector gates on the Delivery tab',
+            'See assigned work and accept structured brief',
+            'Update progress on Delivery tab · flag blockers',
+            'Complete sector gate milestones · hand over deliverables',
           ],
         },
         {
           marker: '3',
           title: 'Director',
           items: [
-            'Scan portfolio health',
-            'Approve sector gates · read weekly reports',
-            'Intervene on risk · read delivery standards',
+            'Scan portfolio health without opening every record',
+            'Approve sector gates · read weekly rollup',
+            'Intervene on risk · reference delivery standards',
           ],
         },
         {
           marker: '4',
-          title: 'Six-phase lifecycle',
+          title: 'Lifecycle backbone',
           items: [
-            'Scoping → Design → Construction',
-            'Acceptance → Handover → Closed',
-            'Dashboard, table, and milestones share one lifecycle language',
+            'Scoping → Design → Construction → Acceptance → Handover → Closed',
+            'Same phase language on dashboard, table, milestones, and detail',
           ],
         },
       ],
@@ -170,40 +182,41 @@ export const fieldworkMindMap = {
     {
       id: 'capabilities',
       index: '03',
+      lens: 'Product surface',
       title: 'Core capabilities',
-      subtitle: 'What the system does',
-      color: '#eab308',
+      subtitle: 'What Fieldwork enables—not a feature laundry list',
+      color: '#ca8a04',
       side: 'right',
       blocks: [
         {
-          title: 'Portfolio scanning',
+          title: 'Portfolio intelligence',
           items: [
-            'Phase boxes for fast filtering on the dashboard',
-            'Issue signals upfront: overdue, on hold',
-            'Client and sector views across building types',
+            'Phase boxes as a portfolio lens—not decorative counts',
+            'Issue signals (overdue, on hold) before a record opens',
+            'Client and sector filters for multi-building-type portfolios',
           ],
         },
         {
-          title: 'Peek preview',
+          title: 'Progressive disclosure',
           items: [
-            'Row selection opens a side peek—the table stays visible',
-            'Next milestone and phase stepper lead the hierarchy',
-            '“Open full project” is an explicit deep-work entry',
+            'Row peek: compare projects without losing the table',
+            'Action-first hierarchy: next milestone and phase stepper up top',
+            'Explicit “open full project” for deliberate deep work',
           ],
         },
         {
-          title: 'Structured brief',
+          title: 'Scope integrity',
           items: [
-            'Client · Site · Scope · Commercial · Files',
-            'Kept adjacent to delivery so scope stays aligned',
+            'Structured brief: client, site, scope, commercial, files',
+            'Brief adjacent to delivery—alignment checks stay lightweight',
           ],
         },
         {
-          title: 'Cross-project rhythm',
+          title: 'Portfolio rhythm',
           items: [
-            'Milestones timeline across projects',
+            'Cross-project milestone timeline',
             'Weekly reports: sources, done, next week',
-            'Lightweight portfolio pulse for directors',
+            'Director pulse without a separate reporting tool',
           ],
         },
       ],
@@ -211,33 +224,34 @@ export const fieldworkMindMap = {
     {
       id: 'standards',
       index: '06',
-      title: 'Delivery & assurance',
-      subtitle: 'How standards land in practice',
+      lens: 'Operating model',
+      title: 'Governance & standards',
+      subtitle: 'What makes delivery governed—not ad hoc',
       color: '#8b5cf6',
       side: 'right',
       blocks: [
         {
-          title: 'Delivery standards',
+          title: 'Lifecycle standards',
           items: [
-            'Exit criteria documented for every lifecycle phase',
-            'Sector gate sequences live in the product—not oral tradition',
-            'Owner · Contributor · Director authority boundaries explicit',
+            'Exit criteria documented for every phase',
+            'Phase defines what “done” means at each gate',
+            'Standards page as inspectable studio operating model',
           ],
         },
         {
-          title: 'Sector templates',
+          title: 'Sector playbooks',
           items: [
-            'Cinema fit-out gate sequence',
-            'Pet hospital checkpoints',
-            'Medical imaging equipment and acceptance nodes',
+            'Template-driven gates per building type',
+            'Cinema fit-out · pet hospital · medical imaging sequences',
+            'Same lifecycle language, different checkpoint paths',
           ],
         },
         {
-          title: 'Governance & audit',
+          title: 'Accountability',
           items: [
-            'Enquiry conversion retains context—no duplicate entry',
-            'Activity logs comments, assignments, and system events',
-            'Decisions traceable when leads change or phases move',
+            'Activity stream: comments, assignments, system events',
+            'Context preserved when leads change or phases move',
+            'Conversion and decisions traceable on the project record',
           ],
         },
       ],

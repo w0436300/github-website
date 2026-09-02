@@ -1,5 +1,9 @@
 import { useCallback, useId, useLayoutEffect, useRef, useState } from 'react';
 
+function sortByIndex(branches) {
+  return [...branches].sort((a, b) => Number(a.index) - Number(b.index));
+}
+
 function BranchBlock({ block, listStyle, color }) {
   const hasMarker = Boolean(block.marker);
 
@@ -56,7 +60,8 @@ function BranchCard({ branch, onAnchor }) {
         <span className="mindmap-branch__index" style={{ color: branch.color }}>
           {branch.index}
         </span>
-        <div>
+        <div className="mindmap-branch__titles">
+          {branch.lens ? <p className="mindmap-branch__lens">{branch.lens}</p> : null}
           <h3 className="mindmap-branch__title">{branch.title}</h3>
           <p className="mindmap-branch__subtitle">{branch.subtitle}</p>
         </div>
@@ -105,19 +110,38 @@ function MindMapLines({ branches, center, anchors }) {
   );
 }
 
+function BlueprintLegend({ items }) {
+  if (!items?.length) return null;
+
+  return (
+    <div className="mindmap-legend" aria-label="Blueprint reading order">
+      <span className="mindmap-legend__label">Reading order</span>
+      <div className="mindmap-legend__track">
+        {items.map((item) => (
+          <span key={item.index} className="mindmap-legend__item">
+            <span className="mindmap-legend__dot" style={{ background: item.color }} />
+            <span className="mindmap-legend__index">{item.index}</span>
+            <span className="mindmap-legend__text">{item.label}</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function isNear(point, x, y, epsilon = 1) {
   return Math.abs(point.x - x) < epsilon && Math.abs(point.y - y) < epsilon;
 }
 
-export default function ProjectMindMap({ title, centerLabel, branches }) {
+export default function ProjectMindMap({ title, centerLabel, centerSubtitle, legend, branches }) {
   const canvasId = useId();
   const canvasRef = useRef(null);
   const centerRef = useRef(null);
   const [center, setCenter] = useState(null);
   const [anchors, setAnchors] = useState({});
 
-  const leftBranches = branches.filter((branch) => branch.side === 'left');
-  const rightBranches = branches.filter((branch) => branch.side === 'right');
+  const leftBranches = sortByIndex(branches.filter((branch) => branch.side === 'left'));
+  const rightBranches = sortByIndex(branches.filter((branch) => branch.side === 'right'));
 
   const updateCenter = useCallback(() => {
     if (!canvasRef.current || !centerRef.current) return;
@@ -157,6 +181,7 @@ export default function ProjectMindMap({ title, centerLabel, branches }) {
 
   return (
     <div className="mindmap-shell">
+      <BlueprintLegend items={legend} />
       <div ref={canvasRef} className="mindmap-canvas" id={canvasId}>
         <MindMapLines branches={branches} center={center} anchors={anchors} />
 
@@ -169,8 +194,9 @@ export default function ProjectMindMap({ title, centerLabel, branches }) {
 
           <div className="mindmap-column mindmap-column--center">
             <div ref={centerRef} className="mindmap-center">
-              <span className="mindmap-center__label">{centerLabel || 'Product root'}</span>
+              <span className="mindmap-center__label">{centerLabel || 'Product blueprint'}</span>
               <strong className="mindmap-center__title">{title}</strong>
+              {centerSubtitle ? <p className="mindmap-center__subtitle">{centerSubtitle}</p> : null}
             </div>
           </div>
 
@@ -181,6 +207,10 @@ export default function ProjectMindMap({ title, centerLabel, branches }) {
           </div>
         </div>
       </div>
+      <p className="mindmap-footnote">
+        Each branch answers one product question. Together they describe why Fieldwork exists, who it serves,
+        what it delivers, how it is organized, how work flows, and how the studio keeps delivery governed.
+      </p>
     </div>
   );
 }

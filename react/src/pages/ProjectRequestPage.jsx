@@ -163,10 +163,16 @@ function CaseStudyContent() {
       <section id="ProductBlueprint" className="px-6 py-14 md:py-20 border-t border-slate-200 bg-slate-50/50"><div className="max-w-7xl mx-auto">
         <SectionTitle
           label="00 · Product blueprint"
-          title="Full product map — problem through delivery assurance."
-          body="A complete 01–06 radial view of Fieldwork for Banshan Design Engineering: why the studio needed a governed system, how each role delivers work, what the product does, how information is organized, how data moves from enquiry to Closed, and how delivery standards stay inspectable."
+          title="A six-lens map of the Fieldwork product."
+          body="Before screens, I map the product as six complementary lenses—problem, journeys, capabilities, structure, flow, and governance. Each lens answers one question; together they show how Banshan’s delivery model becomes software."
         />
-        <ProjectMindMap title={fieldworkMindMap.title} branches={fieldworkMindMap.branches} />
+        <ProjectMindMap
+          title={fieldworkMindMap.title}
+          centerLabel={fieldworkMindMap.centerLabel}
+          centerSubtitle={fieldworkMindMap.centerSubtitle}
+          legend={fieldworkMindMap.legend}
+          branches={fieldworkMindMap.branches}
+        />
       </div></section>
 
       <section id="Problem" className="px-6 py-14 md:py-20 border-t border-slate-200 bg-slate-50/60"><div className="max-w-6xl mx-auto">
