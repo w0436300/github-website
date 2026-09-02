@@ -163,8 +163,8 @@ function CaseStudyContent() {
       <section id="ProductBlueprint" className="px-6 py-14 md:py-20 border-t border-slate-200 bg-slate-50/50"><div className="max-w-7xl mx-auto">
         <SectionTitle
           label="00 · Product blueprint"
-          title="Fieldwork 产品全景 — enquiries, phases, and sector gates in one map."
-          body="Radial planning view for Banshan Design Engineering: how interior-design-engineering delivery moves from enquiry intake through six lifecycle phases, sector templates, milestones, and weekly reporting—aligned with the live demo and case study."
+          title="Full product map — problem through delivery assurance."
+          body="A complete 01–06 radial view of Fieldwork for Banshan Design Engineering: why the studio needed a governed system, how each role delivers work, what the product does, how information is organized, how data moves from enquiry to Closed, and how delivery standards stay inspectable."
         />
         <ProjectMindMap title={fieldworkMindMap.title} branches={fieldworkMindMap.branches} />
       </div></section>
