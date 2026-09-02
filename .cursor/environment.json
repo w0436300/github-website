@@ -1,0 +1,11 @@
+{
+  "name": "Personal Website (React + Vite)",
+  "install": "cd react && npm ci",
+  "start": "cd react && npm run dev -- --host 0.0.0.0 --port 5173",
+  "ports": [
+    {
+      "name": "vite",
+      "port": 5173
+    }
+  ]
+}
