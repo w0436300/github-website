@@ -1,6 +1,8 @@
 import { ArrowRight, Check, Layers, Lock, Search, Users } from 'lucide-react';
 import PasswordGate from '../components/PasswordGate.jsx';
+import ProjectMindMap from '../components/ProjectMindMap.jsx';
 import { useProjectUnlock } from '../hooks/useProjectUnlock.js';
+import { fieldworkMindMap } from '../data/projectMindMaps.js';
 import { prSectionHead as SECTION, openSans } from '../styles/caseStudyTheme.js';
 
 const PROJECT_ID = 'project-request-collaboration';
@@ -156,6 +158,15 @@ function CaseStudyContent() {
           ))}
         </div>
         <ProductImage className="mt-8" src="projects-dashboard.png" alt="Fieldwork projects dashboard with phase counts and filterable project table" caption="The projects dashboard gives leads a portfolio view—phase counts, client filters, and issue signals before anyone opens a record." />
+      </div></section>
+
+      <section id="ProductBlueprint" className="px-6 py-14 md:py-20 border-t border-slate-200 bg-slate-50/50"><div className="max-w-7xl mx-auto">
+        <SectionTitle
+          label="00 · Product blueprint"
+          title="产品全景思维导图 — how the platform fits together."
+          body="A radial map of user journeys, core capabilities, architecture, data flow, and delivery guardrails—the same planning view I use before diving into screens."
+        />
+        <ProjectMindMap title={fieldworkMindMap.title} branches={fieldworkMindMap.branches} />
       </div></section>
 
       <section id="Problem" className="px-6 py-14 md:py-20 border-t border-slate-200 bg-slate-50/60"><div className="max-w-6xl mx-auto">
