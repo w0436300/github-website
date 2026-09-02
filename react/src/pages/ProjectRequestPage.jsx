@@ -1,6 +1,8 @@
 import { ArrowRight, Check, Layers, Lock, Search, Users } from 'lucide-react';
 import PasswordGate from '../components/PasswordGate.jsx';
+import ProjectMindMap from '../components/ProjectMindMap.jsx';
 import { useProjectUnlock } from '../hooks/useProjectUnlock.js';
+import { fieldworkMindMap } from '../data/projectMindMaps.js';
 import { prSectionHead as SECTION, openSans } from '../styles/caseStudyTheme.js';
 
 const PROJECT_ID = 'project-request-collaboration';
@@ -156,6 +158,21 @@ function CaseStudyContent() {
           ))}
         </div>
         <ProductImage className="mt-8" src="projects-dashboard.png" alt="Fieldwork projects dashboard with phase counts and filterable project table" caption="The projects dashboard gives leads a portfolio view—phase counts, client filters, and issue signals before anyone opens a record." />
+      </div></section>
+
+      <section id="ProductBlueprint" className="px-6 py-14 md:py-20 border-t border-slate-200 bg-slate-50/50"><div className="max-w-7xl mx-auto">
+        <SectionTitle
+          label="00 · Product blueprint"
+          title="A six-lens map of the Fieldwork product."
+          body="Before screens, I map the product as six complementary lenses—problem, journeys, capabilities, structure, flow, and governance. Each lens answers one question; together they show how Banshan’s delivery model becomes software."
+        />
+        <ProjectMindMap
+          title={fieldworkMindMap.title}
+          centerLabel={fieldworkMindMap.centerLabel}
+          centerSubtitle={fieldworkMindMap.centerSubtitle}
+          legend={fieldworkMindMap.legend}
+          branches={fieldworkMindMap.branches}
+        />
       </div></section>
 
       <section id="Problem" className="px-6 py-14 md:py-20 border-t border-slate-200 bg-slate-50/60"><div className="max-w-6xl mx-auto">

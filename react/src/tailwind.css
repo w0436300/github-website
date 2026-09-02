@@ -37,3 +37,326 @@
 .case-study-page :where([class~="border"].grid, [class~="border"][class*="grid-cols"]) {
   overflow: hidden;
 }
+
+/* Project mind map — XMind-style radial layout */
+.mindmap-shell {
+  overflow-x: auto;
+  border-radius: 1.25rem;
+  border: 1px solid #e2e8f0;
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.mindmap-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #e2e8f0;
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.mindmap-legend__label {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.mindmap-legend__track {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.85rem;
+}
+
+.mindmap-legend__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.68rem;
+  color: #334155;
+}
+
+.mindmap-legend__dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.mindmap-legend__index {
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.mindmap-legend__text {
+  font-weight: 600;
+}
+
+.mindmap-footnote {
+  margin: 0;
+  padding: 0.85rem 1.25rem 1.1rem;
+  font-size: 0.7rem;
+  line-height: 1.55;
+  color: #64748b;
+  border-top: 1px solid #e2e8f0;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.mindmap-canvas {
+  position: relative;
+  min-width: 1100px;
+  min-height: 760px;
+  padding: 2.25rem 1.75rem 2.75rem;
+}
+
+.mindmap-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.mindmap-layout {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 200px minmax(0, 1fr);
+  gap: 2rem;
+  align-items: center;
+}
+
+.mindmap-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.mindmap-column--center {
+  align-items: center;
+  justify-content: center;
+}
+
+.mindmap-center {
+  width: 200px;
+  padding: 1rem 0.9rem;
+  border-radius: 1rem;
+  border: 2px solid #5870e6;
+  background: #fff;
+  text-align: center;
+  box-shadow: 0 14px 40px rgba(88, 112, 230, 0.16);
+}
+
+.mindmap-center__label {
+  display: block;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #5870e6;
+}
+
+.mindmap-center__title {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #0f172a;
+}
+
+.mindmap-center__subtitle {
+  margin: 0.45rem 0 0;
+  font-size: 0.62rem;
+  line-height: 1.45;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.mindmap-branch {
+  max-width: 380px;
+}
+
+.mindmap-branch--left {
+  margin-left: auto;
+  text-align: right;
+}
+
+.mindmap-branch--right {
+  margin-right: auto;
+  text-align: left;
+}
+
+.mindmap-branch__header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  margin-bottom: 0.85rem;
+}
+
+.mindmap-branch--left .mindmap-branch__header {
+  flex-direction: row-reverse;
+}
+
+.mindmap-branch__index {
+  font-size: 1.45rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  flex-shrink: 0;
+}
+
+.mindmap-branch__titles {
+  min-width: 0;
+}
+
+.mindmap-branch__lens {
+  margin: 0;
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.mindmap-branch--left .mindmap-branch__lens,
+.mindmap-branch--left .mindmap-branch__subtitle {
+  text-align: right;
+}
+
+.mindmap-branch__title {
+  margin: 0.15rem 0 0;
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.mindmap-branch__subtitle {
+  margin: 0.25rem 0 0;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.mindmap-branch__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.mindmap-block {
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.65rem;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.mindmap-branch--left .mindmap-block__head {
+  justify-content: flex-end;
+}
+
+.mindmap-block__head {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.mindmap-block__marker {
+  display: grid;
+  place-items: center;
+  width: 1.15rem;
+  height: 1.15rem;
+  border: 1px solid;
+  border-radius: 999px;
+  font-size: 0.62rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.mindmap-block__title {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #1e293b;
+  letter-spacing: -0.01em;
+}
+
+.mindmap-block__list {
+  margin: 0.35rem 0 0;
+  padding-left: 1rem;
+  list-style: disc;
+  text-align: left;
+}
+
+.mindmap-branch--left .mindmap-block__list {
+  padding-left: 0;
+  padding-right: 1rem;
+  list-style-position: inside;
+  text-align: right;
+}
+
+.mindmap-block__list li {
+  font-size: 0.66rem;
+  line-height: 1.5;
+  color: #475569;
+}
+
+.mindmap-block__list--alpha {
+  list-style: none;
+  padding-left: 0;
+}
+
+.mindmap-block__list--alpha li::before {
+  content: "·";
+  margin-right: 0.35rem;
+  color: #94a3b8;
+}
+
+@media (max-width: 1100px) {
+  .mindmap-canvas {
+    min-width: 0;
+    min-height: 0;
+    padding: 1.25rem;
+  }
+
+  .mindmap-lines {
+    display: none;
+  }
+
+  .mindmap-layout {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .mindmap-column--center {
+    order: -1;
+  }
+
+  .mindmap-branch,
+  .mindmap-branch--left,
+  .mindmap-branch--right {
+    max-width: none;
+    margin: 0;
+    text-align: left;
+  }
+
+  .mindmap-branch--left .mindmap-branch__header,
+  .mindmap-branch--left .mindmap-block__head {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .mindmap-branch--left .mindmap-block__list {
+    padding-right: 0;
+    padding-left: 1rem;
+    text-align: left;
+    list-style-position: outside;
+  }
+}
