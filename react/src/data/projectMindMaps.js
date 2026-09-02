@@ -1,27 +1,43 @@
-/** Mind-map content for case study pages (XMind-style radial layout). */
+/**
+ * Mind-map content for case study pages (XMind-style radial layout).
+ * Fieldwork — Banshan Design Engineering studio delivery platform.
+ */
 
 export const fieldworkMindMap = {
   title: 'Fieldwork',
+  centerLabel: 'Banshan Design Engineering',
   branches: [
     {
-      id: 'delivery',
+      id: 'standards',
       index: '06',
       title: '交付与保障',
-      subtitle: '如何稳定发布',
+      subtitle: '运营标准如何落地',
       color: '#8b5cf6',
       side: 'left',
       blocks: [
         {
-          title: '质量门禁',
-          items: ['原型交互 fidelity', '角色权限与审计路径', '案例页 NDA 访问控制'],
+          title: 'Delivery standards',
+          items: [
+            '六阶段 lifecycle 退出标准可查',
+            'Sector gate 序列写入产品而非口口相传',
+            'Owner · Contributor · Director 权限边界明确',
+          ],
         },
         {
-          title: '演示部署',
-          items: ['GitHub Pages 静态托管', '密码门控 demo 环境', '与 Knowledge Hub 工作区切换'],
+          title: '业态模板',
+          items: [
+            'Cinema fit-out 门控序列',
+            'Pet hospital 检查点',
+            'Medical imaging 设备与验收节点',
+          ],
         },
         {
-          title: '标准沉淀',
-          items: ['Delivery standards 页面', 'Sector gate 模板库', 'Weekly report 格式约定'],
+          title: '治理与留痕',
+          items: [
+            '询盘转化保留上下文，无需重复录入',
+            'Activity 记录评论、指派与系统事件',
+            'Lead 更换或换阶段时决策仍可追溯',
+          ],
         },
       ],
     },
@@ -29,38 +45,70 @@ export const fieldworkMindMap = {
       id: 'dataflow',
       index: '05',
       title: '数据流',
-      subtitle: '从询盘到归档',
+      subtitle: '从询盘到 Closed',
       color: '#3b82f6',
       side: 'left',
       listStyle: 'alpha',
       blocks: [
-        { marker: 'A', title: '用户配置', items: ['Brief 与附件', 'Client & site 上下文'] },
-        { marker: 'B', title: '资格评估', items: ['Commercial fit', 'Scope 与 sector 判定'] },
-        { marker: 'C', title: '转为项目', items: ['任命 project lead', '初始化 milestone 模板'] },
-        { marker: 'D', title: '阶段交付', items: ['六阶段 lifecycle', 'Sector gate 检查点'] },
-        { marker: 'E', title: '协作记录', items: ['Activity 流', 'Peek / full record 双模式'] },
-        { marker: 'F', title: '输出', items: ['Weekly report 汇总', 'Closed 归档与学习'] },
+        {
+          marker: 'A',
+          title: 'Brief capture',
+          items: ['服务类型与范围叙述', '附件上传 · 父项目关联', 'Step 1 · New enquiry wizard'],
+        },
+        {
+          marker: 'B',
+          title: 'Client & site',
+          items: ['客户与场地上下文', '站点信息进入同一询盘记录', 'Step 2 · 结构化采集'],
+        },
+        {
+          marker: 'C',
+          title: 'Qualification',
+          items: ['Commercial fit 评估', 'Sector 判定（影院 / 宠物医院 / 影像等）', 'Step 3 · 任命前资格确认'],
+        },
+        {
+          marker: 'D',
+          title: 'Project record',
+          items: ['Enquiry → Project 一键转化', '任命 project lead', '应用 sector 模板 · 初始化 milestones'],
+        },
+        {
+          marker: 'E',
+          title: 'Delivery loop',
+          items: [
+            'Delivery tab：阶段位置 + sector gates',
+            'Structured brief 与交付并行可见',
+            'Peek 快览 ↔ Full record 深工',
+          ],
+        },
+        {
+          marker: 'F',
+          title: 'Portfolio output',
+          items: ['Weekly reports 附在项目工作旁', 'Cross-project milestones 时间线', 'Handover → Closed 归档'],
+        },
       ],
     },
     {
       id: 'architecture',
       index: '04',
-      title: '技术架构',
-      subtitle: '如何实现',
+      title: '信息架构',
+      subtitle: '导航与共享模型',
       color: '#22c55e',
       side: 'left',
       blocks: [
         {
-          title: '前端工作台',
-          items: ['HTML / CSS / JavaScript 高保真原型', 'Plus Jakarta Sans + IBM Plex Mono', '响应式 table + peek 面板'],
+          title: 'Projects',
+          items: ['Phase summary 计数', '可筛选项目表（client · lead · issues）', 'Record：Delivery · Brief · Activity'],
         },
         {
-          title: '导航域',
-          items: ['Projects · Enquiries · Milestones', 'Company · Delivery standards', 'Weekly reports'],
+          title: 'Enquiries · Milestones',
+          items: ['询盘队列与 triage 状态', 'Convert to project', '本周 due · Sector gates · Owner & phase'],
         },
         {
-          title: '共享系统',
-          items: ['Phase model', 'Sector templates', 'Ownership & roles', 'Milestones & audit'],
+          title: 'Company · 原型实现',
+          items: [
+            'Weekly reports · Delivery standards',
+            'HTML/CSS/JS 响应式高保真原型',
+            'Fieldwork ↔ Knowledge Hub 工作区切换',
+          ],
         },
       ],
     },
@@ -68,17 +116,47 @@ export const fieldworkMindMap = {
       id: 'journey',
       index: '02',
       title: '用户旅程',
-      subtitle: '怎么完成作品',
+      subtitle: '角色如何完成交付',
       color: '#f97316',
       side: 'right',
       listStyle: 'number',
       blocks: [
-        { marker: '1', title: '发现组合', items: ['按 phase 过滤', 'Client / sector 视图', 'Issue 信号前置'] },
-        { marker: '2', title: '受理询盘', items: ['Brief → Client → Qualification', '附件与父项目关联'] },
-        { marker: '3', title: '设定交付', items: ['任命 lead', '应用 sector 模板', '排期 milestone'] },
-        { marker: '4', title: '执行与比对', items: ['列表 + peek 预览', 'Delivery tab 阶段进度', '跨项目 milestone 时间线'] },
-        { marker: '5', title: '汇报进展', items: ['Weekly report 填写', 'Director 组合健康度阅读'] },
-        { marker: '6', title: '验收归档', items: ['Handover', 'Closed 与经验沉淀'] },
+        {
+          marker: '1',
+          title: 'Project lead',
+          items: [
+            'Review pipeline · 按 phase 扫组合',
+            'Scope enquiry · 资格评估与转化',
+            'Assign team · Track milestones · Close & report',
+          ],
+        },
+        {
+          marker: '2',
+          title: 'Contributor',
+          items: [
+            '查看被指派工作 · 接受 brief',
+            '更新进度 · 标记 blocker',
+            '在 Delivery tab 跟进 sector gate',
+          ],
+        },
+        {
+          marker: '3',
+          title: 'Director',
+          items: [
+            '扫描 portfolio 健康度',
+            '审批 sector gates · 阅读 weekly reports',
+            '在风险出现时介入 · 查阅 delivery standards',
+          ],
+        },
+        {
+          marker: '4',
+          title: '六阶段 lifecycle',
+          items: [
+            'Scoping → Design → Construction',
+            'Acceptance → Handover → Closed',
+            'Dashboard · 表格 · Milestones 共用同一套阶段语言',
+          ],
+        },
       ],
     },
     {
@@ -90,20 +168,32 @@ export const fieldworkMindMap = {
       side: 'right',
       blocks: [
         {
-          title: '组合与筛选',
-          items: ['Phase 计数卡片', '可筛选项目表', 'Client 分组视图'],
+          title: 'Portfolio 扫描',
+          items: [
+            'Phase boxes 快速过滤（见 dashboard GIF）',
+            'Issue 信号：overdue · on hold 前置暴露',
+            'Client / sector 多业态组合视图',
+          ],
         },
         {
-          title: '询盘与转化',
-          items: ['Enquiry 队列', '资格评估向导', '一键转项目'],
+          title: 'Peek 预览决策',
+          items: [
+            '点选行打开侧栏 peek，列表不丢失',
+            'Next milestone 与 phase stepper 置顶',
+            '“Open full project” 作为显式深工入口',
+          ],
         },
         {
-          title: '交付控制',
-          items: ['六阶段 stepper', 'Sector gate 里程碑', 'Structured brief'],
+          title: '结构化 brief',
+          items: ['Client · Site · Scope · Commercial · Files', '与 delivery 工作并列，便于对齐范围'],
         },
         {
-          title: '协作与透明',
-          items: ['Row peek 预览', 'Activity 时间线', 'Weekly reports rollup'],
+          title: '跨项目节奏',
+          items: [
+            'Milestones 跨项目时间线',
+            'Weekly reports：sources · done · next week',
+            'Directors 轻量 portfolio pulse',
+          ],
         },
       ],
     },

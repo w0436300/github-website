@@ -109,7 +109,7 @@ function isNear(point, x, y, epsilon = 1) {
   return Math.abs(point.x - x) < epsilon && Math.abs(point.y - y) < epsilon;
 }
 
-export default function ProjectMindMap({ title, branches }) {
+export default function ProjectMindMap({ title, centerLabel, branches }) {
   const canvasId = useId();
   const canvasRef = useRef(null);
   const centerRef = useRef(null);
@@ -169,7 +169,7 @@ export default function ProjectMindMap({ title, branches }) {
 
           <div className="mindmap-column mindmap-column--center">
             <div ref={centerRef} className="mindmap-center">
-              <span className="mindmap-center__label">Product root</span>
+              <span className="mindmap-center__label">{centerLabel || 'Product root'}</span>
               <strong className="mindmap-center__title">{title}</strong>
             </div>
           </div>

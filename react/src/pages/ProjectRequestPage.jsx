@@ -163,8 +163,8 @@ function CaseStudyContent() {
       <section id="ProductBlueprint" className="px-6 py-14 md:py-20 border-t border-slate-200 bg-slate-50/50"><div className="max-w-7xl mx-auto">
         <SectionTitle
           label="00 · Product blueprint"
-          title="产品全景思维导图 — how the platform fits together."
-          body="A radial map of user journeys, core capabilities, architecture, data flow, and delivery guardrails—the same planning view I use before diving into screens."
+          title="Fieldwork 产品全景 — enquiries, phases, and sector gates in one map."
+          body="Radial planning view for Banshan Design Engineering: how interior-design-engineering delivery moves from enquiry intake through six lifecycle phases, sector templates, milestones, and weekly reporting—aligned with the live demo and case study."
         />
         <ProjectMindMap title={fieldworkMindMap.title} branches={fieldworkMindMap.branches} />
       </div></section>
