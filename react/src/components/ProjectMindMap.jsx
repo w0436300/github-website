@@ -1,4 +1,4 @@
-import { useId, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useId, useLayoutEffect, useRef, useState } from 'react';
 
 function BranchBlock({ block, listStyle, color }) {
   const hasMarker = Boolean(block.marker);
@@ -28,9 +28,11 @@ function BranchCard({ branch, onAnchor }) {
   const ref = useRef(null);
 
   useLayoutEffect(() => {
-    if (!ref.current || !onAnchor) return;
+    if (!ref.current) return;
     const report = () => {
-      const rect = ref.current.getBoundingClientRect();
+      const node = ref.current;
+      if (!node) return;
+      const rect = node.getBoundingClientRect();
       onAnchor(branch.id, {
         x: rect.left + (branch.side === 'left' ? rect.width : 0),
         y: rect.top + rect.height / 2,
@@ -103,6 +105,10 @@ function MindMapLines({ branches, center, anchors }) {
   );
 }
 
+function isNear(point, x, y, epsilon = 1) {
+  return Math.abs(point.x - x) < epsilon && Math.abs(point.y - y) < epsilon;
+}
+
 export default function ProjectMindMap({ title, branches }) {
   const canvasId = useId();
   const canvasRef = useRef(null);
@@ -113,42 +119,41 @@ export default function ProjectMindMap({ title, branches }) {
   const leftBranches = branches.filter((branch) => branch.side === 'left');
   const rightBranches = branches.filter((branch) => branch.side === 'right');
 
-  const updateCenter = () => {
+  const updateCenter = useCallback(() => {
     if (!canvasRef.current || !centerRef.current) return;
     const canvasRect = canvasRef.current.getBoundingClientRect();
     const centerRect = centerRef.current.getBoundingClientRect();
-    setCenter({
+    const next = {
       x: centerRect.left + centerRect.width / 2 - canvasRect.left,
       y: centerRect.top + centerRect.height / 2 - canvasRect.top,
-    });
-  };
+    };
+    setCenter((prev) => (prev && isNear(prev, next.x, next.y) ? prev : next));
+  }, []);
 
   useLayoutEffect(() => {
     updateCenter();
     const observer = new ResizeObserver(updateCenter);
     if (canvasRef.current) observer.observe(canvasRef.current);
+    if (centerRef.current) observer.observe(centerRef.current);
     window.addEventListener('resize', updateCenter);
     return () => {
       observer.disconnect();
       window.removeEventListener('resize', updateCenter);
     };
-  }, []);
+  }, [updateCenter]);
 
-  const handleAnchor = (id, point) => {
+  const handleAnchor = useCallback((id, point) => {
     if (!canvasRef.current) return;
     const canvasRect = canvasRef.current.getBoundingClientRect();
+    const x = point.x - canvasRect.left;
+    const y = point.y - canvasRect.top;
+
     setAnchors((prev) => {
-      const next = {
-        ...prev,
-        [id]: {
-          x: point.x - canvasRect.left,
-          y: point.y - canvasRect.top,
-        },
-      };
-      return next;
+      const current = prev[id];
+      if (current && isNear(current, x, y)) return prev;
+      return { ...prev, [id]: { x, y } };
     });
-    updateCenter();
-  };
+  }, []);
 
   return (
     <div className="mindmap-shell">
