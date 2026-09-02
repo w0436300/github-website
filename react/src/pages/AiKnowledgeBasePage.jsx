@@ -13,6 +13,45 @@ function ProductImage({ src, alt, caption, className = '' }) {
   return <figure className={className}><div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-[0_18px_60px_rgba(15,23,42,.08)]"><img src={src} alt={alt} className="block w-full h-auto" loading="lazy" /></div>{caption && <figcaption className="mt-3 text-xs leading-5 text-slate-500">{caption}</figcaption>}</figure>;
 }
 
+/** Audit-style table documenting V2 → V3 scope decisions. */
+function ScopeAuditTable() {
+  const rows = [
+    { area: 'Scoped Q&A chat', keep: true, remove: false, consideration: 'Core job—ask over firm standards and project files with visible retrieval scope.' },
+    { area: 'Search library + filters', keep: true, remove: false, consideration: 'Keyword and metadata search before conversation; supports multi-select into chat.' },
+    { area: 'Source viewer + citations', keep: true, remove: false, consideration: 'Every answer must trace to version, owner, and document status.' },
+    { area: 'Pins & annotations', keep: true, remove: false, consideration: 'Reuse and institutional memory—attach decisions to the drawing itself.' },
+    { area: 'Project trackers & tickets', keep: false, remove: true, consideration: 'V2 bloat—users did not ask for PM workflows inside a knowledge tool.' },
+    { area: 'Issue logs & action items', keep: false, remove: true, consideration: 'Duplicated Fieldwork; created two sources of truth for delivery work.' },
+    { area: 'Brainstorm / compare / draft modes', keep: false, remove: true, consideration: 'Six AI jobs on one screen obscured the validated retrieval use case.' },
+    { area: 'Broad “workspace” dashboard', keep: false, remove: true, consideration: 'Replaced with focused entry: ask, browse, or resume a scoped conversation.' },
+  ];
+
+  return (
+    <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white">
+      <table className="min-w-[720px] w-full border-collapse text-left text-sm">
+        <thead>
+          <tr className="border-b border-slate-200 bg-slate-50 text-[10px] font-bold uppercase tracking-wider text-slate-500">
+            <th className="px-4 py-3 font-bold">Capability</th>
+            <th className="px-3 py-3 text-center w-16">Keep</th>
+            <th className="px-3 py-3 text-center w-16">Remove</th>
+            <th className="px-4 py-3">Consideration</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr key={row.area} className="border-b border-slate-100 last:border-0">
+              <td className="px-4 py-3 font-semibold text-slate-900">{row.area}</td>
+              <td className="px-3 py-3 text-center">{row.keep ? <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-emerald-100 text-emerald-700" aria-label="Keep">✓</span> : <span className="text-slate-300">—</span>}</td>
+              <td className="px-3 py-3 text-center">{row.remove ? <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-red-100 text-red-600" aria-label="Remove">✕</span> : <span className="text-slate-300">—</span>}</td>
+              <td className="px-4 py-3 text-xs leading-5 text-slate-600">{row.consideration}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 function KnowledgeArchitecture() {
   const branches = [
     { title: 'Home', gate: 'Choose a starting point', pages: [
@@ -142,37 +181,55 @@ function CaseStudyContent() {
     </div></section>
 
     <section id="Decisions" className="border-y border-slate-200 px-6 py-16 md:py-24"><div className="mx-auto max-w-7xl">
-      <SectionHeading label="05 · Key decisions" title="Designing AI as a transparent layer over controlled knowledge." body="The interface respects two mental models—question-first and source-first—while keeping retrieval scope visible at every step." />
+      <SectionHeading label="05 · Key decisions" title="Designing AI as a transparent layer over controlled knowledge." body="Decisions were documented as an explicit scope audit—what to keep, remove, and why—before rebuilding the interaction model." />
       <div className="space-y-20">
-        <div className="grid gap-9 lg:grid-cols-[1.28fr_.72fr] lg:items-center">
-          <ProductImage src={img('workspace-entry.png')} alt="Your workspace screen offering Start with a question or Start from a source entry paths" caption="First-time users choose the path that matches how they already know the answer—before entering search or chat." />
+        <div className="grid gap-10 lg:grid-cols-[.95fr_1.05fr] lg:items-start">
           <article>
-            <p className="text-xs font-bold uppercase tracking-wider text-violet-700">01 · UX decision · Dual entry paths</p>
-            <h3 className="mt-4 text-2xl font-bold">Let people start with a question or a source.</h3>
-            <p className="mt-4 text-sm leading-7 text-slate-600">The workspace onboarding presents two equal entry modes: <strong className="font-semibold text-slate-900">Start with a question</strong> for open-ended retrieval, and <strong className="font-semibold text-slate-900">Start from a source</strong> when the user already knows which standard or project file matters. Neither path is treated as the default—reducing the friction of forcing everyone through chat first.</p>
+            <p className="text-xs font-bold uppercase tracking-wider text-violet-700">01 · UX decision · Product scope reset</p>
+            <h3 className="mt-4 text-2xl font-bold">Audit the feature set before redesigning screens.</h3>
+            <p className="mt-4 text-sm leading-7 text-slate-600">V2 had grown into a general AI workspace. I ran a capability audit with engineering and domain leads—marking what supported the knowledge job vs. what duplicated delivery tools or diluted retrieval. The table became the alignment artifact for V3.</p>
+            <ScopeAuditTable />
+          </article>
+          <ProductImage src={img('engineering-v2.png')} alt="Version 2 dashboard with many AI and project-management features on one screen" caption="V2 before the reset: six AI modes and PM utilities competing for attention on a single dashboard." />
+        </div>
+        <div className="grid gap-9 lg:grid-cols-[.72fr_1.28fr] lg:items-center">
+          <article>
+            <p className="text-xs font-bold uppercase tracking-wider text-violet-700">02 · UX decision · Visible retrieval boundary</p>
+            <h3 className="mt-4 text-2xl font-bold">Keep “Sources in use” beside the conversation.</h3>
+            <p className="mt-4 text-sm leading-7 text-slate-600">In V2, retrieval scope was invisible—users could not see or edit what the model was allowed to use. V3 adds a persistent source rail: firm-wide standards, selected projects, or exact documents stay visible and editable throughout a thread.</p>
             <ul className="mt-5 space-y-2.5 text-sm text-slate-700">
-              {['Question-first suits exploratory “what applies here?” work.', 'Source-first suits engineers who already have a drawing or manual in mind.', 'Both paths converge on the same scoped knowledge workspace.'].map((item) => (
+              {['Scope is a product control, not a hidden prompt rule.', 'Users can add or remove sources mid-conversation.', 'Follow-up questions inherit the same boundary by default.'].map((item) => (
                 <li key={item} className="flex gap-3"><Check className="mt-0.5 h-4 w-4 shrink-0 text-violet-600" />{item}</li>
               ))}
             </ul>
+          </article>
+          <ProductImage src={img('scoped-chat.png')} alt="Chat with Sources in use panel listing selected documents beside the conversation" caption="The source rail makes the answer boundary inspectable at every step." />
+        </div>
+        <div className="grid gap-9 lg:grid-cols-[1.28fr_.72fr] lg:items-center">
+          <ProductImage src={img('cited-answer.png')} alt="AI answer with inline citations and expandable source metadata" caption="Citations sit where claims are made; the panel exposes version, owner, and freshness." />
+          <article>
+            <p className="text-xs font-bold uppercase tracking-wider text-violet-700">03 · UX decision · Evidence at the point of claim</p>
+            <h3 className="mt-4 text-2xl font-bold">Put citations inside the answer, not behind it.</h3>
+            <p className="mt-4 text-sm leading-7 text-slate-600">Engineers challenged fluent but ungrounded responses. Inline citation markers link each statement to a specific standard or project note; expanding a source reveals controlled-document status, revision, and uploader—so trust is inspectable without leaving the thread.</p>
+            <div className="mt-6 flex flex-wrap gap-2">{['Inline citation', 'Version', 'Owner', 'Freshness', 'Source status'].map((tag) => <span key={tag} className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs text-slate-600">{tag}</span>)}</div>
           </article>
         </div>
         <div className="grid gap-9 lg:grid-cols-[.72fr_1.28fr] lg:items-center">
           <article>
-            <p className="text-xs font-bold uppercase tracking-wider text-violet-700">02 · UX decision · Search-to-chat handoff</p>
-            <h3 className="mt-4 text-2xl font-bold">Move from search results into a scoped conversation.</h3>
-            <p className="mt-4 text-sm leading-7 text-slate-600">In the search library, users can multi-select exact documents and start a chat with those sources already attached. Context does not need to be rebuilt—the selection becomes the retrieval boundary, and the conversation opens with scope pre-defined.</p>
-            <ul className="mt-5 space-y-2.5 text-sm text-slate-700">
-              {['Checkboxes make the retrieval set explicit before asking.', '“Start chat with N sources” is a single action—no copy-paste between tools.', 'Selected files carry version and project metadata into the workspace.'].map((item) => (
-                <li key={item} className="flex gap-3"><Check className="mt-0.5 h-4 w-4 shrink-0 text-violet-600" />{item}</li>
-              ))}
-            </ul>
+            <p className="text-xs font-bold uppercase tracking-wider text-violet-700">04 · Search-to-chat handoff</p>
+            <h3 className="mt-4 text-2xl font-bold">Turn search results into a scoped conversation.</h3>
+            <p className="mt-4 text-sm leading-7 text-slate-600">When someone already knows which files matter, they multi-select in the library and start a chat with those sources attached—no copy-paste, no rebuilding context in a blank thread.</p>
           </article>
-          <ProductImage src={img('multi-select.png')} alt="Search library with three documents selected and a start chat action" caption="Multi-select turns precise retrieval into the first step of a conversation—not a separate workflow." />
+          <ProductImage src={img('multi-select.png')} alt="Search library with documents selected and start chat action" caption="Multi-select bridges precise retrieval and conversational follow-up." />
         </div>
-        <div className="grid gap-9 lg:grid-cols-[.72fr_1.28fr] lg:items-center"><article><span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-violet-100 text-violet-700"><FolderKanban className="h-5 w-5" /></span><p className="mt-5 text-xs font-bold uppercase tracking-wider text-violet-700">03 · Visible answer boundary</p><h3 className="mt-2 text-2xl font-bold">Let users define the answer boundary.</h3><p className="mt-4 text-sm leading-7 text-slate-600">Users can scope a conversation to firm-wide standards, selected projects, or exact documents. A persistent source rail makes that boundary visible and editable.</p><p className="mt-4 border-l-2 border-violet-400 pl-4 text-sm font-semibold text-slate-800">Why it matters: scope turns an invisible retrieval rule into a user-controlled product decision.</p></article><ProductImage src={img('scoped-chat.png')} alt="Chat screen scoped to selected documents with sources in use panel" caption="Selected documents remain visible beside the conversation, so context never disappears after selection." /></div>
-        <div className="grid gap-9 lg:grid-cols-[1.28fr_.72fr] lg:items-center"><ProductImage src={img('cited-answer.png')} alt="AI answer with inline citations and a sources panel" caption="Inline evidence connects each claim to a specific standard or project note." /><article><span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-violet-100 text-violet-700"><ShieldCheck className="h-5 w-5" /></span><p className="mt-2 text-xs font-bold uppercase tracking-wider text-violet-700">04 · Inspectable trust</p><h3 className="mt-2 text-2xl font-bold">Make trust inspectable, not decorative.</h3><p className="mt-4 text-sm leading-7 text-slate-600">Citations sit inside the response where a claim is made. The source panel exposes document type, project, revision, and update date, while a detail card adds ownership and controlled-document status.</p><div className="mt-6 flex flex-wrap gap-2">{['Inline citation','Version','Owner','Freshness','Source status'].map(tag => <span key={tag} className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs text-slate-600">{tag}</span>)}</div></article></div>
-        <div className="grid gap-9 lg:grid-cols-[.72fr_1.28fr] lg:items-center"><article><span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-violet-100 text-violet-700"><FileSearch className="h-5 w-5" /></span><p className="mt-2 text-xs font-bold uppercase tracking-wider text-violet-700">05 · Grounded annotations</p><h3 className="mt-2 text-2xl font-bold">Connect answers back to working documents.</h3><p className="mt-4 text-sm leading-7 text-slate-600">The source viewer keeps decisions, cautions, and resolved questions attached to the drawing itself. Teams can pin, annotate, download, or ask about that exact artifact.</p></article><ProductImage src={img('annotations.png')} alt="Drawing viewer with decision, caution, and question annotations" caption="Structured annotations preserve the why behind a project decision—not only the final file." /></div>
+        <div className="grid gap-9 lg:grid-cols-[1.28fr_.72fr] lg:items-center">
+          <ProductImage src={img('annotations.png')} alt="Document viewer with structured decision and caution annotations" caption="Annotations preserve institutional reasoning on the artifact itself." />
+          <article>
+            <p className="text-xs font-bold uppercase tracking-wider text-violet-700">05 · Grounded annotations</p>
+            <h3 className="mt-4 text-2xl font-bold">Connect answers back to working documents.</h3>
+            <p className="mt-4 text-sm leading-7 text-slate-600">The source viewer keeps decisions, cautions, and resolved questions attached to the drawing itself. Teams can pin, annotate, download, or ask about that exact artifact.</p>
+          </article>
+        </div>
       </div>
     </div></section>
 
