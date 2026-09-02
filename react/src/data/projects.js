@@ -91,15 +91,15 @@ const allProjects = [
   },
   {
     id: 'project-request-collaboration',
-    title: 'Project Request & Collaboration Platform',
+    title: 'Fieldwork · Project Delivery Platform',
     category: 'design',
-    tags: ['UX Design', 'Workflow', 'Collaboration'],
+    tags: ['UX Design', 'Workflow', 'Delivery'],
     year: '2026',
     location: 'Freelance',
     cover: '/img/project-request-cover.svg',
     placeholderLabel: null,
     description:
-      'A request-to-delivery platform that clarifies intake, ownership, and collaboration across design and engineering stakeholders.',
+      'A studio delivery platform for enquiries, phased projects, sector gate templates, milestones, and weekly reporting.',
     demoUrl: null,
     repoUrl: null,
     externalUrl: null,
