@@ -12,13 +12,17 @@ function SectionTitle({ label, title, body }) {
   return <div className="mb-6"><h2 className={SECTION.h2} style={SECTION.h2Style}>{label}</h2><h3 className={SECTION.h3} style={SECTION.h3Style}>{title}</h3>{body && <p className="mt-3 max-w-4xl text-sm leading-relaxed text-slate-600 md:text-base">{body}</p>}</div>;
 }
 
-function ProductImage({ src, alt, caption, className = '', isGif = false }) {
+function ProductImage({ src, alt, caption, className = '' }) {
   return (
     <figure className={className}>
       <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-[0_18px_60px_rgba(15,23,42,.08)]">
         <img src={img(src)} alt={alt} className="block w-full h-auto" loading="lazy" />
       </div>
-      {caption && <figcaption className="mt-3 text-xs leading-5 text-slate-500">{caption}{isGif ? ' (animated demo)' : ''}</figcaption>}
+      {caption && (
+        <figcaption className="mt-3 text-xs leading-5 text-slate-500">
+          {caption} (animated demo with cursor)
+        </figcaption>
+      )}
     </figure>
   );
 }
@@ -155,7 +159,7 @@ function CaseStudyContent() {
             <div key={key} className="border-b border-r border-slate-200 p-4 md:p-5"><p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">{key}</p><p className="mt-2 text-xs font-semibold text-slate-800 md:text-sm">{value}</p></div>
           ))}
         </div>
-        <ProductImage className="mt-8" src="projects-dashboard.png" alt="Fieldwork projects dashboard with phase counts and filterable project table" caption="The projects dashboard gives leads a portfolio view—phase counts, client filters, and issue signals before anyone opens a record." />
+        <ProductImage className="mt-8" src="projects-dashboard.gif" alt="Animated demo of the Fieldwork projects dashboard with phase counts and filterable project table" caption="The projects dashboard gives leads a portfolio view—phase counts, client filters, and issue signals before anyone opens a record." />
       </div></section>
 
       <section id="Problem" className="px-6 py-14 md:py-20 border-t border-slate-200 bg-slate-50/60"><div className="max-w-6xl mx-auto">
@@ -186,7 +190,7 @@ function CaseStudyContent() {
         <SectionTitle label="04 · Product model" title="A six-phase lifecycle everyone can read." body="Scoping through Closed became the backbone of dashboards, milestone planning, sector templates, and project detail. Phase is never decorative—it defines what “done” means at each gate." />
         <PhaseFlow />
         <div className="mt-10 grid lg:grid-cols-2 gap-8 items-start">
-          <ProductImage src="projects-phase-filter.gif" alt="Animated demo of filtering the projects dashboard by delivery phase" caption="Phase boxes act as a fast portfolio lens—leads can scan workload by lifecycle stage without building a custom report." isGif />
+          <ProductImage src="projects-phase-filter.gif" alt="Animated demo of filtering the projects dashboard by delivery phase" caption="Phase boxes act as a fast portfolio lens—leads can scan workload by lifecycle stage without building a custom report." />
           <div className="lg:pt-8">
             <p className="text-[11px] font-bold uppercase tracking-[0.2em]" style={{ color: ACCENT }}>Key decision</p>
             <h3 className="mt-3 text-2xl font-bold tracking-tight">Make phase the primary organizing principle.</h3>
@@ -199,8 +203,8 @@ function CaseStudyContent() {
           </div>
         </div>
         <div className="mt-10 grid lg:grid-cols-2 gap-6">
-          <ProductImage src="enquiries.png" alt="Enquiries queue with triage status and wait metadata" caption="Enquiries stay separate from in-flight projects until scope is qualified and a lead is appointed." />
-          <ProductImage src="delivery-standards.png" alt="Delivery standards page showing lifecycle phases and sector gate templates" caption="Delivery standards encode the studio’s operating model—lifecycle phases, sector gate sequences, and role authority." />
+          <ProductImage src="enquiries.gif" alt="Animated demo of the enquiries queue with triage status and wait metadata" caption="Enquiries stay separate from in-flight projects until scope is qualified and a lead is appointed." />
+          <ProductImage src="delivery-standards.gif" alt="Animated demo of the delivery standards page showing lifecycle phases and sector gate templates" caption="Delivery standards encode the studio’s operating model—lifecycle phases, sector gate sequences, and role authority." />
         </div>
       </div></section>
 
@@ -208,7 +212,7 @@ function CaseStudyContent() {
         <SectionTitle label="05 · Key decisions" title="Progressive detail across list, preview, and full record." body="The experience separates portfolio scanning, quick triage, and deep delivery work—so leads can compare projects at a glance without losing context every time they check a status." />
         <div className="space-y-14">
           <div className="grid lg:grid-cols-[1.28fr_.72fr] gap-8 items-center">
-            <ProductImage src="project-peek.png" alt="Project row selected with side peek preview showing phase stepper, next milestone, people, and scope summary" caption="Selecting a row opens a peek panel beside the table—the list stays in view for side-by-side comparison." />
+            <ProductImage src="project-peek.gif" alt="Animated demo of selecting a project row to open the side peek preview" caption="Selecting a row opens a peek panel beside the table—the list stays in view for side-by-side comparison." />
             <div>
               <p className="text-xs font-bold" style={{ color: ACCENT }}>01 · UX DECISION · PEEK PREVIEW</p>
               <h3 className="mt-3 text-xl font-bold">Open a preview, not a new page.</h3>
@@ -231,7 +235,7 @@ function CaseStudyContent() {
                 ))}
               </ul>
             </div>
-            <ProductImage src="milestones.png" alt="Milestones view surfacing due dates across projects" caption="Cross-project milestones reinforce the same urgency signal—what is due, and when." />
+            <ProductImage src="milestones.gif" alt="Animated demo of the milestones view surfacing due dates across projects" caption="Cross-project milestones reinforce the same urgency signal—what is due, and when." />
           </div>
           <div className="grid lg:grid-cols-[.72fr_1.28fr] gap-8 items-center">
             <div>
@@ -239,10 +243,10 @@ function CaseStudyContent() {
               <h3 className="mt-3 text-xl font-bold">Show phase progress and sector milestones together.</h3>
               <p className="mt-3 text-sm text-slate-600 leading-7">The delivery tab connects lifecycle position to template-driven gates—site survey, design package, equipment install—so contributors know which checkpoint is next.</p>
             </div>
-            <ProductImage src="project-delivery.png" alt="Project delivery tab with phase progress and sector milestone gates" />
+            <ProductImage src="project-delivery.gif" alt="Animated demo of the project delivery tab with phase progress and sector milestone gates" />
           </div>
           <div className="grid lg:grid-cols-[1.28fr_.72fr] gap-8 items-center">
-            <ProductImage src="project-brief.png" alt="Structured project brief with scope, commercial, and file sections" />
+            <ProductImage src="project-brief.gif" alt="Animated demo of the structured project brief with scope, commercial, and file sections" />
             <div>
               <p className="text-xs font-bold" style={{ color: ACCENT }}>04 · STRUCTURED BRIEF</p>
               <h3 className="mt-3 text-xl font-bold">Keep the agreed scope adjacent to delivery work.</h3>
@@ -255,20 +259,20 @@ function CaseStudyContent() {
               <h3 className="mt-3 text-xl font-bold">Attach decisions to the project they affect.</h3>
               <p className="mt-3 text-sm text-slate-600 leading-7">Activity keeps comments, assignments, and system events in one stream—preserving context when leads change or a project moves phase.</p>
             </div>
-            <ProductImage src="project-activity.png" alt="Project activity feed with comments and system events" />
+            <ProductImage src="project-activity.gif" alt="Animated demo of the project activity feed with comments and system events" />
           </div>
         </div>
         <div className="mt-14 grid lg:grid-cols-2 gap-6">
-          <ProductImage src="milestones.png" alt="Cross-project milestones timeline grouped by due date" caption="Milestones provide a cross-project timeline—surfacing due work before it becomes an overdue issue." />
-          <ProductImage src="weekly-reports.png" alt="Weekly reports submission and team rollup view" caption="Weekly reports capture sources, progress, and next-week intent—giving directors a lightweight portfolio pulse." />
+          <ProductImage src="milestones-timeline.gif" alt="Animated demo of the cross-project milestones timeline grouped by due date" caption="Milestones provide a cross-project timeline—surfacing due work before it becomes an overdue issue." />
+          <ProductImage src="weekly-reports.gif" alt="Animated demo of weekly reports submission and team rollup view" caption="Weekly reports capture sources, progress, and next-week intent—giving directors a lightweight portfolio pulse." />
         </div>
       </div></section>
 
       <section id="Solution" className="px-6 py-14 md:py-20 border-t border-slate-200 bg-indigo-50/60 text-slate-900"><div className="max-w-6xl mx-auto">
         <SectionTitle label="06 · Final experience" title="An enquiry flow that earns complexity step by step." body="New enquiries move through Brief, Client & site, and Qualification—collecting attachments early, qualifying commercial fit, and appointing a project lead before work enters the delivery pipeline." />
         <div className="grid lg:grid-cols-2 gap-6">
-          <ProductImage src="new-enquiry-flow.gif" alt="Animated demo stepping through the new enquiry intake flow" caption="The intake wizard separates brief capture, site context, and qualification—so scoping starts with complete information." isGif />
-          <ProductImage src="new-enquiry.png" alt="New enquiry form first step with brief fields and file drop zone" caption="File drop, parent project linking, and milestone planning appear when they add value—not on a single overwhelming screen." />
+          <ProductImage src="new-enquiry-flow.gif" alt="Animated demo stepping through the new enquiry intake flow" caption="The intake wizard separates brief capture, site context, and qualification—so scoping starts with complete information." />
+          <ProductImage src="new-enquiry.gif" alt="Animated demo of the new enquiry form first step with brief fields and file drop zone" caption="File drop, parent project linking, and milestone planning appear when they add value—not on a single overwhelming screen." />
         </div>
       </div></section>
 
