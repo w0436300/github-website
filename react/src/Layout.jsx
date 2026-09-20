@@ -80,14 +80,14 @@ const AI_KNOWLEDGE_NAV_LINKS = [
 /** Must match section `id`s on ProjectRequestPage. */
 const PROJECT_REQUEST_NAV_LINKS = [
   { name: 'Overview', href: '#Overview' },
-  { name: 'Background', href: '#Background' },
+  { name: 'Context', href: '#Background' },
   { name: 'Problem', href: '#Problem' },
-  { name: 'Research', href: '#Research' },
   { name: 'Architecture', href: '#InformationArchitecture' },
-  { name: 'Flow', href: '#Flow' },
   { name: 'Decisions', href: '#Decisions' },
-  { name: 'Final Experience', href: '#Solution' },
-  { name: 'Outcome', href: '#Outcome' },
+  { name: 'Delivery', href: '#Flow' },
+  { name: 'Intake', href: '#Solution' },
+  { name: 'Operations', href: '#Operations' },
+  { name: 'Reflection', href: '#Outcome' },
 ];
 
 export default function Layout() {

@@ -13,7 +13,7 @@ export default function ProjectCard({ project, base, onDetailsClick }) {
   const imageLinkHref = demoHref || project.externalUrl || project.repoUrl || null;
   const linkClass = 'text-blue-600 hover:underline';
   const linkDemo = demoHref ? (
-    <a className={linkClass} href={demoHref} target="_blank" rel="noopener noreferrer">
+    <a className="text-blue-600 underline underline-offset-4 hover:text-blue-800" href={demoHref} target="_blank" rel="noopener noreferrer">
       Demo
     </a>
   ) : null;

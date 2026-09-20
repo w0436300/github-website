@@ -99,7 +99,7 @@ const allProjects = [
     cover: '/img/project-request-cover.svg',
     placeholderLabel: null,
     description:
-      'A studio delivery platform for enquiries, phased projects, sector gate templates, milestones, and weekly reporting.',
+      'A studio operations platform connecting portfolio risk, work-package ownership, milestone dependencies, and delivery standards.',
     demoUrl: null,
     repoUrl: null,
     externalUrl: null,

@@ -72,7 +72,7 @@ export default function ProjectModal({ open, project, onClose }) {
                     href={resolveUrl(base, project.demoUrl)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block px-3 py-1.5 text-sm border border-blue-600 text-blue-600 rounded hover:bg-blue-50"
+                    className="inline-block text-sm font-semibold text-blue-600 underline underline-offset-4 transition-colors hover:text-blue-800"
                   >
                     Demo
                   </a>

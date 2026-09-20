@@ -122,7 +122,7 @@ export default function ProjectDetailPage() {
                     href={demoHref}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 text-white text-xs font-black uppercase tracking-wider hover:bg-blue-700 transition-colors"
+                    className="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 underline underline-offset-4 transition-colors hover:text-blue-800"
                   >
                     View Demo <ArrowUpRight size={16} />
                   </a>
@@ -135,4 +135,3 @@ export default function ProjectDetailPage() {
     </div>
   );
 }
-
