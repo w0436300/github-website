@@ -151,24 +151,44 @@ function CaseStudyContent() {
           <a href="https://w0436300.github.io/request/app.html" target="_blank" rel="noreferrer" className="mt-5 inline-flex items-center rounded-full border border-indigo-200 bg-indigo-50 px-4 py-2 text-sm font-semibold text-indigo-700 transition hover:border-indigo-300 hover:bg-indigo-100">View live demo ↗</a>
         </div>
         <div className="mt-10 grid grid-cols-2 overflow-hidden rounded-2xl border border-slate-200 bg-white md:grid-cols-4">
-          {[['Role', 'Product designer'], ['Scope', '0 → 1 platform'], ['Team', 'Design + Engineering'], ['Delivery', 'Responsive web app']].map(([key, value]) => (
+          {[['Role', 'Product designer'], ['Scope', 'Redesign of existing platform'], ['Team', 'Design + Engineering'], ['Delivery', 'Responsive web app']].map(([key, value]) => (
             <div key={key} className="border-b border-r border-slate-200 p-4 md:p-5"><p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">{key}</p><p className="mt-2 text-xs font-semibold text-slate-800 md:text-sm">{value}</p></div>
           ))}
         </div>
         <ProductImage className="mt-8" src="projects-dashboard.png" alt="Fieldwork projects dashboard with phase counts and filterable project table" caption="The projects dashboard gives leads a portfolio view—phase counts, client filters, and issue signals before anyone opens a record." />
       </div></section>
 
+      <section id="Background" className="px-6 py-14 md:py-20 border-t border-slate-200"><div className="max-w-6xl mx-auto">
+        <SectionTitle label="01 · Background" title="A studio running four dimensions of complexity at once." body="The practice delivers design, design + PM, and full design & build work—restaurants, cinemas, pet hospitals, hotels, and other commercial spaces—across multiple cities, project by project. At any moment it's carrying open enquiries, quotes awaiting decisions, and projects mid-design, mid-construction, or just handed over." />
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-8">
+          {['Pipeline', 'Lifecycle', 'Scope', 'Geography'].map((item) => (
+            <div key={item} className="rounded-lg border border-indigo-200 bg-indigo-50 px-3 py-3 text-center text-xs font-bold text-indigo-800">{item}</div>
+          ))}
+        </div>
+        <p className="max-w-4xl text-sm leading-7 text-slate-600 md:text-base mb-8">Real complexity isn't project count—it's these four dimensions layered together. Fieldwork exists as the studio's own operating environment, keeping four questions answerable at all times: what's coming next, what's being delivered now, what's blocking progress, and who should act.</p>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="rounded-xl border border-slate-200 bg-white p-6">
+            <p className="text-xs font-bold uppercase tracking-wider" style={{ color: ACCENT }}>Before Fieldwork</p>
+            <p className="mt-3 text-sm text-slate-600 leading-6">A generic, externally licensed PM tool couldn't distinguish design-only work from design & build—milestones, reviews, and external dependencies like contractors, owners, and permitting bodies didn't map cleanly, and it didn't reflect how the studio actually won and delivered work.</p>
+          </div>
+          <div className="rounded-xl border border-slate-200 bg-white p-6">
+            <p className="text-xs font-bold uppercase tracking-wider" style={{ color: ACCENT }}>First internal attempt</p>
+            <p className="mt-3 text-sm text-slate-600 leading-6">The in-house engineering team—without a dedicated product designer—shipped a working v1 covering intake, kickoff, milestones, scheduling, and reporting. Employee trials found it feature-heavy with no clear priority or path, so daily adoption stayed low. That's the point I joined.</p>
+          </div>
+        </div>
+      </div></section>
+
       <section id="Problem" className="px-6 py-14 md:py-20 border-t border-slate-200 bg-slate-50/60"><div className="max-w-6xl mx-auto">
-        <SectionTitle label="01 · Problem" title="Projects were tracked. Delivery standards were not." body="Work arrived as enquiries, lived in spreadsheets, and fragmented across chat. Leads could see tasks, but not whether a cinema fit-out and a medical imaging suite should follow the same gate sequence—or who was accountable for the next milestone." />
+        <SectionTitle label="02 · Problem" title="The platform needed discipline, not more features." body="V1 was feature-complete but scenario-blind: pipeline and delivery lived in separate views, its structure wasn't built around a lead's daily workflow, and its data wasn't trustworthy enough to say what was blocking progress or who owned the next move." />
         <div className="grid md:grid-cols-3 gap-px bg-slate-200 border border-slate-200 rounded-xl overflow-hidden">
-          {[['Unstructured intake', 'Enquiries carried uneven briefs, attachments, and commercial context—making scoping slow and inconsistent.'], ['Implicit delivery rules', 'Sector-specific gate sequences lived in senior memory instead of a shared, inspectable standard.'], ['Siloed reporting', 'Weekly status lived outside the project record, so directors could not connect progress to risk.']].map(([title, body], index) => (
+          {[['Fragmented visibility', 'Pipeline and active delivery lived apart, so leads couldn’t see incoming work and in-flight projects—or a bottleneck and its owner—in one place.'], ['Feature-driven, not scenario-driven', 'Built by engineers without a design role, v1 covered a lot of ground but lacked a unified structure or priority, creating heavy cognitive load for leads’ daily, high-frequency tasks.'], ['Unverified data', 'Milestone dates were calculated rather than reported, and roles like Design Lead weren’t modeled—so the system couldn’t serve as a trustworthy source of truth.']].map(([title, body], index) => (
             <div key={title} className="bg-white p-6"><p className="text-xs font-bold" style={{ color: ACCENT }}>0{index + 1}</p><h3 className="mt-5 font-bold text-slate-950">{title}</h3><p className="mt-2 text-sm text-slate-600 leading-6">{body}</p></div>
           ))}
         </div>
       </div></section>
 
       <section id="Research" className="px-6 py-14 md:py-20 border-t border-slate-200"><div className="max-w-6xl mx-auto">
-        <SectionTitle label="02 · Research & framing" title="Design the operating model, not just the queue." body="I reframed the product around how a design-engineering studio actually delivers: qualify incoming work, run it through a shared lifecycle, apply sector templates, and make reporting part of the record." />
+        <SectionTitle label="03 · Research & framing" title="Design the operating model, not just the queue." body="I reframed the product around how a design-engineering studio actually delivers: qualify incoming work, run it through a shared lifecycle, apply sector templates, and make reporting part of the record." />
         <JourneyMap />
         <div className="grid md:grid-cols-3 gap-6 mt-8">
           {[[Search, 'Portfolio findability', 'Phase, client, sector, lead, and issue filters must all resolve to the same project record.'], [Layers, 'Sector standards', 'Cinema, pet hospital, and medical imaging projects need different gate sequences—but the same lifecycle language.'], [Users, 'Role-aware visibility', 'Owners manage lifecycle and commercial decisions; contributors update assigned work; directors read portfolio health.']].map(([Icon, title, body]) => (
@@ -178,12 +198,12 @@ function CaseStudyContent() {
       </div></section>
 
       <section id="InformationArchitecture" className="px-6 py-14 md:py-20 border-t border-slate-200 bg-indigo-50/40"><div className="max-w-6xl mx-auto">
-        <SectionTitle label="03 · Information architecture" title="One platform from enquiry to closed project." body="Navigation separates operational work (projects, enquiries, milestones) from company standards (weekly reports, delivery standards). Every path converges on a durable project record." />
+        <SectionTitle label="04 · Information architecture" title="One platform from enquiry to closed project." body="Navigation separates operational work (projects, enquiries, milestones) from company standards (weekly reports, delivery standards). Every path converges on a durable project record." />
         <InformationArchitecture />
       </div></section>
 
       <section id="Flow" className="px-6 py-14 md:py-20 border-t border-slate-200 bg-slate-50/60"><div className="max-w-6xl mx-auto">
-        <SectionTitle label="04 · Product model" title="A six-phase lifecycle everyone can read." body="Scoping through Closed became the backbone of dashboards, milestone planning, sector templates, and project detail. Phase is never decorative—it defines what “done” means at each gate." />
+        <SectionTitle label="05 · Product model" title="A six-phase lifecycle everyone can read." body="Scoping through Closed became the backbone of dashboards, milestone planning, sector templates, and project detail. Phase is never decorative—it defines what “done” means at each gate." />
         <PhaseFlow />
         <div className="mt-10 grid lg:grid-cols-2 gap-8 items-start">
           <ProductImage src="projects-phase-filter.gif" alt="Animated demo of filtering the projects dashboard by delivery phase" caption="Phase boxes act as a fast portfolio lens—leads can scan workload by lifecycle stage without building a custom report." isGif />
@@ -205,7 +225,7 @@ function CaseStudyContent() {
       </div></section>
 
       <section id="Decisions" className="px-6 py-14 md:py-20 border-t border-slate-200"><div className="max-w-6xl mx-auto">
-        <SectionTitle label="05 · Key decisions" title="Progressive detail across list, preview, and full record." body="The experience separates portfolio scanning, quick triage, and deep delivery work—so leads can compare projects at a glance without losing context every time they check a status." />
+        <SectionTitle label="06 · Key decisions" title="Progressive detail across list, preview, and full record." body="The experience separates portfolio scanning, quick triage, and deep delivery work—so leads can compare projects at a glance without losing context every time they check a status." />
         <div className="space-y-14">
           <div className="grid lg:grid-cols-[1.28fr_.72fr] gap-8 items-center">
             <ProductImage src="project-peek.png" alt="Project row selected with side peek preview showing phase stepper, next milestone, people, and scope summary" caption="Selecting a row opens a peek panel beside the table—the list stays in view for side-by-side comparison." />
@@ -265,7 +285,7 @@ function CaseStudyContent() {
       </div></section>
 
       <section id="Solution" className="px-6 py-14 md:py-20 border-t border-slate-200 bg-indigo-50/60 text-slate-900"><div className="max-w-6xl mx-auto">
-        <SectionTitle label="06 · Final experience" title="An enquiry flow that earns complexity step by step." body="New enquiries move through Brief, Client & site, and Qualification—collecting attachments early, qualifying commercial fit, and appointing a project lead before work enters the delivery pipeline." />
+        <SectionTitle label="07 · Final experience" title="An enquiry flow that earns complexity step by step." body="New enquiries move through Brief, Client & site, and Qualification—collecting attachments early, qualifying commercial fit, and appointing a project lead before work enters the delivery pipeline." />
         <div className="grid lg:grid-cols-2 gap-6">
           <ProductImage src="new-enquiry-flow.gif" alt="Animated demo stepping through the new enquiry intake flow" caption="The intake wizard separates brief capture, site context, and qualification—so scoping starts with complete information." isGif />
           <ProductImage src="new-enquiry.png" alt="New enquiry form first step with brief fields and file drop zone" caption="File drop, parent project linking, and milestone planning appear when they add value—not on a single overwhelming screen." />
@@ -273,7 +293,7 @@ function CaseStudyContent() {
       </div></section>
 
       <section id="Outcome" className="px-6 py-14 md:py-20 border-t border-slate-200"><div className="max-w-6xl mx-auto">
-        <SectionTitle label="07 · Outcome & reflection" title="A shared operating picture for studio delivery." />
+        <SectionTitle label="08 · Outcome & reflection" title="A shared operating picture for studio delivery." />
         <div className="grid md:grid-cols-2 gap-8">
           <div className="rounded-xl p-6 md:p-8" style={{ background: SOFT }}>
             <p className="text-xs font-bold uppercase tracking-wider" style={{ color: ACCENT }}>What changed</p>
