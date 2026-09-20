@@ -22,7 +22,7 @@ function ProductImage({ src, alt, caption, priority = false }) {
     <a href={img(src)} target="_blank" rel="noreferrer" aria-label={`Open full-size image: ${alt}`} className="group block overflow-hidden rounded-xl border border-slate-200 bg-white shadow-[0_12px_40px_rgba(15,23,42,.06)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-indigo-600">
       <img src={img(src)} alt={alt} width="1233" height="675" className="block h-auto w-full transition-opacity group-hover:opacity-95" loading={priority ? 'eager' : 'lazy'} decoding="async" />
     </a>
-    <figcaption className="mt-3 flex items-start justify-between gap-4 text-xs leading-5 text-slate-500"><span>{caption}</span><span className="shrink-0 text-indigo-600" aria-hidden="true">View full size ↗</span></figcaption>
+    <figcaption className="mt-3 text-xs leading-5 text-slate-500">{caption}</figcaption>
   </figure>;
 }
 
