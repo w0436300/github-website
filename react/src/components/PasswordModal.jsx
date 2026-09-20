@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react';
 import { Lock, Eye, EyeOff, X, Mail } from 'lucide-react';
 import { openSans } from '../styles/caseStudyTheme.js';
 import { PASSWORD_REQUEST_EMAIL } from '../data/projectPasswords.js';
+import './passwordTheme.css';
 
 /**
  * Homepage modal for unlocking NDA / password-protected case studies.
  */
 export default function PasswordModal({
   open,
+  theme,
   subtitle = 'This case study is under NDA. Enter the password to continue.',
   onUnlock,
   error,
@@ -55,7 +57,7 @@ export default function PasswordModal({
       aria-label="Enter password to unlock case study"
     >
       <div
-        className="relative w-full max-w-md border border-sky-200 bg-white shadow-xl"
+        className={`relative w-full max-w-md border border-sky-200 bg-white shadow-xl ${theme === 'fieldwork' ? 'fieldwork-password' : ''}`}
         style={openSans}
         onClick={(e) => e.stopPropagation()}
       >

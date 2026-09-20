@@ -120,6 +120,6 @@ function CaseStudyContent() {
 
 export default function ProjectRequestPage() {
   const { unlocked, unlockWithPassword, error, clearError } = useProjectUnlock(PROJECT_ID);
-  if (!unlocked) return <PasswordGate title="Fieldwork" subtitle="This freelance case study is under NDA. Enter the shared password to view the work." onUnlock={unlockWithPassword} error={error} onClearError={clearError} />;
+  if (!unlocked) return <PasswordGate theme="fieldwork" title="Fieldwork" subtitle="This freelance case study is under NDA. Enter the shared password to view the work." onUnlock={unlockWithPassword} error={error} onClearError={clearError} />;
   return <CaseStudyContent />;
 }

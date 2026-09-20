@@ -3,12 +3,14 @@ import { Lock, ArrowLeft, Eye, EyeOff, Mail } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { openSans } from '../styles/caseStudyTheme.js';
 import { PASSWORD_REQUEST_EMAIL } from '../data/projectPasswords.js';
+import './passwordTheme.css';
 
 /**
  * Full-page password gate for direct URL access to protected case studies.
  */
 export default function PasswordGate({
   title,
+  theme,
   subtitle = 'This case study is password-protected. Enter the password to continue.',
   onUnlock,
   error,
@@ -30,7 +32,7 @@ export default function PasswordGate({
 
   return (
     <div
-      className="min-h-[70vh] bg-white text-slate-900 selection:bg-sky-200 px-6 md:px-12 lg:px-20 py-16 md:py-24"
+      className={`min-h-[70vh] bg-white text-slate-900 selection:bg-sky-200 px-6 md:px-12 lg:px-20 py-16 md:py-24 ${theme === 'fieldwork' ? 'fieldwork-password' : ''}`}
       style={openSans}
     >
       <div className="max-w-xl mx-auto">
@@ -44,8 +46,8 @@ export default function PasswordGate({
         </button>
 
         <div className="border border-sky-200 bg-white">
-          <div className="border-b border-sky-200 bg-[#f0f7ff] px-6 py-4 flex items-center gap-2">
-            <span className="inline-flex items-center justify-center w-8 h-8 border border-sky-300 bg-white text-[#0075BE]">
+          <div className="password-gate-header border-b border-sky-200 bg-[#f0f7ff] px-6 py-4 flex items-center gap-2">
+            <span className="password-gate-icon inline-flex items-center justify-center w-8 h-8 border border-sky-300 bg-white text-[#0075BE]">
               <Lock size={16} strokeWidth={2.25} aria-hidden />
             </span>
             <div>

@@ -110,6 +110,7 @@ export function HomePage({ projectsOnly = false }) {
   return (
     <section id="home" className="px-6 md:px-12 lg:px-20 pt-4 md:pt-4 pb-12 md:pb-4 bg-white">
       <PasswordModal
+        theme={passwordModal.project?.id === 'project-request-collaboration' ? 'fieldwork' : undefined}
         open={passwordModal.open}
         onUnlock={handlePasswordUnlock}
         error={passwordError}
